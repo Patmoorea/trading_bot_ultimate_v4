@@ -1277,58 +1277,58 @@ class TradingBotM4:
         return candidates
 
     def plan_auto_sell(self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2):
-    """
-    Planifie une vente automatique pour une position ouverte via signal.
-    - tp_pct : take profit en % (ex: 0.03 = +3%)
-    - sl_pct : stop-loss en % (ex: 0.03 = -3%)
-    - max_cycles : nombre de cycles avant vente forcée (ex: 2)
-    """
-    # Ajoute ou met à jour dans shared_data.json
-    auto_sell_list = []
-    try:
-        with open(self.data_file, "r") as f:
-            shared_data = json.load(f)
-        auto_sell_list = shared_data.get("auto_sell_positions", [])
-    except Exception:
+        """
+        Planifie une vente automatique pour une position ouverte via signal.
+        - tp_pct : take profit en % (ex: 0.03 = +3%)
+        - sl_pct : stop-loss en % (ex: 0.03 = -3%)
+        - max_cycles : nombre de cycles avant vente forcée (ex: 2)
+        """
+        # Ajoute ou met à jour dans shared_data.json
         auto_sell_list = []
-    # On ajoute la nouvelle position
-    auto_sell_list.append({
-        "symbol": symbol,
-        "entry_price": entry_price,
-        "amount": amount,
-        "tp_pct": tp_pct,
-        "sl_pct": sl_pct,
-        "cycle_open": self.current_cycle,
-        "max_cycles": max_cycles
-    })
-    # Sauvegarde dans le dashboard
-    self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
+        try:
+            with open(self.data_file, "r") as f:
+                shared_data = json.load(f)
+            auto_sell_list = shared_data.get("auto_sell_positions", [])
+        except Exception:
+            auto_sell_list = []
+        # On ajoute la nouvelle position
+        auto_sell_list.append({
+            "symbol": symbol,
+            "entry_price": entry_price,
+            "amount": amount,
+            "tp_pct": tp_pct,
+            "sl_pct": sl_pct,
+            "cycle_open": self.current_cycle,
+            "max_cycles": max_cycles
+        })
+        # Sauvegarde dans le dashboard
+        self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
 
-# Après chaque achat
-result = await self.execute_trade(symbol, "BUY", amount)
-if result and result.get("status") == "completed":
-    entry_price = safe_float(result.get("avg_price", 0))
-    self.plan_auto_sell(symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
-    def validate_tp_levels(self, levels):
-        """Valide et convertit les niveaux TP depuis la config"""
-        if not levels:
-            return [(0.03, 0.3), (0.07, 0.3)]  # Valeurs par défaut
+    # Après chaque achat
+    result = await self.execute_trade(symbol, "BUY", amount)
+    if result and result.get("status") == "completed":
+        entry_price = safe_float(result.get("avg_price", 0))
+        self.plan_auto_sell(symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+        def validate_tp_levels(self, levels):
+            """Valide et convertit les niveaux TP depuis la config"""
+            if not levels:
+                return [(0.03, 0.3), (0.07, 0.3)]  # Valeurs par défaut
 
-        validated = []
-        for level in levels:
-            try:
-                if isinstance(level, str):
-                    # Gère les formats "0.03:0.3" ou "0.03,0.3"
-                    parts = level.replace(":", ",").split(",")
-                    pct = float(parts[0].strip())
-                    frac = float(parts[1].strip()) if len(parts) > 1 else 0.3
-                else:
-                    pct = float(level[0])
-                    frac = float(level[1]) if len(level) > 1 else 0.3
-                validated.append((pct, frac))
-            except Exception as e:
-                print(f"⚠️ Niveau TP ignoré: {level} - {str(e)}")
-        return validated or [(0.03, 0.3), (0.07, 0.3)]
+            validated = []
+            for level in levels:
+                try:
+                    if isinstance(level, str):
+                        # Gère les formats "0.03:0.3" ou "0.03,0.3"
+                        parts = level.replace(":", ",").split(",")
+                        pct = float(parts[0].strip())
+                        frac = float(parts[1].strip()) if len(parts) > 1 else 0.3
+                    else:
+                        pct = float(level[0])
+                        frac = float(level[1]) if len(level) > 1 else 0.3
+                    validated.append((pct, frac))
+                except Exception as e:
+                    print(f"⚠️ Niveau TP ignoré: {level} - {str(e)}")
+            return validated or [(0.03, 0.3), (0.07, 0.3)]
 
     def safe_float_conversion(self, value, default=0.0):
         """Conversion robuste vers float"""
@@ -4887,7 +4887,7 @@ if result and result.get("status") == "completed":
             # Calcul TP/SL/durée
             if current_price and entry:
                 gain = (current_price - entry) / entry
-                if gain >= tp_pct or gain <= -sl_pct or (self.current_cycle - cycle_open) >= max_cycles:
+                if gain >= tp_pct
                     await self.execute_trade(symbol, "SELL", amount)
                     log_dashboard(f"[AUTO-SELL] Vente auto sur {symbol} : TP/SL/durée atteint.")
                     continue  # Ne conserve pas cette position dans la liste
