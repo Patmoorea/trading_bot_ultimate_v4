@@ -1303,13 +1303,8 @@ class TradingBotM4:
         })
         # Sauvegarde dans le dashboard
         self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
-
-    # Après chaque achat
-    result = await self.execute_trade(symbol, "BUY", amount)
-    if result and result.get("status") == "completed":
-        entry_price = safe_float(result.get("avg_price", 0))
-        self.plan_auto_sell(symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
-        def validate_tp_levels(self, levels):
+    
+    def validate_tp_levels(self, levels):
             """Valide et convertit les niveaux TP depuis la config"""
             if not levels:
                 return [(0.03, 0.3), (0.07, 0.3)]  # Valeurs par défaut
@@ -1328,7 +1323,7 @@ class TradingBotM4:
                     validated.append((pct, frac))
                 except Exception as e:
                     print(f"⚠️ Niveau TP ignoré: {level} - {str(e)}")
-            return validated or [(0.03, 0.3), (0.07, 0.3)]
+            return validated or [(0.03, 0.3), (0.07, 0.3)]        
 
     def safe_float_conversion(self, value, default=0.0):
         """Conversion robuste vers float"""
@@ -4887,7 +4882,7 @@ class TradingBotM4:
             # Calcul TP/SL/durée
             if current_price and entry:
                 gain = (current_price - entry) / entry
-                if gain >= tp_pct
+                if gain >= tp_pct:
                     await self.execute_trade(symbol, "SELL", amount)
                     log_dashboard(f"[AUTO-SELL] Vente auto sur {symbol} : TP/SL/durée atteint.")
                     continue  # Ne conserve pas cette position dans la liste
@@ -7256,10 +7251,10 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                             if result and result.get("status") == "completed":
                                 entry_price = safe_float(result.get("avg_price", 0))
-                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)                            
         
                     # 2. Breakout
                     breakout_candidates = bot.detect_breakout_candidates()
@@ -7270,7 +7265,7 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                             if result and result.get("status") == "completed":
                                 entry_price = safe_float(result.get("avg_price", 0))
                                 await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
@@ -7284,7 +7279,7 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                             if result and result.get("status") == "completed":
                                 entry_price = safe_float(result.get("avg_price", 0))
                                 await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
@@ -7298,7 +7293,7 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option de trade aller-retour (acheter sur le moins cher, vendre sur le plus cher)
-                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                             if result and result.get("status") == "completed":
                                 entry_price = safe_float(result.get("avg_price", 0))
                                 await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
