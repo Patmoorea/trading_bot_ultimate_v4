@@ -1186,6 +1186,39 @@ class TradingBotM4:
         self.positions_binance = {}
         self.sync_positions_with_binance()
 
+    def auto_update_pairs_from_binance(self):
+        """
+        Met à jour self.pairs_valid en ajoutant automatiquement les paires USDC
+        disponibles sur Binance (où les achats sont possibles).
+        À appeler à l'initialisation du bot ou quand tu veux rafraîchir la liste.
+        """
+        available_pairs = []
+        assets = [
+            "BTC",
+            "ETH",
+            "LTC",
+            "XRP",
+            "DOGE",
+            "BNB",
+            "ADA",
+            "SOL",
+            "TRX",
+            "SUI",
+            # Ajoute ici d'autres assets à tester si besoin
+        ]
+        for asset in assets:
+            symbol = f"{asset}/USDC"
+            try:
+                ticker = self.binance_client.get_symbol_ticker(
+                    symbol=symbol.replace("/", "")
+                )
+                if ticker and float(ticker.get("price", 0)) > 0:
+                    available_pairs.append(symbol)
+            except Exception:
+                continue
+        self.pairs_valid = available_pairs
+        print(f"[PAIR AUTO-UPDATE] Paires valides actualisées : {self.pairs_valid}")
+
     def detect_pump_candidates(self, min_pct=0.05, min_volume_ratio=2, tf="1h"):
         """Détecte les cryptos en pump (hausse brutale prix et volume)."""
         candidates = []
@@ -1276,7 +1309,9 @@ class TradingBotM4:
                 continue
         return candidates
 
-    def plan_auto_sell(self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2):
+    def plan_auto_sell(
+        self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2
+    ):
         """
         Planifie une vente automatique pour une position ouverte via signal.
         - tp_pct : take profit en % (ex: 0.03 = +3%)
@@ -1292,38 +1327,42 @@ class TradingBotM4:
         except Exception:
             auto_sell_list = []
         # On ajoute la nouvelle position
-        auto_sell_list.append({
-            "symbol": symbol,
-            "entry_price": entry_price,
-            "amount": amount,
-            "tp_pct": tp_pct,
-            "sl_pct": sl_pct,
-            "cycle_open": self.current_cycle,
-            "max_cycles": max_cycles
-        })
+        auto_sell_list.append(
+            {
+                "symbol": symbol,
+                "entry_price": entry_price,
+                "amount": amount,
+                "tp_pct": tp_pct,
+                "sl_pct": sl_pct,
+                "cycle_open": self.current_cycle,
+                "max_cycles": max_cycles,
+            }
+        )
         # Sauvegarde dans le dashboard
-        self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
-    
-    def validate_tp_levels(self, levels):
-            """Valide et convertit les niveaux TP depuis la config"""
-            if not levels:
-                return [(0.03, 0.3), (0.07, 0.3)]  # Valeurs par défaut
+        self.safe_update_shared_data(
+            {"auto_sell_positions": auto_sell_list}, self.data_file
+        )
 
-            validated = []
-            for level in levels:
-                try:
-                    if isinstance(level, str):
-                        # Gère les formats "0.03:0.3" ou "0.03,0.3"
-                        parts = level.replace(":", ",").split(",")
-                        pct = float(parts[0].strip())
-                        frac = float(parts[1].strip()) if len(parts) > 1 else 0.3
-                    else:
-                        pct = float(level[0])
-                        frac = float(level[1]) if len(level) > 1 else 0.3
-                    validated.append((pct, frac))
-                except Exception as e:
-                    print(f"⚠️ Niveau TP ignoré: {level} - {str(e)}")
-            return validated or [(0.03, 0.3), (0.07, 0.3)]        
+    def validate_tp_levels(self, levels):
+        """Valide et convertit les niveaux TP depuis la config"""
+        if not levels:
+            return [(0.03, 0.3), (0.07, 0.3)]  # Valeurs par défaut
+
+        validated = []
+        for level in levels:
+            try:
+                if isinstance(level, str):
+                    # Gère les formats "0.03:0.3" ou "0.03,0.3"
+                    parts = level.replace(":", ",").split(",")
+                    pct = float(parts[0].strip())
+                    frac = float(parts[1].strip()) if len(parts) > 1 else 0.3
+                else:
+                    pct = float(level[0])
+                    frac = float(level[1]) if len(level) > 1 else 0.3
+                validated.append((pct, frac))
+            except Exception as e:
+                print(f"⚠️ Niveau TP ignoré: {level} - {str(e)}")
+        return validated or [(0.03, 0.3), (0.07, 0.3)]
 
     def safe_float_conversion(self, value, default=0.0):
         """Conversion robuste vers float"""
@@ -4826,7 +4865,9 @@ class TradingBotM4:
             self.logger.error(f"Execution error: {e}")
             return {"status": "error", "reason": str(e)}
 
-    async def plan_auto_sell(self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2):
+    async def plan_auto_sell(
+        self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2
+    ):
         """
         Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
         """
@@ -4837,16 +4878,20 @@ class TradingBotM4:
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
-        auto_sell_list.append({
-            "symbol": symbol,
-            "entry_price": entry_price,
-            "amount": amount,
-            "tp_pct": tp_pct,
-            "sl_pct": sl_pct,
-            "cycle_open": self.current_cycle,
-            "max_cycles": max_cycles
-        })
-        self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
+        auto_sell_list.append(
+            {
+                "symbol": symbol,
+                "entry_price": entry_price,
+                "amount": amount,
+                "tp_pct": tp_pct,
+                "sl_pct": sl_pct,
+                "cycle_open": self.current_cycle,
+                "max_cycles": max_cycles,
+            }
+        )
+        self.safe_update_shared_data(
+            {"auto_sell_positions": auto_sell_list}, self.data_file
+        )
 
     async def handle_auto_sell(self):
         """
@@ -4854,6 +4899,7 @@ class TradingBotM4:
         Appel à chaque cycle.
         """
         import asyncio
+
         auto_sell_list = []
         try:
             with open(self.data_file, "r") as f:
@@ -4884,13 +4930,17 @@ class TradingBotM4:
                 gain = (current_price - entry) / entry
                 if gain >= tp_pct:
                     await self.execute_trade(symbol, "SELL", amount)
-                    log_dashboard(f"[AUTO-SELL] Vente auto sur {symbol} : TP/SL/durée atteint.")
+                    log_dashboard(
+                        f"[AUTO-SELL] Vente auto sur {symbol} : TP/SL/durée atteint."
+                    )
                     continue  # Ne conserve pas cette position dans la liste
 
             updated_list.append(pos)
 
-        self.safe_update_shared_data({"auto_sell_positions": updated_list}, self.data_file)
-    
+        self.safe_update_shared_data(
+            {"auto_sell_positions": updated_list}, self.data_file
+        )
+
     def _update_performance_metrics(self, trade_result):
         try:
             if not trade_result or "status" not in trade_result:
@@ -6200,6 +6250,7 @@ async def run_clean_bot():
             # 2. Création et configuration du bot
             bot = TradingBotM4()
             bot.pairs_valid = valid_pairs
+            bot.auto_update_pairs_from_binance()
 
             # 3. Préchargement historique (optionnel, sécurisé)
             if hasattr(bot, "ws_collector") and hasattr(bot, "binance_client"):
@@ -7252,10 +7303,17 @@ async def run_clean_bot():
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
-                            if result and result.get("status") == "completed":
-                                entry_price = safe_float(result.get("avg_price", 0))
-                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)                            
-        
+                        if result and result.get("status") == "completed":
+                            entry_price = safe_float(result.get("avg_price", 0))
+                            await bot.plan_auto_sell(
+                                c["pair"],
+                                entry_price,
+                                base_amount,
+                                tp_pct=0.03,
+                                sl_pct=0.03,
+                                max_cycles=2,
+                            )
+
                     # 2. Breakout
                     breakout_candidates = bot.detect_breakout_candidates()
                     for c in breakout_candidates:
@@ -7266,10 +7324,17 @@ async def run_clean_bot():
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
-                            if result and result.get("status") == "completed":
-                                entry_price = safe_float(result.get("avg_price", 0))
-                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
-        
+                        if result and result.get("status") == "completed":
+                            entry_price = safe_float(result.get("avg_price", 0))
+                            await bot.plan_auto_sell(
+                                c["pair"],
+                                entry_price,
+                                base_amount,
+                                tp_pct=0.03,
+                                sl_pct=0.03,
+                                max_cycles=2,
+                            )
+
                     # 3. News
                     news_candidates = bot.detect_news_candidates(news_list)
                     for c in news_candidates:
@@ -7280,10 +7345,16 @@ async def run_clean_bot():
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
-                            if result and result.get("status") == "completed":
-                                entry_price = safe_float(result.get("avg_price", 0))
-                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
-        
+                        if result and result.get("status") == "completed":
+                            entry_price = safe_float(result.get("avg_price", 0))
+                            await bot.plan_auto_sell(
+                                c["pair"],
+                                entry_price,
+                                base_amount,
+                                tp_pct=0.03,
+                                sl_pct=0.03,
+                                max_cycles=2,
+                            )
                     # 4. Arbitrage
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
                     for c in arbitrage_candidates:
@@ -7294,10 +7365,17 @@ async def run_clean_bot():
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option de trade aller-retour (acheter sur le moins cher, vendre sur le plus cher)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
-                            if result and result.get("status") == "completed":
-                                entry_price = safe_float(result.get("avg_price", 0))
-                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
-        
+                        if result and result.get("status") == "completed":
+                            entry_price = safe_float(result.get("avg_price", 0))
+                            await bot.plan_auto_sell(
+                                c["pair"],
+                                entry_price,
+                                base_amount,
+                                tp_pct=0.03,
+                                sl_pct=0.03,
+                                max_cycles=2,
+                            )
+
                     # Mise à jour des données du bot
                     bot.current_cycle = cycle
                     bot.regime = regime
