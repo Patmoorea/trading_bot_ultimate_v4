@@ -1276,6 +1276,39 @@ class TradingBotM4:
                 continue
         return candidates
 
+    def plan_auto_sell(self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2):
+    """
+    Planifie une vente automatique pour une position ouverte via signal.
+    - tp_pct : take profit en % (ex: 0.03 = +3%)
+    - sl_pct : stop-loss en % (ex: 0.03 = -3%)
+    - max_cycles : nombre de cycles avant vente forcée (ex: 2)
+    """
+    # Ajoute ou met à jour dans shared_data.json
+    auto_sell_list = []
+    try:
+        with open(self.data_file, "r") as f:
+            shared_data = json.load(f)
+        auto_sell_list = shared_data.get("auto_sell_positions", [])
+    except Exception:
+        auto_sell_list = []
+    # On ajoute la nouvelle position
+    auto_sell_list.append({
+        "symbol": symbol,
+        "entry_price": entry_price,
+        "amount": amount,
+        "tp_pct": tp_pct,
+        "sl_pct": sl_pct,
+        "cycle_open": self.current_cycle,
+        "max_cycles": max_cycles
+    })
+    # Sauvegarde dans le dashboard
+    self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
+
+# Après chaque achat
+result = await self.execute_trade(symbol, "BUY", amount)
+if result and result.get("status") == "completed":
+    entry_price = safe_float(result.get("avg_price", 0))
+    self.plan_auto_sell(symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
     def validate_tp_levels(self, levels):
         """Valide et convertit les niveaux TP depuis la config"""
         if not levels:
@@ -4798,6 +4831,71 @@ class TradingBotM4:
             self.logger.error(f"Execution error: {e}")
             return {"status": "error", "reason": str(e)}
 
+    async def plan_auto_sell(self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2):
+        """
+        Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
+        """
+        auto_sell_list = []
+        try:
+            with open(self.data_file, "r") as f:
+                shared_data = json.load(f)
+            auto_sell_list = shared_data.get("auto_sell_positions", [])
+        except Exception:
+            auto_sell_list = []
+        auto_sell_list.append({
+            "symbol": symbol,
+            "entry_price": entry_price,
+            "amount": amount,
+            "tp_pct": tp_pct,
+            "sl_pct": sl_pct,
+            "cycle_open": self.current_cycle,
+            "max_cycles": max_cycles
+        })
+        self.safe_update_shared_data({"auto_sell_positions": auto_sell_list}, self.data_file)
+
+    async def handle_auto_sell(self):
+        """
+        Vérifie toutes les positions auto_sell et exécute la vente si TP/SL/durée atteint.
+        Appel à chaque cycle.
+        """
+        import asyncio
+        auto_sell_list = []
+        try:
+            with open(self.data_file, "r") as f:
+                shared_data = json.load(f)
+            auto_sell_list = shared_data.get("auto_sell_positions", [])
+        except Exception:
+            auto_sell_list = []
+
+        updated_list = []
+        for pos in auto_sell_list:
+            symbol = pos["symbol"]
+            entry = safe_float(pos["entry_price"], 0)
+            amount = safe_float(pos["amount"], 0)
+            tp_pct = safe_float(pos.get("tp_pct", 0.03))
+            sl_pct = safe_float(pos.get("sl_pct", 0.03))
+            cycle_open = int(pos.get("cycle_open", 0))
+            max_cycles = int(pos.get("max_cycles", 2))
+
+            # Récupère le prix courant
+            current_price = None
+            try:
+                current_price = safe_float(self.ws_collector.get_last_price(symbol), 0)
+            except Exception:
+                current_price = None
+
+            # Calcul TP/SL/durée
+            if current_price and entry:
+                gain = (current_price - entry) / entry
+                if gain >= tp_pct or gain <= -sl_pct or (self.current_cycle - cycle_open) >= max_cycles:
+                    await self.execute_trade(symbol, "SELL", amount)
+                    log_dashboard(f"[AUTO-SELL] Vente auto sur {symbol} : TP/SL/durée atteint.")
+                    continue  # Ne conserve pas cette position dans la liste
+
+            updated_list.append(pos)
+
+        self.safe_update_shared_data({"auto_sell_positions": updated_list}, self.data_file)
+    
     def _update_performance_metrics(self, trade_result):
         try:
             if not trade_result or "status" not in trade_result:
