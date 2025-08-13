@@ -1186,6 +1186,96 @@ class TradingBotM4:
         self.positions_binance = {}
         self.sync_positions_with_binance()
 
+    def detect_pump_candidates(self, min_pct=0.05, min_volume_ratio=2, tf="1h"):
+        """Détecte les cryptos en pump (hausse brutale prix et volume)."""
+        candidates = []
+        for pair in self.pairs_valid:
+            pair_key = pair.replace("/", "").upper()
+            if pair_key in self.market_data and tf in self.market_data[pair_key]:
+                data = self.market_data[pair_key][tf]
+                closes = data.get("close", [])
+                volumes = data.get("volume", [])
+                if len(closes) > 25 and len(volumes) > 25:
+                    price_pct = (closes[-1] - closes[-10]) / closes[-10]
+                    avg_vol = np.mean(volumes[-24:-1])
+                    vol_ratio = volumes[-1] / avg_vol if avg_vol > 0 else 1
+                    if price_pct > min_pct and vol_ratio > min_volume_ratio:
+                        candidates.append(
+                            {
+                                "pair": pair,
+                                "price_pct": price_pct,
+                                "vol_ratio": vol_ratio,
+                            }
+                        )
+        return candidates
+
+    def detect_breakout_candidates(self, tf="1h"):
+        """Détection des cassures de résistance sur chaque paire."""
+        candidates = []
+        for pair in self.pairs_valid:
+            pair_key = pair.replace("/", "").upper()
+            if pair_key in self.market_data and tf in self.market_data[pair_key]:
+                data = self.market_data[pair_key][tf]
+                highs = data.get("high", [])
+                closes = data.get("close", [])
+                if len(highs) > 21 and len(closes) > 1:
+                    donchian_high = max(highs[-21:-1])
+                    if closes[-1] > donchian_high:
+                        candidates.append(
+                            {
+                                "pair": pair,
+                                "breakout_level": donchian_high,
+                                "close": closes[-1],
+                            }
+                        )
+        return candidates
+
+    def detect_news_candidates(self, news_list, min_sentiment=0.7):
+        """Détecte les cryptos mentionnées dans des news très positives."""
+        candidates = []
+        for news in news_list:
+            sentiment = safe_float(news.get("sentiment", 0))
+            if sentiment > min_sentiment:
+                for symbol in news.get("symbols", []):
+                    pair = f"{symbol}/USDC"
+                    if pair in self.pairs_valid:
+                        candidates.append(
+                            {
+                                "pair": pair,
+                                "sentiment": sentiment,
+                                "title": news.get("title", ""),
+                            }
+                        )
+        return candidates
+
+    async def detect_arbitrage_candidates(self, min_diff_pct=0.5):
+        """Arbitrage rapide entre Binance et BingX/OKX/Kucoin."""
+        candidates = []
+        if not self.is_live_trading or not self.binance_client:
+            return []
+        for pair in self.pairs_valid:
+            symbol_binance = pair.replace("/", "")
+            try:
+                binance_ticker = self.binance_client.get_ticker(symbol=symbol_binance)
+                binance_price = float(binance_ticker.get("lastPrice"))
+                # Ex : BingX
+                symbol_bingx = symbol_binance.replace("USDC", "USDT") + ":USDT"
+                bingx_ticker = await self.bingx_client.fetch_ticker(symbol_bingx)
+                bingx_price = float(bingx_ticker.get("last"))
+                diff_pct = (bingx_price - binance_price) / binance_price * 100
+                if abs(diff_pct) > min_diff_pct:
+                    candidates.append(
+                        {
+                            "pair": pair,
+                            "binance_price": binance_price,
+                            "bingx_price": bingx_price,
+                            "diff_pct": diff_pct,
+                        }
+                    )
+            except Exception:
+                continue
+        return candidates
+
     def validate_tp_levels(self, levels):
         """Valide et convertit les niveaux TP depuis la config"""
         if not levels:
@@ -7058,6 +7148,45 @@ async def run_clean_bot():
                     trade_decisions, regime = await execute_trading_cycle(
                         bot, valid_pairs
                     )
+                    # 1. Pump
+                    pump_candidates = bot.detect_pump_candidates()
+                    for c in pump_candidates:
+                        await bot.telegram.send_message(
+                            f"🚀 Pump détecté sur {c['pair']}: +{c['price_pct']*100:.1f}%, volume x{c['vol_ratio']:.1f}"
+                        )
+                        base_amount = 15  # ou utilise une fonction de sizing
+                        await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
+
+                    # 2. Breakout
+                    breakout_candidates = bot.detect_breakout_candidates()
+                    for c in breakout_candidates:
+                        await bot.telegram.send_message(
+                            f"💥 Breakout sur {c['pair']}: close={c['close']:.2f} > {c['breakout_level']:.2f}"
+                        )
+                        base_amount = 15  # ou utilise une fonction de sizing
+                        await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
+
+                    # 3. News
+                    news_candidates = bot.detect_news_candidates(news_list)
+                    for c in news_candidates:
+                        await bot.telegram.send_message(
+                            f"📰 News positive sur {c['pair']}: sentiment={c['sentiment']:.2f}\n{c['title']}"
+                        )
+                        base_amount = 15  # ou utilise une fonction de sizing
+                        await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
+
+                    # 4. Arbitrage
+                    arbitrage_candidates = await bot.detect_arbitrage_candidates()
+                    for c in arbitrage_candidates:
+                        await bot.telegram.send_message(
+                            f"💹 Arbitrage possible sur {c['pair']}: Binance={c['binance_price']} BingX={c['bingx_price']} Diff={c['diff_pct']:.2f}%"
+                        )
+                        base_amount = 15  # ou utilise une fonction de sizing
+                        await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        # Option de trade aller-retour (acheter sur le moins cher, vendre sur le plus cher)
 
                     # Mise à jour des données du bot
                     bot.current_cycle = cycle

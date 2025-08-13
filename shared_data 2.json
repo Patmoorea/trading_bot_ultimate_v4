@@ -1,0 +1,19 @@
+{
+    "timestamp": "2025-07-21 13:18:37",
+    "user": "Patmoorea",
+    "bot_status": {
+        "regime": "Range/Scalping",
+        "cycle": 0,
+        "last_update": "2025-07-21 13:18:37",
+        "performance": {
+            "total_trades": 0,
+            "win_rate": 0,
+            "profit_factor": 0,
+            "balance": 10000,
+            "wins": 0,
+            "losses": 0,
+            "total_profit": 0,
+            "total_loss": 0
+        }
+    }
+}

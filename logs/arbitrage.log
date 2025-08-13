@@ -1,0 +1,102 @@
+2025-05-14 17:28:41 - arbitrage_bot - INFO - Starting arbitrage bot with all connectors...
+2025-05-14 17:28:41 - arbitrage_bot - WARNING - Failed to get order book from binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:28:43 - arbitrage_bot - WARNING - Failed to get order book from binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:28:45 - arbitrage_bot - WARNING - Failed to get order book from binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:28:47 - arbitrage_bot - WARNING - Failed to get order book from binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:28:49 - arbitrage_bot - INFO - Arbitrage bot stopped by user
+2025-05-14 17:47:18 - bot_arbitrage - INFO - Démarrage du bot d'arbitrage...
+2025-05-14 17:47:18 - bot_arbitrage - ATTENTION - Échec récupération carnet d'ordres sur binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:47:20 - bot_arbitrage - ATTENTION - Échec récupération carnet d'ordres sur binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:47:21 - bot_arbitrage - ATTENTION - Échec récupération carnet d'ordres sur binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:47:23 - bot_arbitrage - ATTENTION - Échec récupération carnet d'ordres sur binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:47:24 - bot_arbitrage - ATTENTION - Échec récupération carnet d'ordres sur binance: 'BinanceConnector' object has no attribute 'fetch_order_book'
+2025-05-14 17:59:51 - bot_arbitrage - INFO - Starting arbitrage bot...
+2025-05-14 18:00:02 - bot_arbitrage - ATTENTION - Failed to get order book from binance: Binance error: object dict can't be used in 'await' expression
+2025-05-14 18:00:05 - bot_arbitrage - ATTENTION - Failed to get order book from binance: Binance error: object dict can't be used in 'await' expression
+2025-05-14 18:00:08 - bot_arbitrage - ATTENTION - Failed to get order book from binance: Binance error: object dict can't be used in 'await' expression
+2025-05-14 18:00:10 - bot_arbitrage - ATTENTION - Failed to get order book from binance: Binance error: object dict can't be used in 'await' expression
+2025-05-14 18:00:12 - bot_arbitrage - INFO - Test completed
+2025-05-14 18:02:24 - bot_arbitrage - INFO - Démarrage du bot d'arbitrage...
+2025-05-14 18:02:39 - bot_arbitrage - ATTENTION - Échec récupération carnet sur okx: okx does not have market symbol MATIC/USDT
+2025-05-14 18:02:42 - bot_arbitrage - ATTENTION - Échec récupération carnet sur binance: Erreur Binance: list index out of range
+2025-05-14 18:02:47 - bot_arbitrage - ATTENTION - Échec récupération carnet sur gateio: gateio does not have market symbol MATIC/USDT
+2025-05-14 18:02:59 - bot_arbitrage - ATTENTION - Échec récupération carnet sur bingx: list index out of range
+2025-05-14 18:03:08 - bot_arbitrage - ERREUR - Erreur: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+2025-05-14 18:03:14 - bot_arbitrage - ATTENTION - Échec récupération carnet sur gateio: gateio does not have market symbol MATIC/USDT
+2025-05-14 18:03:14 - bot_arbitrage - ATTENTION - Échec récupération carnet sur okx: okx does not have market symbol MATIC/USDT
+2025-05-14 18:03:24 - bot_arbitrage - INFO - Arrêt demandé...
+2025-05-14 18:03:24 - bot_arbitrage - INFO - Bot arrêté proprement
+2025-05-14 18:06:02 - bot_arbitrage - INFO - Démarrage du bot d'arbitrage...
+2025-05-14 18:06:26 - bot_arbitrage - ATTENTION - Échec carnet gateio BTC/USDT: gateio GET https://api.gateio.ws/api/v4/futures/usdt/contracts
+2025-05-14 18:07:08 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:07:24 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:07:32 - bot_arbitrage - INFO - Arrêt demandé...
+2025-05-14 18:13:18 - bot_arbitrage - INFO - Démarrage du bot d'arbitrage...
+2025-05-14 18:14:05 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:14:18 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:14:32 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:14:45 - bot_arbitrage - INFO - Aucune opportunité trouvée
+2025-05-14 18:14:55 - bot_arbitrage - INFO - Arrêt demandé...
+2025-05-14 18:45:53 - bot_arbitrage - INFO - Starting arbitrage bot...
+2025-05-14 18:46:07 - bot_arbitrage - ERREUR - Failed to fetch BTC/USDT from binance: Erreur Binance: object dict can't be used in 'await' expression
+2025-05-14 18:46:19 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=102857.20000000, ask=102857.30000000
+2025-05-14 18:46:31 - bot_arbitrage - DÉBOGAGE - BTC prices on bingx: bid=102852.86000000, ask=102852.89000000
+2025-05-14 18:46:35 - bot_arbitrage - INFO - Stopping bot...
+2025-05-14 18:56:52 - bot_arbitrage - INFO - Starting arbitrage bot...
+2025-05-14 18:56:58 - bot_arbitrage - DÉBOGAGE - BTC prices on binance: bid=102891.76000000, ask=102891.77000000
+2025-05-14 18:57:12 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=102902.30000000, ask=102902.40000000
+2025-05-14 18:57:24 - bot_arbitrage - DÉBOGAGE - BTC prices on bingx: bid=102893.42000000, ask=102893.46000000
+2025-05-14 18:57:28 - bot_arbitrage - DÉBOGAGE - BTC prices on okx: bid=102855.00000000, ask=102855.10000000
+2025-05-14 18:57:32 - bot_arbitrage - DÉBOGAGE - ETH prices on binance: bid=2592.66000000, ask=2592.67000000
+2025-05-14 18:57:35 - bot_arbitrage - DÉBOGAGE - ETH prices on gateio: bid=2592.85000000, ask=2592.86000000
+2025-05-14 18:57:38 - bot_arbitrage - DÉBOGAGE - ETH prices on bingx: bid=2592.74000000, ask=2592.76000000
+2025-05-14 18:57:39 - bot_arbitrage - DÉBOGAGE - ETH prices on okx: bid=2591.42000000, ask=2591.43000000
+2025-05-14 18:57:40 - bot_arbitrage - DÉBOGAGE - SOL prices on binance: bid=174.90000000, ask=174.91000000
+2025-05-14 18:57:41 - bot_arbitrage - DÉBOGAGE - SOL prices on gateio: bid=174.92000000, ask=174.93000000
+2025-05-14 18:57:45 - bot_arbitrage - DÉBOGAGE - SOL prices on bingx: bid=174.88000000, ask=174.90000000
+2025-05-14 18:57:45 - bot_arbitrage - DÉBOGAGE - SOL prices on okx: bid=174.81000000, ask=174.82000000
+2025-05-14 18:57:46 - bot_arbitrage - INFO - No arbitrage opportunities found
+2025-05-14 18:57:47 - bot_arbitrage - DÉBOGAGE - BTC prices on binance: bid=102891.76000000, ask=102891.77000000
+2025-05-14 18:57:48 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=102902.30000000, ask=102902.40000000
+2025-05-14 18:57:51 - bot_arbitrage - DÉBOGAGE - BTC prices on bingx: bid=102893.73000000, ask=102893.76000000
+2025-05-14 18:57:52 - bot_arbitrage - DÉBOGAGE - BTC prices on okx: bid=102855.00000000, ask=102855.10000000
+2025-05-14 18:57:54 - bot_arbitrage - DÉBOGAGE - ETH prices on binance: bid=2592.80000000, ask=2592.81000000
+2025-05-14 18:57:55 - bot_arbitrage - DÉBOGAGE - ETH prices on gateio: bid=2592.83000000, ask=2592.84000000
+2025-05-14 18:57:58 - bot_arbitrage - DÉBOGAGE - ETH prices on bingx: bid=2592.76000000, ask=2592.78000000
+2025-05-14 18:57:59 - bot_arbitrage - DÉBOGAGE - ETH prices on okx: bid=2591.59000000, ask=2591.60000000
+2025-05-14 18:58:01 - bot_arbitrage - DÉBOGAGE - SOL prices on binance: bid=174.88000000, ask=174.89000000
+2025-05-14 18:58:01 - bot_arbitrage - DÉBOGAGE - SOL prices on gateio: bid=174.90000000, ask=174.91000000
+2025-05-14 18:58:05 - bot_arbitrage - DÉBOGAGE - SOL prices on bingx: bid=174.88000000, ask=174.90000000
+2025-05-14 18:58:05 - bot_arbitrage - DÉBOGAGE - SOL prices on okx: bid=174.86000000, ask=174.87000000
+2025-05-14 18:58:06 - bot_arbitrage - INFO - No arbitrage opportunities found
+2025-05-14 18:58:07 - bot_arbitrage - DÉBOGAGE - BTC prices on binance: bid=102891.76000000, ask=102891.77000000
+2025-05-14 18:58:08 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=102902.30000000, ask=102902.40000000
+2025-05-14 18:58:11 - bot_arbitrage - DÉBOGAGE - BTC prices on bingx: bid=102894.08000000, ask=102894.11000000
+2025-05-14 18:58:12 - bot_arbitrage - DÉBOGAGE - BTC prices on okx: bid=102859.30000000, ask=102859.40000000
+2025-05-14 18:58:14 - bot_arbitrage - DÉBOGAGE - ETH prices on binance: bid=2594.16000000, ask=2594.17000000
+2025-05-14 18:58:14 - bot_arbitrage - DÉBOGAGE - ETH prices on gateio: bid=2594.06000000, ask=2594.07000000
+2025-05-14 18:58:18 - bot_arbitrage - DÉBOGAGE - ETH prices on bingx: bid=2594.22000000, ask=2594.24000000
+2025-05-14 18:58:18 - bot_arbitrage - DÉBOGAGE - ETH prices on okx: bid=2593.00000000, ask=2593.01000000
+2025-05-14 18:58:20 - bot_arbitrage - DÉBOGAGE - SOL prices on binance: bid=174.90000000, ask=174.91000000
+2025-05-14 18:58:21 - bot_arbitrage - DÉBOGAGE - SOL prices on gateio: bid=174.93000000, ask=174.94000000
+2025-05-14 18:58:24 - bot_arbitrage - DÉBOGAGE - SOL prices on bingx: bid=174.93000000, ask=174.94000000
+2025-05-14 18:58:25 - bot_arbitrage - DÉBOGAGE - SOL prices on okx: bid=174.87000000, ask=174.88000000
+2025-05-14 18:58:26 - bot_arbitrage - INFO - No arbitrage opportunities found
+2025-05-14 18:58:27 - bot_arbitrage - DÉBOGAGE - BTC prices on binance: bid=102891.76000000, ask=102891.77000000
+2025-05-14 18:58:28 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=102902.30000000, ask=102902.40000000
+2025-05-14 18:58:31 - bot_arbitrage - DÉBOGAGE - BTC prices on bingx: bid=102893.72000000, ask=102893.75000000
+2025-05-14 18:58:32 - bot_arbitrage - DÉBOGAGE - BTC prices on okx: bid=102852.00000000, ask=102852.10000000
+2025-05-14 18:58:34 - bot_arbitrage - DÉBOGAGE - ETH prices on binance: bid=2594.24000000, ask=2594.25000000
+2025-05-14 18:58:34 - bot_arbitrage - DÉBOGAGE - ETH prices on gateio: bid=2594.34000000, ask=2594.35000000
+2025-05-14 18:58:38 - bot_arbitrage - DÉBOGAGE - ETH prices on bingx: bid=2594.46000000, ask=2594.48000000
+2025-05-14 18:58:38 - bot_arbitrage - DÉBOGAGE - ETH prices on okx: bid=2593.37000000, ask=2593.38000000
+2025-05-14 18:58:40 - bot_arbitrage - DÉBOGAGE - SOL prices on binance: bid=174.94000000, ask=174.95000000
+2025-05-14 18:58:41 - bot_arbitrage - DÉBOGAGE - SOL prices on gateio: bid=174.94000000, ask=174.95000000
+2025-05-14 18:58:45 - bot_arbitrage - DÉBOGAGE - SOL prices on bingx: bid=174.93000000, ask=174.94000000
+2025-05-14 18:58:45 - bot_arbitrage - DÉBOGAGE - SOL prices on okx: bid=174.87000000, ask=174.88000000
+2025-05-14 18:58:46 - bot_arbitrage - INFO - No arbitrage opportunities found
+2025-05-14 18:58:46 - bot_arbitrage - INFO - Stopping bot...
+2025-05-15 17:01:04 - bot_arbitrage - INFO - Starting arbitrage bot...
+2025-05-15 17:01:09 - bot_arbitrage - DÉBOGAGE - BTC prices on binance: bid=104219.99000000, ask=104220.00000000
+2025-05-15 17:01:21 - bot_arbitrage - DÉBOGAGE - BTC prices on gateio: bid=104224.60000000, ask=104224.70000000
+2025-05-15 17:01:27 - bot_arbitrage - INFO - Stopping bot...

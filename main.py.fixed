@@ -1,0 +1,21 @@
+from src.modules.news.sentiment_processor import NewsAnalyzer
+from src.strategies.arbitrage import USDCArbitrage
+from src.core.ai import TradingEngine
+
+def main():
+    # Initialisation des composants
+    news_analyzer = NewsAnalyzer()
+    arbitrage = USDCArbitrage(config={'min_spread': 0.002})
+    engine = TradingEngine()
+    
+    # Mode test
+    if '--test-mode' in sys.argv:
+        test_components()
+        
+def test_components():
+    print("Tests des composants principaux...")
+    # Tests à implémenter
+
+if __name__ == '__main__':
+    import sys
+    main()
