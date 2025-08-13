@@ -7048,6 +7048,7 @@ async def run_clean_bot():
             # Boucle principale
             cycle = 0
             while True:
+                await bot.handle_auto_sell()
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
                 print(f"[DEBUG CYCLE] Positions (avant TP/SL): {bot.positions}")
                 print(f"[DEBUG CYCLE] bot.positions: {bot.positions}")
@@ -7255,7 +7256,11 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-
+                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price", 0))
+                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+        
                     # 2. Breakout
                     breakout_candidates = bot.detect_breakout_candidates()
                     for c in breakout_candidates:
@@ -7265,7 +7270,11 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-
+                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price", 0))
+                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+        
                     # 3. News
                     news_candidates = bot.detect_news_candidates(news_list)
                     for c in news_candidates:
@@ -7275,7 +7284,11 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
-
+                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price", 0))
+                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+        
                     # 4. Arbitrage
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
                     for c in arbitrage_candidates:
@@ -7285,7 +7298,11 @@ async def run_clean_bot():
                         base_amount = 15  # ou utilise une fonction de sizing
                         await bot.execute_trade(c["pair"], "BUY", base_amount)
                         # Option de trade aller-retour (acheter sur le moins cher, vendre sur le plus cher)
-
+                            result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price", 0))
+                                await bot.plan_auto_sell(c["pair"], entry_price, base_amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2)
+        
                     # Mise à jour des données du bot
                     bot.current_cycle = cycle
                     bot.regime = regime
@@ -7485,6 +7502,7 @@ async def run_clean_bot():
                     },
                     bot.data_file,
                 )
+                await bot.handle_auto_sell()
                 # Attente avant le prochain cycle
                 await asyncio.sleep(30)
 
