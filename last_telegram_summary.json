@@ -2,7 +2,7 @@
   "regime": "Range/Scalping",
   "drawdown": 0.0,
   "pauses": [],
-  "sentiment": 0.7140947043895721,
+  "sentiment": 0.7098578488826752,
   "risky_positions": [
     "BNB/USDC",
     "XRP/USDC",
@@ -12,5 +12,5 @@
     "SUI/USDC",
     "NOT/USDC"
   ],
-  "timestamp": 1755103971.933651
+  "timestamp": 1755110586.823051
 }

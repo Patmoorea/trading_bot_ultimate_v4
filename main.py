@@ -838,9 +838,21 @@ with tab4:
         try:
             df_pending = pd.DataFrame(pending_sales)
 
+            # Ajout colonne "Source du signal"
+            def get_signal_source(row):
+                reason = str(row.get("reason", "")).lower()
+                if reason in ["pump", "breakout", "news", "arbitrage"]:
+                    return f"Signal {reason.capitalize()}"
+                elif reason:
+                    return reason
+                return "Signal inconnu"
+
+            df_pending["Source du signal"] = df_pending.apply(get_signal_source, axis=1)
+
             # Colonnes à afficher
             display_cols = [
                 "symbol",
+                "Source du signal",
                 "entry_price",
                 "current_price",
                 "amount",
@@ -981,6 +993,7 @@ with tab4:
             # Colonnes finales à afficher
             ordered_cols = [
                 "symbol",
+                "Source du signal",
                 "action",
                 "entry_price",
                 "current_price",
