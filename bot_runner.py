@@ -1309,16 +1309,20 @@ class TradingBotM4:
                 continue
         return candidates
 
-    def plan_auto_sell(
-        self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2
+    async def plan_auto_sell(
+        self,
+        symbol,
+        entry_price,
+        amount,
+        tp_pct=0.03,
+        sl_pct=0.03,
+        max_cycles=2,
+        reason="",
     ):
         """
-        Planifie une vente automatique pour une position ouverte via signal.
-        - tp_pct : take profit en % (ex: 0.03 = +3%)
-        - sl_pct : stop-loss en % (ex: 0.03 = -3%)
-        - max_cycles : nombre de cycles avant vente forcée (ex: 2)
+        Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
+        Enregistre la raison de l'achat pour le dashboard.
         """
-        # Ajoute ou met à jour dans shared_data.json
         auto_sell_list = []
         try:
             with open(self.data_file, "r") as f:
@@ -1326,7 +1330,7 @@ class TradingBotM4:
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
-        # On ajoute la nouvelle position
+
         auto_sell_list.append(
             {
                 "symbol": symbol,
@@ -1336,9 +1340,9 @@ class TradingBotM4:
                 "sl_pct": sl_pct,
                 "cycle_open": self.current_cycle,
                 "max_cycles": max_cycles,
+                "reason": reason,  # <--- AJOUT
             }
         )
-        # Sauvegarde dans le dashboard
         self.safe_update_shared_data(
             {"auto_sell_positions": auto_sell_list}, self.data_file
         )
@@ -7312,6 +7316,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
+                                reason="pump",
                             )
 
                     # 2. Breakout
@@ -7333,6 +7338,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
+                                reason="pump",
                             )
 
                     # 3. News
@@ -7354,6 +7360,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
+                                reason="pump",
                             )
                     # 4. Arbitrage
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
@@ -7374,6 +7381,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
+                                reason="pump",
                             )
 
                     # Mise à jour des données du bot
