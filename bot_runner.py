@@ -3503,7 +3503,15 @@ class TradingBotM4:
             if hasattr(self, "positions_binance") and self.positions_binance:
                 for symbol, pos in self.positions_binance.items():
                     entry_price = safe_float(pos.get("entry_price"), 0)
-                    current_price = safe_float(pos.get("current_price"), 0)
+                    # PATCH: récupère le prix live Binance à chaque tick/cycle
+                    try:
+                        ticker = self.binance_client.get_symbol_ticker(
+                            symbol=symbol.replace("/", "")
+                        )
+                        current_price = float(ticker.get("price", 0))
+                        pos["current_price"] = current_price
+                    except Exception:
+                        current_price = safe_float(pos.get("current_price"), 0)
                     amount = safe_float(pos.get("amount"), 0)
 
                     # Calcul PnL (FIFO ou classique)
