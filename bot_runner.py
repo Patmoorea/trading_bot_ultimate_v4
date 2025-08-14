@@ -4902,8 +4902,6 @@ class TradingBotM4:
         Vérifie toutes les positions auto_sell et exécute la vente si TP/SL/durée atteint.
         Appel à chaque cycle.
         """
-        import asyncio
-
         auto_sell_list = []
         try:
             with open(self.data_file, "r") as f:
@@ -4915,19 +4913,28 @@ class TradingBotM4:
         updated_list = []
         for pos in auto_sell_list:
             symbol = pos["symbol"]
+
+            # Récupère le prix courant live depuis Binance
+            try:
+                ticker = self.binance_client.get_symbol_ticker(
+                    symbol=symbol.replace("/", "")
+                )
+                current_price = float(ticker.get("price", 0))
+            except Exception:
+                # Fallback: utilise le WS collector si Binance échoue
+                try:
+                    current_price = safe_float(
+                        self.ws_collector.get_last_price(symbol), 0
+                    )
+                except Exception:
+                    current_price = None
+
             entry = safe_float(pos["entry_price"], 0)
             amount = safe_float(pos["amount"], 0)
             tp_pct = safe_float(pos.get("tp_pct", 0.03))
             sl_pct = safe_float(pos.get("sl_pct", 0.03))
             cycle_open = int(pos.get("cycle_open", 0))
             max_cycles = int(pos.get("max_cycles", 2))
-
-            # Récupère le prix courant
-            current_price = None
-            try:
-                current_price = safe_float(self.ws_collector.get_last_price(symbol), 0)
-            except Exception:
-                current_price = None
 
             # Calcul TP/SL/durée
             if current_price and entry:
@@ -4939,6 +4946,8 @@ class TradingBotM4:
                     )
                     continue  # Ne conserve pas cette position dans la liste
 
+            # PATCH: Ajoute le prix courant dans la position pour affichage dashboard
+            pos["current_price"] = current_price
             updated_list.append(pos)
 
         self.safe_update_shared_data(
