@@ -976,6 +976,7 @@ class TradingBotM4:
                     "SOL/USDC",
                     "TRX/USDC",
                     "SUI/USDC",
+                    "LINK/USDC",
                 ],
             },
             "AI": {
