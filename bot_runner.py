@@ -1435,7 +1435,7 @@ class TradingBotM4:
                     self.safe_update_shared_data(
                         {"news_bilan": bilan_list}, self.data_file
                     )
-                    await self.telegram.send_message(bilan)
+                    asyncio.create_task(self.telegram.send_message(bilan))
         return candidates
 
     async def detect_arbitrage_candidates(self, min_diff_pct=0.5):
