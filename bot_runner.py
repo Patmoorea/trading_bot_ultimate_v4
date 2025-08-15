@@ -3577,6 +3577,8 @@ class TradingBotM4:
 
             # Ajoute ici les autres positions (futures/simu) si besoin, selon ta logique
 
+            # PATCH: DEBUG pour vérifier le résultat
+            print("[DEBUG] get_pending_sales generated:", pending)
             # Sauvegarde dans shared_data.json
             self.safe_update_shared_data({"pending_sales": pending}, self.data_file)
             return pending
@@ -4880,10 +4882,18 @@ class TradingBotM4:
             return {"status": "error", "reason": str(e)}
 
     async def plan_auto_sell(
-        self, symbol, entry_price, amount, tp_pct=0.03, sl_pct=0.03, max_cycles=2
+        self,
+        symbol,
+        entry_price,
+        amount,
+        tp_pct=0.03,
+        sl_pct=0.03,
+        max_cycles=2,
+        reason="",
     ):
         """
         Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
+        Enregistre la raison de l'achat pour le dashboard.
         """
         auto_sell_list = []
         try:
@@ -4892,6 +4902,7 @@ class TradingBotM4:
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
+
         auto_sell_list.append(
             {
                 "symbol": symbol,
@@ -4901,6 +4912,7 @@ class TradingBotM4:
                 "sl_pct": sl_pct,
                 "cycle_open": self.current_cycle,
                 "max_cycles": max_cycles,
+                "reason": reason,
             }
         )
         self.safe_update_shared_data(

@@ -58,11 +58,11 @@ class AdvancedIndicators:
 
     def _debug_nan(self, df: pd.DataFrame, name: str):
         """Affiche le nombre de NaN, de valeurs infinies, et la taille du DataFrame pour le debug."""
-        print(f"[DEBUG NaN] {name}: len={len(df)}")
+        # print(f"[DEBUG NaN] {name}: len={len(df)}")
         for col in df.columns:
             n_nan = df[col].isna().sum()
             n_inf = np.isinf(df[col]).sum()
-            print(f"  - {col}: NaN={n_nan} | Inf={n_inf}")
+            # print(f"  - {col}: NaN={n_nan} | Inf={n_inf}")
 
     # --- Trend indicators ---
     def _supertrend(
