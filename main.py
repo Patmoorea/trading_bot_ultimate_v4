@@ -148,9 +148,23 @@ def get_pending_sales(self):
                 return True, p.get("reason", "Indéterminée")
         return False, ""
 
+    # PATCH: actualise le prix live Binance à chaque tick pour chaque position
     for symbol, pos in self.positions.items():
         entry_price = pos.get("entry_price")
-        current_price = pos.get("current_price")
+        # PATCH: récupère le prix live Binance à chaque tick/cycle
+        try:
+            from binance.client import Client
+
+            api_key = os.getenv("BINANCE_API_KEY")
+            api_secret = os.getenv("BINANCE_API_SECRET")
+            client = Client(api_key, api_secret)
+            symbol_binance = symbol.replace("/", "")
+            ticker = client.get_symbol_ticker(symbol=symbol_binance)
+            current_price = float(ticker.get("price", 0))
+        except Exception:
+            current_price = pos.get("current_price")
+        pos["current_price"] = current_price  # <-- PATCH: met à jour l'objet
+        # ... (reste inchangé)
         amount = pos.get("amount")
         pnl_latent = (
             (current_price - entry_price) / entry_price * 100
@@ -225,10 +239,23 @@ def get_pending_sales(self):
                 "note": note,
             }
         )
+
     if hasattr(self, "positions_binance"):
         for symbol, pos in self.positions_binance.items():
             entry_price = pos.get("entry_price")
-            current_price = pos.get("current_price")
+            # PATCH: récupère le prix live Binance à chaque tick
+            try:
+                from binance.client import Client
+
+                api_key = os.getenv("BINANCE_API_KEY")
+                api_secret = os.getenv("BINANCE_API_SECRET")
+                client = Client(api_key, api_secret)
+                symbol_binance = symbol.replace("/", "")
+                ticker = client.get_symbol_ticker(symbol=symbol_binance)
+                current_price = float(ticker.get("price", 0))
+            except Exception:
+                current_price = pos.get("current_price")
+            pos["current_price"] = current_price  # <-- PATCH: met à jour l'objet
             amount = pos.get("amount")
             pnl_latent = (
                 (current_price - entry_price) / entry_price * 100

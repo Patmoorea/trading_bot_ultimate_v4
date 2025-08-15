@@ -7117,6 +7117,11 @@ async def run_clean_bot():
             cycle = 0
             while True:
                 await bot.handle_auto_sell()
+                bot.sync_positions_with_binance()
+
+                for symbol in list(bot.positions_binance.keys()):
+                    if safe_float(bot.positions_binance[symbol].get("amount", 0)) <= 0:
+                        del bot.positions_binance[symbol]
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
                 print(f"[DEBUG CYCLE] Positions (avant TP/SL): {bot.positions}")
                 print(f"[DEBUG CYCLE] bot.positions: {bot.positions}")
@@ -7318,12 +7323,16 @@ async def run_clean_bot():
                     # 1. Pump
                     pump_candidates = bot.detect_pump_candidates()
                     for c in pump_candidates:
+                        # Vérifie si déjà en position long sur la paire pour éviter le doublon
+                        if bot.is_long(c["pair"]):
+                            print(
+                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                            )
+                            continue
                         await bot.telegram.send_message(
                             f"🚀 Pump détecté sur {c['pair']}: +{c['price_pct']*100:.1f}%, volume x{c['vol_ratio']:.1f}"
                         )
                         base_amount = 15  # ou utilise une fonction de sizing
-                        await bot.execute_trade(c["pair"], "BUY", base_amount)
-                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
@@ -7340,12 +7349,15 @@ async def run_clean_bot():
                     # 2. Breakout
                     breakout_candidates = bot.detect_breakout_candidates()
                     for c in breakout_candidates:
+                        if bot.is_long(c["pair"]):
+                            print(
+                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                            )
+                            continue
                         await bot.telegram.send_message(
                             f"💥 Breakout sur {c['pair']}: close={c['close']:.2f} > {c['breakout_level']:.2f}"
                         )
                         base_amount = 15  # ou utilise une fonction de sizing
-                        await bot.execute_trade(c["pair"], "BUY", base_amount)
-                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
@@ -7356,18 +7368,21 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="pump",
+                                reason="breakout",
                             )
 
                     # 3. News
                     news_candidates = bot.detect_news_candidates(news_list)
                     for c in news_candidates:
+                        if bot.is_long(c["pair"]):
+                            print(
+                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                            )
+                            continue
                         await bot.telegram.send_message(
                             f"📰 News positive sur {c['pair']}: sentiment={c['sentiment']:.2f}\n{c['title']}"
                         )
                         base_amount = 15  # ou utilise une fonction de sizing
-                        await bot.execute_trade(c["pair"], "BUY", base_amount)
-                        # Option d'achat rapide: await bot.execute_trade(c["pair"], "BUY", amount)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
@@ -7378,17 +7393,21 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="pump",
+                                reason="news",
                             )
+
                     # 4. Arbitrage
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
                     for c in arbitrage_candidates:
+                        if bot.is_long(c["pair"]):
+                            print(
+                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                            )
+                            continue
                         await bot.telegram.send_message(
                             f"💹 Arbitrage possible sur {c['pair']}: Binance={c['binance_price']} BingX={c['bingx_price']} Diff={c['diff_pct']:.2f}%"
                         )
                         base_amount = 15  # ou utilise une fonction de sizing
-                        await bot.execute_trade(c["pair"], "BUY", base_amount)
-                        # Option de trade aller-retour (acheter sur le moins cher, vendre sur le plus cher)
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
@@ -7399,7 +7418,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="pump",
+                                reason="arbitrage",
                             )
 
                     # Mise à jour des données du bot
@@ -7566,7 +7585,7 @@ async def run_clean_bot():
                     print(f"✅ Cycle terminé en {duration:.1f}s")
 
                     # Envoi du résumé synthétique Telegram
-                    send_telegram_if_needed(
+                    await send_telegram_if_needed(
                         bot,
                         cycle,
                         regime,
