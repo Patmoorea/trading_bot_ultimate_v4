@@ -6239,6 +6239,39 @@ def filter_pairs(
     return filtered_uncorr
 
 
+async def log_external_crypto_alert(bot, symbol, news, extra=None):
+    """
+    Log et notifie une alerte sur une crypto absente de la liste pairs_valid.
+    - symbol : code de la crypto (ex : "MATIC")
+    - news   : dict de news ou signal
+    - extra  : infos additionnelles (score, volume, etc.)
+    """
+    alert = {
+        "timestamp": get_current_time(),
+        "symbol": symbol,
+        "type": "external_alert",
+        "title": news.get("title", ""),
+        "sentiment": news.get("sentiment", None),
+        "details": news,
+    }
+    if extra:
+        alert.update(extra)
+    # Ajout au dashboard
+    bot.safe_update_shared_data({"external_alerts": [alert]}, bot.data_file)
+    # Notification Telegram (si dispo)
+    try:
+        msg = (
+            f"⚠️ Alerte sur {symbol} (non tradée)\n"
+            f"Sentiment: {news.get('sentiment')}\n"
+            f"Titre: {news.get('title')}\n"
+        )
+        if extra:
+            msg += "\n" + "\n".join(f"{k}: {v}" for k, v in extra.items())
+        await bot.telegram.send_message(msg)
+    except Exception:
+        pass
+
+
 def load_config():
     """Charge la configuration"""
     try:
@@ -7323,7 +7356,11 @@ async def run_clean_bot():
                     # 1. Pump
                     pump_candidates = bot.detect_pump_candidates()
                     for c in pump_candidates:
-                        # Vérifie si déjà en position long sur la paire pour éviter le doublon
+                        symbol = c["pair"].split("/")[0]
+                        if c["pair"] not in bot.pairs_valid:
+                            # Crypto non tradée : log & alerte spéciale
+                            await log_external_crypto_alert(bot, symbol, c)
+                            continue
                         if bot.is_long(c["pair"]):
                             print(
                                 f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
@@ -7332,8 +7369,23 @@ async def run_clean_bot():
                         await bot.telegram.send_message(
                             f"🚀 Pump détecté sur {c['pair']}: +{c['price_pct']*100:.1f}%, volume x{c['vol_ratio']:.1f}"
                         )
-                        base_amount = 15  # ou utilise une fonction de sizing
+                        base_amount = 15
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        bot.safe_update_shared_data(
+                            {
+                                "pump_opportunities": [
+                                    {
+                                        "timestamp": get_current_time(),
+                                        "pair": c["pair"],
+                                        "type": "pump",
+                                        "price_pct": c["price_pct"],
+                                        "vol_ratio": c["vol_ratio"],
+                                        "result": result,
+                                    }
+                                ]
+                            },
+                            bot.data_file,
+                        )
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
                             await bot.plan_auto_sell(
@@ -7343,12 +7395,16 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="pump",
+                                reason="pump: trailing_stop",
                             )
 
                     # 2. Breakout
                     breakout_candidates = bot.detect_breakout_candidates()
                     for c in breakout_candidates:
+                        symbol = c["pair"].split("/")[0]
+                        if c["pair"] not in bot.pairs_valid:
+                            await log_external_crypto_alert(bot, symbol, c)
+                            continue
                         if bot.is_long(c["pair"]):
                             print(
                                 f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
@@ -7357,8 +7413,23 @@ async def run_clean_bot():
                         await bot.telegram.send_message(
                             f"💥 Breakout sur {c['pair']}: close={c['close']:.2f} > {c['breakout_level']:.2f}"
                         )
-                        base_amount = 15  # ou utilise une fonction de sizing
+                        base_amount = 15
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        bot.safe_update_shared_data(
+                            {
+                                "breakout_opportunities": [
+                                    {
+                                        "timestamp": get_current_time(),
+                                        "pair": c["pair"],
+                                        "type": "breakout",
+                                        "close": c["close"],
+                                        "breakout_level": c["breakout_level"],
+                                        "result": result,
+                                    }
+                                ]
+                            },
+                            bot.data_file,
+                        )
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
                             await bot.plan_auto_sell(
@@ -7368,12 +7439,16 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="breakout",
+                                reason="breakout: trailing_stop",
                             )
 
                     # 3. News
                     news_candidates = bot.detect_news_candidates(news_list)
                     for c in news_candidates:
+                        symbol = c["pair"].split("/")[0]
+                        if c["pair"] not in bot.pairs_valid:
+                            await log_external_crypto_alert(bot, symbol, c)
+                            continue
                         if bot.is_long(c["pair"]):
                             print(
                                 f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
@@ -7382,8 +7457,23 @@ async def run_clean_bot():
                         await bot.telegram.send_message(
                             f"📰 News positive sur {c['pair']}: sentiment={c['sentiment']:.2f}\n{c['title']}"
                         )
-                        base_amount = 15  # ou utilise une fonction de sizing
+                        base_amount = 15
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        bot.safe_update_shared_data(
+                            {
+                                "news_opportunities": [
+                                    {
+                                        "timestamp": get_current_time(),
+                                        "pair": c["pair"],
+                                        "type": "news",
+                                        "sentiment": c["sentiment"],
+                                        "title": c["title"],
+                                        "result": result,
+                                    }
+                                ]
+                            },
+                            bot.data_file,
+                        )
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
                             await bot.plan_auto_sell(
@@ -7393,12 +7483,16 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="news",
+                                reason="news: trailing_stop",
                             )
 
                     # 4. Arbitrage
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
                     for c in arbitrage_candidates:
+                        symbol = c["pair"].split("/")[0]
+                        if c["pair"] not in bot.pairs_valid:
+                            await log_external_crypto_alert(bot, symbol, c)
+                            continue
                         if bot.is_long(c["pair"]):
                             print(
                                 f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
@@ -7407,8 +7501,24 @@ async def run_clean_bot():
                         await bot.telegram.send_message(
                             f"💹 Arbitrage possible sur {c['pair']}: Binance={c['binance_price']} BingX={c['bingx_price']} Diff={c['diff_pct']:.2f}%"
                         )
-                        base_amount = 15  # ou utilise une fonction de sizing
+                        base_amount = 15
                         result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        bot.safe_update_shared_data(
+                            {
+                                "arbitrage_opportunities": [
+                                    {
+                                        "timestamp": get_current_time(),
+                                        "pair": c["pair"],
+                                        "type": "arbitrage",
+                                        "binance_price": c["binance_price"],
+                                        "bingx_price": c["bingx_price"],
+                                        "diff_pct": c["diff_pct"],
+                                        "result": result,
+                                    }
+                                ]
+                            },
+                            bot.data_file,
+                        )
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
                             await bot.plan_auto_sell(
@@ -7418,7 +7528,7 @@ async def run_clean_bot():
                                 tp_pct=0.03,
                                 sl_pct=0.03,
                                 max_cycles=2,
-                                reason="arbitrage",
+                                reason="arbitrage: trailing_stop",
                             )
 
                     # Mise à jour des données du bot
