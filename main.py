@@ -517,7 +517,6 @@ with tab1:
         st.markdown("#### ⏸️ Pauses actives détaillées")
         df_pauses = pd.DataFrame(active_pauses)
 
-        # === PATCH : TRADUCTION FRANÇAISE DES TYPES ET RAISONS ===
         pause_type_map = {
             "news": "Pause News",
             "impact": "Impact fort",
@@ -548,35 +547,29 @@ with tab1:
 
     st.divider()
 
+    # === SIGNALS & SIZING ===
     trade_decisions = shared_data.get("trade_decisions", {})
-
     if trade_decisions:
-        # Création du DataFrame
         decisions_data = []
-
-        # Paramètres de performance pour le sizing
         perf = shared_data.get("bot_status", {}).get("performance", {})
         win_rate = perf.get("win_rate", 0.55)
         profit_factor = perf.get("profit_factor", 1.7)
 
         for pair, decision in trade_decisions.items():
-            # Les vraies valeurs sont dans la décision !
             confidence = float(decision.get("confidence", 0.5))
             tech_score = float(decision.get("tech", 0.5))
             ai_pred = float(decision.get("ai", 0.5))
             sentiment = float(decision.get("sentiment", 0.0))
 
-            # Calcul du sizing base
             if confidence > 0.8:
-                base_size = 0.09  # 9%
+                base_size = 0.09
             elif confidence > 0.6:
-                base_size = 0.06  # 6%
+                base_size = 0.06
             elif confidence > 0.4:
-                base_size = 0.04  # 4%
+                base_size = 0.04
             else:
-                base_size = 0.02  # 2%
+                base_size = 0.02
 
-            # Ajustements
             if tech_score > 0.7:
                 base_size *= 1.2
             if ai_pred > 0.7:
@@ -584,12 +577,10 @@ with tab1:
             if abs(sentiment) > 0.7:
                 base_size *= 0.8
 
-            # Kelly Criterion
             kelly = kelly_criterion(win_rate, profit_factor)
             if kelly > 0:
                 base_size *= 1 + min(kelly * 0.5, 0.5)
 
-            # Création de la ligne
             row_data = {
                 "pair": pair,
                 "action": decision.get("action", "NEUTRAL").upper(),
@@ -604,31 +595,26 @@ with tab1:
             }
             decisions_data.append(row_data)
 
-        # Création et formatage du DataFrame
         df_signals = pd.DataFrame(decisions_data)
         df_signals.set_index("pair", inplace=True)
 
-        # Formatage des colonnes numériques
         numeric_cols = ["confidence", "tech", "ai", "sentiment"]
         for col in numeric_cols:
             if col in df_signals.columns:
                 df_signals[col] = df_signals[col].map("{:.3f}".format)
 
-        # Affichage avec style et TITRE explicite
         st.markdown("#### Tableau des signaux et sizing par paire")
         st.dataframe(df_signals, use_container_width=True, height=400)
-
     else:
         st.info("Aucun signal de trading ce cycle.")
 
     st.divider()
 
-    # Historique des trades
+    # === HISTORIQUE TRADES ===
     st.markdown("#### 📜 Historique des trades exécutés")
     trades = shared_data.get("trade_history", [])
     if trades:
         df_trades = pd.DataFrame(trades)
-        # Conversion des timestamps en heure Polynésie
         if "timestamp" in df_trades.columns:
             df_trades["timestamp"] = (
                 pd.to_datetime(df_trades["timestamp"])
@@ -641,7 +627,45 @@ with tab1:
 
     st.divider()
 
-    # Section Arbitrage (une seule fois !)
+    # === PUMP OPPORTUNITIES ===
+    st.markdown("#### 🚀 Opportunités Pump détectées")
+    pump_ops = shared_data.get("pump_opportunities", [])
+    if pump_ops:
+        df_pump = pd.DataFrame(pump_ops)
+        st.dataframe(df_pump, use_container_width=True)
+    else:
+        st.info("Aucune opportunité pump détectée ce cycle.")
+
+    # === BREAKOUT OPPORTUNITIES ===
+    st.markdown("#### 💥 Opportunités Breakout détectées")
+    breakout_ops = shared_data.get("breakout_opportunities", [])
+    if breakout_ops:
+        df_breakout = pd.DataFrame(breakout_ops)
+        st.dataframe(df_breakout, use_container_width=True)
+    else:
+        st.info("Aucune opportunité breakout détectée ce cycle.")
+
+    # === NEWS OPPORTUNITIES ===
+    st.markdown("#### 📰 Opportunités News détectées")
+    news_ops = shared_data.get("news_opportunities", [])
+    if news_ops:
+        df_news = pd.DataFrame(news_ops)
+        st.dataframe(df_news, use_container_width=True)
+    else:
+        st.info("Aucune opportunité news détectée ce cycle.")
+
+    # === ALERTES CRYPTOS NON TRADÉES ===
+    st.markdown("#### ⚠️ Alertes cryptos non tradées")
+    external_alerts = shared_data.get("external_alerts", [])
+    if external_alerts:
+        df_alerts = pd.DataFrame(external_alerts)
+        st.dataframe(df_alerts, use_container_width=True)
+    else:
+        st.info("Aucune alerte externe détectée ce cycle.")
+
+    st.divider()
+
+    # Section Arbitrage
     st.markdown("#### 💹 Opportunités d'arbitrage")
     arbitrage_ops = shared_data.get("arbitrage_opportunities", [])
     if arbitrage_ops:
@@ -876,14 +900,13 @@ with tab4:
 
             df_pending["Source du signal"] = df_pending.apply(get_signal_source, axis=1)
 
-            # Colonnes à afficher
             display_cols = [
                 "symbol",
                 "Source du signal",
                 "entry_price",
                 "current_price",
                 "amount",
-                "action",  # <-- action BUY/SELL/NEUTRAL
+                "action",
                 "% Gain/Perte latente",
                 "reason",
                 "decision",
@@ -891,12 +914,10 @@ with tab4:
                 "pause_blocage",
                 "note",
             ]
-            # Ajout colonnes manquantes
             for col in display_cols:
                 if col not in df_pending.columns:
                     df_pending[col] = "N/A"
 
-            # PATCH: Correction entry_price, current_price, amount
             def safe_float(x):
                 try:
                     return float(x)
@@ -907,12 +928,10 @@ with tab4:
             df_pending["current_price"] = df_pending["current_price"].apply(safe_float)
             df_pending["amount"] = df_pending["amount"].apply(safe_float)
 
-            # Ajout colonne Action : utilise le champ "action" ou déduit via trade_decisions
             def get_action(row):
                 action = row.get("action", "").upper()
                 if action in ["BUY", "SELL", "NEUTRAL"]:
                     return action
-                # fallback: cherche dans trade_decisions
                 symbol = row.get("symbol", "")
                 td = trade_decisions.get(symbol.replace("/", "").upper(), {})
                 action_td = td.get("action", "NEUTRAL").upper()
@@ -922,7 +941,6 @@ with tab4:
 
             df_pending["action"] = df_pending.apply(get_action, axis=1)
 
-            # Calcul gain/perte latente
             df_pending["% Gain/Perte latente"] = (
                 (df_pending["current_price"] - df_pending["entry_price"])
                 / df_pending["entry_price"]
@@ -935,12 +953,10 @@ with tab4:
                 )
             )
 
-            # Correction du temps en position
             df_pending["temps_en_position_h"] = df_pending["temps_en_position_h"].apply(
                 lambda x: f"{x:.1f}h" if isinstance(x, (int, float)) else x
             )
 
-            # Customisation ultra détaillée de la décision
             def custom_decision(row):
                 entry = row["entry_price"]
                 current = row["current_price"]
@@ -951,7 +967,6 @@ with tab4:
                 decision = row.get("decision", "")
                 action = row.get("action", "NEUTRAL")
 
-                # Prédiction et explication
                 if pause == "Oui":
                     return f"🔒 Vente bloquée (pause news/reglementaire). Aucun mouvement possible."
                 if action == "SELL":
@@ -972,7 +987,6 @@ with tab4:
 
             df_pending["Décision détaillée"] = df_pending.apply(custom_decision, axis=1)
 
-            # Ajout colonne "Action probable prochain cycle"
             def cycle_action(row):
                 if "Vente bloquée" in row["Décision détaillée"]:
                     return "Aucune action avant fin de la pause."
@@ -996,7 +1010,6 @@ with tab4:
                 cycle_action, axis=1
             )
 
-            # Tri par priorité
             priority_map = {
                 "🔴": 1,
                 "🔒": 2,
@@ -1017,7 +1030,6 @@ with tab4:
                 ["priority", "symbol"], ascending=[True, True]
             )
 
-            # Colonnes finales à afficher
             ordered_cols = [
                 "symbol",
                 "Source du signal",

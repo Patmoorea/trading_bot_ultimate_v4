@@ -1205,6 +1205,7 @@ class TradingBotM4:
             "SOL",
             "TRX",
             "SUI",
+            "LINK",
             # Ajoute ici d'autres assets à tester si besoin
         ]
         for asset in assets:
