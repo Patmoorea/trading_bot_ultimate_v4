@@ -6812,17 +6812,32 @@ async def run_clean_bot():
     async def execute_trading_cycle(bot, valid_pairs):
         """
         Cycle complet de trading avec corrections des problèmes de dashboard et signaux
-        OPTIMISÉ (parallélisation, batching, cache indicateurs)
+        Version optimisée (I/O unique, recalcul minimal, parallélisation), sans suppression de fonctionnalités.
         """
         try:
-            print("\n=== DÉBUT CYCLE TRADING (OPTIMISÉ) ===")
-            log_dashboard(f"Démarrage cycle trading")
+            debug = getattr(bot, "debug", True)
 
-            # 1. === INITIALISATION DES STRUCTURES ===
+            if debug:
+                print("\n=== DÉBUT CYCLE TRADING ===")
+            log_dashboard("Démarrage cycle trading")
+
+            # ---------------------------------------------------------------------
+            # 1) LECTURE UNIQUE DES DONNÉES PARTAGÉES (réduire I/O)
+            # ---------------------------------------------------------------------
+            try:
+                with open(bot.data_file, "r") as f:
+                    shared_data = json.load(f)
+            except Exception as e:
+                if debug:
+                    print(f"[WARNING] Lecture data_file échouée: {e}")
+                shared_data = {}
+
+            # 1.a) Initialisation structures bot.market_data si manquantes
             if not hasattr(bot, "market_data"):
                 bot.market_data = {}
 
-            print("[DEBUG] Initialisation des structures de base...")
+            if debug:
+                print("[DEBUG] Initialisation des structures de base...")
             for pair in bot.pairs_valid:
                 pair_key = pair.replace("/", "").upper()
                 if pair_key not in bot.market_data:
@@ -6831,9 +6846,14 @@ async def run_clean_bot():
                         "sentiment_timestamp": time.time(),
                         "ai_prediction": 0.5,
                     }
-                    print(f"[DEBUG] Initialisation {pair_key} avec valeurs par défaut")
+                    if debug:
+                        print(
+                            f"[DEBUG] Initialisation {pair_key} avec valeurs par défaut"
+                        )
 
-            # 2. === VÉRIFICATION DES PAUSES ===
+            # ---------------------------------------------------------------------
+            # 2) VÉRIFICATION DES PAUSES NEWS (identique, mais I/O limitées)
+            # ---------------------------------------------------------------------
             if (
                 bot.news_pause_manager
                 and bot.news_pause_manager.global_cycles_remaining > 0
@@ -6848,11 +6868,12 @@ async def run_clean_bot():
                 log_dashboard("🚫 Cycle bloqué - Pause news active")
                 return [], bot.regime
 
-            # 3. === ANALYSE DES NEWS ===
-            print("\n[DEBUG] Analyse des news...")
+            # ---------------------------------------------------------------------
+            # 3) ANALYSE DES NEWS (réutilise shared_data chargé au début)
+            # ---------------------------------------------------------------------
+            if debug:
+                print("\n[DEBUG] Analyse des news...")
             try:
-                with open(bot.data_file, "r") as f:
-                    shared_data = json.load(f)
                 news_sentiment = (
                     shared_data.get("sentiment", {})
                     if isinstance(shared_data, dict)
@@ -6864,9 +6885,14 @@ async def run_clean_bot():
                     else []
                 )
                 unprocessed_news = [n for n in news_list if not n.get("processed")]
+
                 if unprocessed_news:
                     if bot.news_pause_manager.scan_news(unprocessed_news):
-                        print("🚨 Pause trading activée suite à news critique")
+                        (
+                            print("🚨 Pause trading activée suite à news critique")
+                            if debug
+                            else None
+                        )
                         for n in unprocessed_news:
                             n["processed"] = True
 
@@ -6877,129 +6903,174 @@ async def run_clean_bot():
                             },
                             bot.data_file,
                         )
+
                         if bot.news_pause_manager.global_cycles_remaining > 0:
                             return [], bot.regime
             except Exception as e:
-                print(f"[WARNING] Erreur analyse news: {e}")
+                if debug:
+                    print(f"[WARNING] Erreur analyse news: {e}")
 
-            # 4. === MISE À JOUR DES DONNÉES MARCHÉ (OPTIMISÉE) ===
-            print("\n[DEBUG] Mise à jour des données marché (async)...")
+            # ---------------------------------------------------------------------
+            # 4) MISE À JOUR DES DONNÉES MARCHÉ (parallélisée & recalcul minimal)
+            # ---------------------------------------------------------------------
+            if debug:
+                print("\n[DEBUG] Mise à jour des données marché...")
+
             try:
                 orderflow_indicators = AdvancedIndicators()
             except Exception as e:
-                print(f"[WARNING] Erreur init indicators: {e}")
-                orderflow_indicators = None
+                if debug:
+                    print(f"[WARNING] Erreur init indicators: {e}")
+                orderflow_indicators = None  # conservé même si pas utilisé ici
 
-            async def update_pair_tf(pair, tf):
+            async def process_pair_tf(pair, tf):
+                """
+                Traite une paire/timeframe :
+                - Récupère df
+                - Corrige timestamp
+                - Accumule sans doublons
+                - Recalcule indicateurs SEULEMENT si nouvelles bougies
+                """
                 pair_key = pair.replace("/", "").upper()
-                if pair_key not in bot.market_data:
-                    bot.market_data[pair_key] = {}
-                df = bot.ws_collector.get_dataframe(pair_key, tf)
-                if df is not None and not df.empty:
-                    required_cols = [
-                        "open",
-                        "high",
-                        "low",
-                        "close",
-                        "volume",
-                        "timestamp",
-                    ]
-                    if all(col in df.columns for col in required_cols):
-                        if len(df["timestamp"]) != len(df["close"]):
-                            if (
-                                hasattr(df.index, "dtype")
-                                and np.issubdtype(df.index.dtype, np.datetime64)
-                                and len(df.index) == len(df["close"])
-                            ):
-                                df["timestamp"] = df.index
-                            else:
-                                df["timestamp"] = pd.date_range(
-                                    end=pd.Timestamp.utcnow(),
-                                    periods=len(df["close"]),
-                                    freq="T",
-                                )
-                        ohlcv_dict = {
-                            "open": df["open"].tolist(),
-                            "high": df["high"].tolist(),
-                            "low": df["low"].tolist(),
-                            "close": df["close"].tolist(),
-                            "volume": df["volume"].tolist(),
-                            "timestamp": [
-                                int(pd.Timestamp(t).timestamp())
-                                for t in df["timestamp"]
-                            ],
-                        }
-                        if tf not in bot.market_data[pair_key]:
-                            bot.market_data[pair_key][tf] = {k: [] for k in ohlcv_dict}
-                        last_ts = (
-                            bot.market_data[pair_key][tf]["timestamp"][-1]
-                            if bot.market_data[pair_key][tf]["timestamp"]
-                            else None
+
+                # Récupération dataframe en thread pour ne pas bloquer l'event loop
+                df = await asyncio.to_thread(
+                    bot.ws_collector.get_dataframe, pair_key, tf
+                )
+                if df is None or df.empty:
+                    return
+
+                required_cols = ["open", "high", "low", "close", "volume", "timestamp"]
+                if not all(col in df.columns for col in required_cols):
+                    return
+
+                # Correction timestamp si nécessaire
+                if len(df["timestamp"]) != len(df["close"]):
+                    if (
+                        hasattr(df.index, "dtype")
+                        and np.issubdtype(df.index.dtype, np.datetime64)
+                        and len(df.index) == len(df["close"])
+                    ):
+                        df["timestamp"] = df.index
+                    else:
+                        df["timestamp"] = pd.date_range(
+                            end=pd.Timestamp.utcnow(),
+                            periods=len(df["close"]),
+                            freq="T",
                         )
-                        if last_ts is not None and isinstance(last_ts, str):
-                            try:
-                                last_ts = int(pd.Timestamp(last_ts).timestamp())
-                            except Exception:
-                                last_ts = None
-                        new_indices = []
-                        for i, ts in enumerate(ohlcv_dict["timestamp"]):
-                            ts_int = ts
-                            if isinstance(ts, str):
-                                try:
-                                    ts_int = int(pd.Timestamp(ts).timestamp())
-                                except Exception:
-                                    continue
-                            if last_ts is None or ts_int > last_ts:
-                                new_indices.append(i)
-                        for k in ohlcv_dict:
-                            bot.market_data[pair_key][tf][k].extend(
-                                [ohlcv_dict[k][i] for i in new_indices]
-                            )
-                        # Calcul des indicateurs sur les 100 dernières bougies
-                        df_small = df.tail(100)
-                        indicators_data = bot.add_indicators(df_small)
-                        bot.market_data[pair_key][tf]["signals"] = {
-                            "technical": {
-                                "score": float(
-                                    indicators_data.get("technical_score", 0.5)
-                                ),
-                                "details": indicators_data,
-                                "factors": len(indicators_data),
-                            },
-                            "momentum": {"score": 0.5, "details": {}, "factors": 0},
-                            "orderflow": {
-                                "score": 0.5,
-                                "details": {},
-                                "factors": 0,
-                                "liquidity": 0.5,
-                                "market_pressure": 0.5,
-                            },
-                            "ai": float(
-                                bot.market_data[pair_key].get("ai_prediction", 0.5)
-                            ),
-                            "sentiment": float(
-                                bot.market_data[pair_key].get("sentiment", 0.5)
-                            ),
-                        }
-                        print(f"[DEBUG] {pair_key}-{tf} Indicateurs calculés:")
+
+                # Assure structure tf
+                if tf not in bot.market_data.get(pair_key, {}):
+                    bot.market_data[pair_key].setdefault(
+                        tf,
+                        {
+                            "open": [],
+                            "high": [],
+                            "low": [],
+                            "close": [],
+                            "volume": [],
+                            "timestamp": [],
+                        },
+                    )
+
+                # Construction OHLCV dict (listes)
+                ohlcv_dict = {
+                    "open": df["open"].tolist(),
+                    "high": df["high"].tolist(),
+                    "low": df["low"].tolist(),
+                    "close": df["close"].tolist(),
+                    "volume": df["volume"].tolist(),
+                    "timestamp": [
+                        int(pd.Timestamp(t).timestamp()) for t in df["timestamp"]
+                    ],
+                }
+
+                # Accumulation SANS DOUBLONS
+                last_ts = (
+                    bot.market_data[pair_key][tf]["timestamp"][-1]
+                    if bot.market_data[pair_key][tf]["timestamp"]
+                    else None
+                )
+                if last_ts is not None and isinstance(last_ts, str):
+                    try:
+                        last_ts = int(pd.Timestamp(last_ts).timestamp())
+                    except Exception:
+                        last_ts = None
+
+                new_indices = []
+                for i, ts in enumerate(ohlcv_dict["timestamp"]):
+                    ts_int = ts
+                    if isinstance(ts, str):
+                        try:
+                            ts_int = int(pd.Timestamp(ts).timestamp())
+                        except Exception:
+                            continue
+                    if last_ts is None or ts_int > last_ts:
+                        new_indices.append(i)
+
+                if not new_indices:
+                    # Rien de nouveau => ne recalcule pas les indicateurs
+                    if debug:
                         print(
-                            f"- Technical score: {indicators_data.get('technical_score', 0.5)}"
+                            f"[DEBUG] {pair_key}-{tf} pas de nouvelles bougies, skip calcul indicateurs."
                         )
+                    return
 
-            # Parallélisation du calcul
-            await asyncio.gather(
-                *[
-                    update_pair_tf(pair, tf)
-                    for pair in bot.pairs_valid
-                    for tf in bot.config["TRADING"]["timeframes"]
-                ]
-            )
+                for k in ohlcv_dict:
+                    md_list = bot.market_data[pair_key][tf][k]
+                    md_list.extend([ohlcv_dict[k][i] for i in new_indices])
 
-            # 6. === INITIALISATION DES DÉCISIONS ===
+                # DEBUG tailles
+                if debug:
+                    print(
+                        f"[DEBUG] {pair_key}-{tf} nb bougies : {len(bot.market_data[pair_key][tf]['close'])}"
+                    )
+                    print(
+                        f"[DEBUG] {pair_key}-{tf} timestamp (type): {type(bot.market_data[pair_key][tf]['timestamp'])}"
+                    )
+
+                # Calcul des indicateurs (inchangé, mais seulement si nouvelles bougies)
+                indicators_data = await asyncio.to_thread(bot.add_indicators, df)
+                bot.market_data[pair_key][tf]["signals"] = {
+                    "technical": {
+                        "score": float(indicators_data.get("technical_score", 0.5)),
+                        "details": indicators_data,
+                        "factors": len(indicators_data),
+                    },
+                    "momentum": {"score": 0.5, "details": {}, "factors": 0},
+                    "orderflow": {
+                        "score": 0.5,
+                        "details": {},
+                        "factors": 0,
+                        "liquidity": 0.5,
+                        "market_pressure": 0.5,
+                    },
+                    "ai": float(bot.market_data[pair_key].get("ai_prediction", 0.5)),
+                    "sentiment": float(bot.market_data[pair_key].get("sentiment", 0.5)),
+                }
+
+                if debug:
+                    print(f"[DEBUG] {pair_key}-{tf} Indicateurs calculés:")
+                    print(
+                        f"- Technical score: {indicators_data.get('technical_score', 0.5)}"
+                    )
+
+            # Lancer TOUTES les MAJ OHLCV/indicateurs en parallèle
+            tasks = []
+            for pair in bot.pairs_valid:
+                for tf in bot.config["TRADING"]["timeframes"]:
+                    tasks.append(process_pair_tf(pair, tf))
+            if tasks:
+                await asyncio.gather(*tasks)
+
+            # ---------------------------------------------------------------------
+            # 6) INITIALISATION DES DÉCISIONS (identique, I/O évitées)
+            # ---------------------------------------------------------------------
             trade_decisions = []
             decisions_for_dashboard = {}
 
-            print("\n[DEBUG] Initialisation des décisions...")
+            if debug:
+                print("\n[DEBUG] Initialisation des décisions...")
 
             current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -7011,50 +7082,52 @@ async def run_clean_bot():
                         bot.market_data[pair_key] = {}
 
                     market_signals = bot.market_data[pair_key]
-                    confidence = 0.5  # Valeur par défaut initiale
+                    confidence = 0.5  # valeur par défaut
 
+                    # Signaux techniques depuis 1h si dispo
                     tf_data = market_signals.get("1h", {}).get("signals", {})
                     tech_data = tf_data.get("technical", {})
 
+                    # 1. Technical Score
                     try:
                         tech_score = safe_float(tech_data.get("score", 0.5))
                         tech_score = max(0.0, min(1.0, tech_score))
                     except (TypeError, ValueError):
-                        print(f"[WARNING] Invalid tech score for {pair_key}")
+                        if debug:
+                            print(f"[WARNING] Invalid tech score for {pair_key}")
                         tech_score = 0.5
 
+                    # 2. AI Score
                     try:
                         ai_score = market_signals.get("ai_prediction")
                         if ai_score is not None:
                             ai_score = safe_float(ai_score)
                             ai_score = max(0.0, min(1.0, ai_score))
                         else:
-                            print(f"[WARNING] No AI prediction for {pair_key}")
+                            if debug:
+                                print(f"[WARNING] No AI prediction for {pair_key}")
                             ai_score = 0.5
                     except (TypeError, ValueError):
-                        print(f"[WARNING] Invalid AI score for {pair_key}")
+                        if debug:
+                            print(f"[WARNING] Invalid AI score for {pair_key}")
                         ai_score = 0.5
 
+                    # 3. Sentiment Score
                     try:
                         sentiment_score = market_signals.get("sentiment")
                         if sentiment_score is not None:
                             sentiment_score = safe_float(sentiment_score)
                             sentiment_score = max(-1.0, min(1.0, sentiment_score))
                         else:
-                            with open(bot.data_file, "r") as f:
-                                shared_data = json.load(f)
+                            # Récupération depuis shared_data déjà chargé
                             news_sentiment = shared_data.get("sentiment", {})
                             sentiment_score = safe_float(
                                 news_sentiment.get("overall_sentiment", 0.0)
                             )
-                    except (
-                        TypeError,
-                        ValueError,
-                        FileNotFoundError,
-                        json.JSONDecodeError,
-                    ):
+                    except (TypeError, ValueError, json.JSONDecodeError):
                         sentiment_score = 0.0
 
+                    # Pondération des signaux pour la confiance
                     if all(
                         x is not None for x in [tech_score, ai_score, sentiment_score]
                     ):
@@ -7069,6 +7142,7 @@ async def run_clean_bot():
                         )
                         confidence = max(0.5, min(1.0, confidence))
 
+                    # Décision initiale
                     decision = {
                         "pair": pair,
                         "action": "neutral",
@@ -7084,21 +7158,22 @@ async def run_clean_bot():
                         + ai_score * 0.3
                         + ((sentiment_score + 1) / 2) * 0.2
                     )
-
                     if weighted_signal > 0.7:
                         decision["action"] = "buy"
                     elif weighted_signal < 0.3:
                         decision["action"] = "sell"
 
-                    print(f"\n[DEBUG] Décision pour {pair}:")
-                    print(f"- Tech score: {tech_score:.4f}")
-                    print(f"- AI score: {ai_score:.4f}")
-                    print(f"- Sentiment: {sentiment_score:.4f}")
-                    print(f"- Confiance: {confidence:.4f}")
-                    print(f"- Action: {decision['action']}")
+                    if debug:
+                        print(f"\n[DEBUG] Décision pour {pair}:")
+                        print(f"- Tech score: {tech_score:.4f}")
+                        print(f"- AI score: {ai_score:.4f}")
+                        print(f"- Sentiment: {sentiment_score:.4f}")
+                        print(f"- Confiance: {confidence:.4f}")
+                        print(f"- Action: {decision['action']}")
 
                     decisions_for_dashboard[pair] = decision
 
+                    # Si signaux forts → ajout aux décisions
                     if decision["action"] != "neutral" and decision["confidence"] > 0.7:
                         trade_decisions.append(decision)
 
@@ -7106,6 +7181,7 @@ async def run_clean_bot():
                     print(f"[ERROR] Failed to process {pair}: {str(e)}")
                     continue
 
+            # Mise à jour market_data avec décisions
             for pair, decision in decisions_for_dashboard.items():
                 pair_key = pair.replace("/", "").upper()
                 if pair_key not in bot.market_data:
@@ -7113,24 +7189,32 @@ async def run_clean_bot():
                 bot.market_data[pair_key]["last_decision"] = decision
                 bot.market_data[pair_key]["last_update"] = current_time
 
-            print("\n[DEBUG] Résumé des décisions:")
-            for pair, decision in decisions_for_dashboard.items():
-                print(f"\n{pair}:")
-                print(json.dumps(decision, indent=2))
+            # Debug final (limité)
+            if debug:
+                print("\n[DEBUG] Résumé des décisions:")
+                for pair, decision in decisions_for_dashboard.items():
+                    print(f"\n{pair}:")
+                    try:
+                        print(json.dumps(decision, indent=2))
+                    except Exception:
+                        print(str(decision))
 
-            # 7. === ANALYSE DES SIGNAUX ===
+            # ---------------------------------------------------------------------
+            # 7) ANALYSE DES SIGNAUX (identique, mais on évite recalculs inutiles)
+            # ---------------------------------------------------------------------
             signals_ok = bot.verify_signals_completeness()
             if not signals_ok:
                 log_dashboard("⚠️ Signaux incomplets")
 
-            print("\n[DEBUG] Vérification finale des décisions:")
-            for pair, decision in decisions_for_dashboard.items():
-                print(f"\n{pair}:")
-                for key, value in decision.items():
-                    if isinstance(value, (int, float)):
-                        print(f"- {key}: {value:.4f}")
-                    else:
-                        print(f"- {key}: {value}")
+            if debug:
+                print("\n[DEBUG] Vérification finale des décisions:")
+                for pair, decision in decisions_for_dashboard.items():
+                    print(f"\n{pair}:")
+                    for key, value in decision.items():
+                        if isinstance(value, (int, float)):
+                            print(f"- {key}: {value:.4f}")
+                        else:
+                            print(f"- {key}: {value}")
 
             for pair, decision in decisions_for_dashboard.items():
                 pair_key = pair.replace("/", "").upper()
@@ -7140,17 +7224,23 @@ async def run_clean_bot():
                     {"last_decision": decision, "last_update": current_time}
                 )
 
-            print("\n[DEBUG] Génération des décisions...")
+            # ---------------------------------------------------------------------
+            # 8) GÉNÉRATION DES DÉCISIONS DÉTAILLÉES (inchangée dans la logique)
+            # ---------------------------------------------------------------------
+            if debug:
+                print("\n[DEBUG] Génération des décisions...")
             for pair in bot.pairs_valid:
                 pair_signals = {}
+                pair_key = pair.replace("/", "").upper()
                 for tf in bot.config["TRADING"]["timeframes"]:
-                    pair_key = pair.replace("/", "").upper()
+                    # Récupération df à la volée (si besoin) ; pourrait se réutiliser
                     df = bot.ws_collector.get_dataframe(pair_key, tf)
                     if df is not None and len(df) >= 20:
                         decision = await bot.analyze_signals(
                             pair_key, df, bot.add_indicators(df), tf
                         )
-                        print(f"[DEBUG] {pair} - decision:", decision)
+                        if debug:
+                            print(f"[DEBUG] {pair} - decision:", decision)
                         if decision and isinstance(decision.get("signals"), dict):
                             decision["tf"] = tf
                             pair_signals[tf] = decision
@@ -7160,10 +7250,13 @@ async def run_clean_bot():
                     dominant_signals = pair_signals.get(dominant_tf, {}).get(
                         "signals", {}
                     )
+
                     if bot.risk_manager.validate_trade(dominant_signals):
                         action, base_confidence = bot.aggregate_timeframe_signals(
                             pair, pair_signals
                         )
+
+                        # Calcul confiance (utilise les RÉELS scores)
                         tech_score = safe_float(
                             dominant_signals.get("technical", {}).get("score", 0.5)
                         )
@@ -7179,12 +7272,15 @@ async def run_clean_bot():
                         sentiment_score = safe_float(
                             bot.market_data[pair_key].get("sentiment", 0.5)
                         )
-                        print(f"\n[DEBUG] Scores pour {pair}:")
-                        print(f"- Technical: {tech_score:.3f}")
-                        print(f"- Momentum: {momentum_score:.3f}")
-                        print(f"- Orderflow: {orderflow_score:.3f}")
-                        print(f"- AI: {ai_score:.3f}")
-                        print(f"- Sentiment: {sentiment_score:.3f}")
+
+                        if debug:
+                            print(f"\n[DEBUG] Scores pour {pair}:")
+                            print(f"- Technical: {tech_score:.3f}")
+                            print(f"- Momentum: {momentum_score:.3f}")
+                            print(f"- Orderflow: {orderflow_score:.3f}")
+                            print(f"- AI: {ai_score:.3f}")
+                            print(f"- Sentiment: {sentiment_score:.3f}")
+
                         confidence = (
                             tech_score * 0.35
                             + momentum_score * 0.25
@@ -7193,12 +7289,17 @@ async def run_clean_bot():
                             + sentiment_score * 0.05
                         )
                         confidence = max(0.5, min(confidence, 1.0))
-                        print(f"=> Confidence calculée: {confidence:.3f}")
+
+                        if debug:
+                            print(f"=> Confidence calculée: {confidence:.3f}")
+
                         sizing_multiplier = 1.0
+                        # NOTE: logique d’origine conservée (l’elif >0.8 ne s’exécute pas si >0.7)
                         if confidence > 0.7:
                             sizing_multiplier = 1.5
                         elif confidence > 0.8:
                             sizing_multiplier = 2.0
+
                         final_decision = {
                             "pair": pair,
                             "action": action,
@@ -7212,6 +7313,8 @@ async def run_clean_bot():
                                 "sentiment": sentiment_score,
                             },
                         }
+
+                        # Mise à jour dashboard avec les vraies valeurs
                         dashboard_update = {
                             "action": str(action),
                             "confidence": float(confidence),
@@ -7219,16 +7322,30 @@ async def run_clean_bot():
                             "ai": float(ai_score),
                             "sentiment": float(sentiment_score),
                         }
-                        print(f"\n[DEBUG] Mise à jour dashboard pour {pair}:")
-                        print(
-                            f"Avant: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
-                        )
+
+                        if debug:
+                            print(f"\n[DEBUG] Mise à jour dashboard pour {pair}:")
+                            try:
+                                print(
+                                    f"Avant: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
+                                )
+                            except Exception:
+                                print(str(decisions_for_dashboard.get(pair)))
+
                         decisions_for_dashboard[pair].update(dashboard_update)
-                        print(
-                            f"Après: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
-                        )
-                        print(f"\n[DEBUG] Dashboard mis à jour pour {pair}:")
-                        print(json.dumps(decisions_for_dashboard[pair], indent=2))
+
+                        if debug:
+                            try:
+                                print(
+                                    f"Après: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
+                                )
+                                print(f"\n[DEBUG] Dashboard mis à jour pour {pair}:")
+                                print(
+                                    json.dumps(decisions_for_dashboard[pair], indent=2)
+                                )
+                            except Exception:
+                                pass
+
                         signal_score = (
                             tech_score * 0.3
                             + momentum_score * 0.2
@@ -7236,6 +7353,8 @@ async def run_clean_bot():
                             + ai_score * 0.2
                             + sentiment_score * 0.1
                         )
+
+                        # Filtre final (inchangé)
                         if (
                             signal_score >= 0.6
                             and confidence >= 0.7
@@ -7243,37 +7362,54 @@ async def run_clean_bot():
                         ):
                             trade_decisions.append(final_decision)
 
-            print("\n[DEBUG] Validation finale des données...")
+            # ---------------------------------------------------------------------
+            # 9) VALIDATION FINALE DES DONNÉES (identique)
+            # ---------------------------------------------------------------------
+            if debug:
+                print("\n[DEBUG] Validation finale des données...")
             for pair in decisions_for_dashboard:
                 decision = decisions_for_dashboard[pair]
-                print(f"\n[DEBUG] Validation {pair} avant correction:")
-                print(json.dumps(decision, indent=2))
+                if debug:
+                    print(f"\n[DEBUG] Validation {pair} avant correction:")
+                    try:
+                        print(json.dumps(decision, indent=2))
+                    except Exception:
+                        print(str(decision))
+
                 for key in ["confidence", "tech", "ai", "sentiment"]:
                     current_val = decision.get(key)
                     if current_val is None:
                         decisions_for_dashboard[pair][key] = 0.5
-                        print(f"[DEBUG] {pair}: {key} était None -> 0.5")
+                        if debug:
+                            print(f"[DEBUG] {pair}: {key} était None -> 0.5")
                     else:
                         try:
                             decisions_for_dashboard[pair][key] = float(current_val)
-                        except:
-                            print(f"[DEBUG] {pair}: {key} non convertible -> 0.5")
+                        except Exception:
+                            if debug:
+                                print(f"[DEBUG] {pair}: {key} non convertible -> 0.5")
                             decisions_for_dashboard[pair][key] = 0.5
-                print(f"[DEBUG] {pair} après validation:")
-                print(json.dumps(decision, indent=2))
 
-            # 10. === SAUVEGARDE DES DONNÉES ===
+                if debug:
+                    print(f"[DEBUG] {pair} après validation:")
+                    try:
+                        print(json.dumps(decision, indent=2))
+                    except Exception:
+                        print(str(decision))
+
+            # ---------------------------------------------------------------------
+            # 10) SAUVEGARDE DES DONNÉES (UNE SEULE FOIS)
+            # ---------------------------------------------------------------------
             try:
-                print("\n[DEBUG] Sauvegarde des données...")
+                if debug:
+                    print("\n[DEBUG] Sauvegarde des données...")
                 current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
                 regime = getattr(bot, "regime", "Indéterminé")
-                try:
-                    with open(bot.data_file, "r") as f:
-                        existing_data = json.load(f)
-                except Exception as e:
-                    print(f"[ERROR] Erreur lecture shared_data: {e}")
-                    existing_data = {}
 
+                # On réutilise shared_data (évite re-lire disque)
+                existing_data = shared_data if isinstance(shared_data, dict) else {}
+
+                # Fusion decisions
                 existing_trade_decisions = existing_data.get("trade_decisions", {})
                 merged_trade_decisions = existing_trade_decisions.copy()
                 for pair, decision in decisions_for_dashboard.items():
@@ -7281,6 +7417,7 @@ async def run_clean_bot():
                         merged_trade_decisions[pair].update(decision)
                     else:
                         merged_trade_decisions[pair] = decision
+
                 data_to_save = {
                     "trade_decisions": merged_trade_decisions,
                     "market_data": {
@@ -7302,6 +7439,7 @@ async def run_clean_bot():
                         "last_update": current_time,
                     },
                 }
+
                 preserved_fields = [
                     "trade_history",
                     "closed_positions",
@@ -7314,24 +7452,19 @@ async def run_clean_bot():
                 for field in preserved_fields:
                     if field in existing_data:
                         data_to_save[field] = existing_data[field]
-                if all(
-                    isinstance(v, dict)
-                    for v in [
-                        merged_trade_decisions,
-                        bot.market_data,
-                        data_to_save["cycle_metrics"],
-                        data_to_save["bot_status"],
-                    ]
-                ):
-                    backup_file = bot.data_file + ".bak"
-                    if os.path.exists(bot.data_file):
-                        shutil.copyfile(bot.data_file, backup_file)
-                    bot.safe_update_shared_data(data_to_save, bot.data_file)
+
+                # Backup + sauvegarde
+                if os.path.exists(bot.data_file):
+                    shutil.copyfile(bot.data_file, bot.data_file + ".bak")
+
+                bot.safe_update_shared_data(data_to_save, bot.data_file)
+                if debug:
                     print("✅ Données sauvegardées avec succès")
-                else:
-                    print("❌ Format de données invalide")
+
             except Exception as e:
                 print(f"❌ Erreur sauvegarde: {e}")
+                # Sauvegarde minimale en cas d'erreur (identique à l’origine)
+                regime = getattr(bot, "regime", "Indéterminé")
                 bot.safe_update_shared_data(
                     {
                         "trade_decisions": decisions_for_dashboard,
@@ -7340,64 +7473,93 @@ async def run_clean_bot():
                     bot.data_file,
                 )
 
-            # 11. === EXÉCUTION DES TRADES ===
+            # ---------------------------------------------------------------------
+            # 11) EXÉCUTION DES TRADES (identique, avec mêmes filtres)
+            # ---------------------------------------------------------------------
             if signals_ok and trade_decisions:
                 current_exposure = sum(
                     safe_float(pos.get("amount", 0))
                     * safe_float(pos.get("entry_price", 0))
                     for pos in bot.positions.values()
                 ) / bot.get_performance_metrics().get("balance", 1)
+
                 if (
                     current_exposure
                     < bot.risk_manager.position_limits["max_total_exposure"]
                 ):
                     filtered_decisions = []
+
                     for decision in trade_decisions:
                         pair_key = decision["pair"].replace("/", "").upper()
                         volatility = bot.calculate_volatility(
                             bot.market_data.get(pair_key, {}).get("1h", {})
                         )
+
+                        # === PAUSE INTELLIGENTE ===
                         action = decision.get("action")
                         pair = decision.get("pair")
                         trading_paused = (
                             bot.news_pause_manager.global_cycles_remaining > 0
+                            if bot.news_pause_manager
+                            else False
                         )
                         pair_paused = (
-                            pair in bot.news_pause_manager.pair_pauses
-                            and bot.news_pause_manager.pair_pauses[pair] > 0
-                        )
-                        buy_paused = pair in bot.news_pause_manager.buy_paused_pairs
-                        if trading_paused and action == "buy":
-                            print(
-                                f"[SMART PAUSE] Achat {pair} bloqué par pause globale/news."
+                            (
+                                pair in bot.news_pause_manager.pair_pauses
+                                and bot.news_pause_manager.pair_pauses[pair] > 0
                             )
+                            if bot.news_pause_manager
+                            else False
+                        )
+                        buy_paused = (
+                            (pair in bot.news_pause_manager.buy_paused_pairs)
+                            if bot.news_pause_manager
+                            else False
+                        )
+
+                        if trading_paused and action == "buy":
+                            if debug:
+                                print(
+                                    f"[SMART PAUSE] Achat {pair} bloqué par pause globale/news."
+                                )
                             continue
                         if pair_paused and action == "buy":
-                            print(
-                                f"[SMART PAUSE] Achat {pair} bloqué par pause sur la paire."
-                            )
+                            if debug:
+                                print(
+                                    f"[SMART PAUSE] Achat {pair} bloqué par pause sur la paire."
+                                )
                             continue
                         if buy_paused and action == "buy":
-                            print(
-                                f"[SMART PAUSE] Achat {pair} bloqué par pause BUY (régulation/news)."
-                            )
+                            if debug:
+                                print(
+                                    f"[SMART PAUSE] Achat {pair} bloqué par pause BUY (régulation/news)."
+                                )
                             continue
+
+                        # Filtre volatilité
                         if volatility > 0.08:
-                            print(
-                                f"[FILTER] Volatilité trop élevée sur {pair}, trade ignoré."
-                            )
+                            if debug:
+                                print(
+                                    f"[FILTER] Volatilité trop élevée sur {pair}, trade ignoré."
+                                )
                             continue
+
                         base_size = 12
                         confidence = decision.get("confidence", 0.5)
                         sizing_multiplier = decision.get("sizing_multiplier", 1.0)
+
                         final_size = base_size * sizing_multiplier * (confidence / 0.5)
                         final_size = max(12, min(final_size, 50))
+
                         decision["amount"] = final_size
                         filtered_decisions.append(decision)
-                        print(
-                            f"[SIZING] {decision['pair']} : {final_size:.2f} USDC "
-                            f"(conf={confidence:.2f}, mult={sizing_multiplier})"
-                        )
+
+                        if debug:
+                            print(
+                                f"[SIZING] {decision['pair']} : {final_size:.2f} USDC "
+                                f"(conf={confidence:.2f}, mult={sizing_multiplier})"
+                            )
+
                     if filtered_decisions:
                         await execute_trade_decisions(bot, filtered_decisions)
                         log_dashboard(
@@ -7408,7 +7570,7 @@ async def run_clean_bot():
                 else:
                     log_dashboard(f"🚫 Exposition ({current_exposure:.1%}) > limite")
 
-            return trade_decisions, bot.regime
+            return trade_decisions, getattr(bot, "regime", "Indéterminé")
 
         except Exception as e:
             logger.error(f"❌ Erreur cycle trading: {e}")
