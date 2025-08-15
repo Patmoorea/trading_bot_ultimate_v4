@@ -1222,10 +1222,32 @@ class TradingBotM4:
         print(f"[PAIR AUTO-UPDATE] Paires valides actualisées : {self.pairs_valid}")
 
     def detect_pump_candidates(self, min_pct=0.05, min_volume_ratio=2, tf="1h"):
-        """Détecte les cryptos en pump (hausse brutale prix et volume)."""
+        """
+        Détecte les cryptos en pump (hausse brutale prix et volume) sur TOUTES les paires USDC spot Binance,
+        même hors self.pairs_valid.
+        Confirmation possible via indicateurs avant achat.
+        """
         candidates = []
-        for pair in self.pairs_valid:
+        # --- PATCH: Récupère TOUTES les paires USDC existantes sur Binance ---
+        try:
+            all_pairs = []
+            exchange_info = self.binance_client.get_exchange_info()
+            for symbol_info in exchange_info["symbols"]:
+                if (
+                    symbol_info["quoteAsset"] == "USDC"
+                    and symbol_info["status"] == "TRADING"
+                    and symbol_info["isSpotTradingAllowed"]
+                ):
+                    base = symbol_info["baseAsset"]
+                    pair = f"{base}/USDC"
+                    all_pairs.append(pair)
+        except Exception as e:
+            print(f"[PUMP] Erreur récupération exchange info: {e}")
+            all_pairs = self.pairs_valid
+
+        for pair in all_pairs:
             pair_key = pair.replace("/", "").upper()
+            # PATCH: Ajout sécurité si market_data ne contient pas cette paire
             if pair_key in self.market_data and tf in self.market_data[pair_key]:
                 data = self.market_data[pair_key][tf]
                 closes = data.get("close", [])
@@ -1234,20 +1256,75 @@ class TradingBotM4:
                     price_pct = (closes[-1] - closes[-10]) / closes[-10]
                     avg_vol = np.mean(volumes[-24:-1])
                     vol_ratio = volumes[-1] / avg_vol if avg_vol > 0 else 1
+                    # Confirmation par indicateurs avant ajout
+                    confirm = False
+                    reason = []
+                    # PATCH: Confirmation par indicateurs
+                    tech_score = (
+                        data.get("signals", {}).get("technical", {}).get("score", 0.5)
+                    )
+                    ai_score = data.get("ai_prediction", 0.5)
                     if price_pct > min_pct and vol_ratio > min_volume_ratio:
-                        candidates.append(
-                            {
-                                "pair": pair,
-                                "price_pct": price_pct,
-                                "vol_ratio": vol_ratio,
-                            }
+                        if tech_score > 0.5 and ai_score > 0.5:
+                            confirm = True
+                            reason.append(f"Technique OK ({tech_score:.2f})")
+                            reason.append(f"IA OK ({ai_score:.2f})")
+                        else:
+                            if tech_score <= 0.5:
+                                reason.append(f"Technique faible ({tech_score:.2f})")
+                            if ai_score <= 0.5:
+                                reason.append(f"IA faible ({ai_score:.2f})")
+                        reason.insert(
+                            0,
+                            f"Pump détecté: price_pct={price_pct:.2f}, vol_ratio={vol_ratio:.2f}",
                         )
+                        candidate = {
+                            "pair": pair,
+                            "price_pct": price_pct,
+                            "vol_ratio": vol_ratio,
+                            "reason": ", ".join(reason),
+                            "confirm": confirm,
+                        }
+                        candidates.append(candidate)
+                        # PATCH: Dashboard/Telegram bilan
+                        self.safe_update_shared_data(
+                            {"pump_bilan": candidate}, self.data_file
+                        )
+                        if hasattr(self, "telegram"):
+                            import asyncio
+
+                            asyncio.create_task(
+                                self.telegram.send_message(
+                                    f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
+                                )
+                            )
         return candidates
 
     def detect_breakout_candidates(self, tf="1h"):
-        """Détection des cassures de résistance sur chaque paire."""
+        """
+        Détection des cassures de résistance sur TOUTES les paires USDC spot Binance,
+        même hors self.pairs_valid.
+        Confirmation possible via indicateurs avant achat.
+        """
         candidates = []
-        for pair in self.pairs_valid:
+        # --- PATCH: Récupère TOUTES les paires USDC spot Binance ---
+        try:
+            all_pairs = []
+            exchange_info = self.binance_client.get_exchange_info()
+            for symbol_info in exchange_info["symbols"]:
+                if (
+                    symbol_info["quoteAsset"] == "USDC"
+                    and symbol_info["status"] == "TRADING"
+                    and symbol_info["isSpotTradingAllowed"]
+                ):
+                    base = symbol_info["baseAsset"]
+                    pair = f"{base}/USDC"
+                    all_pairs.append(pair)
+        except Exception as e:
+            print(f"[BREAKOUT] Erreur récupération exchange info: {e}")
+            all_pairs = self.pairs_valid
+
+        for pair in all_pairs:
             pair_key = pair.replace("/", "").upper()
             if pair_key in self.market_data and tf in self.market_data[pair_key]:
                 data = self.market_data[pair_key][tf]
@@ -1255,40 +1332,138 @@ class TradingBotM4:
                 closes = data.get("close", [])
                 if len(highs) > 21 and len(closes) > 1:
                     donchian_high = max(highs[-21:-1])
+                    confirm = False
+                    reason = []
+                    tech_score = (
+                        data.get("signals", {}).get("technical", {}).get("score", 0.5)
+                    )
+                    ai_score = data.get("ai_prediction", 0.5)
                     if closes[-1] > donchian_high:
-                        candidates.append(
-                            {
-                                "pair": pair,
-                                "breakout_level": donchian_high,
-                                "close": closes[-1],
-                            }
+                        if tech_score > 0.5 and ai_score > 0.5:
+                            confirm = True
+                            reason.append(f"Technique OK ({tech_score:.2f})")
+                            reason.append(f"IA OK ({ai_score:.2f})")
+                        else:
+                            if tech_score <= 0.5:
+                                reason.append(f"Technique faible ({tech_score:.2f})")
+                            if ai_score <= 0.5:
+                                reason.append(f"IA faible ({ai_score:.2f})")
+                        reason.insert(
+                            0,
+                            f"Breakout détecté: close={closes[-1]:.2f} > {donchian_high:.2f}",
                         )
+                        candidate = {
+                            "pair": pair,
+                            "breakout_level": donchian_high,
+                            "close": closes[-1],
+                            "reason": ", ".join(reason),
+                            "confirm": confirm,
+                        }
+                        candidates.append(candidate)
+                        self.safe_update_shared_data(
+                            {"breakout_bilan": candidate}, self.data_file
+                        )
+                        if hasattr(self, "telegram"):
+                            import asyncio
+
+                            asyncio.create_task(
+                                self.telegram.send_message(
+                                    f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
+                                )
+                            )
         return candidates
 
     def detect_news_candidates(self, news_list, min_sentiment=0.7):
-        """Détecte les cryptos mentionnées dans des news très positives."""
         candidates = []
+        bilan_list = []  # Pour historiser les bilans dans le dashboard
         for news in news_list:
             sentiment = safe_float(news.get("sentiment", 0))
             if sentiment > min_sentiment:
                 for symbol in news.get("symbols", []):
                     pair = f"{symbol}/USDC"
-                    if pair in self.pairs_valid:
+                    confirm = False
+                    reason = []
+                    try:
+                        # Vérifie que la paire existe sur Binance
+                        ticker = self.binance_client.get_symbol_ticker(
+                            symbol=pair.replace("/", "")
+                        )
+                        if ticker and float(ticker.get("price", 0)) > 0:
+                            # Confirmation par autres indicateurs
+                            pair_key = pair.replace("/", "").upper()
+                            market_data = self.market_data.get(pair_key, {}).get(
+                                "1h", {}
+                            )
+                            tech_score = (
+                                market_data.get("signals", {})
+                                .get("technical", {})
+                                .get("score", 0.5)
+                            )
+                            ai_score = market_data.get("ai_prediction", 0.5)
+                            # Ajoute la logique de confirmation
+                            if tech_score > 0.5 and ai_score > 0.5:
+                                confirm = True
+                                reason.append(f"Technique OK ({tech_score:.2f})")
+                                reason.append(f"IA OK ({ai_score:.2f})")
+                            else:
+                                if tech_score <= 0.5:
+                                    reason.append(
+                                        f"Technique faible ({tech_score:.2f})"
+                                    )
+                                if ai_score <= 0.5:
+                                    reason.append(f"IA faible ({ai_score:.2f})")
+                            reason.insert(0, f"Sentiment news fort ({sentiment:.2f})")
+                        else:
+                            reason.append("Paire non disponible sur Binance en USDC")
+                    except Exception as e:
+                        reason.append(f"Erreur accès Binance: {e}")
+                    # Bilan et action
+                    if confirm:
                         candidates.append(
                             {
                                 "pair": pair,
                                 "sentiment": sentiment,
                                 "title": news.get("title", ""),
+                                "reason": ", ".join(reason),
                             }
                         )
+                        bilan = f"Achat EFFECTUÉ sur {pair}: " + ", ".join(reason)
+                    else:
+                        bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                    bilan_list.append(bilan)
+                    # Telegram et dashboard
+                    self.safe_update_shared_data(
+                        {"news_bilan": bilan_list}, self.data_file
+                    )
+                    await self.telegram.send_message(bilan)
         return candidates
 
     async def detect_arbitrage_candidates(self, min_diff_pct=0.5):
-        """Arbitrage rapide entre Binance et BingX/OKX/Kucoin."""
+        """
+        Arbitrage rapide entre Binance et BingX/OKX/Kucoin sur TOUTES les paires USDC spot Binance.
+        Confirmation via indicateurs avant achat.
+        """
         candidates = []
         if not self.is_live_trading or not self.binance_client:
             return []
-        for pair in self.pairs_valid:
+        # --- PATCH: Récupère TOUTES les paires USDC spot Binance ---
+        try:
+            all_pairs = []
+            exchange_info = self.binance_client.get_exchange_info()
+            for symbol_info in exchange_info["symbols"]:
+                if (
+                    symbol_info["quoteAsset"] == "USDC"
+                    and symbol_info["status"] == "TRADING"
+                    and symbol_info["isSpotTradingAllowed"]
+                ):
+                    base = symbol_info["baseAsset"]
+                    pair = f"{base}/USDC"
+                    all_pairs.append(pair)
+        except Exception as e:
+            print(f"[ARBITRAGE] Erreur récupération exchange info: {e}")
+            all_pairs = self.pairs_valid
+
+        for pair in all_pairs:
             symbol_binance = pair.replace("/", "")
             try:
                 binance_ticker = self.binance_client.get_ticker(symbol=symbol_binance)
@@ -1298,15 +1473,48 @@ class TradingBotM4:
                 bingx_ticker = await self.bingx_client.fetch_ticker(symbol_bingx)
                 bingx_price = float(bingx_ticker.get("last"))
                 diff_pct = (bingx_price - binance_price) / binance_price * 100
+                confirm = False
+                reason = []
+                # PATCH: Confirmation via indicateurs
+                pair_key = pair.replace("/", "").upper()
+                tech_score = (
+                    self.market_data.get(pair_key, {})
+                    .get("signals", {})
+                    .get("technical", {})
+                    .get("score", 0.5)
+                )
+                ai_score = self.market_data.get(pair_key, {}).get("ai_prediction", 0.5)
                 if abs(diff_pct) > min_diff_pct:
-                    candidates.append(
-                        {
-                            "pair": pair,
-                            "binance_price": binance_price,
-                            "bingx_price": bingx_price,
-                            "diff_pct": diff_pct,
-                        }
+                    if tech_score > 0.5 and ai_score > 0.5:
+                        confirm = True
+                        reason.append(f"Technique OK ({tech_score:.2f})")
+                        reason.append(f"IA OK ({ai_score:.2f})")
+                    else:
+                        if tech_score <= 0.5:
+                            reason.append(f"Technique faible ({tech_score:.2f})")
+                        if ai_score <= 0.5:
+                            reason.append(f"IA faible ({ai_score:.2f})")
+                    reason.insert(0, f"Arbitrage détecté: diff_pct={diff_pct:.2f}")
+                    candidate = {
+                        "pair": pair,
+                        "binance_price": binance_price,
+                        "bingx_price": bingx_price,
+                        "diff_pct": diff_pct,
+                        "reason": ", ".join(reason),
+                        "confirm": confirm,
+                    }
+                    candidates.append(candidate)
+                    self.safe_update_shared_data(
+                        {"arbitrage_bilan": candidate}, self.data_file
                     )
+                    if hasattr(self, "telegram"):
+                        import asyncio
+
+                        asyncio.create_task(
+                            self.telegram.send_message(
+                                f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
+                            )
+                        )
             except Exception:
                 continue
         return candidates
@@ -3331,7 +3539,7 @@ class TradingBotM4:
                     "news_data",
                     "sentiment",
                     "active_pauses",
-                    "pending_sales",
+                    # "pending_sales",
                 ]
                 if f in shared_data
             }
@@ -3680,16 +3888,32 @@ class TradingBotM4:
                     except Exception:
                         current_price = None
 
-                    entry_price = safe_float(
-                        get_avg_entry_price_binance_spot(
-                            self.binance_client, asset, quote="USDC"
-                        )
+                    # --- PATCH FIFO entry price ---
+                    buys, sells = self.fetch_trades_fifo(
+                        self.binance_client, symbol.replace("/", "")
                     )
+                    last_sell_time = sells[-1]["time"] if sells else None
+
+                    if last_sell_time is not None:
+                        buys_since_last_sell = [
+                            b for b in buys if b["time"] > last_sell_time
+                        ]
+                    else:
+                        buys_since_last_sell = buys
+
+                    if buys_since_last_sell:
+                        total_qty = sum(b["qty"] for b in buys_since_last_sell)
+                        entry_price = (
+                            sum(b["qty"] * b["price"] for b in buys_since_last_sell)
+                            / total_qty
+                            if total_qty > 0
+                            else None
+                        )
+                    else:
+                        entry_price = None
 
                     fifo_pnl_pct = self.get_last_fifo_pnl(symbol)
-
                     prev_pos = self.positions_binance.get(symbol, {})
-
                     positions[symbol] = {
                         "side": self.positions.get(symbol, {}).get("side", "long"),
                         "amount": free,
@@ -3704,7 +3928,6 @@ class TradingBotM4:
                         "value_usd": (
                             free * current_price if free and current_price else 0.0
                         ),
-                        # PATCH: Ajoute ou préserve les champs custom pour TP partiel/Trailing stop
                         "filled_tp_targets": prev_pos.get(
                             "filled_tp_targets", [False, False]
                         ),
