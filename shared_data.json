@@ -66,7 +66,7 @@
       "tech": 0.0,
       "ai": 0.8472489356994629,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "ETH/USDC": {
       "action": "neutral",
@@ -74,7 +74,7 @@
       "tech": 0.0,
       "ai": 0.1573871231637895,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "LTC/USDC": {
       "action": "neutral",
@@ -82,7 +82,7 @@
       "tech": 0.0,
       "ai": 0.15726416865363715,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "XRP/USDC": {
       "action": "neutral",
@@ -90,7 +90,7 @@
       "tech": 0.0,
       "ai": 0.15728804413229228,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "DOGE/USDC": {
       "action": "neutral",
@@ -98,7 +98,7 @@
       "tech": 0.0,
       "ai": 0.15724059175699948,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "BNB/USDC": {
       "action": "neutral",
@@ -106,7 +106,7 @@
       "tech": 0.003228740148868704,
       "ai": 0.1570263845846057,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "ADA/USDC": {
       "action": "neutral",
@@ -114,7 +114,7 @@
       "tech": 0.0,
       "ai": 0.15726250298321245,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "SOL/USDC": {
       "action": "neutral",
@@ -122,7 +122,7 @@
       "tech": 0.006218116262939055,
       "ai": 0.1572721834294498,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "TRX/USDC": {
       "action": "neutral",
@@ -130,7 +130,7 @@
       "tech": 0.0,
       "ai": 0.15728210443630813,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "SUI/USDC": {
       "action": "neutral",
@@ -138,7 +138,7 @@
       "tech": 0.0,
       "ai": 0.15727549977600574,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     },
     "LINK/USDC": {
       "action": "neutral",
@@ -146,7 +146,7 @@
       "tech": 0.0,
       "ai": 0.1572962962090969,
       "sentiment": 0.7864376719181354,
-      "timestamp": "2025-08-16 14:26:47"
+      "timestamp": "2025-08-16 14:43:24"
     }
   },
   "market_data": {
@@ -4098,7 +4098,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166522
+      "sentiment_timestamp": 1755391236.918249
     },
     "ETHUSDC": {
       "1m": {
@@ -8048,7 +8048,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166571
+      "sentiment_timestamp": 1755391236.918292
     },
     "LTCUSDC": {
       "1m": {
@@ -11998,7 +11998,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166596
+      "sentiment_timestamp": 1755391236.918313
     },
     "XRPUSDC": {
       "1m": {
@@ -15948,7 +15948,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166627
+      "sentiment_timestamp": 1755391236.918346
     },
     "DOGEUSDC": {
       "1m": {
@@ -19898,7 +19898,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166655
+      "sentiment_timestamp": 1755391236.918372
     },
     "BNBUSDC": {
       "1m": {
@@ -23848,7 +23848,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166684
+      "sentiment_timestamp": 1755391236.918397
     },
     "ADAUSDC": {
       "1m": {
@@ -27794,7 +27794,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166708
+      "sentiment_timestamp": 1755391236.918418
     },
     "SOLUSDC": {
       "1m": {
@@ -31744,7 +31744,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166733
+      "sentiment_timestamp": 1755391236.918444
     },
     "TRXUSDC": {
       "1m": {
@@ -35694,7 +35694,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166756
+      "sentiment_timestamp": 1755391236.91847
     },
     "SUIUSDC": {
       "1m": {
@@ -39644,7 +39644,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166781
+      "sentiment_timestamp": 1755391236.918493
     },
     "LINKUSDC": {
       "1m": {
@@ -43594,7 +43594,7 @@
       },
       "last_update": "2025-08-16 14:22:46",
       "sentiment": 0.7864376719181354,
-      "sentiment_timestamp": 1755389818.166804
+      "sentiment_timestamp": 1755391236.918516
     }
   },
   "cycle_metrics": {
@@ -43609,7 +43609,7 @@
       "side": "long",
       "amount": 9e-05,
       "entry_price": 117917.08589743589,
-      "current_price": 117737.72,
+      "current_price": 117762.0,
       "pnl_pct": [
         22.935844089167883,
         18.1477398
@@ -43629,7 +43629,7 @@
       "side": "long",
       "amount": 0.102,
       "entry_price": 115.33924812030075,
-      "current_price": 118.4,
+      "current_price": 118.77,
       "pnl_pct": [
         null,
         null
@@ -43649,7 +43649,7 @@
       "side": "long",
       "amount": 0.0033,
       "entry_price": 3654.1087878787876,
-      "current_price": 4403.6,
+      "current_price": 4404.07,
       "pnl_pct": [
         null,
         null
@@ -43669,7 +43669,7 @@
       "side": "long",
       "amount": 0.02480206,
       "entry_price": 769.0520512820513,
-      "current_price": 831.83,
+      "current_price": 832.48,
       "pnl_pct": [
         -8.392411273838906,
         -4.647499999999995
@@ -43689,7 +43689,7 @@
       "side": "long",
       "amount": 37.2,
       "entry_price": 0.309744424778761,
-      "current_price": 0.3465,
+      "current_price": 0.3461,
       "pnl_pct": [
         null,
         null
@@ -43709,7 +43709,7 @@
       "side": "long",
       "amount": 0.65,
       "entry_price": 22.82,
-      "current_price": 21.69,
+      "current_price": 21.83,
       "pnl_pct": [
         1.1235955056179951,
         0.6678000000000105
@@ -43729,7 +43729,7 @@
       "side": "long",
       "amount": 3.4,
       "entry_price": 3.29422,
-      "current_price": 3.109,
+      "current_price": 3.1125,
       "pnl_pct": [
         null,
         null
@@ -43749,7 +43749,7 @@
       "side": "long",
       "amount": 14.2,
       "entry_price": 0.83298,
-      "current_price": 0.9074,
+      "current_price": 0.9101,
       "pnl_pct": [
         null,
         null
@@ -43769,7 +43769,7 @@
       "side": "long",
       "amount": 0.03230637,
       "entry_price": null,
-      "current_price": 0.702,
+      "current_price": 0.703,
       "pnl_pct": [
         null,
         null
@@ -43789,7 +43789,7 @@
       "side": "long",
       "amount": 23.0,
       "entry_price": 0.252465,
-      "current_price": 0.22798,
+      "current_price": 0.22842,
       "pnl_pct": [
         null,
         null
@@ -43829,7 +43829,7 @@
       "side": "long",
       "amount": 0.058,
       "entry_price": 194.96943548387094,
-      "current_price": 187.59,
+      "current_price": 188.37,
       "pnl_pct": [
         null,
         null
@@ -43889,7 +43889,7 @@
       "side": "long",
       "amount": 3.85614,
       "entry_price": null,
-      "current_price": 10.87,
+      "current_price": 10.883,
       "pnl_pct": [
         null,
         null
@@ -43909,7 +43909,7 @@
       "side": "long",
       "amount": 1484.74630755,
       "entry_price": null,
-      "current_price": 0.01695,
+      "current_price": 0.01703,
       "pnl_pct": [
         null,
         null
@@ -43929,7 +43929,7 @@
       "side": "long",
       "amount": 397.59699569,
       "entry_price": null,
-      "current_price": 0.01896,
+      "current_price": 0.0191,
       "pnl_pct": [
         null,
         null
@@ -43949,7 +43949,7 @@
       "side": "long",
       "amount": 28.28169,
       "entry_price": null,
-      "current_price": 1.38,
+      "current_price": 1.385,
       "pnl_pct": [
         null,
         null
@@ -44029,7 +44029,7 @@
       "side": "long",
       "amount": 5.2,
       "entry_price": 3.9549924242424246,
-      "current_price": 3.7284,
+      "current_price": 3.7625,
       "pnl_pct": [
         null,
         null
@@ -44049,7 +44049,7 @@
       "side": "long",
       "amount": 0.087214,
       "entry_price": null,
-      "current_price": 3.469,
+      "current_price": 3.467,
       "pnl_pct": [
         null,
         null
@@ -44089,7 +44089,7 @@
       "side": "long",
       "amount": 0.35478462,
       "entry_price": null,
-      "current_price": 1.139,
+      "current_price": 1.141,
       "pnl_pct": [
         null,
         null
@@ -44109,7 +44109,7 @@
       "side": "long",
       "amount": 2.85374308,
       "entry_price": null,
-      "current_price": 0.7102,
+      "current_price": 0.7124,
       "pnl_pct": [
         null,
         null
@@ -44129,7 +44129,7 @@
       "side": "long",
       "amount": 0.05435377,
       "entry_price": null,
-      "current_price": 0.2572,
+      "current_price": 0.2586,
       "pnl_pct": [
         null,
         null
@@ -44149,7 +44149,7 @@
       "side": "long",
       "amount": 0.05679375,
       "entry_price": null,
-      "current_price": 4.02,
+      "current_price": 4.03,
       "pnl_pct": [
         null,
         null
@@ -44169,7 +44169,7 @@
       "side": "long",
       "amount": 4.05396039,
       "entry_price": null,
-      "current_price": 0.01334,
+      "current_price": 0.01342,
       "pnl_pct": [
         null,
         null
@@ -44189,7 +44189,7 @@
       "side": "long",
       "amount": 1116.15,
       "entry_price": 0.01052,
-      "current_price": 0.001951,
+      "current_price": 0.00196,
       "pnl_pct": [
         null,
         null
@@ -44209,7 +44209,7 @@
       "side": "long",
       "amount": 39.51211224,
       "entry_price": null,
-      "current_price": 0.2798,
+      "current_price": 0.2811,
       "pnl_pct": [
         null,
         null
@@ -44229,7 +44229,7 @@
       "side": "long",
       "amount": 0.43377579,
       "entry_price": null,
-      "current_price": 0.614,
+      "current_price": 0.616,
       "pnl_pct": [
         null,
         null
@@ -44269,7 +44269,7 @@
       "side": "long",
       "amount": 0.01833206,
       "entry_price": null,
-      "current_price": 23.58,
+      "current_price": 23.68,
       "pnl_pct": [
         null,
         null
@@ -44289,7 +44289,7 @@
       "side": "long",
       "amount": 0.07004223,
       "entry_price": null,
-      "current_price": 0.0877,
+      "current_price": 0.0882,
       "pnl_pct": [
         null,
         null
@@ -44329,7 +44329,7 @@
       "side": "long",
       "amount": 3.76301349,
       "entry_price": null,
-      "current_price": 0.0695,
+      "current_price": 0.0699,
       "pnl_pct": [
         null,
         null
@@ -44369,7 +44369,7 @@
       "side": "long",
       "amount": 5.47230677,
       "entry_price": null,
-      "current_price": 4.296,
+      "current_price": 4.314,
       "pnl_pct": [
         null,
         null
@@ -44389,7 +44389,7 @@
       "side": "long",
       "amount": 0.79286793,
       "entry_price": null,
-      "current_price": 0.0986,
+      "current_price": 0.0995,
       "pnl_pct": [
         null,
         null
@@ -44429,7 +44429,7 @@
       "side": "long",
       "amount": 2.50258947,
       "entry_price": null,
-      "current_price": 0.01799,
+      "current_price": 0.01805,
       "pnl_pct": [
         null,
         null
@@ -44449,7 +44449,7 @@
       "side": "long",
       "amount": 0.03474063,
       "entry_price": null,
-      "current_price": 0.6022,
+      "current_price": 0.6042,
       "pnl_pct": [
         null,
         null
@@ -44469,7 +44469,7 @@
       "side": "long",
       "amount": 1.1566659,
       "entry_price": null,
-      "current_price": 0.02755,
+      "current_price": 0.02757,
       "pnl_pct": [
         null,
         null
@@ -44489,7 +44489,7 @@
       "side": "long",
       "amount": 0.13870156,
       "entry_price": null,
-      "current_price": 0.3998,
+      "current_price": 0.4018,
       "pnl_pct": [
         null,
         null
@@ -44509,7 +44509,7 @@
       "side": "long",
       "amount": 0.18545852,
       "entry_price": null,
-      "current_price": 0.3232,
+      "current_price": 0.3245,
       "pnl_pct": [
         null,
         null
@@ -44529,7 +44529,7 @@
       "side": "long",
       "amount": 0.88600535,
       "entry_price": null,
-      "current_price": 0.03614,
+      "current_price": 0.03628,
       "pnl_pct": [
         null,
         null
@@ -44549,7 +44549,7 @@
       "side": "long",
       "amount": 0.1179094,
       "entry_price": null,
-      "current_price": 0.3542,
+      "current_price": 0.3548,
       "pnl_pct": [
         null,
         null
@@ -44569,7 +44569,7 @@
       "side": "long",
       "amount": 1.17754728,
       "entry_price": null,
-      "current_price": 0.0693,
+      "current_price": 0.06944,
       "pnl_pct": [
         null,
         null
@@ -44609,7 +44609,7 @@
       "side": "long",
       "amount": 0.56851639,
       "entry_price": null,
-      "current_price": 0.0827,
+      "current_price": 0.0831,
       "pnl_pct": [
         null,
         null
@@ -44629,7 +44629,7 @@
       "side": "long",
       "amount": 0.17386141,
       "entry_price": null,
-      "current_price": 0.8624,
+      "current_price": 0.865,
       "pnl_pct": [
         null,
         null
@@ -44649,7 +44649,7 @@
       "side": "long",
       "amount": 0.17714676,
       "entry_price": null,
-      "current_price": 0.1302,
+      "current_price": 0.1309,
       "pnl_pct": [
         null,
         null
@@ -44669,7 +44669,7 @@
       "side": "long",
       "amount": 2.49958419,
       "entry_price": null,
-      "current_price": 0.03515,
+      "current_price": 0.03495,
       "pnl_pct": [
         null,
         null
@@ -44689,7 +44689,7 @@
       "side": "long",
       "amount": 0.11578375,
       "entry_price": null,
-      "current_price": 0.164,
+      "current_price": 0.1645,
       "pnl_pct": [
         null,
         null
@@ -44709,7 +44709,7 @@
       "side": "long",
       "amount": 1.16253643,
       "entry_price": null,
-      "current_price": 0.04398,
+      "current_price": 0.04401,
       "pnl_pct": [
         null,
         null
@@ -44729,7 +44729,7 @@
       "side": "long",
       "amount": 1.36076364,
       "entry_price": null,
-      "current_price": 0.081714,
+      "current_price": 0.081216,
       "pnl_pct": [
         null,
         null
@@ -44749,7 +44749,7 @@
       "side": "long",
       "amount": 0.10083373,
       "entry_price": null,
-      "current_price": 0.3285,
+      "current_price": 0.3282,
       "pnl_pct": [
         null,
         null
@@ -44769,7 +44769,7 @@
       "side": "long",
       "amount": 1.00786376,
       "entry_price": null,
-      "current_price": 0.09162,
+      "current_price": 0.09094,
       "pnl_pct": [
         null,
         null
@@ -44789,7 +44789,7 @@
       "side": "long",
       "amount": 0.16214933,
       "entry_price": null,
-      "current_price": 0.3613,
+      "current_price": 0.3638,
       "pnl_pct": [
         null,
         null
@@ -44809,7 +44809,7 @@
       "side": "long",
       "amount": 0.34099158,
       "entry_price": null,
-      "current_price": 0.9511,
+      "current_price": 0.9472,
       "pnl_pct": [
         null,
         null
@@ -44829,7 +44829,7 @@
       "side": "long",
       "amount": 0.26255203,
       "entry_price": null,
-      "current_price": 0.2235,
+      "current_price": 0.2237,
       "pnl_pct": [
         null,
         null
@@ -44849,7 +44849,7 @@
       "side": "long",
       "amount": 0.10868663,
       "entry_price": null,
-      "current_price": 0.3617,
+      "current_price": 0.3625,
       "pnl_pct": [
         null,
         null
@@ -44869,7 +44869,7 @@
       "side": "long",
       "amount": 2.65771927,
       "entry_price": null,
-      "current_price": 0.02983,
+      "current_price": 0.02977,
       "pnl_pct": [
         null,
         null
@@ -44889,7 +44889,7 @@
       "side": "long",
       "amount": 0.12573876,
       "entry_price": null,
-      "current_price": 1.3321,
+      "current_price": 1.3392,
       "pnl_pct": [
         null,
         null
@@ -44906,12 +44906,12 @@
       "max_price": null
     }
   },
-  "timestamp": "2025-08-16 14:26:47",
+  "timestamp": "2025-08-16 14:43:24",
   "user": "Patmoorea",
   "bot_status": {
     "regime": "Range/Scalping",
     "cycle": 26,
-    "last_update": "2025-08-16 14:26:47",
+    "last_update": "2025-08-16 14:43:24",
     "performance": {
       "balance": 46.69139068
     }
@@ -47366,7 +47366,7 @@
       "reason": "Gain latent 22.9%",
       "decision": "Surveillance TP",
       "entry_price": 117917.08589743589,
-      "current_price": 117737.72,
+      "current_price": 117762.0,
       "amount": 9e-05,
       "pnl_pct": 22.935844089167883,
       "% Gain/Perte": "22.94%",
@@ -47379,10 +47379,10 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 115.33924812030075,
-      "current_price": 118.4,
+      "current_price": 118.77,
       "amount": 0.102,
-      "pnl_pct": 2.653695016727384,
-      "% Gain/Perte": "2.65%",
+      "pnl_pct": 2.9744878136546484,
+      "% Gain/Perte": "2.97%",
       "pause_blocage": "Non",
       "note": "",
       "confidence": 0.5
@@ -47392,10 +47392,10 @@
       "reason": "Gain latent 20.5%",
       "decision": "Surveillance TP",
       "entry_price": 3654.1087878787876,
-      "current_price": 4403.6,
+      "current_price": 4404.07,
       "amount": 0.0033,
-      "pnl_pct": 20.510916768744945,
-      "% Gain/Perte": "20.51%",
+      "pnl_pct": 20.523779002117916,
+      "% Gain/Perte": "20.52%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -47405,7 +47405,7 @@
       "reason": "Perte latente -8.4%",
       "decision": "Surveillance stop-loss",
       "entry_price": 769.0520512820513,
-      "current_price": 831.83,
+      "current_price": 832.48,
       "amount": 0.02480206,
       "pnl_pct": -8.392411273838906,
       "% Gain/Perte": "-8.39%",
@@ -47415,13 +47415,13 @@
     },
     {
       "symbol": "TRX/USDC",
-      "reason": "Gain latent 11.9%",
+      "reason": "Gain latent 11.7%",
       "decision": "Surveillance TP",
       "entry_price": 0.309744424778761,
-      "current_price": 0.3465,
+      "current_price": 0.3461,
       "amount": 37.2,
-      "pnl_pct": 11.866420274551222,
-      "% Gain/Perte": "11.87%",
+      "pnl_pct": 11.73728154984757,
+      "% Gain/Perte": "11.74%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -47431,7 +47431,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 22.82,
-      "current_price": 21.69,
+      "current_price": 21.83,
       "amount": 0.65,
       "pnl_pct": 1.1235955056179951,
       "% Gain/Perte": "1.12%",
@@ -47441,26 +47441,26 @@
     },
     {
       "symbol": "XRP/USDC",
-      "reason": "Perte latente -5.6%",
+      "reason": "Perte latente -5.5%",
       "decision": "Surveillance stop-loss",
       "entry_price": 3.29422,
-      "current_price": 3.109,
+      "current_price": 3.1125,
       "amount": 3.4,
-      "pnl_pct": -5.622575298553229,
-      "% Gain/Perte": "-5.62%",
+      "pnl_pct": -5.516328599789945,
+      "% Gain/Perte": "-5.52%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
     },
     {
       "symbol": "ADA/USDC",
-      "reason": "Gain latent 8.9%",
+      "reason": "Gain latent 9.3%",
       "decision": "Surveillance TP",
       "entry_price": 0.83298,
-      "current_price": 0.9074,
+      "current_price": 0.9101,
       "amount": 14.2,
-      "pnl_pct": 8.93418809575259,
-      "% Gain/Perte": "8.93%",
+      "pnl_pct": 9.258325530024726,
+      "% Gain/Perte": "9.26%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -47470,7 +47470,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.702,
+      "current_price": 0.703,
       "amount": 0.03230637,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47480,13 +47480,13 @@
     },
     {
       "symbol": "DOGE/USDC",
-      "reason": "Perte latente -9.7%",
+      "reason": "Perte latente -9.5%",
       "decision": "Surveillance stop-loss",
       "entry_price": 0.252465,
-      "current_price": 0.22798,
+      "current_price": 0.22842,
       "amount": 23.0,
-      "pnl_pct": -9.698374032044049,
-      "% Gain/Perte": "-9.70%",
+      "pnl_pct": -9.524092448458196,
+      "% Gain/Perte": "-9.52%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
@@ -47509,10 +47509,10 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 194.96943548387094,
-      "current_price": 187.59,
+      "current_price": 188.37,
       "amount": 0.058,
-      "pnl_pct": -3.784919141585865,
-      "% Gain/Perte": "-3.78%",
+      "pnl_pct": -3.3848564353138726,
+      "% Gain/Perte": "-3.38%",
       "pause_blocage": "Non",
       "note": "",
       "confidence": 0.5
@@ -47548,7 +47548,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 10.87,
+      "current_price": 10.883,
       "amount": 3.85614,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47561,7 +47561,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01695,
+      "current_price": 0.01703,
       "amount": 1484.74630755,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47574,7 +47574,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01896,
+      "current_price": 0.0191,
       "amount": 397.59699569,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47587,7 +47587,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.38,
+      "current_price": 1.385,
       "amount": 28.28169,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47636,15 +47636,15 @@
     },
     {
       "symbol": "SUI/USDC",
-      "reason": "Perte latente -5.7%",
-      "decision": "Surveillance stop-loss",
+      "reason": "Position normale (neutral)",
+      "decision": "Position maintenue",
       "entry_price": 3.9549924242424246,
-      "current_price": 3.7284,
+      "current_price": 3.7625,
       "amount": 5.2,
-      "pnl_pct": -5.729275809822266,
-      "% Gain/Perte": "-5.73%",
+      "pnl_pct": -4.867074411129781,
+      "% Gain/Perte": "-4.87%",
       "pause_blocage": "Non",
-      "note": "Risque de stop-loss",
+      "note": "",
       "confidence": 0.5
     },
     {
@@ -47652,7 +47652,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 3.469,
+      "current_price": 3.467,
       "amount": 0.087214,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47678,7 +47678,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.139,
+      "current_price": 1.141,
       "amount": 0.35478462,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47691,7 +47691,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.7102,
+      "current_price": 0.7124,
       "amount": 2.85374308,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47704,7 +47704,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2572,
+      "current_price": 0.2586,
       "amount": 0.05435377,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47717,7 +47717,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 4.02,
+      "current_price": 4.03,
       "amount": 0.05679375,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47730,7 +47730,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01334,
+      "current_price": 0.01342,
       "amount": 4.05396039,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47740,13 +47740,13 @@
     },
     {
       "symbol": "NOT/USDC",
-      "reason": "Perte latente -81.5%",
+      "reason": "Perte latente -81.4%",
       "decision": "Surveillance stop-loss",
       "entry_price": 0.01052,
-      "current_price": 0.001951,
+      "current_price": 0.00196,
       "amount": 1116.15,
-      "pnl_pct": -81.45437262357414,
-      "% Gain/Perte": "-81.45%",
+      "pnl_pct": -81.36882129277566,
+      "% Gain/Perte": "-81.37%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
@@ -47756,7 +47756,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2798,
+      "current_price": 0.2811,
       "amount": 39.51211224,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47769,7 +47769,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.614,
+      "current_price": 0.616,
       "amount": 0.43377579,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47795,7 +47795,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 23.58,
+      "current_price": 23.68,
       "amount": 0.01833206,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47808,7 +47808,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0877,
+      "current_price": 0.0882,
       "amount": 0.07004223,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47834,7 +47834,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0695,
+      "current_price": 0.0699,
       "amount": 3.76301349,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47860,7 +47860,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 4.296,
+      "current_price": 4.314,
       "amount": 5.47230677,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47873,7 +47873,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0986,
+      "current_price": 0.0995,
       "amount": 0.79286793,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47899,7 +47899,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01799,
+      "current_price": 0.01805,
       "amount": 2.50258947,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47912,7 +47912,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.6022,
+      "current_price": 0.6042,
       "amount": 0.03474063,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47925,7 +47925,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.02755,
+      "current_price": 0.02757,
       "amount": 1.1566659,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47938,7 +47938,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3998,
+      "current_price": 0.4018,
       "amount": 0.13870156,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47951,7 +47951,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3232,
+      "current_price": 0.3245,
       "amount": 0.18545852,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47964,7 +47964,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.03614,
+      "current_price": 0.03628,
       "amount": 0.88600535,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47977,7 +47977,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3542,
+      "current_price": 0.3548,
       "amount": 0.1179094,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -47990,7 +47990,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0693,
+      "current_price": 0.06944,
       "amount": 1.17754728,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48016,7 +48016,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0827,
+      "current_price": 0.0831,
       "amount": 0.56851639,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48029,7 +48029,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.8624,
+      "current_price": 0.865,
       "amount": 0.17386141,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48042,7 +48042,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.1302,
+      "current_price": 0.1309,
       "amount": 0.17714676,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48055,7 +48055,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.03515,
+      "current_price": 0.03495,
       "amount": 2.49958419,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48068,7 +48068,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.164,
+      "current_price": 0.1645,
       "amount": 0.11578375,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48081,7 +48081,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.04398,
+      "current_price": 0.04401,
       "amount": 1.16253643,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48094,7 +48094,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.081714,
+      "current_price": 0.081216,
       "amount": 1.36076364,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48107,7 +48107,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3285,
+      "current_price": 0.3282,
       "amount": 0.10083373,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48120,7 +48120,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.09162,
+      "current_price": 0.09094,
       "amount": 1.00786376,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48133,7 +48133,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3613,
+      "current_price": 0.3638,
       "amount": 0.16214933,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48146,7 +48146,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.9511,
+      "current_price": 0.9472,
       "amount": 0.34099158,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48159,7 +48159,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2235,
+      "current_price": 0.2237,
       "amount": 0.26255203,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48172,7 +48172,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3617,
+      "current_price": 0.3625,
       "amount": 0.10868663,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48185,7 +48185,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.02983,
+      "current_price": 0.02977,
       "amount": 2.65771927,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48198,7 +48198,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.3321,
+      "current_price": 1.3392,
       "amount": 0.12573876,
       "pnl_pct": 0.0,
       "% Gain/Perte": "0.00%",
@@ -48208,7 +48208,7 @@
     }
   ],
   "sentiment": {
-    "timestamp": "2025-08-16T04:16:58.167070",
+    "timestamp": "2025-08-16T04:40:36.918764",
     "scores": [
       {
         "title": "\u00c9conomie : Les investisseurs europ\u00e9ens se tournent vers les ETF des march\u00e9s \u00e9mergents",

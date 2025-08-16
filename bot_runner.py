@@ -825,6 +825,8 @@ class RiskManager:
             "pressure": 0.8,
         }
 
+    # Dans RiskManager
+
     def validate_trade(self, signals):
         """Valide si un trade respecte les critères de risque"""
         try:
@@ -855,7 +857,7 @@ class RiskManager:
                 print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
                 return False
 
-            # Score global = moyenne pondérée
+            # Score global
             total_score = (tech_score + mom_score + flow_score) / 3
             if abs(total_score) < 0.25:
                 print(f"[RISK] Score global insuffisant: {total_score:.2f}")
