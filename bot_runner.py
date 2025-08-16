@@ -550,14 +550,12 @@ class TelegramNotifier:
         return None
 
     def _log_to_file(self, message):
-        """Fallback pour sauvegarder les messages non envoyés"""
+        """Fallback: log le message dans un fichier local si l'envoi échoue"""
         try:
-            log_file = "logs/telegram_failed.log"
-            os.makedirs(os.path.dirname(log_file), exist_ok=True)
-            with open(log_file, "a", encoding="utf-8") as f:
+            with open("telegram_fallback.log", "a", encoding="utf-8") as f:
                 f.write(f"\n[{datetime.utcnow()}] {message}\n")
         except Exception as e:
-            print(f"❌ Erreur sauvegarde log: {e}")
+            print(f"⚠️ Impossible d'écrire dans telegram_fallback.log: {e}")
 
     async def send_performance_update(self, performance_data):
         message = (
@@ -678,30 +676,38 @@ class TelegramNotifier:
 class WarningFilter:
     def __init__(self, original_stderr):
         self.original_stderr = original_stderr
+        # motifs à ignorer (lowercase)
+        self.noisy = (
+            "scriptruncontext",
+            "streamlit",
+            "not available",
+            "skipping",
+            "deprecated",
+        )
 
     def write(self, message):
-        if any(
-            word in message
-            for word in [
-                "warning",
-                "scriptruncontext",
-                "missing",
-                "streamlit",
-                "pair",
-                "not available",
-                "skipping",
-            ]
-        ):
-            return
-        self.original_stderr.write(message)
+        try:
+            m = message.lower()
+            # si le message correspond à du "bruit", on l'ignore
+            if any(pat in m for pat in self.noisy):
+                return
+            # sinon forward normal
+            self.original_stderr.write(message)
+        except Exception:
+            # fallback safe: write original
+            try:
+                self.original_stderr.write(message)
+            except Exception:
+                pass
 
     def flush(self):
-        self.original_stderr.flush()
+        try:
+            self.original_stderr.flush()
+        except Exception:
+            pass
 
 
-sys.stderr = WarningFilter(sys.stderr)
-
-
+# n'affecte sys.stderr qu'une fois
 sys.stderr = WarningFilter(sys.stderr)
 
 
@@ -853,6 +859,8 @@ class RiskManager:
                 print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
                 return False
 
+            # Score global (pondération simple ou personnalisée)
+            total_score = (tech_score + mom_score + flow_score) / 3
             if abs(total_score) < 0.25:
                 print(f"[RISK] Score global insuffisant: {total_score:.2f}")
                 return False
