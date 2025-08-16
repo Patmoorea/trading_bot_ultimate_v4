@@ -463,6 +463,12 @@ MARKET_REGIMES = {
 }
 
 
+def get_current_time():
+    tahiti = pytz.timezone("Pacific/Tahiti")
+    now_tahiti = datetime.now(tahiti)
+    return now_tahiti.strftime("%Y-%m-%d %H:%M:%S")
+
+
 def get_current_time_tahiti():
     tahiti = pytz.timezone("Pacific/Tahiti")
     now_tahiti = datetime.now(tahiti)
