@@ -1,27 +1,17 @@
 {
+  "auto_sell_positions": [],
   "filtering_params": {
     "min_volatility": 0.01,
     "min_signal": 0.3,
     "top_n": 5
   },
-  "timestamp": "2025-08-16 17:54:38",
-  "user": "Patmoorea",
-  "bot_status": {
-    "regime": "Range/Scalping",
-    "cycle": 1,
-    "last_update": "2025-08-16 17:54:39",
-    "performance": {
-      "balance": 46.69139068
-    }
-  },
-  "auto_sell_positions": [],
   "pending_sales": [
     {
       "symbol": "BTC/USDC",
       "reason": "Gain latent 22.9%",
       "decision": "Surveillance TP",
       "entry_price": 117917.08589743589,
-      "current_price": 117786.01,
+      "current_price": 117813.99,
       "amount": 9e-05,
       "pnl_pct": 22.935844089167883,
       "% Gain/Perte": "22.94%",
@@ -34,23 +24,23 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 115.33924812030075,
-      "current_price": 119.42,
+      "current_price": 119.67,
       "amount": 0.102,
-      "pnl_pct": 3.538042727175538,
-      "% Gain/Perte": "3.54%",
+      "pnl_pct": 3.754794616991264,
+      "% Gain/Perte": "3.75%",
       "pause_blocage": "Non",
       "note": "",
       "confidence": 0.5
     },
     {
       "symbol": "ETH/USDC",
-      "reason": "Gain latent 20.6%",
+      "reason": "Gain latent 20.9%",
       "decision": "Surveillance TP",
       "entry_price": 3654.1087878787876,
-      "current_price": 4407.49,
+      "current_price": 4416.0,
       "amount": 0.0033,
-      "pnl_pct": 20.617372274746927,
-      "% Gain/Perte": "20.62%",
+      "pnl_pct": 20.850260798160054,
+      "% Gain/Perte": "20.85%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -60,7 +50,7 @@
       "reason": "Perte latente -8.4%",
       "decision": "Surveillance stop-loss",
       "entry_price": 769.0520512820513,
-      "current_price": 834.51,
+      "current_price": 834.83,
       "amount": 0.02480206,
       "pnl_pct": -8.392411273838906,
       "% Gain/Perte": "-8.39%",
@@ -70,13 +60,13 @@
     },
     {
       "symbol": "TRX/USDC",
-      "reason": "Gain latent 12.2%",
+      "reason": "Gain latent 12.3%",
       "decision": "Surveillance TP",
       "entry_price": 0.309744424778761,
-      "current_price": 0.3474,
+      "current_price": 0.3478,
       "amount": 37.2,
-      "pnl_pct": 12.156982405134475,
-      "% Gain/Perte": "12.16%",
+      "pnl_pct": 12.286121129838145,
+      "% Gain/Perte": "12.29%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -86,7 +76,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 22.82,
-      "current_price": 22.02,
+      "current_price": 22.21,
       "amount": 0.65,
       "pnl_pct": 1.1235955056179951,
       "% Gain/Perte": "1.12%",
@@ -96,26 +86,26 @@
     },
     {
       "symbol": "XRP/USDC",
-      "reason": "Perte latente -5.9%",
+      "reason": "Perte latente -5.7%",
       "decision": "Surveillance stop-loss",
       "entry_price": 3.29422,
-      "current_price": 3.1006,
+      "current_price": 3.1064,
       "amount": 3.4,
-      "pnl_pct": -5.877567375585119,
-      "% Gain/Perte": "-5.88%",
+      "pnl_pct": -5.701501417634533,
+      "% Gain/Perte": "-5.70%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
     },
     {
       "symbol": "ADA/USDC",
-      "reason": "Gain latent 9.4%",
+      "reason": "Gain latent 9.7%",
       "decision": "Surveillance TP",
       "entry_price": 0.83298,
-      "current_price": 0.9115,
+      "current_price": 0.9136,
       "amount": 14.2,
-      "pnl_pct": 9.426396792239899,
-      "% Gain/Perte": "9.43%",
+      "pnl_pct": 9.678503685562667,
+      "% Gain/Perte": "9.68%",
       "pause_blocage": "Non",
       "note": "En zone de profit, TP possible",
       "confidence": 0.5
@@ -125,7 +115,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.703,
+      "current_price": 0.704,
       "amount": 0.03230637,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -135,13 +125,13 @@
     },
     {
       "symbol": "DOGE/USDC",
-      "reason": "Perte latente -9.3%",
+      "reason": "Perte latente -9.0%",
       "decision": "Surveillance stop-loss",
       "entry_price": 0.252465,
-      "current_price": 0.22909,
+      "current_price": 0.22983,
       "amount": 23.0,
-      "pnl_pct": -9.258709127997944,
-      "% Gain/Perte": "-9.26%",
+      "pnl_pct": -8.9655991919672,
+      "% Gain/Perte": "-8.97%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
@@ -164,10 +154,10 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 194.96943548387094,
-      "current_price": 188.08,
+      "current_price": 188.44,
       "amount": 0.058,
-      "pnl_pct": -3.533597697902173,
-      "% Gain/Perte": "-3.53%",
+      "pnl_pct": -3.3489533719304925,
+      "% Gain/Perte": "-3.35%",
       "pause_blocage": "Non",
       "note": "",
       "confidence": 0.5
@@ -203,7 +193,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 10.922,
+      "current_price": 10.957,
       "amount": 3.85614,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -216,7 +206,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01723,
+      "current_price": 0.01742,
       "amount": 1484.74630755,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -229,7 +219,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01929,
+      "current_price": 0.01932,
       "amount": 397.59699569,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -242,7 +232,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.388,
+      "current_price": 1.395,
       "amount": 28.28169,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -291,15 +281,15 @@
     },
     {
       "symbol": "SUI/USDC",
-      "reason": "Perte latente -5.1%",
-      "decision": "Surveillance stop-loss",
+      "reason": "Position normale (neutral)",
+      "decision": "Position maintenue",
       "entry_price": 3.9549924242424246,
-      "current_price": 3.7546,
+      "current_price": 3.7624,
       "amount": 5.2,
-      "pnl_pct": -5.066821949243295,
-      "% Gain/Perte": "-5.07%",
+      "pnl_pct": -4.869602860979324,
+      "% Gain/Perte": "-4.87%",
       "pause_blocage": "Non",
-      "note": "Risque de stop-loss",
+      "note": "",
       "confidence": 0.5
     },
     {
@@ -307,7 +297,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 3.449,
+      "current_price": 3.452,
       "amount": 0.087214,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -333,7 +323,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.154,
+      "current_price": 1.161,
       "amount": 0.35478462,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -346,7 +336,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.7156,
+      "current_price": 0.7152,
       "amount": 2.85374308,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -359,7 +349,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2633,
+      "current_price": 0.2664,
       "amount": 0.05435377,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -372,7 +362,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 4.02,
+      "current_price": 4.04,
       "amount": 0.05679375,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -395,13 +385,13 @@
     },
     {
       "symbol": "NOT/USDC",
-      "reason": "Perte latente -81.4%",
+      "reason": "Perte latente -81.2%",
       "decision": "Surveillance stop-loss",
       "entry_price": 0.01052,
-      "current_price": 0.001961,
+      "current_price": 0.001976,
       "amount": 1116.15,
-      "pnl_pct": -81.35931558935361,
-      "% Gain/Perte": "-81.36%",
+      "pnl_pct": -81.21673003802282,
+      "% Gain/Perte": "-81.22%",
       "pause_blocage": "Non",
       "note": "Risque de stop-loss",
       "confidence": 0.5
@@ -411,7 +401,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2843,
+      "current_price": 0.2861,
       "amount": 39.51211224,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -424,7 +414,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.623,
+      "current_price": 0.625,
       "amount": 0.43377579,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -450,7 +440,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 23.9,
+      "current_price": 24.01,
       "amount": 0.01833206,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -463,7 +453,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0892,
+      "current_price": 0.089,
       "amount": 0.07004223,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -489,7 +479,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0702,
+      "current_price": 0.0706,
       "amount": 3.76301349,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -528,7 +518,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0991,
+      "current_price": 0.1,
       "amount": 0.79286793,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -554,7 +544,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.01814,
+      "current_price": 0.01816,
       "amount": 2.50258947,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -567,7 +557,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.6057,
+      "current_price": 0.6069,
       "amount": 0.03474063,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -580,7 +570,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.02771,
+      "current_price": 0.02788,
       "amount": 1.1566659,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -593,7 +583,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.4027,
+      "current_price": 0.4044,
       "amount": 0.13870156,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -606,7 +596,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3248,
+      "current_price": 0.3259,
       "amount": 0.18545852,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -619,7 +609,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0364,
+      "current_price": 0.03654,
       "amount": 0.88600535,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -632,7 +622,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3568,
+      "current_price": 0.3585,
       "amount": 0.1179094,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -645,7 +635,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.06972,
+      "current_price": 0.06994,
       "amount": 1.17754728,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -671,7 +661,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.0831,
+      "current_price": 0.0837,
       "amount": 0.56851639,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -684,7 +674,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.8654,
+      "current_price": 0.8683,
       "amount": 0.17386141,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -697,7 +687,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.1307,
+      "current_price": 0.1309,
       "amount": 0.17714676,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -710,7 +700,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.03516,
+      "current_price": 0.03522,
       "amount": 2.49958419,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -723,7 +713,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.1642,
+      "current_price": 0.1651,
       "amount": 0.11578375,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -736,7 +726,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.04549,
+      "current_price": 0.04564,
       "amount": 1.16253643,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -749,7 +739,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.083051,
+      "current_price": 0.083591,
       "amount": 1.36076364,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -762,7 +752,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3245,
+      "current_price": 0.326,
       "amount": 0.10083373,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -775,7 +765,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.09296,
+      "current_price": 0.09332,
       "amount": 1.00786376,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -788,7 +778,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3738,
+      "current_price": 0.3734,
       "amount": 0.16214933,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -801,7 +791,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.949,
+      "current_price": 0.9538,
       "amount": 0.34099158,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -814,7 +804,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.2265,
+      "current_price": 0.2268,
       "amount": 0.26255203,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -827,7 +817,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.3633,
+      "current_price": 0.3659,
       "amount": 0.10868663,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -840,7 +830,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 0.03031,
+      "current_price": 0.03047,
       "amount": 2.65771927,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -853,7 +843,7 @@
       "reason": "Position normale (neutral)",
       "decision": "Position maintenue",
       "entry_price": 0.0,
-      "current_price": 1.3183,
+      "current_price": 1.3284,
       "amount": 0.12573876,
       "pnl_pct": 0,
       "% Gain/Perte": "0.00%",
@@ -870,92 +860,92 @@
   },
   "trade_decisions": {
     "BTC/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.4113493144512176,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.4113,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "ETH/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.15168134842533618,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.1517,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "LTC/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.15172246880829335,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.1517,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "XRP/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.15158355499152093,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.1516,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "DOGE/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
-      "tech": 0.007326687277894819,
-      "ai": 0.15138852095697075,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "tech": 0.0073,
+      "ai": 0.1514,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "BNB/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
-      "tech": 0.008819967485916852,
-      "ai": 0.2748088479042053,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "tech": 0.0088,
+      "ai": 0.2748,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "ADA/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.15166004463098942,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.1517,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "SOL/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
-      "tech": 0.010576676354978665,
-      "ai": 0.15140218515880405,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "tech": 0.0106,
+      "ai": 0.1514,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "TRX/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
       "tech": 0.0,
-      "ai": 0.15218545868992805,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "ai": 0.1522,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "SUI/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
-      "tech": 0.007608044190723215,
-      "ai": 0.15154959242790936,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "tech": 0.0076,
+      "ai": 0.1515,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     },
     "LINK/USDC": {
-      "action": "neutral",
+      "action": "sell",
       "confidence": 0.5,
-      "tech": 0.014953352862208665,
-      "ai": 0.15147970060352237,
-      "sentiment": 0.0,
-      "timestamp": "2025-08-16 17:54:39"
+      "tech": 0.015,
+      "ai": 0.1515,
+      "sentiment": 0.6582,
+      "timestamp": "2025-08-16 18:18:26"
     }
   },
   "market_data": {
@@ -1612,7 +1602,7 @@
             "market_pressure": 0.01608732912784805
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -2267,7 +2257,7 @@
             "market_pressure": -0.0016722138287253996
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -2922,7 +2912,7 @@
             "market_pressure": 0.034619634434402746
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -3577,7 +3567,7 @@
             "market_pressure": 0.011587643739812137
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -4232,7 +4222,7 @@
             "market_pressure": 0.005281204392138639
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -4887,7 +4877,7 @@
             "market_pressure": 0.007909561535901055
           },
           "ai": 0.4113493144512176,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.4113493144512176,
@@ -4898,16 +4888,16 @@
       },
       "last_decision": {
         "pair": "BTC/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.4113,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457238
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301528
     },
     "ETHUSDC": {
       "1m": {
@@ -5562,7 +5552,7 @@
             "market_pressure": -0.016212167248414677
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -6217,7 +6207,7 @@
             "market_pressure": -0.008280561532548747
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -6872,7 +6862,7 @@
             "market_pressure": 0.11231684861240865
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -7527,7 +7517,7 @@
             "market_pressure": 0.01866151416915951
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -8182,7 +8172,7 @@
             "market_pressure": 0.020553507866542864
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -8837,7 +8827,7 @@
             "market_pressure": -0.0022548779337718816
           },
           "ai": 0.15168134842533618,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15168134842533618,
@@ -8848,16 +8838,16 @@
       },
       "last_decision": {
         "pair": "ETH/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.1517,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.4572449
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301579
     },
     "LTCUSDC": {
       "1m": {
@@ -9512,7 +9502,7 @@
             "market_pressure": 0.0011426296912824263
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -10167,7 +10157,7 @@
             "market_pressure": -0.0563683824509259
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -10822,7 +10812,7 @@
             "market_pressure": 0.0224390984308378
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -11477,7 +11467,7 @@
             "market_pressure": 0.03422467293254883
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -12132,7 +12122,7 @@
             "market_pressure": 0.021377018527380498
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -12787,7 +12777,7 @@
             "market_pressure": 0.038915843394563554
           },
           "ai": 0.15172246880829335,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15172246880829335,
@@ -12798,16 +12788,16 @@
       },
       "last_decision": {
         "pair": "LTC/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.1517,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457268
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301606
     },
     "XRPUSDC": {
       "1m": {
@@ -13462,7 +13452,7 @@
             "market_pressure": 0.019027019510124088
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -14117,7 +14107,7 @@
             "market_pressure": -0.016693315426648203
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -14772,7 +14762,7 @@
             "market_pressure": 0.06558998149742656
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -15427,7 +15417,7 @@
             "market_pressure": 0.07293627320658369
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -16082,7 +16072,7 @@
             "market_pressure": 0.029130492655816687
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -16737,7 +16727,7 @@
             "market_pressure": 0.08126668560596806
           },
           "ai": 0.15158355499152093,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15158355499152093,
@@ -16748,16 +16738,16 @@
       },
       "last_decision": {
         "pair": "XRP/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.1516,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457275
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301632
     },
     "DOGEUSDC": {
       "1m": {
@@ -17412,7 +17402,7 @@
             "market_pressure": -0.006889527658548
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -18067,7 +18057,7 @@
             "market_pressure": -0.028166519135899737
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -18722,7 +18712,7 @@
             "market_pressure": 0.008097878491814203
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -19377,7 +19367,7 @@
             "market_pressure": 0.005233886468702931
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -20032,7 +20022,7 @@
             "market_pressure": -0.014445157057295543
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -20687,7 +20677,7 @@
             "market_pressure": 0.030399683070432948
           },
           "ai": 0.15138852095697075,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15138852095697075,
@@ -20698,16 +20688,16 @@
       },
       "last_decision": {
         "pair": "DOGE/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0073,
         "ai": 0.1514,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457281
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.30166
     },
     "BNBUSDC": {
       "1m": {
@@ -21362,7 +21352,7 @@
             "market_pressure": -0.023460045621385928
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -22017,7 +22007,7 @@
             "market_pressure": -0.04010953977322751
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -22672,7 +22662,7 @@
             "market_pressure": 0.06634633793216804
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -23327,7 +23317,7 @@
             "market_pressure": 0.03468303128045247
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -23982,7 +23972,7 @@
             "market_pressure": 0.033249308108745046
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -24637,7 +24627,7 @@
             "market_pressure": -0.013493561287947764
           },
           "ai": 0.2748088479042053,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.2748088479042053,
@@ -24648,16 +24638,16 @@
       },
       "last_decision": {
         "pair": "BNB/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0088,
         "ai": 0.2748,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457286
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301685
     },
     "ADAUSDC": {
       "1m": {
@@ -25312,7 +25302,7 @@
             "market_pressure": -0.10260185278656064
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -25967,7 +25957,7 @@
             "market_pressure": 0.0002470763549677901
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -26622,7 +26612,7 @@
             "market_pressure": 0.09731493330952734
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -27277,7 +27267,7 @@
             "market_pressure": 0.08169777380938559
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -27928,7 +27918,7 @@
             "market_pressure": 0.01226749877800759
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -28583,7 +28573,7 @@
             "market_pressure": 0.10834798980316829
           },
           "ai": 0.15166004463098942,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15166004463098942,
@@ -28594,16 +28584,16 @@
       },
       "last_decision": {
         "pair": "ADA/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.1517,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.4572911
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301711
     },
     "SOLUSDC": {
       "1m": {
@@ -29258,7 +29248,7 @@
             "market_pressure": -0.09004767046539941
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -29913,7 +29903,7 @@
             "market_pressure": -0.06984091735526243
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -30568,7 +30558,7 @@
             "market_pressure": 0.025948198063235228
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -31223,7 +31213,7 @@
             "market_pressure": 0.018721144602167117
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -31878,7 +31868,7 @@
             "market_pressure": 0.05444089170041777
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -32533,7 +32523,7 @@
             "market_pressure": 0.07626012308267938
           },
           "ai": 0.15140218515880405,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15140218515880405,
@@ -32544,16 +32534,16 @@
       },
       "last_decision": {
         "pair": "SOL/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0106,
         "ai": 0.1514,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457296
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301734
     },
     "TRXUSDC": {
       "1m": {
@@ -33208,7 +33198,7 @@
             "market_pressure": -0.09361841669971482
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -33863,7 +33853,7 @@
             "market_pressure": -0.03710543361586094
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -34518,7 +34508,7 @@
             "market_pressure": -0.01603032636930446
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -35173,7 +35163,7 @@
             "market_pressure": 0.024652962116077815
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -35828,7 +35818,7 @@
             "market_pressure": 0.10032923890711798
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -36483,7 +36473,7 @@
             "market_pressure": 0.034219504094304964
           },
           "ai": 0.15218545868992805,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15218545868992805,
@@ -36494,16 +36484,16 @@
       },
       "last_decision": {
         "pair": "TRX/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0,
         "ai": 0.1522,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.457301
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301756
     },
     "SUIUSDC": {
       "1m": {
@@ -37158,7 +37148,7 @@
             "market_pressure": -0.000473607081749039
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -37813,7 +37803,7 @@
             "market_pressure": -0.01518777324182674
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -38468,7 +38458,7 @@
             "market_pressure": -0.02122908698019299
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -39123,7 +39113,7 @@
             "market_pressure": -0.007997998872939505
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -39778,7 +39768,7 @@
             "market_pressure": 0.02760803132900458
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -40433,7 +40423,7 @@
             "market_pressure": -0.0009013110494416887
           },
           "ai": 0.15154959242790936,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15154959242790936,
@@ -40444,16 +40434,16 @@
       },
       "last_decision": {
         "pair": "SUI/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.0076,
         "ai": 0.1515,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.4573052
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.301783
     },
     "LINKUSDC": {
       "1m": {
@@ -41108,7 +41098,7 @@
             "market_pressure": -0.0342290518768148
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "5m": {
@@ -41763,7 +41753,7 @@
             "market_pressure": -0.06706994089079554
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "15m": {
@@ -42418,7 +42408,7 @@
             "market_pressure": 0.05292081964037498
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1h": {
@@ -43073,7 +43063,7 @@
             "market_pressure": 0.06811044523397114
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "4h": {
@@ -43728,7 +43718,7 @@
             "market_pressure": 0.0022289701547746343
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "1d": {
@@ -44383,7 +44373,7 @@
             "market_pressure": 0.0869257642314416
           },
           "ai": 0.15147970060352237,
-          "sentiment": 0.0
+          "sentiment": 0.6582202177781326
         }
       },
       "ai_prediction": 0.15147970060352237,
@@ -44394,36 +44384,44 @@
       },
       "last_decision": {
         "pair": "LINK/USDC",
-        "action": "neutral",
+        "action": "sell",
         "confidence": 0.5,
-        "tech": 0.5,
+        "tech": 0.015,
         "ai": 0.1515,
-        "sentiment": 0.0,
-        "timestamp": "2025-08-16 17:49:39"
+        "sentiment": 0.6582,
+        "timestamp": "2025-08-16 18:08:01"
       },
-      "last_update": "2025-08-16 17:49:39",
-      "sentiment": 0.0,
-      "sentiment_timestamp": 1755366579.4573288
+      "last_update": "2025-08-16 18:08:01",
+      "sentiment": 0.6582202177781326,
+      "sentiment_timestamp": 1755403190.30181
     }
   },
   "cycle_metrics": {
-    "cycle": 1.0,
+    "cycle": 3,
     "regime": "Range/Scalping",
     "balance": 46.69139068,
-    "timestamp": "2025-08-16 17:49:47"
+    "timestamp": "2025-08-16 18:18:25"
+  },
+  "bot_status": {
+    "cycle": 3,
+    "regime": "Range/Scalping",
+    "performance": {
+      "balance": 46.69139068
+    },
+    "last_update": "2025-08-16 18:18:25"
   },
   "positions_binance": {
     "BTC/USDC": {
       "side": "long",
       "amount": 9e-05,
       "entry_price": 117917.08589743589,
-      "current_price": 117816.01,
+      "current_price": 117801.98,
       "pnl_pct": [
         22.935844089167883,
         18.1477398
       ],
-      "pnl_usd": -0.014137730769229676,
-      "value_usd": 10.5984,
+      "pnl_usd": -0.015216830769230147,
+      "value_usd": 10.5973209,
       "filled_tp_targets": [
         false,
         false
@@ -44437,13 +44435,13 @@
       "side": "long",
       "amount": 0.102,
       "entry_price": 115.33924812030075,
-      "current_price": 119.49,
+      "current_price": 119.44,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": 0.39277669172932306,
-      "value_usd": 12.15738,
+      "pnl_usd": 0.40399669172932295,
+      "value_usd": 12.1686,
       "filled_tp_targets": [
         false,
         false
@@ -44457,13 +44455,13 @@
       "side": "long",
       "amount": 0.0033,
       "entry_price": 3654.1087878787876,
-      "current_price": 4406.11,
+      "current_price": 4413.43,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": 2.4633880000000015,
-      "value_usd": 14.521947,
+      "pnl_usd": 2.4699880000000016,
+      "value_usd": 14.528547,
       "filled_tp_targets": [
         false,
         false
@@ -44477,13 +44475,13 @@
       "side": "long",
       "amount": 0.02480206,
       "entry_price": 769.0520512820513,
-      "current_price": 834.38,
+      "current_price": 834.61,
       "pnl_pct": [
         -8.392411273838906,
         -4.647499999999995
       ],
-      "pnl_usd": 1.5969537673794894,
-      "value_usd": 20.671028886400002,
+      "pnl_usd": 1.6038983441794887,
+      "value_usd": 20.6779734632,
       "filled_tp_targets": [
         false,
         false
@@ -44497,13 +44495,13 @@
       "side": "long",
       "amount": 37.2,
       "entry_price": 0.309744424778761,
-      "current_price": 0.3479,
+      "current_price": 0.3475,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": 1.4045073982300893,
-      "value_usd": 12.927,
+      "pnl_usd": 1.4007873982300898,
+      "value_usd": 12.92328,
       "filled_tp_targets": [
         false,
         false
@@ -44517,13 +44515,13 @@
       "side": "long",
       "amount": 0.65,
       "entry_price": 22.82,
-      "current_price": 22.06,
+      "current_price": 22.12,
       "pnl_pct": [
         1.1235955056179951,
         0.6678000000000105
       ],
-      "pnl_usd": -0.5330000000000003,
-      "value_usd": 14.3,
+      "pnl_usd": -0.5395000000000012,
+      "value_usd": 14.2935,
       "filled_tp_targets": [
         false,
         false
@@ -44537,13 +44535,13 @@
       "side": "long",
       "amount": 3.4,
       "entry_price": 3.29422,
-      "current_price": 3.0999,
+      "current_price": 3.1025,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": -0.6637479999999998,
-      "value_usd": 10.5366,
+      "pnl_usd": -0.6749680000000008,
+      "value_usd": 10.52538,
       "filled_tp_targets": [
         false,
         false
@@ -44557,13 +44555,13 @@
       "side": "long",
       "amount": 14.2,
       "entry_price": 0.83298,
-      "current_price": 0.9123,
+      "current_price": 0.9121,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": 1.0865839999999989,
-      "value_usd": 12.9149,
+      "pnl_usd": 1.0880039999999986,
+      "value_usd": 12.916319999999999,
       "filled_tp_targets": [
         false,
         false
@@ -44597,13 +44595,13 @@
       "side": "long",
       "amount": 23.0,
       "entry_price": 0.252465,
-      "current_price": 0.22909,
+      "current_price": 0.22944,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": -0.552805,
-      "value_usd": 5.25389,
+      "pnl_usd": -0.5505049999999996,
+      "value_usd": 5.25619,
       "filled_tp_targets": [
         false,
         false
@@ -44637,13 +44635,13 @@
       "side": "long",
       "amount": 0.058,
       "entry_price": 194.96943548387094,
-      "current_price": 188.03,
+      "current_price": 188.16,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": -0.421047258064514,
-      "value_usd": 10.88718,
+      "pnl_usd": -0.41814725806451497,
+      "value_usd": 10.89008,
       "filled_tp_targets": [
         false,
         false
@@ -44697,13 +44695,13 @@
       "side": "long",
       "amount": 3.85614,
       "entry_price": null,
-      "current_price": 10.925,
+      "current_price": 10.951,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 42.04349442,
+      "value_usd": 42.05891898,
       "filled_tp_targets": [
         false,
         false
@@ -44717,13 +44715,13 @@
       "side": "long",
       "amount": 1484.74630755,
       "entry_price": null,
-      "current_price": 0.01723,
+      "current_price": 0.01736,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 25.493094100633503,
+      "value_usd": 25.5821788790865,
       "filled_tp_targets": [
         false,
         false
@@ -44737,13 +44735,13 @@
       "side": "long",
       "amount": 397.59699569,
       "entry_price": null,
-      "current_price": 0.01929,
+      "current_price": 0.01932,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 7.673622016817001,
+      "value_usd": 7.6616941069463005,
       "filled_tp_targets": [
         false,
         false
@@ -44757,7 +44755,7 @@
       "side": "long",
       "amount": 28.28169,
       "entry_price": null,
-      "current_price": 1.389,
+      "current_price": 1.394,
       "pnl_pct": [
         null,
         null
@@ -44837,13 +44835,13 @@
       "side": "long",
       "amount": 5.2,
       "entry_price": 3.9549924242424246,
-      "current_price": 3.7553,
+      "current_price": 3.7556,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": -1.084160606060607,
-      "value_usd": 19.4818,
+      "pnl_usd": -1.085720606060608,
+      "value_usd": 19.480240000000002,
       "filled_tp_targets": [
         false,
         false
@@ -44863,7 +44861,7 @@
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.300539444,
+      "value_usd": 0.300103374,
       "filled_tp_targets": [
         false,
         false
@@ -44897,13 +44895,13 @@
       "side": "long",
       "amount": 0.35478462,
       "entry_price": null,
-      "current_price": 1.154,
+      "current_price": 1.16,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.40835709762,
+      "value_usd": 0.40906666686,
       "filled_tp_targets": [
         false,
         false
@@ -44917,13 +44915,13 @@
       "side": "long",
       "amount": 2.85374308,
       "entry_price": null,
-      "current_price": 0.7168,
+      "current_price": 0.714,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 2.0404263021999998,
+      "value_usd": 2.033862693116,
       "filled_tp_targets": [
         false,
         false
@@ -44937,13 +44935,13 @@
       "side": "long",
       "amount": 0.05435377,
       "entry_price": null,
-      "current_price": 0.2632,
+      "current_price": 0.2662,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.014284170756,
+      "value_usd": 0.014354830657,
       "filled_tp_targets": [
         false,
         false
@@ -44957,13 +44955,13 @@
       "side": "long",
       "amount": 0.05679375,
       "entry_price": null,
-      "current_price": 4.02,
+      "current_price": 4.04,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.22774293749999996,
+      "value_usd": 0.2288788125,
       "filled_tp_targets": [
         false,
         false
@@ -44977,13 +44975,13 @@
       "side": "long",
       "amount": 4.05396039,
       "entry_price": null,
-      "current_price": 0.01354,
+      "current_price": 0.01347,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.054728465265000005,
+      "value_usd": 0.0544446880377,
       "filled_tp_targets": [
         false,
         false
@@ -44997,13 +44995,13 @@
       "side": "long",
       "amount": 1116.15,
       "entry_price": 0.01052,
-      "current_price": 0.001961,
+      "current_price": 0.001967,
       "pnl_pct": [
         null,
         null
       ],
-      "pnl_usd": -9.554244,
-      "value_usd": 2.187654,
+      "pnl_usd": -9.556476300000002,
+      "value_usd": 2.1854217000000005,
       "filled_tp_targets": [
         false,
         false
@@ -45037,7 +45035,7 @@
       "side": "long",
       "amount": 0.43377579,
       "entry_price": null,
-      "current_price": 0.622,
+      "current_price": 0.623,
       "pnl_pct": [
         null,
         null
@@ -45077,13 +45075,13 @@
       "side": "long",
       "amount": 0.01833206,
       "entry_price": null,
-      "current_price": 23.9,
+      "current_price": 23.91,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.43721963100000005,
+      "value_usd": 0.438136234,
       "filled_tp_targets": [
         false,
         false
@@ -45097,7 +45095,7 @@
       "side": "long",
       "amount": 0.07004223,
       "entry_price": null,
-      "current_price": 0.0892,
+      "current_price": 0.089,
       "pnl_pct": [
         null,
         null
@@ -45137,13 +45135,13 @@
       "side": "long",
       "amount": 3.76301349,
       "entry_price": null,
-      "current_price": 0.0702,
+      "current_price": 0.0703,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.26303464295100004,
+      "value_usd": 0.26378724564899997,
       "filled_tp_targets": [
         false,
         false
@@ -45197,13 +45195,13 @@
       "side": "long",
       "amount": 0.79286793,
       "entry_price": null,
-      "current_price": 0.0991,
+      "current_price": 0.0999,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.078335351484,
+      "value_usd": 0.078573211863,
       "filled_tp_targets": [
         false,
         false
@@ -45237,13 +45235,13 @@
       "side": "long",
       "amount": 2.50258947,
       "entry_price": null,
-      "current_price": 0.01814,
+      "current_price": 0.01813,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.045396972985800005,
+      "value_usd": 0.04529686940700001,
       "filled_tp_targets": [
         false,
         false
@@ -45257,7 +45255,7 @@
       "side": "long",
       "amount": 0.03474063,
       "entry_price": null,
-      "current_price": 0.6057,
+      "current_price": 0.6058,
       "pnl_pct": [
         null,
         null
@@ -45283,7 +45281,7 @@
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.032247845292,
+      "value_usd": 0.032051212089,
       "filled_tp_targets": [
         false,
         false
@@ -45297,13 +45295,13 @@
       "side": "long",
       "amount": 0.13870156,
       "entry_price": null,
-      "current_price": 0.4032,
+      "current_price": 0.4038,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.055841248056,
+      "value_usd": 0.055855118212,
       "filled_tp_targets": [
         false,
         false
@@ -45317,13 +45315,13 @@
       "side": "long",
       "amount": 0.18545852,
       "entry_price": null,
-      "current_price": 0.3248,
+      "current_price": 0.3256,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.06018128974,
+      "value_usd": 0.06021838144399999,
       "filled_tp_targets": [
         false,
         false
@@ -45337,13 +45335,13 @@
       "side": "long",
       "amount": 0.88600535,
       "entry_price": null,
-      "current_price": 0.03641,
+      "current_price": 0.0364,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.0322062944725,
+      "value_usd": 0.0322240145795,
       "filled_tp_targets": [
         false,
         false
@@ -45357,13 +45355,13 @@
       "side": "long",
       "amount": 0.1179094,
       "entry_price": null,
-      "current_price": 0.3567,
+      "current_price": 0.3578,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.042022910159999996,
+      "value_usd": 0.04208186486,
       "filled_tp_targets": [
         false,
         false
@@ -45383,7 +45381,7 @@
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.0821456982528,
+      "value_usd": 0.08209859636160001,
       "filled_tp_targets": [
         false,
         false
@@ -45417,7 +45415,7 @@
       "side": "long",
       "amount": 0.56851639,
       "entry_price": null,
-      "current_price": 0.0831,
+      "current_price": 0.0834,
       "pnl_pct": [
         null,
         null
@@ -45437,13 +45435,13 @@
       "side": "long",
       "amount": 0.17386141,
       "entry_price": null,
-      "current_price": 0.8656,
+      "current_price": 0.8675,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.15021625823999998,
+      "value_usd": 0.15044227807299998,
       "filled_tp_targets": [
         false,
         false
@@ -45477,13 +45475,13 @@
       "side": "long",
       "amount": 2.49958419,
       "entry_price": null,
-      "current_price": 0.03517,
+      "current_price": 0.03522,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.0877853967528,
+      "value_usd": 0.0878353884366,
       "filled_tp_targets": [
         false,
         false
@@ -45497,13 +45495,13 @@
       "side": "long",
       "amount": 0.11578375,
       "entry_price": null,
-      "current_price": 0.1642,
+      "current_price": 0.1646,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.01896537825,
+      "value_usd": 0.019000113375,
       "filled_tp_targets": [
         false,
         false
@@ -45517,7 +45515,7 @@
       "side": "long",
       "amount": 1.16253643,
       "entry_price": null,
-      "current_price": 0.04549,
+      "current_price": 0.04543,
       "pnl_pct": [
         null,
         null
@@ -45537,13 +45535,13 @@
       "side": "long",
       "amount": 1.36076364,
       "entry_price": null,
-      "current_price": 0.083265,
+      "current_price": 0.083351,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.11335569350292,
+      "value_usd": 0.11332439593920002,
       "filled_tp_targets": [
         false,
         false
@@ -45557,7 +45555,7 @@
       "side": "long",
       "amount": 0.10083373,
       "entry_price": null,
-      "current_price": 0.3242,
+      "current_price": 0.325,
       "pnl_pct": [
         null,
         null
@@ -45577,13 +45575,13 @@
       "side": "long",
       "amount": 1.00786376,
       "entry_price": null,
-      "current_price": 0.09296,
+      "current_price": 0.09324,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.0934692851024,
+      "value_usd": 0.0937111724048,
       "filled_tp_targets": [
         false,
         false
@@ -45597,13 +45595,13 @@
       "side": "long",
       "amount": 0.16214933,
       "entry_price": null,
-      "current_price": 0.3728,
+      "current_price": 0.3715,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.06031955076,
+      "value_usd": 0.060335765693000004,
       "filled_tp_targets": [
         false,
         false
@@ -45617,13 +45615,13 @@
       "side": "long",
       "amount": 0.34099158,
       "entry_price": null,
-      "current_price": 0.9483,
+      "current_price": 0.9534,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.322816728786,
+      "value_usd": 0.323191819524,
       "filled_tp_targets": [
         false,
         false
@@ -45637,13 +45635,13 @@
       "side": "long",
       "amount": 0.26255203,
       "entry_price": null,
-      "current_price": 0.2263,
+      "current_price": 0.2265,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.059257993171,
+      "value_usd": 0.059284248373999995,
       "filled_tp_targets": [
         false,
         false
@@ -45657,13 +45655,13 @@
       "side": "long",
       "amount": 0.10868663,
       "entry_price": null,
-      "current_price": 0.3638,
+      "current_price": 0.3649,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.039409772038,
+      "value_usd": 0.03967061995,
       "filled_tp_targets": [
         false,
         false
@@ -45677,13 +45675,13 @@
       "side": "long",
       "amount": 2.65771927,
       "entry_price": null,
-      "current_price": 0.03032,
+      "current_price": 0.03034,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.0807415114226,
+      "value_usd": 0.0807149342299,
       "filled_tp_targets": [
         false,
         false
@@ -45697,13 +45695,13 @@
       "side": "long",
       "amount": 0.12573876,
       "entry_price": null,
-      "current_price": 1.3171,
+      "current_price": 1.3161,
       "pnl_pct": [
         null,
         null
       ],
       "pnl_usd": 0.0,
-      "value_usd": 0.16544706040800003,
+      "value_usd": 0.165019548624,
       "filled_tp_targets": [
         false,
         false
@@ -45714,6 +45712,8 @@
       "max_price": null
     }
   },
+  "timestamp": "2025-08-16 18:12:58",
+  "user": "Patmoorea",
   "indicators": {
     "1m | BTC/USDC": {
       "trend": {
@@ -48160,7 +48160,7 @@
   },
   "equity_history": [
     {
-      "timestamp": "2025-08-16 17:53:24",
+      "timestamp": "2025-08-16 18:11:44",
       "balance": 46.69139068,
       "metrics": {
         "sharpe_ratio": 0.0,
@@ -48179,5 +48179,1024 @@
     "win_rate": 0.0,
     "avg_profit": 0.0,
     "max_drawdown": 0.0
+  },
+  "sentiment": {
+    "timestamp": "2025-08-16T08:18:11.640061",
+    "scores": [
+      {
+        "title": "Les NFT de Moonbirds montent \u00e0 nouveau: ce qui est derri\u00e8re la surtension des prix",
+        "text": "Une fois punchline parmi les fans de NFT, les oiseaux de lune volent \u00e0 nouveau. Voici pourquoi les titulaires se sentent \"Birbish\" en ce moment.",
+        "original_title": "Moonbirds NFTs Are Soaring Again: What's Behind the Price Surge",
+        "source": "Decrypt",
+        "timestamp": 1755360063,
+        "url": "https://decrypt.co/335470/moonbirds-nfts-soaring-again-whats-behind-price-surge",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.683476984500885,
+        "impact_score": 1.0,
+        "risk_class": "Scam",
+        "risk_score": 0.2771855592727661
+      },
+      {
+        "title": "Des milliards d'Ethereum en attente d'\u00eatre non corrig\u00e9 pourraient ajouter une pression de vente \u00e0 ETH: analyste",
+        "text": "Ethereum Stakers fait la queue pour retirer leur ETH, mais la file d'attente record pourrait \u00e9peler de mauvaises nouvelles pour la r\u00e9cente augmentation des prix de la pi\u00e8ce.",
+        "original_title": "Billions in Ethereum Waiting to Be Unstaked Could Add Sell Pressure to ETH: Analyst",
+        "source": "Decrypt",
+        "timestamp": 1755349203,
+        "url": "https://decrypt.co/335549/billions-in-ethereum-waiting-to-be-unstaked-could-add-sell-pressure-to-eth-analyst",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.02114659547805786,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.31971442699432373
+      },
+      {
+        "title": "Gemini pr\u00e9voit de rendre public via le NASDAQ en tant que Boom IPOS crypto",
+        "text": "Gemini, l'\u00e9change de crypto fond\u00e9 par Tyler et Cameron Winklevoss, a d\u00e9pos\u00e9 aupr\u00e8s de la SEC pour devenir public. Voici les premiers d\u00e9tails.",
+        "original_title": "Gemini Plans to Go Public via Nasdaq as Crypto IPOs Boom",
+        "source": "Decrypt",
+        "timestamp": 1755295896,
+        "url": "https://decrypt.co/335554/gemini-plans-go-public-nasdaq-crypto-ipos-boom",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7610897421836853,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.22159412503242493
+      },
+      {
+        "title": "Pourquoi le groupe de devises num\u00e9riques poursuit sa propre filiale plus de 1,1 milliard de dollars de pr\u00eat",
+        "text": "Digital Currency Group a poursuivi sa filiale, Crypto Lender Genesis, dans la derni\u00e8re torsion d'une saga qui se d\u00e9roule depuis 2022.",
+        "original_title": "Why Digital Currency Group Is Suing Its Own Subsidiary Over $1.1 Billion Loan",
+        "source": "Decrypt",
+        "timestamp": 1755294865,
+        "url": "https://decrypt.co/335551/why-digital-currency-group-suing-subsidiary-over-1-1-billion-loan",
+        "symbols": [
+          "SUI"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6578658819198608,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.19634659588336945
+      },
+      {
+        "title": "Moon ou Doom: O\u00f9 va le prix XRP?",
+        "text": "Une myriade de commer\u00e7ants sont optimistes sur XRP, pla\u00e7ant les chances de pr\u00e8s de 64% que le jeton li\u00e9 \u00e0 l'ondulation se pr\u00e9cipite pour la lune. Les graphiques sont-ils d'accord?",
+        "original_title": "Moon or Doom: Where Does XRP Price Go Next?",
+        "source": "Decrypt",
+        "timestamp": 1755287304,
+        "url": "https://decrypt.co/335510/moon-doom-where-xrp-price-next",
+        "symbols": [
+          "XRP"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6056675910949707,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.1805647760629654
+      },
+      {
+        "title": "Les 10 entreprises publiques avec les plus grands portefeuilles Bitcoin",
+        "text": "Des entreprises comme Strategy, Tesla et Coinbase ont achet\u00e9 des milliards de dollars de bitcoin entre eux. Ce sont les plus grandes baleines.",
+        "original_title": "The 10 Public Companies With the Biggest Bitcoin Portfolios",
+        "source": "Decrypt",
+        "timestamp": 1755286326,
+        "url": "https://decrypt.co/47061/public-companies-biggest-bitcoin-portfolios",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7896593809127808,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.25207778811454773
+      },
+      {
+        "title": "La taxe cryptographique de New York pourrait g\u00e9n\u00e9rer 158 millions de dollars par an, explique le l\u00e9gislateur",
+        "text": "Le membre de l'assembl\u00e9e de New York, Phil Steck, a introduit une l\u00e9gislation qui facturerait une taxe de 0,2% sur les transactions cryptographiques dans l'\u00c9tat de l'Empire.",
+        "original_title": "New York Crypto Tax Could Generate $158 Million a Year, Says Lawmaker",
+        "source": "Decrypt",
+        "timestamp": 1755284214,
+        "url": "https://decrypt.co/335501/new-york-crypto-tax-could-generate-158-million-lawmaker",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7765413522720337,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.41189974546432495
+      },
+      {
+        "title": "Le stock de Sharplink plonge apr\u00e8s la perte du deuxi\u00e8me trime",
+        "text": "Le stock de jeu de SharpLink a chut\u00e9 vendredi alors que le Tr\u00e9sor Ethereum a affich\u00e9 103 millions de dollars de pertes nettes pour le deuxi\u00e8me trimestre et que ETH a baiss\u00e9 en dessous de 4 400 $.",
+        "original_title": "SharpLink Stock Dives After Q2 Loss as Ethereum Price Surge Cools",
+        "source": "Decrypt",
+        "timestamp": 1755281875,
+        "url": "https://decrypt.co/335500/sharplink-stock-dives-q2-loss-ethereum-surge-cools",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.18108195066452026,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.23249904811382294
+      },
+      {
+        "title": "Les entr\u00e9es Etf Etf de Etf d\u00e9passent les FNB Bitcoin pour la cinqui\u00e8me journ\u00e9e cons\u00e9cutive",
+        "text": "Les ETF Ethereum ont d\u00e9pass\u00e9 les entr\u00e9es de Bitcoin pour un cinqui\u00e8me jour alors que les bons du Tr\u00e9sor des entreprises continuent d'accumuler des chutes de l'offre d'ETH et d'\u00e9change.",
+        "original_title": "Ethereum ETF Inflows Outpace Bitcoin ETFs for Fifth Straight Day",
+        "source": "Decrypt",
+        "timestamp": 1755280344,
+        "url": "https://decrypt.co/335491/ethereum-etf-inflows-outpace-bitcoin-etfs-fifth-straight-day",
+        "symbols": [
+          "ETH",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.3202211558818817,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.2876751124858856
+      },
+      {
+        "title": "La Fed met fin au programme de surveillance supervisant l'activit\u00e9 cryptographique des banques",
+        "text": "La banque centrale am\u00e9ricaine dit maintenant qu'elle comprend les risques associ\u00e9s \u00e0 la crypto.",
+        "original_title": "Fed Ends Supervisory Program Overseeing Banks' Crypto Activity",
+        "source": "Decrypt",
+        "timestamp": 1755275818,
+        "url": "https://decrypt.co/335488/fed-ends-supervisory-program-bank-crypto-bitcoin",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7140982747077942,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.37202712893486023
+      },
+      {
+        "title": "La maman br\u00e9silienne a tenu pour Bitcoin Ransom apr\u00e8s que les kidnappeurs pr\u00e9sum\u00e9s traquent un fils crypto-trading",
+        "text": "Une maman d'un commer\u00e7ant cryptographique br\u00e9silien a \u00e9t\u00e9 kidnapp\u00e9e jusqu'\u00e0 ce qu'une ran\u00e7on de Bitcoin soit pay\u00e9e dans la derni\u00e8re \"attaque par cl\u00e9\", a rapport\u00e9 les m\u00e9dias locaux.",
+        "original_title": "Brazilian Mom Held for Bitcoin Ransom After Alleged Kidnappers Stalk Crypto-Trading Son",
+        "source": "Decrypt",
+        "timestamp": 1755274259,
+        "url": "https://decrypt.co/335475/brazilian-mom-held-bitcoin-ransom-kidnappers-stalk-crypto-trading-son",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.49899524450302124,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.23833715915679932
+      },
+      {
+        "title": "Okx br\u00fble 26 milliards de dollars de jetons OKB sur Ethereum - voici pourquoi",
+        "text": "Crypto Exchange Okx a r\u00e9duit l'offre de son jeton OKB de plus de 90%, br\u00fblant la grande majorit\u00e9 des jetons bas\u00e9s sur Ethereum.",
+        "original_title": "OKX Burns $26 Billion Worth of OKB Tokens on Ethereum\u2014Here's Why",
+        "source": "Decrypt",
+        "timestamp": 1755272952,
+        "url": "https://decrypt.co/335476/okx-burns-26-billion-worth-okb-tokens-ethereum-heres-why",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7472464442253113,
+        "impact_score": 1.0,
+        "risk_class": "Scam",
+        "risk_score": 0.22821147739887238
+      },
+      {
+        "title": "La crypto tombe apr\u00e8s PPI, d'\u00e9normes liquidations, Trump-Putin \u00e0 rencontrer",
+        "text": "La crypto tombe apr\u00e8s un ppi chaud am\u00e9ricain, 1,1 milliard de dollars de liquidations. Les \u00c9tats-Unis ne veulent que l'accumulation de BTC neutre budg\u00e9taire. Le gouvernement am\u00e9ricain poss\u00e8de une crypto de 24 milliards de dollars: Arkham. Lummis fait une pouss\u00e9e renouvel\u00e9e pour Bitcoin Act. Les altcoins continuent de tomber contre ETH. 3,2 milliards de dollars eth en file d'attente pour quitter le jalonnement. Le battage m\u00e9diatique se rapproche de 50 $ alors que le volume frappe Ath. Google ach\u00e8te 8% dans BTC Miner Terawulf. Atkins pour discuter de \u00abProject Crypto\u00bb aujourd'hui. Gentimentmd pour collecter 540 millions de dollars pour acheter du BTC. Abu Dhabi SWF poss\u00e8de 534 millions de dollars BTC ETF. Citi consid\u00e8re la garde de la cryptographie, les services de paiement. SEC retarde le sens du bit et 21 partages SOL ETF. HK resserre les normes de garde pour les \u00e9changes de crypto. Bitcoin am\u00e9ricain \u00e0 la recherche de listes en Asie. Les sanctions am\u00e9ricaines \u00e9changent russe Garantex.",
+        "original_title": "CRYPTO DROPS AFTER PPI, HUGE LIQUIDATIONS, TRUMP-PUTIN TO MEET",
+        "source": "Decrypt",
+        "timestamp": 1755271418,
+        "url": "https://decrypt.co/videos/interviews/rdwA47yK/crypto-drops-after-ppi-huge-liquidations-trump-putin-to-meet",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8230392932891846,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.2702440619468689
+      },
+      {
+        "title": "Les autorit\u00e9s texanes saisissent 2,8 millions de dollars en crypto de l'op\u00e9rateur de ransomwares pr\u00e9sum\u00e9s",
+        "text": "Les procureurs affirment que Ianis Aleksandrovich antropenko a d\u00e9ploy\u00e9 des ransomwares de Zeppelin pour attaquer les individus et les organisations dans le monde.",
+        "original_title": "Texan Authorities Seize $2.8M in Crypto from Alleged Ransomware Operator",
+        "source": "Decrypt",
+        "timestamp": 1755261963,
+        "url": "https://decrypt.co/335456/texan-authorities-seize-2-8m-in-crypto-from-alleged-ransomware-operator",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7303189039230347,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.3566426634788513
+      },
+      {
+        "title": "Minute du matin: encore 700 millions de dollars + Bitcoin Treasuryco est n\u00e9",
+        "text": "Les FNBT des ETH continuent de voir des entr\u00e9es de records presque, et l'hyperliquide \u00e9tablit des enregistrements en volume et en frais.",
+        "original_title": "Morning Minute: Another $700M+ Bitcoin TreasuryCo Is Born",
+        "source": "Decrypt",
+        "timestamp": 1755260538,
+        "url": "https://decrypt.co/335445/morning-minute-another-700m-bitcoin-treasuryco-is-born",
+        "symbols": [
+          "ETH",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.4050227999687195,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.2110423743724823
+      },
+      {
+        "title": "Wiselink devient la premi\u00e8re entreprise cot\u00e9e \u00e0 Ta\u00efwan \u00e0 investir dans une strat\u00e9gie de tr\u00e9sorerie Bitcoin",
+        "text": "Ex\u00e9cut\u00e9 via des notes convertibles, Wiselink dit que l'accord survient comme une \u00abfen\u00eatre d'or\u00bb pour Bitcoin \u00e0 l'ouverture d'une strat\u00e9gie de capital.",
+        "original_title": "WiseLink Becomes First Taiwan-Listed Company To Invest in a Bitcoin Treasury Strategy",
+        "source": "Decrypt",
+        "timestamp": 1755253863,
+        "url": "https://decrypt.co/335413/wiselink-becomes-first-taiwan-listed-company-to-invest-in-a-bitcoin-treasury-strategy",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": -0.2231825292110443,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.28210940957069397
+      },
+      {
+        "title": "941 millions de dollars de liquidations cryptographiques en tant que BTC, ETH, Doge se retire des sommets",
+        "text": "Des liquidations majeures se sont produites sur le march\u00e9 de la cryptographie, alors que Bitcoin, Ethereum et Dogecoin se sont tous retir\u00e9s apr\u00e8s une semaine haussi\u00e8re.",
+        "original_title": "$941M in Crypto Liquidations as BTC, ETH, DOGE Retreat From Highs",
+        "source": "Decrypt",
+        "timestamp": 1755253663,
+        "url": "https://decrypt.co/335416/941m-in-crypto-liquidations-as-btc-eth-doge-retreat-from-highs",
+        "symbols": [
+          "ETH",
+          "DOGE",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7781257033348083,
+        "impact_score": 1.0,
+        "risk_class": "Crash",
+        "risk_score": 0.2537875473499298
+      },
+      {
+        "title": "L'exploitation ill\u00e9gale de Bitcoin en augmentation au Tadjikistan et au Kazakhstan",
+        "text": "Les tenues miniers de crypto illicites qui volent de l'\u00e9lectricit\u00e9 deviennent un probl\u00e8me croissant pour les pays d'Asie centrale.",
+        "original_title": "Illegal Bitcoin Mining on the Rise in Tajikistan and Kazakhstan",
+        "source": "Decrypt",
+        "timestamp": 1755252036,
+        "url": "https://decrypt.co/335415/illegal-bitcoin-mining-on-the-rise-in-tajikistan-and-kazakhstan",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7434068322181702,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.18804931640625
+      },
+      {
+        "title": "SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes apr\u00e8s les violations mondiales",
+        "text": "Le r\u00e9gulateur \u00e9tablit des normes de garde minimales pour les plates-formes de trading d'actifs virtuelles agr\u00e9\u00e9es, citant l'augmentation des incidents de s\u00e9curit\u00e9 \u00e0 l'\u00e9tranger.",
+        "original_title": "Hong Kong's SFC Orders Tighter Crypto Custody Standards Following Global Breaches",
+        "source": "Decrypt",
+        "timestamp": 1755242733,
+        "url": "https://decrypt.co/335409/hong-kongs-sfc-orders-tighter-crypto-custody-standards",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8145180940628052,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.5480274558067322
+      },
+      {
+        "title": "La police tch\u00e8que a d\u00e9tenu la silhouette cl\u00e9 du scandale des dons de Bitcoin, saisit des actifs",
+        "text": "Les autorit\u00e9s tch\u00e8ques ont augment\u00e9 une enqu\u00eate politiquement charg\u00e9e sur un don de Bitcoin qui a presque renvers\u00e9 le gouvernement plus t\u00f4t cette ann\u00e9e.",
+        "original_title": "Czech Police Detain Key Figure in Bitcoin Donation Scandal, Seize Assets",
+        "source": "Decrypt",
+        "timestamp": 1755239545,
+        "url": "https://decrypt.co/335397/czech-police-detain-key-figure-bitcoin-donation-scandal",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6604331135749817,
+        "impact_score": 1.0,
+        "risk_class": "Scam",
+        "risk_score": 0.27497953176498413
+      },
+      {
+        "title": "SEC PUNDS D\u00c9CISION DES D\u00c9MILLES DES ETFS SOLANA De deux mois",
+        "text": "La Commission a exerc\u00e9 sa proc\u00e9dure finale pour les applications de Solana ETF, invoquant la n\u00e9cessit\u00e9 de temps suppl\u00e9mentaire pour examiner.",
+        "original_title": "SEC Punts Decision Deadlines for Solana ETFs by Two Months",
+        "source": "Decrypt",
+        "timestamp": 1755222980,
+        "url": "https://decrypt.co/335387/sec-punts-decision-deadlines-for-solana-etfs-by-two-months",
+        "symbols": [
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7490700483322144,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.5745810270309448
+      },
+      {
+        "title": "Clouds d'inflation chaude nourris, mais la surtension de liquidit\u00e9 de l'\u0153il des taureaux crypto-taureaux",
+        "text": "La crypto fait face \u00e0 des vents contraires \u00e0 court terme \u00e0 partir de donn\u00e9es sur l'inflation chaude, mais certains disent que les tendances mondiales de liquidit\u00e9 pourraient mettre en place un rassemblement de fin d'ann\u00e9e.",
+        "original_title": "Hot Inflation Clouds Fed Path, But Crypto Bulls Eye Q4 Liquidity Surge",
+        "source": "Decrypt",
+        "timestamp": 1755221616,
+        "url": "https://decrypt.co/335383/hot-inflation-clouds-fed-path-but-crypto-bulls-eye-q4-liquidity-surge",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.3994291424751282,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.25085070729255676
+      },
+      {
+        "title": "L'ancien employ\u00e9 de Pump.fun plaide coupable, attend la condamnation pour 2 millions de dollars de vol de Solana",
+        "text": "Jarett Dunn a plaid\u00e9 coupable de fraude par abus de poste et de transfert de biens p\u00e9naux pour une attaque contre son ancien employeur, Pump.fun.",
+        "original_title": "Former Pump.fun Employee Pleads Guilty, Awaits Sentencing for $2 Million Solana Theft",
+        "source": "Decrypt",
+        "timestamp": 1755208187,
+        "url": "https://decrypt.co/335320/former-pump-fun-employee-pleads-guilty-awaits-sentencing-solana-theft",
+        "symbols": [
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.47782623767852783,
+        "impact_score": 1.0,
+        "risk_class": "Pump",
+        "risk_score": 0.7473165988922119
+      },
+      {
+        "title": "Google obtient une offre de 35 milliards de dollars pour Chrome alors que le combat de navigateur AI augmente",
+        "text": "Search.com promet la navigation sans publicit\u00e9, le cashback pour les utilisateurs et le partage des revenus avec les \u00e9diteurs.",
+        "original_title": "Google Gets $35 Billion Offer for Chrome as AI Browser Fight Escalates",
+        "source": "Decrypt",
+        "timestamp": 1755207047,
+        "url": "https://decrypt.co/335357/google-gets-35-billion-offer-chrome-ai-browser-escalates",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.11245369911193848,
+        "impact_score": 1.0,
+        "risk_class": "Hack",
+        "risk_score": 0.2006416767835617
+      },
+      {
+        "title": "La strat\u00e9gie a pouss\u00e9 la comparaison \u00abtrompeuse\u00bb avec Apple et Nvidia, dit le v\u00e9t\u00e9ran de Wall Street",
+        "text": "La soci\u00e9t\u00e9 d'achat de Bitcoin impliquait que ses revenus \u00e9taient r\u00e9currents lors d'un appel de r\u00e9sultats, a d\u00e9clar\u00e9 Andy Constan.",
+        "original_title": "Strategy Pushed \u2018Deceptive\u2019 Comparison to Apple and NVIDIA, Wall Street Veteran Says",
+        "source": "Decrypt",
+        "timestamp": 1755204033,
+        "url": "https://decrypt.co/335283/strategy-deceptive-comparison-apple-nvidia-wall-street-veteran-says",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.3954930603504181,
+        "impact_score": 1.0,
+        "risk_class": "Bearish",
+        "risk_score": 0.1881340593099594
+      },
+      {
+        "title": "Bessent Backtracks sur Bitcoin: Tr\u00e9sor engag\u00e9 dans les achats de BTC `` non budg\u00e9taire ''",
+        "text": "Apr\u00e8s des fans d\u00e9cevants de Bitcoin avec des commentaires ant\u00e9rieurs, le secr\u00e9taire au Tr\u00e9sor Scott Bessent a d\u00e9clar\u00e9 que les \u00c9tats-Unis pourraient acheter la BTC pour sa r\u00e9serve apr\u00e8s tout.",
+        "original_title": "Bessent Backtracks on Bitcoin: Treasury Committed to 'Budget-Neutral' BTC Buys",
+        "source": "Decrypt",
+        "timestamp": 1755202677,
+        "url": "https://decrypt.co/335355/bessent-backtracks-bitcoin-treasury-committed-budget-neutral-btc-buys",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.3814660310745239,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.26675498485565186
+      },
+      {
+        "title": "Le Tr\u00e9sor am\u00e9ricain punit les soci\u00e9t\u00e9s de crypto russes sur les liens de cybercriminalit\u00e9, sanctionne l'\u00e9vasion",
+        "text": "Les agences f\u00e9d\u00e9rales ont continu\u00e9 \u00e0 examiner certaines activit\u00e9s d'actifs num\u00e9riques, m\u00eame si l'administration Trump a assoupli sa surveillance r\u00e9glementaire.",
+        "original_title": "US Treasury Punishes Russian Crypto Firms Over Cybercrime Ties, Sanctions Evasion",
+        "source": "Decrypt",
+        "timestamp": 1755200943,
+        "url": "https://decrypt.co/335289/us-treasury-sanctions-russian-crypto-firms-cybercrime-ties-sanctions-evasion",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7407552003860474,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.27874401211738586
+      },
+      {
+        "title": "Le bloc de Jack Dorsey r\u00e9v\u00e8le des plates-formes d'exploration de bitcoin modulaires qui peuvent \u00eatre am\u00e9lior\u00e9es",
+        "text": "Le bloc de Jack Dorsey a publi\u00e9 une nouvelle plate-forme d'exploitation bitcoin de longue dur\u00e9e dans le dernier BTC Push du co-fondateur de X.",
+        "original_title": "Jack Dorsey's Block Reveals Modular Bitcoin Mining Rigs That Can Be Upgraded",
+        "source": "Decrypt",
+        "timestamp": 1755200379,
+        "url": "https://decrypt.co/335297/jack-dorseys-block-reveals-modular-bitcoin-mining-rigs-that-can-be-upgraded",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8013560771942139,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.2006358653306961
+      },
+      {
+        "title": "Pourquoi XRP vide pendant que Cardano pompe: Analyse",
+        "text": "Alors que les r\u00e9servoirs XRP sur les donn\u00e9es d'inflation \u00e0 chaud, cardano rochent sur ETF Buzz. Est-ce que 1 $ pour Ada est vraiment en vue? Voici ce que disent les graphiques.",
+        "original_title": "Why XRP Is Dumping While Cardano Is Pumping: Analysis",
+        "source": "Decrypt",
+        "timestamp": 1755199185,
+        "url": "https://decrypt.co/335317/why-xrp-dumping-cardano-price-pumping-analysis",
+        "symbols": [
+          "XRP",
+          "ADA"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7049412131309509,
+        "impact_score": 1.0,
+        "risk_class": "Pump",
+        "risk_score": 0.864441454410553
+      },
+      {
+        "title": "Ark Invest de Cathie Wood ach\u00e8te 177 millions de dollars en actions haussiers apr\u00e8s une grande IPO crypto",
+        "text": "L'investisseur technologique lou\u00e9, Cathie Wood, a particip\u00e9 \u00e0 la derni\u00e8re IPO de la cryptographie \u00e0 succ\u00e8s, Ark Invest achetant des millions d'actions en hausse.",
+        "original_title": "Cathie Wood's Ark Invest Buys $177 Million in Bullish Shares After Big Crypto IPO",
+        "source": "Decrypt",
+        "timestamp": 1755198712,
+        "url": "https://decrypt.co/335313/cathie-woods-ark-invest-buys-177-million-in-bullish-shares-after-big-crypto-ipo",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6918734908103943,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.23748791217803955
+      },
+      {
+        "title": "Bitcoin, Ethereum tombe alors que PPI Shock Squashes esp\u00e8re la baisse du taux jumbo",
+        "text": "Le Tr\u00e9sor am\u00e9ricain Scott Bessent a plaid\u00e9 pour une baisse du tarif de 50 points plus t\u00f4t cette semaine.",
+        "original_title": "Bitcoin, Ethereum Fall as PPI Shock Squashes Hopes for Jumbo Rate Cut",
+        "source": "Decrypt",
+        "timestamp": 1755198003,
+        "url": "https://decrypt.co/335301/bitcoin-ethereum-fall-ppi-shock-squashes-hopes-jumbo-rate-cut",
+        "symbols": [
+          "ETH",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7301244139671326,
+        "impact_score": 1.0,
+        "risk_class": "Pump",
+        "risk_score": 0.38152649998664856
+      },
+      {
+        "title": "Qu'est-ce qui motive la pouss\u00e9e d'Ethereum - et peut-il durer?",
+        "text": "Certains experts pensent que le prix du jeton continuera de pomper jusqu'\u00e0 la fin de l'ann\u00e9e. D'autres s'inqui\u00e8tent des macro-conditions.",
+        "original_title": "What's Driving Ethereum's Surge\u2014And Can It Last?",
+        "source": "Decrypt",
+        "timestamp": 1755195332,
+        "url": "https://decrypt.co/335292/whats-driving-ethereums-surge-and-can-it-last",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7401381134986877,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.20062191784381866
+      },
+      {
+        "title": "Myriad Moves: O\u00f9 sont les prix Ethereum, Solana et XRP qui sont dirig\u00e9s ensuite?",
+        "text": "Le taureau se poursuivra-t-il? Les meilleurs march\u00e9s de moi-m\u00eame cette semaine impliquent les prochains mouvements de prix pour Ethereum, XRP et Solana.",
+        "original_title": "Myriad Moves: Where Are Ethereum, Solana and XRP Prices Headed Next?",
+        "source": "Decrypt",
+        "timestamp": 1755193608,
+        "url": "https://decrypt.co/335282/myriad-moves-where-ethereum-solana-xrp-prices-headed-next",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "XRP"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8592148423194885,
+        "impact_score": 1.0,
+        "risk_class": "Hack",
+        "risk_score": 0.26124173402786255
+      },
+      {
+        "title": "Chatgpt Cheat Sheet: Quel mod\u00e8le OpenAI devriez-vous utiliser?",
+        "text": "Openai a promis un avenir \u00e0 un mod\u00e8le pour Chatgpt. Au lieu de cela, il est en retour en arri\u00e8re - et les choix de mod\u00e8les sont plus d\u00e9routants que jamais.",
+        "original_title": "ChatGPT Cheat Sheet: Which OpenAI Model Should You Use?",
+        "source": "Decrypt",
+        "timestamp": 1755192859,
+        "url": "https://decrypt.co/335252/chatgpt-cheat-sheet-which-openai-model-should-you-use",
+        "symbols": [
+          "ENA"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7505269050598145,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.17464162409305573
+      },
+      {
+        "title": "Ethereum adapt\u00e9 \u00e0 la croissance de la stablecoin `` m\u00e9t\u00e9orique '', dit JPMorgan",
+        "text": "Le prix d'Ethereum a augment\u00e9 de 50% au cours du mois dernier.",
+        "original_title": "Ethereum Suited for 'Meteoric' Stablecoin Growth, JPMorgan Says",
+        "source": "Decrypt",
+        "timestamp": 1755189077,
+        "url": "https://decrypt.co/335253/ethereum-suited-meteoric-stablecoin-growth-jpmorgan",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.2827186584472656,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.17738905549049377
+      },
+      {
+        "title": "\u00c0 l'int\u00e9rieur du boom de la stablecoin de Wall Street",
+        "text": "L'associ\u00e9 directeur de Vaneck Ventures, Juan C. Lopez, d\u00e9ballait les accords les plus en vogue de cette ann\u00e9e en crypto, o\u00f9 la finance traditionnelle manque le message sur les stablecoins, et comment ses travaux pr\u00e9c\u00e9dents chez Circle Ventures informent son approche pour investir dans les entreprises",
+        "original_title": "Inside Wall Street's Stablecoin Boom",
+        "source": "Decrypt",
+        "timestamp": 1755188089,
+        "url": "https://decrypt.co/videos/interviews/SXesH5Pp/inside-wall-streets-stablecoin-boom",
+        "symbols": [
+          "USDT"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.3982226848602295,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.19311966001987457
+      },
+      {
+        "title": "Pirat\u00e9 \u00e0 nouveau? BTCURK suspend les retraits apr\u00e8s 49 millions de dollars en transferts suspects",
+        "text": "Btcturk n'a pas admis s'il avait effectivement \u00e9t\u00e9 pirat\u00e9. Mais ce ne serait pas la premi\u00e8re fois.",
+        "original_title": "Hacked Again? BtcTurk Suspends Withdrawals After $49 Million in Suspicious Transfers",
+        "source": "Decrypt",
+        "timestamp": 1755186600,
+        "url": "https://decrypt.co/335251/hacked-again-turkish-exchange-btcturk-suspends-withdrawals-50m-moved",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6696983575820923,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.25125011801719666
+      },
+      {
+        "title": "BTC New Ath, les recherches altcoin sont de retour, inutile obtient Coinbase",
+        "text": "BTC frappe New Ath, puis recule. ETH ETF Flows Second Flows de tous les temps. Altcoin Google Recherches a atteint le plus haut depuis 2021. La discrimination bancaire nous a envoy\u00e9s \u00e0 Crypto: Eric Trump. Stargate demande \u00e0 des rachats alternatifs \u00e0 LayerZero. Murano pour acheter 500 millions de dollars BTC. Google annule l'interdiction des portefeuilles crypto non gardiens. Le portefeuille perdu du banquier estonien d\u00e9tient d\u00e9sormais 1 milliard de dollars + eth. Metamask pourrait d\u00e9voiler la stablecoin cette semaine. Le haussier ferme 2x prix d'introduction en bourse. Justin Sun poursuit Bloomberg sur les histoires \u00e0 venir. Coinbase perd 300 000 $ en EXPLOIT MEV. L'Indon\u00e9sie annule le lancement du tracker de paiement num\u00e9rique. Le Vietnam met en place un \u00e9change de crypto de l'\u00c9tat. Matt Huang pour diriger le L1 de Stripe.",
+        "original_title": "BTC NEW ATH, ALTCOIN SEARCHES ARE BACK, USELESS GETS COINBASE",
+        "source": "Decrypt",
+        "timestamp": 1755185959,
+        "url": "https://decrypt.co/videos/interviews/YYQu4AVv/btc-new-ath-altcoin-searches-are-back-useless-gets-coinbase",
+        "symbols": [
+          "ETH",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8199432492256165,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.25751158595085144
+      },
+      {
+        "title": "Les \u00c9tats-Unis n'ach\u00e8teront aucun bitcoin, dit le secr\u00e9taire au Tr\u00e9sor Bessent",
+        "text": "La Maison Blanche a \u00e0 plusieurs reprises lanc\u00e9 l'id\u00e9e que le gouvernement f\u00e9d\u00e9ral pourrait - et devrait - l'achat de Bitcoin suppl\u00e9mentaire pour compl\u00e9ter les r\u00e9serves existantes.",
+        "original_title": "US Will Not Be Purchasing Any Bitcoin, Treasury Secretary Bessent Says",
+        "source": "Decrypt",
+        "timestamp": 1755182920,
+        "url": "https://decrypt.co/335246/treasury-secretary-bessent-u-s-not-purchasing-bitcoin",
+        "symbols": [
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.5758979916572571,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.5182210206985474
+      },
+      {
+        "title": "De faux cabinets d'avocats ciblant les victimes d'escroquerie de crypto, avertit le FBI",
+        "text": "Les cybercriminels retournent aux anciens victimes et se pr\u00e9tendent \u00eatre des avocats et des employ\u00e9s du gouvernement qui peuvent retourner leurs fonds.",
+        "original_title": "Fake Law Firms Targeting Crypto Scam Victims, FBI Warns",
+        "source": "Decrypt",
+        "timestamp": 1755182824,
+        "url": "https://decrypt.co/335240/fake-law-firms-targeting-crypto-scam-victims-fbi-warns",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7453210949897766,
+        "impact_score": 1.0,
+        "risk_class": "Hack",
+        "risk_score": 0.3213086426258087
+      },
+      {
+        "title": "ETH s'approche de Ath, Sol casse 200 $, pompez \u00e0 ICO Price",
+        "text": "ETH & Sol Soar, BTC Dominance inf\u00e9rieure \u00e0 60%. Les FNB eth voient 2,3 milliards de dollars d'entr\u00e9es en 6 jours. Sol rompt 200 $, Defi TVL \u00e0 trois ans. Bitmine Upsize Offre pour acheter ETH \u00e0 25 milliards de dollars. Le sentiment de crypto saute \u00e0 la \u00abcupidit\u00e9\u00bb en une semaine. Les institutions d\u00e9tiennent d\u00e9sormais 17% de la BTC en circulation. ETH Dats d\u00e9tient d\u00e9sormais environ 2% de l'offre. 1,3 milliard de dollars pourraient \u00eatre liquid\u00e9s si ETH atteint 5 000 $. 75% de cotes d'ETH atteint 5 000 $ le 31 ao\u00fbt sur PolyMarket. Ethzilla partage 3X alors que Peter Thiel prend parti. La fondation ETH d\u00e9charge 13 M $ eth. Do Kwon plaide coupable \u00e0 deux chefs de fraude. Les activit\u00e9s de crypto de Trump ont gagn\u00e9 2,4 milliards de dollars depuis 2022. L'introduction en bourse haussi\u00e8re recueille 1,1 milliard de dollars, 20X sursouscrit. Binance Premier membre de T3 +, l'unit\u00e9 de crime cryptographique. Coinbase ravive le fonds Stablecoin pour stimuler l'USDC.",
+        "original_title": "ETH NEARS ATH, SOL BREAKS $200, PUMP BACK TO ICO PRICE",
+        "source": "Decrypt",
+        "timestamp": 1755097983,
+        "url": "https://decrypt.co/videos/interviews/mdGKwXSM/eth-nears-ath-sol-breaks-200-pump-back-to-ico-price",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "BTC",
+          "BNB"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7313945293426514,
+        "impact_score": 1.0,
+        "risk_class": "Bullish",
+        "risk_score": 0.24074381589889526
+      },
+      {
+        "title": "ETH \u00c0 4 400 $, ETH ETF 1 milliard de dollars d'entr\u00e9es quotidiennes, Tom Lee acquiert 1,2 m eth",
+        "text": "Bitcoin recule apr\u00e8s avoir \u00e9chou\u00e9 \u00e0 Ath. ETH Outperforms, les ETF atteignent des entr\u00e9es d'enregistrement d'enregistrement de 1 milliard de dollars. Blockchain \u00e0 rayures L1 pour les paiements. Le b\u00e9n\u00e9fice du cercle augmente de 53%, construisant \u00e9galement la cha\u00eene L1. La strat\u00e9gie n'a achet\u00e9 que 18 millions de dollars BTC la semaine derni\u00e8re. Metaplanet ach\u00e8te 61 M $ BTC. BMNR d\u00e9sormais les meilleurs titulaires d'ETH, ont achet\u00e9 2 milliards de dollars en une semaine. SharpLink vend 400 millions de dollars pour acheter eth. Global fondamental ach\u00e8te 200 millions de dollars eth. Les clients FTX poursuivent Fenwick. Do Kwon devrait plaider coupable dans une affaire de fraude. Chainlink, Ice Collabor pour apporter FX & Metals sur la cha\u00eene. Thiel soutenue haussier augmente la taille de l'introduction en bourse, l'\u00e9valuation de 4,8 milliards de dollars. Paxos pour poursuivre la charte nationale de fiducie aux \u00c9tats-Unis. Origine bleue pour permettre des paiements cryptographiques pour les voyages dans l'espace.",
+        "original_title": "ETH at $4,400, ETH ETFS $1B DAILY INFLOWS, TOM LEE ACQUIRES 1.2M ETH",
+        "source": "Decrypt",
+        "timestamp": 1755019297,
+        "url": "https://decrypt.co/videos/interviews/wyfrjQNT/eth-at-4-400-eth-etfs-1b-daily-inflows-tom-lee-acquires-12m-eth",
+        "symbols": [
+          "ETH",
+          "BTC",
+          "LINK"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7500346302986145,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.2384004145860672
+      },
+      {
+        "title": "ETH ETF Flows Ath, Circle & Stripe Plan L1S, CPI Today",
+        "text": "Bitcoin recule apr\u00e8s avoir \u00e9chou\u00e9 \u00e0 Ath. ETH Outperforms, les ETF atteignent des entr\u00e9es d'enregistrement d'enregistrement de 1 milliard de dollars. Blockchain \u00e0 rayures L1 pour les paiements. Le b\u00e9n\u00e9fice du cercle augmente de 53%, construisant \u00e9galement la cha\u00eene L1. La strat\u00e9gie n'a achet\u00e9 que 18 millions de dollars BTC la semaine derni\u00e8re. Metaplanet ach\u00e8te 61 M $ BTC. BMNR d\u00e9sormais les meilleurs titulaires d'ETH, ont achet\u00e9 2 milliards de dollars en une semaine. SharpLink vend 400 millions de dollars pour acheter eth. Global fondamental ach\u00e8te 200 millions de dollars eth. Les clients FTX poursuivent Fenwick. Do Kwon devrait plaider coupable dans une affaire de fraude. Chainlink, Ice Collabor pour apporter FX & Metals sur la cha\u00eene. Thiel soutenue haussier augmente la taille de l'introduction en bourse, l'\u00e9valuation de 4,8 milliards de dollars. Paxos pour poursuivre la charte nationale de fiducie aux \u00c9tats-Unis. Origine bleue pour permettre des paiements cryptographiques pour les voyages dans l'espace.",
+        "original_title": "ETH ETF INFLOWS ATH, CIRCLE & STRIPE PLAN L1S, CPI TODAY",
+        "source": "Decrypt",
+        "timestamp": 1755012469,
+        "url": "https://decrypt.co/videos/interviews/XVDWEbcf/eth-etf-inflows-ath-circle-stripe-plan-l1s-cpi-today",
+        "symbols": [
+          "ETH",
+          "BTC",
+          "LINK"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7312963604927063,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.2314949333667755
+      },
+      {
+        "title": "ETH perc\u00e8ne 4 000 $, BTC se rapproche de ATH, Punks maintenant 240 000 $",
+        "text": "Le bitcoin approche de l'ATH, ETH atteint des sommets depuis 2021. Eth m\u00e8ne des majors, 71% de cotes qui atteignent 5 000 $ en 2025. BlackRock n'a pas de plan pour XRP ou SOL ETF. Harvard a achet\u00e9 117 millions de dollars BTC ETF. Bo hines pour d\u00e9missionner et passer au secteur priv\u00e9. WLFI pr\u00e9voit une collecte de fonds de 1,5 milliard de dollars pour le v\u00e9hicule cryptographique. La Chine demande aux courtiers de cesser de promouvoir les stablecoins. Coinbase intros dex trading sur l'application. Rumble pour acqu\u00e9rir des donn\u00e9es du Nord avec le support d'attache. Layerzero propose un rachat Stargate de 110 millions de dollars. L'\u00e9quipe de Credix dispara\u00eet apr\u00e8s 4,5 millions de dollars exploitant. Top Miner CleanSpark fait face \u00e0 des tarifs de 185 millions de dollars. Les collectes de fonds de crypto conformes aux micro-micro sont en direct en Europe. L'USDE atteint 10 milliards de dollars TVL, ENA m\u00e8ne les alts. Le battage m\u00e9diatique approche \u00e0 nouveau ATH, continue de dominer les frais. CEA Industries ach\u00e8te 160 millions de dollars BNB.",
+        "original_title": "ETH BREAKS THROUGH $4K, BTC NEARS ATH, PUNKS NOW $240K",
+        "source": "Decrypt",
+        "timestamp": 1754925870,
+        "url": "https://decrypt.co/videos/interviews/GDw7fLk1/eth-breaks-through-4k-btc-nears-ath-punks-now-240k",
+        "symbols": [
+          "BNB",
+          "BTC",
+          "XRP",
+          "ETH",
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6690658330917358,
+        "impact_score": 1.0,
+        "risk_class": "Pump",
+        "risk_score": 0.20482951402664185
+      },
+      {
+        "title": "Sec Drops XRP Case, ETH se rapproche \u00e0 nouveau de 4 000 $, Gold frappe Ath",
+        "text": "Trump signe EO laisser la crypto dans 401K. XRP en hausse de 10% alors que la SEC met officiellement terminer la bataille juridique. ETH continue Overperform BTC, approche une r\u00e9sistance \u00e0 4 000 $. Miran convivial de crypto pour planche Fed. Global fondamental pour collecter 5 milliards de dollars pour acheter ETH. 87% de cotes d'ETH atteint 4 000 $ ce mois-ci. XRP pour acheter un rail de la plate-forme de paiement pour 200 millions de dollars. Les actions mini\u00e8res de la BTC r\u00e9silient comme des craintes tarifaires s'estompent. La Fondation ETH promet 500 000 $ pour la d\u00e9fense de Storm. AnimoCA, provenance lancement du march\u00e9 RWA tokenis\u00e9. AnimoCa JV pour demander une licence de stablecoin. Binance, BBVA pour permettre la garde des actifs hors de l'\u00e9change. Les jumeaux Winklevoss investissent dans le bitcoin am\u00e9ricain de Trump. ChainLink annonce Link Reserve. Tok\u00e9nisation Drive coll\u00e9 \u00e0 25 milliards de dollars: JP Morgan. Les actions pr\u00e9-IPO deviennent n\u00e9gociables sur Sol.",
+        "original_title": "SEC DROPS XRP CASE, ETH NEARS $4K AGAIN, GOLD HITS ATH",
+        "source": "Decrypt",
+        "timestamp": 1754666466,
+        "url": "https://decrypt.co/videos/interviews/1JUcP9dr/sec-drops-xrp-case-eth-nears-4k-again-gold-hits-ath",
+        "symbols": [
+          "BNB",
+          "LINK",
+          "BTC",
+          "XRP",
+          "ETH",
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.6027308106422424,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.3991362750530243
+      },
+      {
+        "title": "ETH se rapproche de 4 000 $, les tarifs Trump commencent, Rekt frappe un autre ATH",
+        "text": "ETH m\u00e8ne les majors, Tom Lee pr\u00e9voit un objectif de cours de 16 000 $. Les \u00c9tats-Unis ont d\u00e9cid\u00e9 de permettre la crypto dans les plans 401k. Transactions quotidiennes eth \u00e0 proximit\u00e9 du record. Vendez de l'or, achetez BTC: Lummis. L'Indon\u00e9sie \u00e9value la r\u00e9serve BTC. Tornado Dev reconnu coupable de 1 des 3 accusations. Les \u00c9tats-Unis ajoutent un tarif de 21,6% sur les machines mini\u00e8res BTC. La parataxie lance 640 millions de dollars de la BTC Treasury Strategy. Bakkt pour configurer la BTC Treasury Company japonaise. Cosmos Health lance 300 millions de dollars d'ETH Treasury. Stanchart favorise les actions du tr\u00e9sor et les ETF. Union Jack Oil pour d\u00e9ployer les installations mini\u00e8res de la BTC. Sheetz offrant des r\u00e9ductions sur les paiements cryptographiques. Aave a frapp\u00e9 par l'attaque de phishing. Nomura pour lancer des options de crypto \u00e0 Duba\u00ef. Ordonnance du tribunal Wazirx \u00e0 divulguer l'accord de binance",
+        "original_title": "ETH NEARS $4K, TRUMP TARIFFS BEGIN, REKT HITS ANOTHER ATH",
+        "source": "Decrypt",
+        "timestamp": 1754580350,
+        "url": "https://decrypt.co/videos/interviews/meyK3vhj/eth-nears-4k-trump-tariffs-begin-rekt-hits-another-ath",
+        "symbols": [
+          "ETH",
+          "BNB",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7901777029037476,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.1876019537448883
+      },
+      {
+        "title": "$ Rebonds de pompe, bords cryptographiques plus bas, la Chine testant les stabins",
+        "text": "Crypto volatile au milieu d'une image macro plus faible. Les sorties de BTC ETF se poursuivent, ETH devient positif. Les d\u00e9tenteurs de BTC \u00e0 court terme jettent 18 milliards de dollars \u00e0 mesure que les baleines ach\u00e8tent. Les activit\u00e9s de jalonnement liquide ne sont pas des titres: sec. La Chine teste les stablescoins de yuan. Le Br\u00e9sil consid\u00e8re la r\u00e9serve de la BTC. Les fichiers SBI du Japon pour divers ETF crypto. Michigan Pension Fund Tripple BTC ETF Exposition. SharpLink a achet\u00e9 304 millions de dollars eth la semaine derni\u00e8re. Metamask pr\u00e9voit de lancer Stablecoin. La base tombe bri\u00e8vement en raison de l'\u00e9chec du s\u00e9quenceur. CZ demande un rejet d'un proc\u00e8s FTX de 1,8 milliard de dollars. Hyperliquide a g\u00e9n\u00e9r\u00e9 35% des revenus de la blockchain. Bitbridge pour devenir public en tant que soci\u00e9t\u00e9 de tr\u00e9sorerie BTC. BNB r\u00e9v\u00e8le la nouvelle feuille de route des infrastructures. Le LTC m\u00e8ne Alts, Mei Pharma lance 100 millions de dollars de tr\u00e9sorerie. Pendle pour permettre des sp\u00e9culations sur les taux de financement de la cryptographie.",
+        "original_title": "$PUMP REBOUNDS, CRYPTO EDGES LOWER, CHINA TESTING STABLECOINS",
+        "source": "Decrypt",
+        "timestamp": 1754494100,
+        "url": "https://decrypt.co/videos/interviews/0AMccQun/pump-rebounds-crypto-edges-lower-china-testing-stablecoins",
+        "symbols": [
+          "ETH",
+          "BNB",
+          "LTC",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7968220710754395,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.4146389663219452
+      },
+      {
+        "title": "Les cotes de baisse des taux montent en fl\u00e8che, projection crypto, tarifs Trump",
+        "text": "La crypto augmente \u00e0 mesure que les paris de pivot nourris se construisent, les m\u00e8ches Sol. ETH voit la sortie de l'ETF ATH. BMNR a achet\u00e9 200k d'ETH la semaine derni\u00e8re. Vitalik propose des frais d'ETH multidimensionnels. Les \u00c9tats-Unis se sont install\u00e9s sur des banques fines pour la discrimination cryptographique. SEC \u00e9met des directives sur la comptabilit\u00e9 des stablescoin. ChainLink lance les flux de donn\u00e9es d'actions am\u00e9ricains. Anti-Crypto Warren est un perdant: Trump. CFTC ouvre la porte aux \u00e9changes \u00e0 terme de crypto. Coinbase, PayPal pour offrir un rendement de stablecoin. Thiel a soutenu les fichiers haussiers pour l'introduction en bourse. Arkham d\u00e9couvre 3,5 milliards de dollars pour crypto",
+        "original_title": "RATE CUT ODDS SOAR, PROJECT CRYPTO, TRUMP TARIFFS",
+        "source": "Decrypt",
+        "timestamp": 1754418127,
+        "url": "https://decrypt.co/videos/interviews/Q6HuVGk9/rate-cut-odds-soar-project-crypto-trump-tariffs",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "LINK"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8068479895591736,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.5759477615356445
+      },
+      {
+        "title": "Debunking Mythes XRP avec Ripple CTO David Schwartz",
+        "text": "Andr\u00e9 Beganski de Decrypt interviewe Ripple en chef David Schwartz sur tout ce qui concerne XRP, Ripple, XRP Ledger et l'histoire du r\u00e9seau.",
+        "original_title": "Debunking XRP Myths With Ripple CTO David Schwartz",
+        "source": "Decrypt",
+        "timestamp": 1754413863,
+        "url": "https://decrypt.co/videos/interviews/1T1b4LlF/debunking-xrp-myths-with-ripple-cto-david-schwartz",
+        "symbols": [
+          "XRP"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7974691987037659,
+        "impact_score": 1.0,
+        "risk_class": "Hack",
+        "risk_score": 0.174989253282547
+      },
+      {
+        "title": "Sol m\u00e8ne les majors, les \u00e9normes sorties de FNB, Pumpfun promet les changements",
+        "text": "La crypto augmente \u00e0 mesure que les paris de pivot nourris se construisent, les m\u00e8ches Sol. ETH voit la sortie de l'ETF ATH. BMNR a achet\u00e9 200k d'ETH la semaine derni\u00e8re. Vitalik propose des frais d'ETH multidimensionnels. Les \u00c9tats-Unis se sont install\u00e9s sur des banques fines pour la discrimination cryptographique. SEC \u00e9met des directives sur la comptabilit\u00e9 des stablescoin. ChainLink lance les flux de donn\u00e9es d'actions am\u00e9ricains. Anti-Crypto Warren est un perdant: Trump. CFTC ouvre la porte aux \u00e9changes \u00e0 terme de crypto. Coinbase, PayPal pour offrir un rendement de stablecoin. Thiel a soutenu les fichiers haussiers pour l'introduction en bourse. Arkham d\u00e9couvre 3,5 milliards de dollars pour crypto",
+        "original_title": "SOL LEADS MAJORS, HUGE ETF OUTFLOWS, PUMPFUN PROMISES CHANGES",
+        "source": "Decrypt",
+        "timestamp": 1754407294,
+        "url": "https://decrypt.co/videos/interviews/hoTY417a/sol-leads-majors-huge-etf-outflows-pumpfun-promises-changes",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "LINK"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8114541172981262,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.496631920337677
+      },
+      {
+        "title": "Week-end volatile, XRP m\u00e8ne le rebond, Trump tire le chef BLS",
+        "text": "XRP, Doge Lead Crypto Rebond apr\u00e8s baisse. Les FNB BTC subissent une deuxi\u00e8me plus grande sortie d'une seule journ\u00e9e. Crypto ETFS a achet\u00e9 ATH 12,8 milliards de dollars en juillet. La Chine r\u00e9tracte \u00e0 nouveau la crypto continentale. SEC pour tenir des tables rondes cryptographiques \u00e0 travers nous. Achetez les trempettes en BTC, ETH: Eric Trump. Metaplanet pr\u00e9voit une augmentation sur les actions de 3,7 milliards de dollars pour acheter BTC. Galaxy num\u00e9rique otc baleine ach\u00e8te 300 millions de dollars eth. Les \u00abm\u00e9ga baleines\u00bb de l'ETH continuent d'acheter par trempette. CFTC lance \u00abCrypto Sprint\u00bb aux c\u00f4t\u00e9s de SEC. Binance ouvre des options BTC \u00e0 tous les utilisateurs. Attendez-vous \u00e0 ce que BTC teste 100 000 $, ETH \u00e0 3 000 $: Hayes. Coinbase a baiss\u00e9 de 19% la semaine derni\u00e8re. UK FCA permettre \u00e0 la vente au d\u00e9tail d'acc\u00e8s aux ETN crypto. Ena m\u00e8ne Altcoin Gains alors que TVL atteint 9 milliards de dollars",
+        "original_title": "VOLATILE WEEKEND, XRP LEADS REBOUND, TRUMP FIRES BLS CHIEF",
+        "source": "Decrypt",
+        "timestamp": 1754320232,
+        "url": "https://decrypt.co/videos/interviews/DnxzisxU/volatile-weekend-xrp-leads-rebound-trump-fires-bls-chief",
+        "symbols": [
+          "DOGE",
+          "BNB",
+          "BTC",
+          "XRP",
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7892383337020874,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.43164199590682983
+      },
+      {
+        "title": "BTC ATH mensuellement, Trump effraye les march\u00e9s, les altcoins sont les chutes",
+        "text": "Bitcoin enregistre ATH mensuellement close, puis tombe. Altcoins dirige la vente de crypto apr\u00e8s des revenus mixtes. SEC lance \u00abProject Crypto\u00bb pour tokenise les actifs. La plupart des actifs cryptographiques ne sont pas des titres: Atkins. La strat\u00e9gie rapporte un b\u00e9n\u00e9fice de 10 milliards de dollars malgr\u00e9 les frais de financement. Le b\u00e9n\u00e9fice de Coinbase mixte, les actions baissent de 10%. Coinbase pour s'\u00e9tendre \u00e0 des rwas tokenis\u00e9s, stocks. Tether annonce des b\u00e9n\u00e9fices du T2 de 4,9 milliards de dollars. Les bons du Tr\u00e9sor atteignent 10 milliards de dollars +. Maps de la Fondation ETH Plan 10 ans pour 10k TPS. \u00c9TABLES DES \u00c9TABLES D\u00c9POSSIONNAIRES D\u00c9POSSIONNANTS DES TRIASURES AUSSI-TRAISES. Jamie Dimon approuve Stablecoins mais pas BTC. Les \u00e9metteurs soumettent le S-1 modifi\u00e9 pour SOL ETF. Visa int\u00e8gre Eurc, Pyusd, USDG. USDC, CCTP V2 venant \u00e0 Hyperliquide: Circle. Mill City Ventures ach\u00e8te 278 M $ SUI. HK lance le r\u00e9gime de licence de stablecoin",
+        "original_title": "BTC ATH MONTHLY, TRUMP SPOOKS MARKETS, ALTCOINS LEAD FALLS",
+        "source": "Decrypt",
+        "timestamp": 1754063085,
+        "url": "https://decrypt.co/videos/interviews/QG5lc45Y/btc-ath-monthly-trump-spooks-markets-altcoins-lead-falls",
+        "symbols": [
+          "ETH",
+          "SOL",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7737932205200195,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.33012306690216064
+      },
+      {
+        "title": "La crypto rebondit en arri\u00e8re, Fed tient stable, Rekt approche",
+        "text": "Les majors cryptographiques inversent les pertes de nuit. WH publie un rapport cryptographique, l\u00e9ger anti-climax. Les \u00c9tats-Unis doivent diriger la r\u00e9volution de la crypto: Atkins. SEC d\u00e9crit les normes d'inscription pour les ETP crypto. ETH 10 ans anniversaire, chefs de file cl\u00e9s du NASDAQ. Robinhood bat les estimations de revenus crypto ~ 2x. Coinbase, JPM pour relier les comptes bancaires aux portefeuilles cryptographiques. Ether Machine ach\u00e8te 57 millions de dollars eth. Global fondamental pour acheter 200 millions de dollars eth. Hyperliquide annonce des remboursements pour les temps d'arr\u00eat. Employ\u00e9 de COINDCX arr\u00eat\u00e9 en relation avec 44 millions de dollars de piratage",
+        "original_title": "CRYPTO BOUNCES BACK, FED HOLDS STEADY, REKT NEARS ATH",
+        "source": "Decrypt",
+        "timestamp": 1753975373,
+        "url": "https://decrypt.co/videos/interviews/BM6jwZ1X/crypto-bounces-back-fed-holds-steady-rekt-nears-ath",
+        "symbols": [
+          "ETH"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.8029605150222778,
+        "impact_score": 1.0,
+        "risk_class": "Regulatory",
+        "risk_score": 0.16742856800556183
+      },
+      {
+        "title": "BTC Stable, SEC permet les rachats en nature, la d\u00e9cision de la Fed aujourd'hui",
+        "text": "BTC largement stable avant la d\u00e9cision de la Fed aujourd'hui. SEC permet aux ETP d'utiliser des m\u00e9canismes en nature. Etoro lance des actions am\u00e9ricaines tokenis\u00e9es sur ETH. Lummis Intros Crypto Gateral pour les hypoth\u00e8ques Bill. La strat\u00e9gie ach\u00e8te une augmentation de 2,4 milliards de dollars en BTC apr\u00e8s les actions. Vingt-un capital re\u00e7oit 5,8k BTC de Tether. BTCS pour collecter 2 milliards de dollars pour acheter ETH. 180 Sciences de la vie pour acheter 425 millions de dollars eth. La dominance de la perp\u00e8re ETH d\u00e9passe BTC. Les stablecoins sont le moment Chatgpt d'ETH: Tom Lee. Kraken cherche une \u00e9valuation de 15 milliards de dollars pour l'introduction en bourse. L'hyperliquide a subi des probl\u00e8mes de serveur, nie l'exploit. Linea pour br\u00fbler ETH avec 20% des frais. Rakbank d'abord aux EAU pour offrir un \u00e9change de crypto pour le commerce de d\u00e9tail",
+        "original_title": "BTC STABLE, SEC ALLOWS IN-KIND REDEMPTIONS, FED DECISION TODAY",
+        "source": "Decrypt",
+        "timestamp": 1753889612,
+        "url": "https://decrypt.co/videos/interviews/ioFCfFCR/btc-stable-sec-allows-in-kind-redemptions-fed-decision-today",
+        "symbols": [
+          "ETH",
+          "BTC"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7909059524536133,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.5172592997550964
+      },
+      {
+        "title": "Les cryptopunks voient 8,2 millions de dollars en volume de n\u00e9gociation, les majors crypto dans le rouge, Paypal annonce \"Pay with Crypto\"",
+        "text": "Allouer jusqu'\u00e0 15% du portefeuille \u00e0 BTC & Gold: Dalio. PayPal lance les paiements multi-Crypto. Metamask lance le rendement de stablecoin, Sol Staking. Les courtiers interactifs p\u00e8sent la stablecoin. La strat\u00e9gie augmente l'augmentation du capital \u00e0 2,8 milliards de dollars. Marathon Digital recueille 950 millions de dollars pour acheter BTC. Bitmin pr\u00e9voit un rachat d'actions de 1 milliard de dollars. ETH \u00ab6 000 $ par No\u00ebl\u00bb. TRON File Offre d'\u00e9tag\u00e8re mixte de 1 milliard de dollars. UPEXI recueille 500 millions de dollars pour acheter Sol. Mill City lance 450 millions de dollars Sui Treasury. Nano Labs recueille une dette de 500 millions de dollars pour acheter BNB. CEA Industries sera lanc\u00e9 500 millions de dollars BNB Treasury. Bit Origin pour collecter 500 millions de dollars pour le premier tr\u00e9sor des Doge. SEC retarde GraysCale Sol, Truth Social BTC ETF. COINDCX nie les pourparlers en vente avec Coinbase. FIS, Circle collaborce pour apporter des paiements USDC aux banques. L'UE a besoin de stablescoins pour nous contrer: Advisor de la BCE",
+        "original_title": "CRYPTOPUNKS SEE $8.2M IN TRADING VOLUME, CRYPTO MAJORS IN THE RED, PAYPAL ANNOUNCE \"PAY WITH CRYPTO\"",
+        "source": "Decrypt",
+        "timestamp": 1753810596,
+        "url": "https://decrypt.co/videos/interviews/VHGkYqN8/cryptopunks-see-82m-in-trading-volume-crypto-majors-in-the-red-paypal-announce-pay-with-crypto",
+        "symbols": [
+          "DOGE",
+          "TRX",
+          "BNB",
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.741721510887146,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.3976411819458008
+      },
+      {
+        "title": "PayPal embrasse la crypto, les bons du Tr\u00e9sor altcoin commencent, les actions ont encore frapp\u00e9 ATH",
+        "text": "Allouer jusqu'\u00e0 15% du portefeuille \u00e0 BTC & Gold: Dalio. PayPal lance les paiements multi-Crypto. Metamask lance le rendement de stablecoin, Sol Staking. Les courtiers interactifs p\u00e8sent la stablecoin. La strat\u00e9gie augmente l'augmentation du capital \u00e0 2,8 milliards de dollars. Marathon Digital recueille 950 millions de dollars pour acheter BTC. Bitmin pr\u00e9voit un rachat d'actions de 1 milliard de dollars. ETH \u00ab6 000 $ par No\u00ebl\u00bb. TRON File Offre d'\u00e9tag\u00e8re mixte de 1 milliard de dollars. UPEXI recueille 500 millions de dollars pour acheter Sol. Mill City lance 450 millions de dollars Sui Treasury. Nano Labs recueille une dette de 500 millions de dollars pour acheter BNB. CEA Industries sera lanc\u00e9 500 millions de dollars BNB Treasury. Bit Origin pour collecter 500 millions de dollars pour le premier tr\u00e9sor des Doge. SEC retarde GraysCale Sol, Truth Social BTC ETF. COINDCX nie les pourparlers en vente avec Coinbase. FIS, Circle collaborce pour apporter des paiements USDC aux banques. L'UE a besoin de stablescoins pour nous contrer: Advisor de la BCE",
+        "original_title": "PAYPAL EMBRACES CRYPTO, ALTCOIN TREASURIES BEGIN, STOCKS HIT ATH AGAIN",
+        "source": "Decrypt",
+        "timestamp": 1753802801,
+        "url": "https://decrypt.co/videos/interviews/qfP9YlwR/paypal-embraces-crypto-altcoin-treasuries-begin-stocks-hit-ath-again",
+        "symbols": [
+          "DOGE",
+          "TRX",
+          "BNB",
+          "BTC",
+          "ETH",
+          "SOL"
+        ],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.76390540599823,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.4545774757862091
+      },
+      {
+        "title": "Pourquoi les stocks tokenis\u00e9s sont importants: une panne",
+        "text": "Pourquoi les stocks tokenis\u00e9s sont importants: une ventilation #Crypto #Tokenzation #Kraken \n\nDecrypt a parl\u00e9 au responsable mondial de Kraken, Mark Greenberg, pour briser le monde des stocks tokenis\u00e9s - et explorer l'entr\u00e9e de Kraken dans l'espace avec son offre XStocks.",
+        "original_title": "Why Tokenized Stocks are Important: A Breakdown",
+        "source": "Decrypt",
+        "timestamp": 1753798712,
+        "url": "https://decrypt.co/videos/interviews/DlQzVrtc/why-tokenized-stocks-are-important-a-breakdown",
+        "symbols": [],
+        "source_weight": 0.8,
+        "processed": false,
+        "sentiment": 0.7172884941101074,
+        "impact_score": 1.0,
+        "risk_class": "Security",
+        "risk_score": 0.22335906326770782
+      }
+    ],
+    "latest_news": [
+      "Myriad Moves: O\u00f9 sont les prix Ethereum, Solana et XRP qui sont dirig\u00e9s ensuite?",
+      "La crypto tombe apr\u00e8s PPI, d'\u00e9normes liquidations, Trump-Putin \u00e0 rencontrer",
+      "BTC New Ath, les recherches altcoin sont de retour, inutile obtient Coinbase",
+      "SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes apr\u00e8s les violations mondiales",
+      "Sol m\u00e8ne les majors, les \u00e9normes sorties de FNB, Pumpfun promet les changements"
+    ],
+    "overall_sentiment": 0.638286842065945,
+    "impact_score": 0.6461178080031746,
+    "major_events": "Myriad Moves: O\u00f9 sont les prix Ethereum, Solana et XRP qui sont dirig\u00e9s ensuite?; La crypto tombe apr\u00e8s PPI, d'\u00e9normes liquidations, Trump-Putin \u00e0 rencontrer; BTC New Ath, les recherches altcoin sont de retour, inutile obtient Coinbase",
+    "top_symbols": [
+      "LTC",
+      "DOGE",
+      "TRX",
+      "ENA",
+      "LINK"
+    ],
+    "n_news": 57
   }
 }

@@ -32,8 +32,6 @@ import pandas as pd
 import pandas_ta as pta
 import pyarrow as pa
 import pyarrow.parquet as pq
-import argparse
-import json
 import lz4.frame
 import shutil
 
@@ -109,6 +107,7 @@ from src.portfolio.binance_utils import get_avg_entry_price_binance_spot
 
 from cachetools import TTLCache
 
+from src.utils.safe_json_utils import safe_update_shared_data
 # from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
 
 # Charger les variables d'environnement depuis .env
@@ -967,8 +966,7 @@ class TradingBotM4:
 
         self.news_pause_manager = NewsPauseManager(default_pause_cycles=6)
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(shared_data)
             # PATCH: Restore ONLY from active_pauses, ignore pause_status
             active_pauses = shared_data.get("active_pauses", [])
@@ -1103,8 +1101,7 @@ class TradingBotM4:
 
     def _preserve_and_update_dashboard(self, new_fields):
         if os.path.exists(self.data_file):
-            with open(self.data_file, "r") as f:
-                existing_data = json.load(f)
+            existing_data = safe_load_shared_data(self.data_file))
         else:
             existing_data = {}
         preserved_fields = [
@@ -1665,8 +1662,7 @@ class TradingBotM4:
         """
         auto_sell_list = []
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
@@ -3142,7 +3138,7 @@ class TradingBotM4:
     def backup_critical_data(self):
         try:
             backup_data = {
-                "timestamp": get_current_time(),
+                "timestamp": get_current_time_tahiti(),
                 "positions": self.positions_binance,
                 "market_data": self.market_data,
                 "indicators": self.indicators,
@@ -3176,7 +3172,7 @@ class TradingBotM4:
             for key, value in metrics.items():
                 if isinstance(value, (int, float)):
                     self.system_metrics[key].append(
-                        {"timestamp": get_current_time(), "value": value}
+                        {"timestamp": get_current_time_tahiti(), "value": value}
                     )
             return metrics
         except Exception as e:
@@ -3756,8 +3752,7 @@ class TradingBotM4:
         # Ajoute à closed_positions dans shared_data.json
         closed = []
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(shared_data)
                 closed = shared_data.get("closed_positions", [])
         except Exception:
@@ -4379,8 +4374,7 @@ class TradingBotM4:
                                 pass
 
                 try:
-                    with open(self.data_file, "r") as f:
-                        shared_data = json.load(f)
+                    shared_data = safe_load_shared_data(self.data_file)
                     deep_cast_floats(shared_data)
                     sentiment_data = shared_data.get("sentiment", {})
                     avg_sentiment = float(
@@ -4708,8 +4702,7 @@ class TradingBotM4:
         try:
             if returns is None:
                 # Récupère l'historique des rendements depuis equity_history
-                with open(self.data_file, "r") as f:
-                    data = json.load(f)
+                shared_data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(data)
                 equity_history = data.get("equity_history", [])
                 if not equity_history or len(equity_history) < 2:
@@ -4746,8 +4739,7 @@ class TradingBotM4:
         try:
             if returns is None:
                 # Récupère l'historique des rendements
-                with open(self.data_file, "r") as f:
-                    data = json.load(f)
+                shared_data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(data)
                 equity_history = data.get("equity_history", [])
                 if not equity_history or len(equity_history) < 2:
@@ -4788,8 +4780,7 @@ class TradingBotM4:
     def calculate_calmar(self):
         """Calcule le ratio de Calmar"""
         try:
-            with open(self.data_file, "r") as f:
-                data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(data)
             equity_history = data.get("equity_history", [])
 
@@ -4822,8 +4813,7 @@ class TradingBotM4:
     def get_win_rate(self):
         """Calcule le win rate sur l'historique des trades"""
         try:
-            with open(self.data_file, "r") as f:
-                data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(data)
             trade_history = data.get("trade_history", [])
 
@@ -4840,8 +4830,7 @@ class TradingBotM4:
     def get_avg_profit(self):
         """Calcule le profit moyen par trade"""
         try:
-            with open(self.data_file, "r") as f:
-                data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(data)
             trade_history = data.get("trade_history", [])
 
@@ -4858,8 +4847,7 @@ class TradingBotM4:
     def get_max_drawdown(self):
         """Calcule le maximum drawdown"""
         try:
-            with open(self.data_file, "r") as f:
-                data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(data)
             equity_history = data.get("equity_history", [])
 
@@ -5204,8 +5192,7 @@ class TradingBotM4:
         """
         auto_sell_list = []
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
@@ -5233,8 +5220,7 @@ class TradingBotM4:
         """
         auto_sell_list = []
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             auto_sell_list = shared_data.get("auto_sell_positions", [])
         except Exception:
             auto_sell_list = []
@@ -5455,8 +5441,7 @@ class TradingBotM4:
         }
 
         try:
-            with open(self.data_file, "r") as f:
-                shared_data_prev = json.load(f)
+            shared_data_prev = safe_load_shared_data(self.data_file)
             deep_cast_floats(shared_data_prev)
             old_scores = shared_data_prev.get("sentiment", {}).get("scores", [])
         except Exception:
@@ -5534,8 +5519,7 @@ class TradingBotM4:
 
         # Section news/sentiment globale détaillée
         try:
-            with open(self.data_file, "r") as f:
-                shared_data = json.load(f)
+            shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(shared_data)
             news_sentiment = shared_data.get("sentiment", None)
         except Exception:
@@ -6145,8 +6129,7 @@ class TradingBotM4:
         # Charge l'existant si présent
         if os.path.exists(self.data_file):
             try:
-                with open(self.data_file, "r") as f:
-                    data = json.load(f)
+                data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(data)
             except Exception as e:
                 print(f"Erreur lecture shared_data: {e}")
@@ -6173,7 +6156,7 @@ class TradingBotM4:
         # Réinitialise uniquement les champs de statut
         data.update(
             {
-                "timestamp": get_current_time(),
+                "timestamp": get_current_time_tahiti(),
                 "user": CURRENT_USER,
                 "bot_status": {
                     "regime": self.regime,
@@ -6193,8 +6176,7 @@ class TradingBotM4:
     def save_shared_data(self):
         try:
             if os.path.exists(self.data_file):
-                with open(self.data_file, "r") as f:
-                    data = json.load(f)
+                data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(data)
             else:
                 data = {}
@@ -6202,7 +6184,7 @@ class TradingBotM4:
             # MAJ des sections
             data.update(
                 {
-                    "timestamp": get_current_time(),
+                    "timestamp": get_current_time_tahiti(),
                     "user": CURRENT_USER,
                     "bot_status": {
                         "regime": self.regime,
@@ -6269,8 +6251,7 @@ class TradingBotM4:
 
             # Récupère les autres métriques (trade_history, etc.)
             try:
-                with open(self.data_file, "r") as f:
-                    data = json.load(f)
+                data = safe_load_shared_data(self.data_file)
                 saved_perf = data.get("bot_status", {}).get("performance", {})
             except Exception:
                 saved_perf = {}
@@ -6567,7 +6548,7 @@ async def log_external_crypto_alert(bot, symbol, news, extra=None):
     - extra  : infos additionnelles (score, volume, etc.)
     """
     alert = {
-        "timestamp": get_current_time(),
+        "timestamp": get_current_time_tahiti(),
         "symbol": symbol,
         "type": "external_alert",
         "title": news.get("title", ""),
@@ -7757,7 +7738,7 @@ async def run_clean_bot():
                             {
                                 "pump_opportunities": [
                                     {
-                                        "timestamp": get_current_time(),
+                                        "timestamp": get_current_time_tahiti(),
                                         "pair": c["pair"],
                                         "type": "pump",
                                         "price_pct": c["price_pct"],
@@ -7801,7 +7782,7 @@ async def run_clean_bot():
                             {
                                 "breakout_opportunities": [
                                     {
-                                        "timestamp": get_current_time(),
+                                        "timestamp": get_current_time_tahiti(),
                                         "pair": c["pair"],
                                         "type": "breakout",
                                         "close": c["close"],
@@ -7850,7 +7831,7 @@ async def run_clean_bot():
                             {
                                 "news_opportunities": [
                                     {
-                                        "timestamp": get_current_time(),
+                                        "timestamp": get_current_time_tahiti(),
                                         "pair": c["pair"],
                                         "type": "news",
                                         "sentiment": c["sentiment"],
@@ -7894,7 +7875,7 @@ async def run_clean_bot():
                             {
                                 "arbitrage_opportunities": [
                                     {
-                                        "timestamp": get_current_time(),
+                                        "timestamp": get_current_time_tahiti(),
                                         "pair": c["pair"],
                                         "type": "arbitrage",
                                         "binance_price": c["binance_price"],
@@ -8804,7 +8785,7 @@ async def save_cycle_data(bot, analysis_data):
         equity_history = data.get("equity_history", [])
         equity_history.append(
             {
-                "timestamp": get_current_time(),
+                "timestamp": get_current_time_tahiti(),
                 "balance": analysis_data["perf"].get("balance", 0),
                 "metrics": analysis_data["metrics"],  # Ajout des métriques avancées
             }
