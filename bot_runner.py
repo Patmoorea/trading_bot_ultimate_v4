@@ -108,6 +108,7 @@ from src.portfolio.binance_utils import get_avg_entry_price_binance_spot
 from cachetools import TTLCache
 
 from src.utils.safe_json_utils import safe_update_shared_data
+
 # from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
 
 # Charger les variables d'environnement depuis .env
@@ -1101,7 +1102,7 @@ class TradingBotM4:
 
     def _preserve_and_update_dashboard(self, new_fields):
         if os.path.exists(self.data_file):
-            existing_data = safe_load_shared_data(self.data_file))
+            existing_data = safe_load_shared_data(self.data_file)
         else:
             existing_data = {}
         preserved_fields = [
@@ -3753,8 +3754,8 @@ class TradingBotM4:
         closed = []
         try:
             shared_data = safe_load_shared_data(self.data_file)
-                deep_cast_floats(shared_data)
-                closed = shared_data.get("closed_positions", [])
+            deep_cast_floats(shared_data)
+            closed = shared_data.get("closed_positions", [])
         except Exception:
             closed = []
         closed.append(closed_position)
