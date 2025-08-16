@@ -1129,6 +1129,156 @@ class TradingBotM4:
             log_dashboard("✅ Auto-stratégie chargée :", self.auto_strategy_config)
         self.positions_binance = {}
         self.sync_positions_with_binance()
+        self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
+
+    async def detect_and_buy_news_impulsif(
+        self, news_item, min_sentiment=0.7, confirmation_threshold=0.5
+    ):
+        """
+        Détecte une news forte sur n'importe quelle crypto USDC, calcule tous les indicateurs du bot,
+        confirme l'achat, l'exécute, notifie Telegram et met à jour le dashboard.
+        Mais NE SPAM PAS Telegram sur chaque refus.
+        """
+        symbol_list = news_item.get("symbols", [])
+        sentiment = float(news_item.get("sentiment", 0))
+        title = news_item.get("title", "News sans titre")
+        reason = []
+        bilan = ""
+        # 1. Ne traiter que les news fortes
+        if sentiment < min_sentiment or not symbol_list:
+            return  # Rien à faire
+
+        for symbol in symbol_list:
+            pair = f"{symbol}/USDC"
+            pair_key = pair.replace("/", "").upper()
+            # 2. Vérifie si la paire existe sur Binance (spot USDC)
+            try:
+                ticker = self.binance_client.get_symbol_ticker(
+                    symbol=pair.replace("/", "")
+                )
+                price_binance = float(ticker.get("price", 0))
+                if price_binance == 0:
+                    reason.append("Paire indisponible sur Binance USDC")
+                    bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                    # PATCH: Ajoute à la liste de refus, NE PAS envoyer Telegram
+                    self.refused_trades_cycle.append(bilan)
+                    self.safe_update_shared_data(
+                        {"news_bilan": [bilan]}, self.data_file
+                    )
+                    continue
+            except Exception as e:
+                reason.append(f"Erreur accès Binance: {e}")
+                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                self.refused_trades_cycle.append(bilan)
+                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+                continue
+
+            # 3. Récupère dynamiquement les données OHLCV (1h) pour la paire
+            try:
+                klines = self.binance_client.get_klines(
+                    symbol=pair.replace("/", ""), interval="1h", limit=50
+                )
+                if not klines or len(klines) == 0:
+                    reason.append("Pas de données OHLCV")
+                    bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                    self.refused_trades_cycle.append(bilan)
+                    self.safe_update_shared_data(
+                        {"news_bilan": [bilan]}, self.data_file
+                    )
+                    continue
+                df = pd.DataFrame(
+                    klines,
+                    columns=[
+                        "timestamp",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume",
+                        "close_time",
+                        "qav",
+                        "trades",
+                        "tbbav",
+                        "tbqav",
+                        "ignore",
+                    ],
+                )
+                df = df[["timestamp", "open", "high", "low", "close", "volume"]]
+                df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
+                df[["open", "high", "low", "close", "volume"]] = df[
+                    ["open", "high", "low", "close", "volume"]
+                ].astype(float)
+            except Exception as e:
+                reason.append(f"Erreur OHLCV: {e}")
+                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                self.refused_trades_cycle.append(bilan)
+                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+                continue
+
+            # 4. Calcule tous les indicateurs du bot (technique, IA, momentum, orderflow, sentiment)
+            try:
+                # Technique
+                indics = self.add_indicators(df)
+                tech_score = float(indics.get("technical_score", 0.5))
+                # Momentum
+                momentum_score = (
+                    float(indics.get("momentum", 0.5)) if "momentum" in indics else 0.5
+                )
+                # Orderflow
+                of = self.analyze_order_flow(df)
+                orderflow_score = float(of.get("imbalance", 0.5))
+                # IA : si dispo, calcule sur les features du df
+                ai_score = 0.5
+                if hasattr(self, "dl_model") and self.dl_model is not None:
+                    features = await self._prepare_features_for_ai(pair_key)
+                    try:
+                        if features:
+                            ai_score = float(self.dl_model.predict(features))
+                    except Exception:
+                        ai_score = 0.5
+                # Sentiment (celui de la news)
+                sentiment_score = sentiment
+
+                # Confirmation : tous les scores doivent dépasser le seuil
+                confirm = all(
+                    [
+                        tech_score > confirmation_threshold,
+                        ai_score > confirmation_threshold,
+                        momentum_score > confirmation_threshold,
+                        orderflow_score > confirmation_threshold,
+                        sentiment_score > min_sentiment,
+                    ]
+                )
+                reason.append(f"Sentiment news fort ({sentiment_score:.2f})")
+                reason.append(f"Technique: {tech_score:.2f}")
+                reason.append(f"Momentum: {momentum_score:.2f}")
+                reason.append(f"Orderflow: {orderflow_score:.2f}")
+                reason.append(f"IA: {ai_score:.2f}")
+            except Exception as e:
+                reason.append(f"Erreur indicateurs: {e}")
+                confirm = False
+
+            # 5. Achat et log
+            if confirm:
+                amount = 15  # montant fixe ou à calculer selon ta logique
+                try:
+                    result = await self.execute_trade(
+                        pair, "BUY", amount, price_binance
+                    )
+                    bilan = f"Achat EFFECTUÉ sur {pair}: " + ", ".join(reason)
+                    await self.telegram.send_message(bilan)
+                except Exception as e:
+                    bilan = (
+                        f"Achat REFUSÉ sur {pair}: Erreur exécution trade: {e}, "
+                        + ", ".join(reason)
+                    )
+                    self.refused_trades_cycle.append(bilan)
+            else:
+                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
+                self.refused_trades_cycle.append(bilan)
+
+            # 6. Dashboard uniquement
+            self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
 
     def auto_update_pairs_from_binance(self):
         """
@@ -1462,153 +1612,17 @@ class TradingBotM4:
                 continue
         return candidates
 
-    async def detect_and_buy_news_impulsif(
-        self, news_item, min_sentiment=0.7, confirmation_threshold=0.5
-    ):
-        """
-        Détecte une news forte sur n'importe quelle crypto USDC, calcule tous les indicateurs du bot,
-        confirme l'achat, l'exécute, notifie Telegram et met à jour le dashboard.
-        news_item: dict avec 'title', 'symbols', 'sentiment', etc.
-        min_sentiment: seuil de news forte
-        confirmation_threshold: seuil minimum pour tous les indicateurs (tech, IA, momentum, orderflow, sentiment)
-        """
-        symbol_list = news_item.get("symbols", [])
-        sentiment = float(news_item.get("sentiment", 0))
-        title = news_item.get("title", "News sans titre")
-        reason = []
-        bilan = ""
-        # 1. Ne traiter que les news fortes
-        if sentiment < min_sentiment or not symbol_list:
-            return  # Rien à faire
-
-        for symbol in symbol_list:
-            pair = f"{symbol}/USDC"
-            pair_key = pair.replace("/", "").upper()
-            # 2. Vérifie si la paire existe sur Binance (spot USDC)
-            try:
-                ticker = self.binance_client.get_symbol_ticker(
-                    symbol=pair.replace("/", "")
-                )
-                price_binance = float(ticker.get("price", 0))
-                if price_binance == 0:
-                    reason.append("Paire indisponible sur Binance USDC")
-                    bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-                    await self.telegram.send_message(bilan)
-                    self.safe_update_shared_data(
-                        {"news_bilan": [bilan]}, self.data_file
-                    )
-                    continue
-            except Exception as e:
-                reason.append(f"Erreur accès Binance: {e}")
-                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-                await self.telegram.send_message(bilan)
-                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
-                continue
-
-            # 3. Récupère dynamiquement les données OHLCV (1h) pour la paire
-            try:
-                klines = self.binance_client.get_klines(
-                    symbol=pair.replace("/", ""), interval="1h", limit=50
-                )
-                if not klines or len(klines) == 0:
-                    reason.append("Pas de données OHLCV")
-                    bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-                    await self.telegram.send_message(bilan)
-                    self.safe_update_shared_data(
-                        {"news_bilan": [bilan]}, self.data_file
-                    )
-                    continue
-                df = pd.DataFrame(
-                    klines,
-                    columns=[
-                        "timestamp",
-                        "open",
-                        "high",
-                        "low",
-                        "close",
-                        "volume",
-                        "close_time",
-                        "qav",
-                        "trades",
-                        "tbbav",
-                        "tbqav",
-                        "ignore",
-                    ],
-                )
-                df = df[["timestamp", "open", "high", "low", "close", "volume"]]
-                df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
-                df[["open", "high", "low", "close", "volume"]] = df[
-                    ["open", "high", "low", "close", "volume"]
-                ].astype(float)
-            except Exception as e:
-                reason.append(f"Erreur OHLCV: {e}")
-                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-                await self.telegram.send_message(bilan)
-                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
-                continue
-
-            # 4. Calcule tous les indicateurs du bot (technique, IA, momentum, orderflow, sentiment)
-            try:
-                # Technique
-                indics = self.add_indicators(df)
-                tech_score = float(indics.get("technical_score", 0.5))
-                # Momentum
-                momentum_score = (
-                    float(indics.get("momentum", 0.5)) if "momentum" in indics else 0.5
-                )
-                # Orderflow
-                of = self.analyze_order_flow(df)
-                orderflow_score = float(of.get("imbalance", 0.5))
-                # IA : si dispo, calcule sur les features du df
-                ai_score = 0.5
-                if hasattr(self, "dl_model") and self.dl_model is not None:
-                    features = await self._prepare_features_for_ai(pair_key)
-                    try:
-                        if features:
-                            ai_score = float(self.dl_model.predict(features))
-                    except Exception:
-                        ai_score = 0.5
-                # Sentiment (celui de la news)
-                sentiment_score = sentiment
-
-                # Confirmation : tous les scores doivent dépasser le seuil
-                confirm = all(
-                    [
-                        tech_score > confirmation_threshold,
-                        ai_score > confirmation_threshold,
-                        momentum_score > confirmation_threshold,
-                        orderflow_score > confirmation_threshold,
-                        sentiment_score > min_sentiment,
-                    ]
-                )
-                reason.append(f"Sentiment news fort ({sentiment_score:.2f})")
-                reason.append(f"Technique: {tech_score:.2f}")
-                reason.append(f"Momentum: {momentum_score:.2f}")
-                reason.append(f"Orderflow: {orderflow_score:.2f}")
-                reason.append(f"IA: {ai_score:.2f}")
-            except Exception as e:
-                reason.append(f"Erreur indicateurs: {e}")
-                confirm = False
-
-            # 5. Achat et log
-            if confirm:
-                amount = 15  # montant fixe ou à calculer selon ta logique
-                try:
-                    result = await self.execute_trade(
-                        pair, "BUY", amount, price_binance
-                    )
-                    bilan = f"Achat EFFECTUÉ sur {pair}: " + ", ".join(reason)
-                except Exception as e:
-                    bilan = (
-                        f"Achat REFUSÉ sur {pair}: Erreur exécution trade: {e}, "
-                        + ", ".join(reason)
-                    )
-            else:
-                bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-
-            # 6. Telegram et dashboard
-            await self.telegram.send_message(bilan)
-            self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+    async def send_refused_trades_summary(self):
+        """Envoie un résumé unique des refus de trades impulsifs/news/pump/breakout"""
+        if not self.refused_trades_cycle:
+            return
+        count = len(self.refused_trades_cycle)
+        msg = (
+            f"⚪️ <b>{count} trades impulsifs/news/pump/breakout refusés ce cycle</b>\n\n"
+            + "\n".join([f"• {bilan}" for bilan in self.refused_trades_cycle[:10]])
+        )
+        await self.telegram.send_message(msg)
+        self.refused_trades_cycle.clear()
 
     async def plan_auto_sell(
         self,
@@ -8124,6 +8138,7 @@ async def run_clean_bot():
                 )
                 await bot.handle_auto_sell()
                 # Attente avant le prochain cycle
+                await bot.send_refused_trades_summary()
                 await asyncio.sleep(1)
 
         except KeyboardInterrupt:
