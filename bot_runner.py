@@ -470,7 +470,7 @@ def get_current_time_tahiti():
 
 
 # Constantes
-CURRENT_TIME = get_current_time()
+CURRENT_TIME = get_current_time_tahiti()
 CURRENT_USER = "Patmoorea"
 CONFIG_PATH = "config/trading_pairs.json"
 SHARED_DATA_PATH = "src/shared_data.json"
