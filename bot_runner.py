@@ -107,7 +107,7 @@ from src.portfolio.binance_utils import get_avg_entry_price_binance_spot
 
 from cachetools import TTLCache
 
-from src.utils.safe_json_utils import safe_load_shared_data
+from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 
 # from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
 
@@ -4710,8 +4710,8 @@ class TradingBotM4:
             if returns is None:
                 # Récupère l'historique des rendements depuis equity_history
                 shared_data = safe_load_shared_data(self.data_file)
-                deep_cast_floats(data)
-                equity_history = data.get("equity_history", [])
+                deep_cast_floats(shared_data)
+                trade_history = shared_data.get("trade_history", [])
                 if not equity_history or len(equity_history) < 2:
                     return 0.0
 
@@ -4747,8 +4747,8 @@ class TradingBotM4:
             if returns is None:
                 # Récupère l'historique des rendements
                 shared_data = safe_load_shared_data(self.data_file)
-                deep_cast_floats(data)
-                equity_history = data.get("equity_history", [])
+                deep_cast_floats(shared_data)
+                trade_history = shared_data.get("trade_history", [])
                 if not equity_history or len(equity_history) < 2:
                     return 0.0
 
@@ -4788,8 +4788,8 @@ class TradingBotM4:
         """Calcule le ratio de Calmar"""
         try:
             shared_data = safe_load_shared_data(self.data_file)
-            deep_cast_floats(data)
-            equity_history = data.get("equity_history", [])
+            deep_cast_floats(shared_data)
+            trade_history = shared_data.get("trade_history", [])
 
             if not equity_history or len(equity_history) < 2:
                 return 0.0
@@ -4821,8 +4821,8 @@ class TradingBotM4:
         """Calcule le win rate sur l'historique des trades"""
         try:
             shared_data = safe_load_shared_data(self.data_file)
-            deep_cast_floats(data)
-            trade_history = data.get("trade_history", [])
+            deep_cast_floats(shared_data)
+            trade_history = shared_data.get("trade_history", [])
 
             if not trade_history:
                 return 0.0
@@ -4838,8 +4838,8 @@ class TradingBotM4:
         """Calcule le profit moyen par trade"""
         try:
             shared_data = safe_load_shared_data(self.data_file)
-            deep_cast_floats(data)
-            trade_history = data.get("trade_history", [])
+            deep_cast_floats(shared_data)
+            trade_history = shared_data.get("trade_history", [])
 
             if not trade_history:
                 return 0.0
@@ -4855,8 +4855,8 @@ class TradingBotM4:
         """Calcule le maximum drawdown"""
         try:
             shared_data = safe_load_shared_data(self.data_file)
-            deep_cast_floats(data)
-            equity_history = data.get("equity_history", [])
+            deep_cast_floats(shared_data)
+            trade_history = shared_data.get("trade_history", [])
 
             if not equity_history or len(equity_history) < 2:
                 return 0.0

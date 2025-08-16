@@ -6676,3 +6676,21 @@
 2025-08-16T18:48:14.220223 | 🚫 Cycle bloqué - Pause news active
 2025-08-16T18:54:33.336272 | Démarrage cycle trading
 2025-08-16T18:54:33.372098 | 🚫 Cycle bloqué - Pause news active
+2025-08-16T18:57:50.139223 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-16T18:57:50.140985 | Initialisation des modèles d'IA...
+2025-08-16T18:57:50.320173 | ✅ Modèles d'IA initialisés avec succès
+2025-08-16T18:57:51.563265 | ✅ PPO Strategy initialized successfully
+2025-08-16T18:57:58.891922 | ✅ Bot initialisé avec Telegram: True
+2025-08-16T18:57:58.892553 | ✅ Trading en direct: True
+2025-08-16T18:57:58.892598 | ✅ IA activée: True
+2025-08-16T18:57:58.892636 | ✅ Analyse de news activée: True
+2025-08-16T19:01:24.535544 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-16T19:01:24.536577 | Initialisation des modèles d'IA...
+2025-08-16T19:01:24.719911 | ✅ Modèles d'IA initialisés avec succès
+2025-08-16T19:01:26.325465 | ✅ PPO Strategy initialized successfully
+2025-08-16T19:01:30.070605 | ✅ Bot initialisé avec Telegram: True
+2025-08-16T19:01:30.071248 | ✅ Trading en direct: True
+2025-08-16T19:01:30.071296 | ✅ IA activée: True
+2025-08-16T19:01:30.071364 | ✅ Analyse de news activée: True
+2025-08-16T19:04:17.048457 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-16T19:04:54.590261 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
