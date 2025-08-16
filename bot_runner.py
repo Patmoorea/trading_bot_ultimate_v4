@@ -26,6 +26,7 @@ import aiohttp
 import numpy as np
 import time
 from datetime import datetime, timezone, timedelta
+import pytz
 import argparse
 import pandas as pd
 import pandas_ta as pta
@@ -462,9 +463,10 @@ MARKET_REGIMES = {
 }
 
 
-def get_current_time():
-    """Retourne la date/heure actuelle"""
-    return datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+def get_current_time_tahiti():
+    tahiti = pytz.timezone("Pacific/Tahiti")
+    now_tahiti = datetime.now(tahiti)
+    return now_tahiti.strftime("%Y-%m-%d %H:%M:%S")
 
 
 # Constantes
