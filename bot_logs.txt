@@ -4124,3 +4124,5 @@
 2025-08-16T04:08:31.011600 | [TRADE-DECISION] LINKUSDC | Action: BUY | Confiance: 0.28 | Score: 0.2756 | Tech: 0.34 | AI: 0.16
 2025-08-16T04:24:58.594356 | Démarrage cycle trading
 2025-08-16T04:24:58.714751 | 🚫 Cycle bloqué - Pause news active
+2025-08-16T04:51:00.694008 | Démarrage cycle trading
+2025-08-16T04:51:00.732586 | 🚫 Cycle bloqué - Pause news active

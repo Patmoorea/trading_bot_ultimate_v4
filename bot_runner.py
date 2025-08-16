@@ -500,7 +500,7 @@ class TelegramNotifier:
         return self.N_FEATURES * self.N_STEPS * len(getattr(self, "pairs_valid", []))
 
     async def send_message(self, message):
-        """Envoie un message sur Telegram avec retry et fallback"""
+        """Envoie un message sur Telegram via une queue non bloquante"""
         if not self.bot_token or not self.chat_id:
             print("⚠️ Message non envoyé: Configuration Telegram manquante")
             return
@@ -519,35 +519,31 @@ class TelegramNotifier:
                 + "\n... (troncature automatique)"
             )
 
+        # utilisation d'une file asyncio pour déléguer l'envoi
+        if not hasattr(self, "_queue"):
+            self._queue = asyncio.Queue()
+            asyncio.create_task(self._telegram_worker())
+
+        await self._queue.put(full_message)
+
+    async def _telegram_worker(self):
+        """Worker qui envoie les messages Telegram en arrière-plan"""
         url = f"{self.base_url}/sendMessage"
-        data = {"chat_id": self.chat_id, "text": full_message, "parse_mode": "HTML"}
-
-        # Ajout de retry avec timeout plus court
-        MAX_RETRIES = 3
-        TIMEOUT = 5  # 5 secondes max par tentative
-
-        for attempt in range(MAX_RETRIES):
-            try:
-                timeout = aiohttp.ClientTimeout(total=TIMEOUT)
-                async with aiohttp.ClientSession(timeout=timeout) as session:
+        TIMEOUT = aiohttp.ClientTimeout(total=5)
+        async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
+            while True:
+                msg = await self._queue.get()
+                data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
+                try:
                     async with session.post(url, json=data) as response:
                         result = await response.json()
                         if not result.get("ok"):
                             print(f"⚠️ Erreur Telegram: {result.get('description')}")
-                        return result
-            except asyncio.TimeoutError:
-                print(f"⚠️ Timeout Telegram (tentative {attempt+1}/{MAX_RETRIES})")
-                await asyncio.sleep(1)
-                continue
-            except Exception as e:
-                print(f"⚠️ Erreur envoi Telegram: {e}")
-                self._log_to_file(full_message)
-                return None
-
-        # Si tous les essais échouent, fallback log
-        print("❌ Échec envoi Telegram après plusieurs tentatives")
-        self._log_to_file(full_message)
-        return None
+                except Exception as e:
+                    print(f"⚠️ Erreur envoi Telegram: {e}")
+                    self._log_to_file(msg)
+                finally:
+                    self._queue.task_done()
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -859,8 +855,6 @@ class RiskManager:
                 print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
                 return False
 
-            # Score global (pondération simple ou personnalisée)
-            total_score = (tech_score + mom_score + flow_score) / 3
             if abs(total_score) < 0.25:
                 print(f"[RISK] Score global insuffisant: {total_score:.2f}")
                 return False
@@ -1868,49 +1862,46 @@ class TradingBotM4:
         return f"{min(base * 100, 12):.1f}%"
 
     def validate_trade(self, signals):
-        """Valide si un trade peut être pris selon les critères de risque"""
+        """Valide si un trade respecte les critères de risque"""
         try:
-            # Récupération des scores
-            technical_score = signals.get("technical", {}).get("score", 0)
-            momentum_score = signals.get("momentum", {}).get("score", 0)
-            orderflow_score = signals.get("orderflow", {}).get("score", 0)
-
-            # Calcul du score global
-            weights = {"technical": 0.4, "momentum": 0.3, "orderflow": 0.3}
-
-            total_score = (
-                technical_score * weights["technical"]
-                + momentum_score * weights["momentum"]
-                + orderflow_score * weights["orderflow"]
-            )
-
-            # Vérification critères minimums
-            if total_score < self.min_score_required:
-                print(
-                    f"[RISK] Score insuffisant: {total_score:.2f} < {self.min_score_required}"
-                )
+            if not signals or not isinstance(signals, dict):
+                print("[RISK] Signaux invalides")
                 return False
 
-            # Vérification momentum
-            if abs(momentum_score) < 0.3:
-                print("[RISK] Momentum trop faible")
+            # Extraction des composantes
+            technical = signals.get("technical", {})
+            momentum = signals.get("momentum", {})
+            orderflow = signals.get("orderflow", {})
+
+            # Validation technique
+            tech_score = float(technical.get("score", 0))
+            if abs(tech_score) < self.validation_thresholds["technical"]:
+                print(f"[RISK] Score technique insuffisant: {tech_score:.2f}")
                 return False
 
-            # Vérification orderflow
-            if abs(orderflow_score) < 0.2:
-                print("[RISK] Orderflow insuffisant")
+            # Validation momentum
+            mom_score = float(momentum.get("score", 0))
+            if abs(mom_score) < self.validation_thresholds["momentum"]:
+                print(f"[RISK] Momentum insuffisant: {mom_score:.2f}")
                 return False
 
-            # Vérification liquidité
-            liquidity = signals.get("orderflow", {}).get("liquidity", 0)
-            if abs(liquidity) > 0.7:
-                print("[RISK] Liquidité anormale")
+            # Validation orderflow
+            flow_score = float(orderflow.get("score", 0))
+            if abs(flow_score) < self.validation_thresholds["orderflow"]:
+                print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
                 return False
 
+            # Score global = moyenne pondérée simple
+            total_score = (tech_score + mom_score + flow_score) / 3
+            if abs(total_score) < 0.25:
+                print(f"[RISK] Score global insuffisant: {total_score:.2f}")
+                return False
+
+            print(f"[RISK] ✅ Trade validé - Score global: {total_score:.2f}")
             return True
 
         except Exception as e:
-            print(f"[RISK] Erreur validation trade: {e}")
+            print(f"[RISK] Erreur validation: {e}")
             return False
 
     def calculate_pair_correlation(self, pair1, pair2, window=20, tf="1h"):
