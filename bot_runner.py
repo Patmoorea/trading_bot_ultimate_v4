@@ -522,7 +522,7 @@ class TelegramNotifier:
         # utilisation d'une file asyncio pour déléguer l'envoi
         if not hasattr(self, "_queue"):
             self._queue = asyncio.Queue()
-            asyncio.create_task(self._telegram_worker())
+            self._worker_task = asyncio.create_task(self._telegram_worker())
 
         await self._queue.put(full_message)
 
@@ -855,52 +855,17 @@ class RiskManager:
                 print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
                 return False
 
+            # Score global = moyenne pondérée
+            total_score = (tech_score + mom_score + flow_score) / 3
             if abs(total_score) < 0.25:
                 print(f"[RISK] Score global insuffisant: {total_score:.2f}")
                 return False
 
-            print(f"[RISK] ✅ Trade validé - Score: {total_score:.2f}")
+            print(f"[RISK] ✅ Trade validé - Score global: {total_score:.2f}")
             return True
 
         except Exception as e:
             print(f"[RISK] Erreur validation: {e}")
-            return False
-
-    def calculate_position_size(self, equity, confidence, volatility=0.02):
-        """Calcul intelligent de la taille de position"""
-        try:
-            if confidence < self.min_confidence:
-                print(f"[RISK] Confiance insuffisante: {confidence:.2f}")
-                return 0
-
-            base_size = float(equity) * self.position_limits["max_per_trade"]
-            vol_adj = max(0.3, 1 - (volatility * 2))
-            final_size = min(
-                base_size * vol_adj,
-                float(equity) * self.position_limits["max_per_trade"],
-            )
-
-            print(f"[RISK] Taille position: {final_size:.2f} USDC")
-            return final_size
-
-        except Exception as e:
-            print(f"[RISK] Erreur calcul position: {str(e)}")
-            return 0
-
-    def check_exposure_limit(self, current_positions, new_position_size):
-        """Vérifie les limites d'exposition"""
-        try:
-            total_exposure = sum(
-                float(pos.get("size", 0)) for pos in current_positions.values()
-            )
-            new_total = total_exposure + float(new_position_size)
-            is_valid = new_total <= self.position_limits["max_total_exposure"]
-
-            print(f"[RISK] Exposition totale: {new_total:.2%}")
-            return is_valid
-
-        except Exception as e:
-            print(f"[RISK] Erreur vérification exposition: {e}")
             return False
 
 
@@ -1091,7 +1056,6 @@ class TradingBotM4:
         # Initialisation des composants d'arbitrage
         self.arbitrage_bot = ArbitrageBot()
         self.arbitrage_scanner = ArbitrageScanner()
-        self.risk_manager = RiskManager()
 
         # Configuration de l'arbitrage
         self.arbitrage_config = {
@@ -1132,6 +1096,43 @@ class TradingBotM4:
         self.positions_binance = {}
         self.sync_positions_with_binance()
         self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
+
+    def calculate_position_size(self, equity, confidence, volatility=0.02):
+        """Calcul intelligent de la taille de position"""
+        try:
+            if confidence < self.min_confidence:
+                print(f"[RISK] Confiance insuffisante: {confidence:.2f}")
+                return 0
+
+            base_size = float(equity) * self.position_limits["max_per_trade"]
+            vol_adj = max(0.3, 1 - (volatility * 2))
+            final_size = min(
+                base_size * vol_adj,
+                float(equity) * self.position_limits["max_per_trade"],
+            )
+
+            print(f"[RISK] Taille position: {final_size:.2f} USDC")
+            return final_size
+
+        except Exception as e:
+            print(f"[RISK] Erreur calcul position: {str(e)}")
+            return 0
+
+    def check_exposure_limit(self, current_positions, new_position_size):
+        """Vérifie les limites d'exposition"""
+        try:
+            total_exposure = sum(
+                float(pos.get("size", 0)) for pos in current_positions.values()
+            )
+            new_total = total_exposure + float(new_position_size)
+            is_valid = new_total <= self.position_limits["max_total_exposure"]
+
+            print(f"[RISK] Exposition totale: {new_total:.2f USDC}")
+            return is_valid
+
+        except Exception as e:
+            print(f"[RISK] Erreur vérification exposition: {e}")
+            return False
 
     async def detect_and_buy_news_impulsif(
         self, news_item, min_sentiment=0.7, confirmation_threshold=0.5
@@ -1860,49 +1861,6 @@ class TradingBotM4:
         if kelly > 0:
             base *= 1 + min(kelly * 0.5, 0.5)
         return f"{min(base * 100, 12):.1f}%"
-
-    def validate_trade(self, signals):
-        """Valide si un trade respecte les critères de risque"""
-        try:
-            if not signals or not isinstance(signals, dict):
-                print("[RISK] Signaux invalides")
-                return False
-
-            # Extraction des composantes
-            technical = signals.get("technical", {})
-            momentum = signals.get("momentum", {})
-            orderflow = signals.get("orderflow", {})
-
-            # Validation technique
-            tech_score = float(technical.get("score", 0))
-            if abs(tech_score) < self.validation_thresholds["technical"]:
-                print(f"[RISK] Score technique insuffisant: {tech_score:.2f}")
-                return False
-
-            # Validation momentum
-            mom_score = float(momentum.get("score", 0))
-            if abs(mom_score) < self.validation_thresholds["momentum"]:
-                print(f"[RISK] Momentum insuffisant: {mom_score:.2f}")
-                return False
-
-            # Validation orderflow
-            flow_score = float(orderflow.get("score", 0))
-            if abs(flow_score) < self.validation_thresholds["orderflow"]:
-                print(f"[RISK] Orderflow insuffisant: {flow_score:.2f}")
-                return False
-
-            # Score global = moyenne pondérée simple
-            total_score = (tech_score + mom_score + flow_score) / 3
-            if abs(total_score) < 0.25:
-                print(f"[RISK] Score global insuffisant: {total_score:.2f}")
-                return False
-
-            print(f"[RISK] ✅ Trade validé - Score global: {total_score:.2f}")
-            return True
-
-        except Exception as e:
-            print(f"[RISK] Erreur validation: {e}")
-            return False
 
     def calculate_pair_correlation(self, pair1, pair2, window=20, tf="1h"):
         """

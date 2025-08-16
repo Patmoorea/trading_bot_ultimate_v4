@@ -1,18 +1,14 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [
-    {
-      "asset": "GLOBAL",
-      "action": "ALL",
-      "cycles_left": 11,
-      "type": "GLOBAL",
-      "reason": "Le r\u00e9gulateur de Hong Kong resserre les normes de garde pour les \u00e9changes de cryptographie au milieu des risques mondiaux croissants",
-      "max_cycles": 11,
-      "total_remaining": 11
-    }
+  "pauses": [],
+  "sentiment": 0.727569545507431,
+  "risky_positions": [
+    "BNB/USDC",
+    "XRP/USDC",
+    "DOGE/USDC",
+    "SUI/USDC",
+    "NOT/USDC"
   ],
-  "sentiment": 0.7301771533489227,
-  "risky_positions": [],
-  "timestamp": 1755320117.994265
+  "timestamp": 1755354409.302732
 }
