@@ -107,7 +107,7 @@ from src.portfolio.binance_utils import get_avg_entry_price_binance_spot
 
 from cachetools import TTLCache
 
-from src.utils.safe_json_utils import safe_update_shared_data
+from src.utils.safe_json_utils import safe_load_shared_data
 
 # from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
 
