@@ -1,14 +1,18 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [],
-  "sentiment": 0,
-  "risky_positions": [
-    "BNB/USDC",
-    "XRP/USDC",
-    "DOGE/USDC",
-    "SUI/USDC",
-    "NOT/USDC"
+  "pauses": [
+    {
+      "asset": "GLOBAL",
+      "action": "ALL",
+      "cycles_left": 1,
+      "type": "GLOBAL",
+      "reason": "Pourquoi XRP vide pendant que Cardano pompe: Analyse",
+      "max_cycles": 1,
+      "total_remaining": 1
+    }
   ],
-  "timestamp": 1755366726.8298502
+  "sentiment": 0,
+  "risky_positions": [],
+  "timestamp": 1755383814.951665
 }

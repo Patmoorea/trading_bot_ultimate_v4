@@ -4711,7 +4711,7 @@ class TradingBotM4:
                 # Récupère l'historique des rendements depuis equity_history
                 shared_data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(shared_data)
-                trade_history = shared_data.get("trade_history", [])
+                equity_history = shared_data.get("equity_history", [])
                 if not equity_history or len(equity_history) < 2:
                     return 0.0
 
@@ -4748,7 +4748,7 @@ class TradingBotM4:
                 # Récupère l'historique des rendements
                 shared_data = safe_load_shared_data(self.data_file)
                 deep_cast_floats(shared_data)
-                trade_history = shared_data.get("trade_history", [])
+                equity_history = shared_data.get("equity_history", [])
                 if not equity_history or len(equity_history) < 2:
                     return 0.0
 
@@ -4789,7 +4789,7 @@ class TradingBotM4:
         try:
             shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(shared_data)
-            trade_history = shared_data.get("trade_history", [])
+            equity_history = shared_data.get("equity_history", [])
 
             if not equity_history or len(equity_history) < 2:
                 return 0.0
@@ -4856,7 +4856,7 @@ class TradingBotM4:
         try:
             shared_data = safe_load_shared_data(self.data_file)
             deep_cast_floats(shared_data)
-            trade_history = shared_data.get("trade_history", [])
+            equity_history = shared_data.get("equity_history", [])
 
             if not equity_history or len(equity_history) < 2:
                 return 0.0
