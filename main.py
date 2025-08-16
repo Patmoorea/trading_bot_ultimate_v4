@@ -25,7 +25,6 @@ TRADING_PARAMS = {
     "position_sizing": {"base_risk": 0.02, "max_risk": 0.05, "scaling": True},
 }
 
-# --- CONFIGURATION ---
 st.set_page_config(
     page_title="Trading Bot Ultimate v4 - Dashboard",
     page_icon="📈",
@@ -42,46 +41,28 @@ STATUS_FILE = "bot_status.json"
 SHARED_DATA_PATH = "src/shared_data.json"
 LOG_FILE = "src/bot_logs.txt"
 CONFIG_FILE = "config.json"
-CURRENT_USER = "Patmoorea"  # UNIVERSAL PATCH: Safe JSON update
+CURRENT_USER = "Patmoorea"
+
+
+# --- UTILS ---
+def safe_float(val, default=0.0):
+    try:
+        return float(val)
+    except Exception:
+        return default
 
 
 def save_shared_data(update_dict, data_file):
     try:
-        # PATCH: restauration JSON minimal si fichier vide/corrompu
         shared_data = {}
         if os.path.exists(data_file):
             try:
                 with open(data_file, "r") as f:
                     shared_data = json.load(f)
-                    if not isinstance(shared_data, dict):
-                        print(
-                            "[PATCH] Le fichier JSON n'est pas un dict, restauration minimal."
-                        )
-                        shared_data = {}
-            except Exception as e:
-                print(
-                    f"[PATCH] Erreur lecture JSON : {e} -- Fichier corrompu, restauration minimal."
-                )
-                shared_data = {
-                    "bot_status": {
-                        "regime": "Indéterminé",
-                        "cycle": 0,
-                        "last_update": "",
-                        "performance": {
-                            "balance": 10000,
-                            "total_trades": 0,
-                            "wins": 0,
-                            "losses": 0,
-                            "total_profit": 0,
-                            "total_loss": 0,
-                            "win_rate": 0,
-                            "profit_factor": 0,
-                        },
-                    },
-                    "positions_binance": {},
-                    "pending_sales": [],
-                    "active_pauses": [],
-                }
+                if not isinstance(shared_data, dict):
+                    shared_data = {}
+            except Exception:
+                shared_data = {}
         shared_data.update(update_dict)
         with open(data_file, "w") as f:
             json.dump(shared_data, f, indent=2)
@@ -90,23 +71,19 @@ def save_shared_data(update_dict, data_file):
 
 
 def calc_sizing(confidence, tech, ai, sentiment, win_rate=0.55, profit_factor=1.7):
-    # Sizing base selon confiance
+    base = 0.02
     if confidence > 0.8:
         base = 0.09
     elif confidence > 0.6:
         base = 0.06
     elif confidence > 0.4:
         base = 0.04
-    else:
-        base = 0.02
-    # Ajustements
     if tech > 0.7:
         base *= 1.2
     if ai > 0.7:
         base *= 1.1
     if abs(sentiment) > 0.7:
         base *= 0.8
-    # Kelly Criterion
     kelly = kelly_criterion(win_rate, profit_factor)
     if kelly > 0:
         base *= 1 + min(kelly * 0.5, 0.5)
@@ -130,231 +107,6 @@ def load_json_file(path):
     return {}
 
 
-def get_pending_sales(self):
-    pending = []
-    GAIN_ALERT_PCT = 0.07
-    LOSS_ALERT_PCT = -0.05
-    now = datetime.utcnow()
-    pauses = []
-    if hasattr(self, "news_pause_manager"):
-        pauses = self.news_pause_manager.get_active_pauses()
-
-    def is_paused(symbol):
-        if not pauses:
-            return False, ""
-        for p in pauses:
-            asset = p.get("asset", "GLOBAL")
-            if asset == "GLOBAL" or asset == symbol:
-                return True, p.get("reason", "Indéterminée")
-        return False, ""
-
-    # PATCH: actualise le prix live Binance à chaque tick pour chaque position
-    for symbol, pos in self.positions.items():
-        entry_price = pos.get("entry_price")
-        # PATCH: récupère le prix live Binance à chaque tick/cycle
-        try:
-            from binance.client import Client
-
-            api_key = os.getenv("BINANCE_API_KEY")
-            api_secret = os.getenv("BINANCE_API_SECRET")
-            client = Client(api_key, api_secret)
-            symbol_binance = symbol.replace("/", "")
-            ticker = client.get_symbol_ticker(symbol=symbol_binance)
-            current_price = float(ticker.get("price", 0))
-        except Exception:
-            current_price = pos.get("current_price")
-        pos["current_price"] = current_price  # <-- PATCH: met à jour l'objet
-        # ... (reste inchangé)
-        amount = pos.get("amount")
-        pnl_latent = (
-            (current_price - entry_price) / entry_price * 100
-            if entry_price and current_price
-            else 0
-        )
-        date_achat = pos.get("date", pos.get("entry_time")) or None
-        if date_achat:
-            try:
-                date_achat_dt = datetime.fromisoformat(date_achat)
-                temps_en_position = (now - date_achat_dt).total_seconds() / 3600
-            except Exception:
-                temps_en_position = None
-        else:
-            temps_en_position = None
-        td = self.trade_decisions.get(symbol.replace("/", "").upper(), {})
-        action = td.get("action", "neutral")
-        reason = ""
-        decision = ""
-        note = ""
-        pause_for_pos, pause_reason = is_paused(symbol)
-        if pause_for_pos:
-            pause_blocage = "Oui"
-            note = "Trading suspendu"
-            reason = "Pause active"
-            decision = f"Vente bloquée (pause: {pause_reason})"
-        elif action == "SELL" and pos.get("side") == "long":
-            pause_blocage = "Non"
-            reason = "Signal SELL détecté"
-            decision = "Vente prévue au prochain cycle"
-            note = ""
-        elif self.exit_manager.is_tp_near(pos):
-            pause_blocage = "Non"
-            reason = "Take Profit proche"
-            decision = "Vente partielle possible (TP)"
-            note = ""
-        elif self.check_stop_loss(symbol):
-            pause_blocage = "Non"
-            reason = "Stop-loss imminent"
-            decision = "Vente automatique si perte aggrave"
-            note = ""
-        elif pnl_latent > GAIN_ALERT_PCT * 100:
-            pause_blocage = "Non"
-            reason = "Gain latent élevé"
-            decision = "Surveillance, possibilité de prise de profit"
-            note = "En zone de profit, TP possible"
-        elif pnl_latent < LOSS_ALERT_PCT * 100:
-            pause_blocage = "Non"
-            reason = "Perte latente élevée"
-            decision = "Surveillance, risque de vente auto si perte aggrave"
-            note = "Risque de stop-loss"
-        else:
-            pause_blocage = "Non"
-            reason = f"Signal actuel: {action.upper()}"
-            decision = "Aucune action prévue, position maintenue"
-            note = ""
-        pending.append(
-            {
-                "symbol": symbol,
-                "reason": reason,
-                "decision": decision,
-                "entry_price": entry_price,
-                "current_price": current_price,
-                "amount": amount,
-                "% Gain/Perte latente": f"{pnl_latent:.2f}%",
-                "temps_en_position_h": (
-                    f"{temps_en_position:.1f}"
-                    if temps_en_position is not None
-                    else "N/A"
-                ),
-                "pause_blocage": pause_blocage,
-                "note": note,
-            }
-        )
-
-    if hasattr(self, "positions_binance"):
-        for symbol, pos in self.positions_binance.items():
-            entry_price = pos.get("entry_price")
-            # PATCH: récupère le prix live Binance à chaque tick
-            try:
-                from binance.client import Client
-
-                api_key = os.getenv("BINANCE_API_KEY")
-                api_secret = os.getenv("BINANCE_API_SECRET")
-                client = Client(api_key, api_secret)
-                symbol_binance = symbol.replace("/", "")
-                ticker = client.get_symbol_ticker(symbol=symbol_binance)
-                current_price = float(ticker.get("price", 0))
-            except Exception:
-                current_price = pos.get("current_price")
-            pos["current_price"] = current_price  # <-- PATCH: met à jour l'objet
-            amount = pos.get("amount")
-            pnl_latent = (
-                (current_price - entry_price) / entry_price * 100
-                if entry_price and current_price
-                else 0
-            )
-            fifo_pnl_pct, _ = self.get_last_fifo_pnl(symbol)
-            if fifo_pnl_pct is None:
-                fifo_pnl_pct = 0
-            td = self.trade_decisions.get(symbol.replace("/", "").upper(), {})
-            action = td.get("action", "neutral")
-            pause_for_pos, pause_reason = is_paused(symbol)
-            if pause_for_pos:
-                pause_blocage = "Oui"
-                note = "Trading suspendu"
-                reason = "Pause active"
-                decision = f"Vente bloquée (pause: {pause_reason})"
-            elif action == "SELL" and pos.get("side") == "long":
-                pause_blocage = "Non"
-                reason = "Signal SELL détecté"
-                decision = "Vente prévue au prochain cycle"
-                note = ""
-            elif hasattr(self, "exit_manager") and self.exit_manager.is_tp_near(pos):
-                pause_blocage = "Non"
-                reason = "Take Profit proche"
-                decision = "Vente partielle possible (TP)"
-                note = ""
-            elif self.check_stop_loss(symbol):
-                pause_blocage = "Non"
-                reason = "Stop-loss imminent"
-                decision = "Vente automatique si perte aggrave"
-                note = ""
-            elif pnl_latent > GAIN_ALERT_PCT * 100:
-                pause_blocage = "Non"
-                reason = f"Gain latent élevé {pnl_latent:.1f}%"
-                decision = "Surveillance, possibilité de prise de profit"
-                note = "En zone de profit, TP possible"
-            elif pnl_latent < LOSS_ALERT_PCT * 100:
-                pause_blocage = "Non"
-                reason = f"Perte latente élevée {pnl_latent:.1f}%"
-                decision = "Surveillance, risque de vente auto si perte aggrave"
-                note = "Risque de stop-loss"
-            else:
-                pause_blocage = "Non"
-                reason = f"Signal actuel: {action.upper()}"
-                decision = "Aucune action prévue, position maintenue"
-                note = ""
-            pending.append(
-                {
-                    "symbol": symbol,
-                    "reason": reason,
-                    "decision": decision,
-                    "entry_price": entry_price,
-                    "current_price": current_price,
-                    "amount": amount,
-                    "% Gain/Perte latente": f"{pnl_latent:.2f}%",
-                    "% Plus-value FIFO": f"{fifo_pnl_pct:.2f}%",
-                    "temps_en_position_h": "N/A",
-                    "pause_blocage": pause_blocage,
-                    "note": note,
-                }
-            )
-    print("DEBUG pending_sales tableau:", pending)
-    save_shared_data({"pending_sales": pending}, self.data_file)
-    return pending
-
-
-def fetch_binance_ohlcv(
-    symbol, interval, start_str, end_str=None, api_key=None, api_secret=None
-):
-    client = Client(api_key, api_secret)
-    klines = client.get_historical_klines(symbol, interval, start_str, end_str)
-    if not klines or len(klines) == 0:
-        return None
-    df = pd.DataFrame(
-        klines,
-        columns=[
-            "timestamp",
-            "open",
-            "high",
-            "low",
-            "close",
-            "volume",
-            "close_time",
-            "quote_asset_volume",
-            "number_of_trades",
-            "taker_buy_base_asset_volume",
-            "taker_buy_quote_asset_volume",
-            "ignore",
-        ],
-    )
-    df = df[["timestamp", "open", "high", "low", "close", "volume"]]
-    df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
-    df[["open", "high", "low", "close", "volume"]] = df[
-        ["open", "high", "low", "close", "volume"]
-    ].astype(float)
-    return df
-
-
 # --- SIDEBAR ---
 with st.sidebar:
     st.header("🤖 Bot Status")
@@ -362,6 +114,7 @@ with st.sidebar:
     shared_data = load_json_file(SHARED_DATA_PATH)
     tahiti = pytz.timezone("Pacific/Tahiti")
     now_tahiti = datetime.now(tahiti).strftime("%Y-%m-%d %H:%M:%S")
+
     st.markdown(
         f"""
         <div style='background-color: #0f3d40; padding: 10px; border-radius: 5px;'>
@@ -382,14 +135,12 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    # == MODE SAFE WARNING ==
     safe_mode = shared_data.get("safe_mode", False)
     if safe_mode:
         st.warning(
             "⚠️ MODE SAFE ACTIVÉ : sizing réduit à cause de pertes consécutives !"
         )
 
-    # == 1. Alertes actives ==
     st.markdown("### 🚨 Alertes actives")
     alerts = shared_data.get("alerts", [])
     for alert in alerts:
@@ -400,7 +151,6 @@ with st.sidebar:
         else:
             st.info(f"{alert['message']} ({alert['timestamp']})")
 
-    # == 3. Positions fermées ==
     st.header("⛔️ Positions fermées (auto)")
     closed = shared_data.get("closed_positions", [])
     if closed:
@@ -410,8 +160,6 @@ with st.sidebar:
         st.info("Aucune position fermée automatiquement ce cycle.")
 
     st.sidebar.divider()
-
-    # == 4. Informations système & connectivité ==
     st.sidebar.markdown(
         f"""
 ### 📊 Informations système
@@ -437,13 +185,11 @@ with st.sidebar:
     if st.sidebar.button("🔄 Rafraîchir"):
         st.rerun()
 
-    # --- AJOUT SLIDERS ET AFFICHAGE SEUILS ACTIFS ---
     st.sidebar.markdown("---")
     st.sidebar.header("🎛️ Sélection dynamique des paires")
     min_volatility = st.sidebar.slider("Volatilité min", 0.0, 0.05, 0.01, 0.001)
     min_signal = st.sidebar.slider("Signal min", 0.0, 1.0, 0.3, 0.01)
     top_n = st.sidebar.slider("Nb max paires à trader", 1, 10, 5, 1)
-
     st.sidebar.markdown(
         f"""
         <div style='background-color: #232b2b; padding: 8px; border-radius: 5px; margin-top: 10px;'>
@@ -455,10 +201,7 @@ with st.sidebar:
         """,
         unsafe_allow_html=True,
     )
-
-    # Sauvegarde dans shared_data.json (pour que le bot les lise au prochain cycle)
     try:
-        load_json_file(SHARED_DATA_PATH)
         shared_data["filtering_params"] = {
             "min_volatility": float(min_volatility),
             "min_signal": float(min_signal),
@@ -485,17 +228,12 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab_logs = st.tabs(
 
 # --- TAB1 TRADING ---
 with tab1:
-
-    # Configuration du timestamp Polynésie
     tahiti_tz = pytz.timezone("Pacific/Tahiti")
     current_time = datetime.now(tahiti_tz).strftime("%Y-%m-%d %H:%M:%S")
-
-    # Récupération des données
     bot_status = shared_data.get("bot_status", {})
     perf = bot_status.get("performance", {})
     market_data = shared_data.get("market_data", {})
 
-    # Affichage des métriques principales
     st.markdown("#### Cycle et Régime")
     col1, col2, col3 = st.columns(3)
     col1.metric("Cycle actuel", bot_status.get("cycle", 0))
@@ -506,7 +244,6 @@ with tab1:
         f"{perf.get('win_rate',0)*100:.1f}%",
     )
 
-    # Gestion des pauses trading
     active_pauses = shared_data.get("active_pauses", [])
     if active_pauses:
         pause_cycles_left = max([p.get("cycles_left", 0) for p in active_pauses])
@@ -516,71 +253,20 @@ with tab1:
         )
         st.markdown("#### ⏸️ Pauses actives détaillées")
         df_pauses = pd.DataFrame(active_pauses)
-
-        pause_type_map = {
-            "news": "Pause News",
-            "impact": "Impact fort",
-            "volatility": "Volatilité extrême",
-            "global": "Pause Globale",
-            "sentiment": "Sentiment critique",
-            "regime": "Changement de régime",
-        }
-        reason_map = {
-            "news": "Pause suite à une news critique",
-            "impact": "Impact de marché important",
-            "volatility": "Volatilité trop élevée",
-            "global": "Pause globale du système",
-            "sentiment": "Sentiment négatif détecté",
-            "regime": "Changement de régime de marché",
-        }
-
-        if "type" in df_pauses.columns:
-            df_pauses["type"] = df_pauses["type"].map(
-                lambda x: pause_type_map.get(x, str(x))
-            )
-        if "reason" in df_pauses.columns:
-            df_pauses["reason"] = df_pauses["reason"].map(
-                lambda x: reason_map.get(x, str(x))
-            )
-
         st.dataframe(df_pauses, use_container_width=True)
 
     st.divider()
-
-    # === SIGNALS & SIZING ===
     trade_decisions = shared_data.get("trade_decisions", {})
     if trade_decisions:
         decisions_data = []
         perf = shared_data.get("bot_status", {}).get("performance", {})
         win_rate = perf.get("win_rate", 0.55)
         profit_factor = perf.get("profit_factor", 1.7)
-
         for pair, decision in trade_decisions.items():
-            confidence = float(decision.get("confidence", 0.5))
-            tech_score = float(decision.get("tech", 0.5))
-            ai_pred = float(decision.get("ai", 0.5))
-            sentiment = float(decision.get("sentiment", 0.0))
-
-            if confidence > 0.8:
-                base_size = 0.09
-            elif confidence > 0.6:
-                base_size = 0.06
-            elif confidence > 0.4:
-                base_size = 0.04
-            else:
-                base_size = 0.02
-
-            if tech_score > 0.7:
-                base_size *= 1.2
-            if ai_pred > 0.7:
-                base_size *= 1.1
-            if abs(sentiment) > 0.7:
-                base_size *= 0.8
-
-            kelly = kelly_criterion(win_rate, profit_factor)
-            if kelly > 0:
-                base_size *= 1 + min(kelly * 0.5, 0.5)
-
+            confidence = safe_float(decision.get("confidence", 0.5))
+            tech_score = safe_float(decision.get("tech", 0.5))
+            ai_pred = safe_float(decision.get("ai", 0.5))
+            sentiment = safe_float(decision.get("sentiment", 0.0))
             row_data = {
                 "pair": pair,
                 "action": decision.get("action", "NEUTRAL").upper(),
@@ -594,23 +280,18 @@ with tab1:
                 "timestamp": current_time,
             }
             decisions_data.append(row_data)
-
         df_signals = pd.DataFrame(decisions_data)
         df_signals.set_index("pair", inplace=True)
-
         numeric_cols = ["confidence", "tech", "ai", "sentiment"]
         for col in numeric_cols:
             if col in df_signals.columns:
                 df_signals[col] = df_signals[col].map("{:.3f}".format)
-
         st.markdown("#### Tableau des signaux et sizing par paire")
         st.dataframe(df_signals, use_container_width=True, height=400)
     else:
         st.info("Aucun signal de trading ce cycle.")
 
     st.divider()
-
-    # === HISTORIQUE TRADES ===
     st.markdown("#### 📜 Historique des trades exécutés")
     trades = shared_data.get("trade_history", [])
     if trades:
@@ -626,8 +307,6 @@ with tab1:
         st.info("Aucun trade exécuté ce cycle.")
 
     st.divider()
-
-    # === PUMP OPPORTUNITIES ===
     st.markdown("#### 🚀 Opportunités Pump détectées")
     pump_ops = shared_data.get("pump_opportunities", [])
     if pump_ops:
@@ -636,7 +315,6 @@ with tab1:
     else:
         st.info("Aucune opportunité pump détectée ce cycle.")
 
-    # === BREAKOUT OPPORTUNITIES ===
     st.markdown("#### 💥 Opportunités Breakout détectées")
     breakout_ops = shared_data.get("breakout_opportunities", [])
     if breakout_ops:
@@ -645,7 +323,6 @@ with tab1:
     else:
         st.info("Aucune opportunité breakout détectée ce cycle.")
 
-    # === NEWS OPPORTUNITIES ===
     st.markdown("#### 📰 Opportunités News détectées")
     news_ops = shared_data.get("news_opportunities", [])
     if news_ops:
@@ -654,7 +331,6 @@ with tab1:
     else:
         st.info("Aucune opportunité news détectée ce cycle.")
 
-    # === ALERTES CRYPTOS NON TRADÉES ===
     st.markdown("#### ⚠️ Alertes cryptos non tradées")
     external_alerts = shared_data.get("external_alerts", [])
     if external_alerts:
@@ -664,8 +340,6 @@ with tab1:
         st.info("Aucune alerte externe détectée ce cycle.")
 
     st.divider()
-
-    # Section Arbitrage
     st.markdown("#### 💹 Opportunités d'arbitrage")
     arbitrage_ops = shared_data.get("arbitrage_opportunities", [])
     if arbitrage_ops:
@@ -680,56 +354,28 @@ with tab1:
     else:
         st.info("Aucune opportunité d'arbitrage détectée ce cycle.")
 
-
+# --- TAB2 GRAPH ---
 with tab2:
     st.subheader("Analyse graphique avancée")
     pairs = list(shared_data.get("market_data", {}).keys()) or ["BTCUSDT", "ETHUSDT"]
     pair = st.selectbox("Sélectionner une paire", pairs)
-
-    # Ajoute le choix du timeframe
     available_tfs = list(shared_data.get("market_data", {}).get(pair, {}).keys())
     tf = st.selectbox("Timeframe", available_tfs if available_tfs else ["1m"])
-
     market_data = shared_data.get("market_data", {}).get(pair, {}).get(tf, {})
-
     if market_data and market_data.get("close") and market_data.get("timestamp"):
         try:
-            # 1. Validation et conversion des données
             timestamps = market_data["timestamp"]
             closes = market_data["close"]
             opens = market_data.get("open", [])
             highs = market_data.get("high", [])
             lows = market_data.get("low", [])
-
-            # 2. Vérification du type et conversion des timestamps
-            if isinstance(timestamps, (int, str)):
-                timestamps = [timestamps]
-            if isinstance(closes, (int, float)):
-                closes = [closes]
-            if isinstance(opens, (int, float)):
-                opens = [opens]
-            if isinstance(highs, (int, float)):
-                highs = [highs]
-            if isinstance(lows, (int, float)):
-                lows = [lows]
-
-            # 3. Conversion des timestamps en datetime (PATCH ms/s)
-            try:
-                if isinstance(timestamps[0], str):
-                    timestamps = pd.to_datetime(timestamps)
-                elif isinstance(timestamps[0], (int, float)):
-                    # PATCH: si timestamp > 1e12, c'est en ms
-                    if timestamps[0] > 1e12:
-                        timestamps = pd.to_datetime(timestamps, unit="ms")
-                    else:
-                        timestamps = pd.to_datetime(timestamps, unit="s")
-            except Exception as e:
-                print(f"Erreur conversion timestamps: {e}")
-                timestamps = pd.date_range(
-                    end=pd.Timestamp.utcnow(), periods=len(closes), freq="H"
-                )
-
-            # 4. Conversion en arrays numpy avec la bonne longueur
+            if isinstance(timestamps[0], str):
+                timestamps = pd.to_datetime(timestamps)
+            elif isinstance(timestamps[0], (int, float)):
+                if timestamps[0] > 1e12:
+                    timestamps = pd.to_datetime(timestamps, unit="ms")
+                else:
+                    timestamps = pd.to_datetime(timestamps, unit="s")
             min_len = min(
                 len(timestamps), len(closes), len(opens), len(highs), len(lows)
             )
@@ -738,21 +384,13 @@ with tab2:
             opens = np.array(opens[:min_len], dtype=float)
             highs = np.array(highs[:min_len], dtype=float)
             lows = np.array(lows[:min_len], dtype=float)
-
-            # 5. Création du DataFrame
             df = pd.DataFrame(
                 {"close": closes, "open": opens, "high": highs, "low": lows},
                 index=timestamps,
             )
-
-            # 6. Calcul des moyennes mobiles
             ema20 = df["close"].ewm(span=20, adjust=False).mean()
             ema50 = df["close"].ewm(span=50, adjust=False).mean()
-
-            # 7. Création du graphique
             fig = go.Figure()
-
-            # Chandelier japonais
             fig.add_trace(
                 go.Candlestick(
                     x=df.index,
@@ -763,14 +401,11 @@ with tab2:
                     name="OHLC",
                 )
             )
-
-            # EMA 20 et 50
             fig.add_trace(
                 go.Scatter(
                     x=df.index, y=ema20, name="EMA 20", line=dict(color="blue", width=1)
                 )
             )
-
             fig.add_trace(
                 go.Scatter(
                     x=df.index,
@@ -779,8 +414,6 @@ with tab2:
                     line=dict(color="orange", width=1),
                 )
             )
-
-            # Configuration du layout
             fig.update_layout(
                 title=f"Graphique {pair} ({tf})",
                 yaxis_title="Prix USDT",
@@ -789,39 +422,13 @@ with tab2:
                 height=600,
                 plot_bgcolor="rgba(0,0,0,0)",
                 paper_bgcolor="rgba(0,0,0,0)",
-                xaxis=dict(
-                    showgrid=True, gridcolor="rgba(128,128,128,0.2)", zeroline=False
-                ),
-                yaxis=dict(
-                    showgrid=True, gridcolor="rgba(128,128,128,0.2)", zeroline=False
-                ),
             )
-
-            # Affichage du graphique
             st.plotly_chart(fig, use_container_width=True)
-
-            # Debug optionnel
             if st.checkbox("Show Data Debug"):
                 st.write("DataFrame Head:", df.head())
                 st.write("Timestamps Info:", pd.Series(timestamps).describe())
-
         except Exception as e:
             st.error(f"Erreur lors de la création du graphique: {str(e)}")
-            print(f"DEBUG - Erreur graphique détaillée: {str(e)}")
-            print(f"DEBUG - Type timestamps: {type(market_data['timestamp'])}")
-            print(
-                f"DEBUG - Premier timestamp: {market_data['timestamp'][0] if isinstance(market_data['timestamp'], list) else market_data['timestamp']}"
-            )
-            print(f"DEBUG - Longueur données:")
-            print(
-                f"- Timestamps: {len(market_data['timestamp']) if isinstance(market_data['timestamp'], list) else 1}"
-            )
-            print(
-                f"- Close: {len(market_data['close']) if isinstance(market_data['close'], list) else 1}"
-            )
-            print(
-                f"- Open: {len(market_data.get('open', [])) if isinstance(market_data.get('open'), list) else 1}"
-            )
     else:
         st.info("Pas de données live pour cette paire et ce timeframe.")
 
@@ -832,13 +439,11 @@ with tab3:
     regime = shared_data.get("regime", "Indéterminé")
     news_sentiment = shared_data.get("sentiment", None)
     trade_decisions = shared_data.get("trade_decisions", {})
-    # Rapport global
     report = _generate_analysis_report(
         indicators, regime, news_sentiment, trade_decisions
     )
     st.code(report, language="markdown")
     st.divider()
-    # Indicateurs avancés par paire/timeframe
     st.expander("🔎 Indicateurs techniques avancés")
     for tf_key, indic in indicators.items():
         if "ta" in indic and indic["ta"]:
@@ -846,14 +451,12 @@ with tab3:
             df_ta = pd.DataFrame(indic["ta"], index=[0]).T
             st.dataframe(df_ta, use_container_width=True)
 
+# --- TAB4 PORTFOLIO ---
 with tab4:
     st.subheader("Portefeuille / Positions en temps réel")
-
-    # 1. Tableau des positions Binance Spot
     positions_binance = shared_data.get("positions_binance", {})
     spot_pairs = list(positions_binance.keys())
     fifo_pnl_map = {}
-
     for pair in spot_pairs:
         symbol = pair.replace("/", "")
         fifo_key = f"fifo_pnl_{symbol}"
@@ -864,7 +467,6 @@ with tab4:
             if last_fifo and last_fifo["pnl_pct"] is not None
             else None
         )
-
     df_pos_binance = pd.DataFrame.from_dict(positions_binance, orient="index")
     df_pos_binance.index.name = "Paire"
     df_pos_binance["% Plus-Value"] = [
@@ -880,8 +482,6 @@ with tab4:
         for pair, row in df_pos_binance.iterrows()
     ]
     st.dataframe(df_pos_binance, use_container_width=True)
-
-    # 2. Alertes de ventes à venir (tableau juste après portefeuille)
     st.markdown("#### Alertes de ventes à venir")
     pending_sales = shared_data.get("pending_sales", [])
     trade_decisions = shared_data.get("trade_decisions", {})
@@ -889,7 +489,6 @@ with tab4:
         try:
             df_pending = pd.DataFrame(pending_sales)
 
-            # Ajout colonne "Source du signal"
             def get_signal_source(row):
                 reason = str(row.get("reason", "")).lower()
                 if reason in ["pump", "breakout", "news", "arbitrage"]:
@@ -899,7 +498,6 @@ with tab4:
                 return "Signal inconnu"
 
             df_pending["Source du signal"] = df_pending.apply(get_signal_source, axis=1)
-
             display_cols = [
                 "symbol",
                 "Source du signal",
@@ -917,145 +515,17 @@ with tab4:
             for col in display_cols:
                 if col not in df_pending.columns:
                     df_pending[col] = "N/A"
-
-            def safe_float(x):
-                try:
-                    return float(x)
-                except Exception:
-                    return 0
-
-            df_pending["entry_price"] = df_pending["entry_price"].apply(safe_float)
-            df_pending["current_price"] = df_pending["current_price"].apply(safe_float)
-            df_pending["amount"] = df_pending["amount"].apply(safe_float)
-
-            def get_action(row):
-                action = row.get("action", "").upper()
-                if action in ["BUY", "SELL", "NEUTRAL"]:
-                    return action
-                symbol = row.get("symbol", "")
-                td = trade_decisions.get(symbol.replace("/", "").upper(), {})
-                action_td = td.get("action", "NEUTRAL").upper()
-                if action_td in ["BUY", "SELL", "NEUTRAL"]:
-                    return action_td
-                return "NEUTRAL"
-
-            df_pending["action"] = df_pending.apply(get_action, axis=1)
-
-            df_pending["% Gain/Perte latente"] = (
-                (df_pending["current_price"] - df_pending["entry_price"])
-                / df_pending["entry_price"]
-                * 100
-            ).map(
-                lambda x: (
-                    f"{x:.2f}%"
-                    if not pd.isnull(x) and df_pending["entry_price"].max() > 0
-                    else "N/A"
-                )
-            )
-
-            df_pending["temps_en_position_h"] = df_pending["temps_en_position_h"].apply(
-                lambda x: f"{x:.1f}h" if isinstance(x, (int, float)) else x
-            )
-
-            def custom_decision(row):
-                entry = row["entry_price"]
-                current = row["current_price"]
-                pnl = ((current - entry) / entry * 100) if entry and current else 0
-                symbol = row["symbol"]
-                pause = row.get("pause_blocage", "Non")
-                reason = row.get("reason", "")
-                decision = row.get("decision", "")
-                action = row.get("action", "NEUTRAL")
-
-                if pause == "Oui":
-                    return f"🔒 Vente bloquée (pause news/reglementaire). Aucun mouvement possible."
-                if action == "SELL":
-                    return f"🟠 Vente prévue au prochain cycle (signal SELL détecté)."
-                if action == "BUY":
-                    return f"🟢 Achat possible au prochain cycle (signal BUY détecté)."
-                if "Take Profit" in reason:
-                    return "🟢 Vente partielle possible (TP proche)."
-                if pnl >= 8:
-                    return f"🟢 {symbol} en attente de vente au prochain cycle (plus-value {pnl:.2f}%)."
-                if pnl > 7:
-                    return f"🟢 Gain latent élevé, surveillance TP (plus-value {pnl:.2f}%)."
-                if pnl < -5:
-                    return f"🔴 Perte latente élevée, risque vente auto si perte aggrave ({pnl:.2f}%)."
-                if decision.lower() == "position maintenue":
-                    return f"🟡 Position maintenue, aucun signal critique."
-                return f"ℹ️ Surveillance normale."
-
-            df_pending["Décision détaillée"] = df_pending.apply(custom_decision, axis=1)
-
-            def cycle_action(row):
-                if "Vente bloquée" in row["Décision détaillée"]:
-                    return "Aucune action avant fin de la pause."
-                if "Vente prévue" in row["Décision détaillée"]:
-                    return "Vente automatique au prochain tick."
-                if "Achat possible" in row["Décision détaillée"]:
-                    return "Achat automatique au prochain tick."
-                if "Vente partielle" in row["Décision détaillée"]:
-                    return "Prise de profit partielle si TP atteint."
-                if "Gain latent élevé" in row["Décision détaillée"]:
-                    return (
-                        "Bot surveille le TP, vente probable si le prix monte encore."
-                    )
-                if "Perte latente élevée" in row["Décision détaillée"]:
-                    return "Bot surveille le stop-loss, vente forcée si perte aggrave."
-                if "Position maintenue" in row["Décision détaillée"]:
-                    return "Aucune action prévue, surveillance normale."
-                return "Analyse continue, pas d'action critique."
-
-            df_pending["Action probable prochain cycle"] = df_pending.apply(
-                cycle_action, axis=1
-            )
-
-            priority_map = {
-                "🔴": 1,
-                "🔒": 2,
-                "🟠": 3,
-                "🟢": 4,
-                "🟡": 5,
-                "ℹ️": 6,
-            }
-
-            def priority(row):
-                for k in priority_map:
-                    if k in row["Décision détaillée"]:
-                        return priority_map[k]
-                return 99
-
-            df_pending["priority"] = df_pending.apply(priority, axis=1)
-            df_pending = df_pending.sort_values(
-                ["priority", "symbol"], ascending=[True, True]
-            )
-
-            ordered_cols = [
-                "symbol",
-                "Source du signal",
-                "action",
-                "entry_price",
-                "current_price",
-                "amount",
-                "% Gain/Perte latente",
-                "Décision détaillée",
-                "Action probable prochain cycle",
-                "temps_en_position_h",
-                "pause_blocage",
-                "note",
-            ]
+            df_pending = df_pending.sort_values(["symbol"], ascending=[True])
             st.dataframe(
-                df_pending[ordered_cols],
+                df_pending[display_cols],
                 use_container_width=True,
                 height=500,
             )
-
         except Exception as e:
             st.error(f"Erreur affichage alertes: {e}")
     else:
         st.info("Aucune vente imminente détectée.")
 
-    # 3. Positions BingX (Futures) - Shorts et Longs
     positions_bingx = shared_data.get("positions_bingx", {})
     st.markdown("#### Positions ouvertes BingX (Futures / Shorts/Longs)")
     if positions_bingx:
@@ -1073,7 +543,6 @@ with tab4:
     else:
         st.info("Aucune position ouverte sur BingX futures.")
 
-    # 4. Positions fermées
     st.markdown("#### Historique des positions fermées")
     closed = shared_data.get("closed_positions", [])
     if closed:
@@ -1088,7 +557,6 @@ with tab4:
     else:
         st.info("Aucune position fermée automatiquement ce cycle.")
 
-    # 5. Plus-value réelle FIFO (spot) sur LTC/USDC
     st.markdown("#### Plus-values réelles (FIFO) sur LTC/USDC")
     fifo_pnl = shared_data.get("fifo_pnl_LTCUSDC", [])
     if fifo_pnl:
@@ -1153,7 +621,6 @@ with tab5:
             backtester = BacktestEngine(initial_capital=capital)
             results = backtester.run_backtest(df, strategy_func, **params)
             st.write("Résultats du backtest :", results)
-    # Configuration du backtest
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Configuration de base")
@@ -1186,18 +653,21 @@ with tab5:
         interval = Client.KLINE_INTERVAL_1HOUR
         for i, pair in enumerate(pairs):
             symbol = pair.replace("/", "")
-            df = fetch_binance_ohlcv(
-                symbol,
-                interval,
-                start_dt.strftime("%d %b %Y"),
-                end_dt.strftime("%d %b %Y"),
-                api_key=os.getenv("BINANCE_API_KEY"),
-                api_secret=os.getenv("BINANCE_API_SECRET"),
-            )
+            df = None
+            try:
+                df = fetch_binance_ohlcv(
+                    symbol,
+                    interval,
+                    start_dt.strftime("%d %b %Y"),
+                    end_dt.strftime("%d %b %Y"),
+                    api_key=os.getenv("BINANCE_API_KEY"),
+                    api_secret=os.getenv("BINANCE_API_SECRET"),
+                )
+            except Exception:
+                pass
             if df is None or len(df) == 0:
                 st.error(f"Données manquantes pour {pair}, backtest ignoré.")
                 continue
-            strategy_func = strategy_options[strategy_name]
             backtester = BacktestEngine(initial_capital=initial_capital)
             results = backtester.run_backtest(df, strategy_func, **params)
             st.write(f"Résultats du backtest pour {pair} :", results)
@@ -1240,7 +710,6 @@ with tab6:
     col3.metric("Sharpe Ratio", f"{perf.get('sharpe_ratio',0):.2f}")
     col3.metric("Balance Finale", f"${perf.get('balance',10000):,.0f}")
 
-    # --- Ajout Risk Management avancé ---
     equity_curve = [
         pt.get("balance", 0) for pt in equity_history if pt.get("balance", 0) > 0
     ]
@@ -1254,8 +723,6 @@ with tab6:
     best_trade = None
     worst_trade = None
     win_pct = None
-
-    # Calcul des métriques avancées
     if equity_curve and len(equity_curve) > 10:
         equity_curve_np = np.array(equity_curve)
         max_dd = calculate_max_drawdown(equity_curve_np)
@@ -1265,7 +732,6 @@ with tab6:
         kelly = kelly_criterion(
             win_rate=perf.get("win_rate", 0), payoff_ratio=perf.get("profit_factor", 1)
         )
-        # Streaks & trade stats (à partir de trade_history)
         trades = shared_data.get("trade_history", [])
         wins = [t.get("pnl_usd", 0) for t in trades if t.get("pnl_usd", 0) > 0]
         losses = [t.get("pnl_usd", 0) for t in trades if t.get("pnl_usd", 0) < 0]
@@ -1273,7 +739,6 @@ with tab6:
         avg_loss = np.mean(losses) if losses else 0
         best_trade = np.max(wins) if wins else 0
         worst_trade = np.min(losses) if losses else 0
-        # Win/loss streaks
         streak = 0
         max_win_streak = 0
         max_loss_streak = 0
@@ -1290,7 +755,6 @@ with tab6:
                 prev = "loss"
         win_streak = max_win_streak
         loss_streak = max_loss_streak
-        # Ratio gagnant/perdant
         total_trades = len(trades)
         win_pct = len(wins) / total_trades if total_trades > 0 else 0
 
@@ -1323,7 +787,6 @@ with tab6:
             "Ratio de trades gagnants",
             f"{win_pct:.1%}" if win_pct is not None else "N/A",
         )
-
         if kelly is not None and abs(kelly) > 0.5:
             st.warning(
                 f"⚠️ Kelly fraction élevée : {kelly:.2f} — attention à la taille des positions !"
@@ -1347,7 +810,6 @@ with tab_logs:
         st.success("Logs vidés !")
 
 
-# --- Auto-refresh ---
 def auto_refresh():
     time.sleep(10)
     st.rerun()

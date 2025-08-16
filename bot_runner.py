@@ -497,7 +497,7 @@ class TelegramNotifier:
         self.N_STEPS = 63
 
     def get_input_dim(self):
-        return self.N_FEATURES * self.N_STEPS * len(self.pairs_valid)
+        return self.N_FEATURES * self.N_STEPS * len(getattr(self, "pairs_valid", []))
 
     async def send_message(self, message):
         """Envoie un message sur Telegram avec retry et fallback"""
@@ -506,8 +506,8 @@ class TelegramNotifier:
             return
 
         header = (
-            f"🕒 {get_current_time()}\n"
-            f"👤 {CURRENT_USER}\n"
+            f"🕒 {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}\n"
+            f"👤 Patmoorea\n"
             "------------------------\n"
         )
         full_message = header + message
@@ -535,46 +535,41 @@ class TelegramNotifier:
                         if not result.get("ok"):
                             print(f"⚠️ Erreur Telegram: {result.get('description')}")
                         return result
-
             except asyncio.TimeoutError:
-                if attempt < MAX_RETRIES - 1:
-                    print(f"⚠️ Timeout Telegram (tentative {attempt+1}/{MAX_RETRIES})")
-                    await asyncio.sleep(1)  # Pause entre les tentatives
-                    continue
-                else:
-                    print("❌ Échec envoi Telegram après plusieurs tentatives")
-                    # Fallback : log dans un fichier
-                    self._log_to_file(full_message)
-                    return None
-
+                print(f"⚠️ Timeout Telegram (tentative {attempt+1}/{MAX_RETRIES})")
+                await asyncio.sleep(1)
+                continue
             except Exception as e:
                 print(f"⚠️ Erreur envoi Telegram: {e}")
-                # Fallback : log dans un fichier
                 self._log_to_file(full_message)
                 return None
 
-        def _log_to_file(self, message):
-            """Fallback pour sauvegarder les messages non envoyés"""
-            try:
-                log_file = "logs/telegram_failed.log"
-                os.makedirs(os.path.dirname(log_file), exist_ok=True)
-                with open(log_file, "a", encoding="utf-8") as f:
-                    f.write(f"\n[{datetime.utcnow()}] {message}\n")
-            except Exception as e:
-                print(f"❌ Erreur sauvegarde log: {e}")
+        # Si tous les essais échouent, fallback log
+        print("❌ Échec envoi Telegram après plusieurs tentatives")
+        self._log_to_file(full_message)
+        return None
+
+    def _log_to_file(self, message):
+        """Fallback pour sauvegarder les messages non envoyés"""
+        try:
+            log_file = "logs/telegram_failed.log"
+            os.makedirs(os.path.dirname(log_file), exist_ok=True)
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(f"\n[{datetime.utcnow()}] {message}\n")
+        except Exception as e:
+            print(f"❌ Erreur sauvegarde log: {e}")
 
     async def send_performance_update(self, performance_data):
         message = (
             "🤖 <b>Trading Bot Status Update</b>\n\n"
-            f"💰 Balance: ${safe(performance_data.get('balance'))}\n"
-            f"📊 Win Rate: {safe(performance_data.get('win_rate', 0)*100, 'N/A', '{:.1f}')}%\n"
-            f"📈 Profit Factor: {safe(performance_data.get('profit_factor'))}\n"
-            f"🔄 Total Trades: {safe(performance_data.get('total_trades'), 'N/A', '{:d}')}\n"
+            f"💰 Balance: ${performance_data.get('balance')}\n"
+            f"📊 Win Rate: {performance_data.get('win_rate', 0)*100:.1f}%\n"
+            f"📈 Profit Factor: {performance_data.get('profit_factor')}\n"
+            f"🔄 Total Trades: {performance_data.get('total_trades','N/A')}\n"
         )
         await self.send_message(message)
 
     async def send_cycle_update(self, cycle, regime, duration):
-        """Envoie une mise à jour du cycle"""
         message = (
             "🔄 <b>Cycle Update</b>\n\n"
             f"📊 Cycle: {cycle}\n"
@@ -584,7 +579,6 @@ class TelegramNotifier:
         await self.send_message(message)
 
     async def send_trade_alert(self, trade_data):
-        """Envoie un message unique et lisible pour chaque trade exécuté"""
         emoji = (
             "🟢"
             if trade_data.get("side", "").upper() == "BUY"
@@ -604,7 +598,6 @@ class TelegramNotifier:
         await self.send_message(message)
 
     async def send_arbitrage_alert(self, opportunity):
-        """Envoie une alerte d'opportunité d'arbitrage"""
         message = (
             f"🔄 <b>Opportunité d'Arbitrage</b>\n\n"
             f"📊 Paire: {opportunity['pair']}\n"
@@ -629,7 +622,6 @@ class TelegramNotifier:
             )
             return
 
-        # Mapping emoji par source
         source_emoji = {
             "CoinDesk": "📰",
             "Cointelegraph": "🟣",
@@ -639,7 +631,6 @@ class TelegramNotifier:
             "default": "🗞️",
         }
 
-        # Filtrage avancé selon symboles ou volatilité
         filtered_news = []
         for news in news_data:
             # Filtrage par symbole
@@ -655,13 +646,10 @@ class TelegramNotifier:
                     continue
             filtered_news.append(news)
 
-        # Si rien ne passe le filtre, utilise tout
         if not filtered_news:
             filtered_news = news_data
 
         message = "📰 <b>Dernières Nouvelles Importantes</b>\n\n"
-
-        # Ajoute le résumé IA si fourni
         if ai_summary:
             message += f"🤖 <b>Résumé IA:</b>\n{ai_summary}\n\n"
 
@@ -671,56 +659,11 @@ class TelegramNotifier:
             except Exception:
                 return title
 
-        def translate_title(title):
-            original = title
-            dico = {
-                "Bitcoin": "Bitcoin",
-                "Ethereum": "Ethereum",
-                "price": "prix",
-                "update": "mise à jour",
-                "reaches": "atteint",
-                "falls": "chute",
-                "surges": "explose",
-                "network": "réseau",
-                "record": "record",
-                "launch": "lancement",
-                "approval": "approbation",
-                "hack": "piratage",
-                "coin": "jeton",
-                "exchange": "plateforme",
-                "regulation": "réglementation",
-                "ETF": "ETF",
-                "market": "marché",
-                "crash": "effondrement",
-                "rise": "hausse",
-                "buy": "achat",
-                "sell": "vente",
-                "token": "jeton",
-                "trading": "trading",
-                "volume": "volume",
-                "support": "support",
-                "resistance": "résistance",
-            }
-            for en, fr in dico.items():
-                title = title.replace(en, fr)
-
-            if title == original:
-                try:
-                    from deep_translator import GoogleTranslator
-
-                    return GoogleTranslator(source="auto", target="fr").translate(title)
-                except Exception:
-                    return title
-
-            return title
-
-        # Remplacer [:5] par rien pour prendre tous les titres
         for news in filtered_news:
             src = news.get("source", "default")
             emoji = source_emoji.get(src, source_emoji["default"])
             title = news.get("title", "NO_TITLE")
             url = news.get("url", "")
-            # Traduction simplifiée
             fr_title = real_translate_title(title)
             if url:
                 title_line = f'{emoji} <a href="{url}">{fr_title}</a>'
