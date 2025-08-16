@@ -107,7 +107,6 @@ def load_json_file(path):
     return {}
 
 
-# --- SIDEBAR ---
 with st.sidebar:
     st.header("🤖 Bot Status")
     status = load_json_file(STATUS_FILE)
@@ -202,14 +201,39 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     try:
+        import os, json
+
+        # Charger l'existant pour préserver les historiques
+        if os.path.exists(SHARED_DATA_PATH):
+            with open(SHARED_DATA_PATH, "r") as f:
+                existing_data = json.load(f)
+        else:
+            existing_data = {}
+
+        preserved_fields = [
+            "trade_history",
+            "closed_positions",
+            "equity_history",
+            "news_data",
+            "sentiment",
+            "active_pauses",
+            "pending_sales",
+            "positions_binance",
+            "market_data",
+        ]
+        # Merge les historiques
+        for field in preserved_fields:
+            if field in existing_data and field not in shared_data:
+                shared_data[field] = existing_data[field]
+
+        # Mise à jour des paramètres de filtrage
         shared_data["filtering_params"] = {
             "min_volatility": float(min_volatility),
             "min_signal": float(min_signal),
             "top_n": int(top_n),
         }
-        save_shared_data(
-            {"filtering_params": shared_data["filtering_params"]}, SHARED_DATA_PATH
-        )
+        # Sauvegarde sécurisée du dashboard complet
+        save_shared_data(shared_data, SHARED_DATA_PATH)
     except Exception as e:
         st.sidebar.warning(f"Erreur sauvegarde filtres dynamiques: {e}")
 

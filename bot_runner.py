@@ -1099,6 +1099,28 @@ class TradingBotM4:
         self.sync_positions_with_binance()
         self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
 
+    def _preserve_and_update_dashboard(self, new_fields):
+        if os.path.exists(self.data_file):
+            with open(self.data_file, "r") as f:
+                existing_data = json.load(f)
+        else:
+            existing_data = {}
+        preserved_fields = [
+            "trade_history",
+            "closed_positions",
+            "equity_history",
+            "news_data",
+            "sentiment",
+            "active_pauses",
+            "pending_sales",
+            "positions_binance",
+            "market_data",
+        ]
+        for field in preserved_fields:
+            if field in existing_data and field not in new_fields:
+                new_fields[field] = existing_data[field]
+        self.safe_update_shared_data(new_fields, self.data_file)
+
     def calculate_position_size(self, equity, confidence, volatility=0.02):
         """Calcul intelligent de la taille de position"""
         try:
@@ -1167,15 +1189,13 @@ class TradingBotM4:
                     bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                     # PATCH: Ajoute à la liste de refus, NE PAS envoyer Telegram
                     self.refused_trades_cycle.append(bilan)
-                    self.safe_update_shared_data(
-                        {"news_bilan": [bilan]}, self.data_file
-                    )
+                    self._preserve_and_update_dashboard({"news_bilan": [bilan]})
                     continue
             except Exception as e:
                 reason.append(f"Erreur accès Binance: {e}")
                 bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                 self.refused_trades_cycle.append(bilan)
-                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+                self._preserve_and_update_dashboard({"news_bilan": [bilan]})
                 continue
 
             # 3. Récupère dynamiquement les données OHLCV (1h) pour la paire
@@ -1187,9 +1207,7 @@ class TradingBotM4:
                     reason.append("Pas de données OHLCV")
                     bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                     self.refused_trades_cycle.append(bilan)
-                    self.safe_update_shared_data(
-                        {"news_bilan": [bilan]}, self.data_file
-                    )
+                    self._preserve_and_update_dashboard({"news_bilan": [bilan]})
                     continue
                 df = pd.DataFrame(
                     klines,
@@ -1217,7 +1235,7 @@ class TradingBotM4:
                 reason.append(f"Erreur OHLCV: {e}")
                 bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                 self.refused_trades_cycle.append(bilan)
-                self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+                self._preserve_and_update_dashboard({"news_bilan": [bilan]})
                 continue
 
             # 4. Calcule tous les indicateurs du bot (technique, IA, momentum, orderflow, sentiment)
@@ -1282,8 +1300,8 @@ class TradingBotM4:
                 bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                 self.refused_trades_cycle.append(bilan)
 
-            # 6. Dashboard uniquement
-            self.safe_update_shared_data({"news_bilan": [bilan]}, self.data_file)
+            # 6. Dashboard uniquement (PATCH CORRECTIF)
+            self._preserve_and_update_dashboard({"news_bilan": [bilan]})
 
     def auto_update_pairs_from_binance(self):
         """
@@ -7364,6 +7382,8 @@ async def run_clean_bot():
                     "sentiment",
                     "active_pauses",
                     "pending_sales",
+                    "positions_binance",
+                    "market_data",  # ← déjà fusionné, mais à garder si besoin
                 ]
                 for field in preserved_fields:
                     if field in existing_data:
