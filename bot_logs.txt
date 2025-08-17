@@ -7606,3 +7606,41 @@
 2025-08-17T16:54:46.380349 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
 2025-08-17T16:54:46.380387 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
 2025-08-17T16:54:46.380424 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:59:32.159731 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T16:59:32.160797 | Initialisation des modèles d'IA...
+2025-08-17T16:59:32.341004 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T16:59:33.652842 | ✅ PPO Strategy initialized successfully
+2025-08-17T16:59:41.428993 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T16:59:41.429971 | ✅ Trading en direct: True
+2025-08-17T16:59:41.430017 | ✅ IA activée: True
+2025-08-17T16:59:41.430065 | ✅ Analyse de news activée: True
+2025-08-17T17:02:26.500818 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-17T17:03:04.269636 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-17T17:08:24.168464 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0269 | Tendance: 0.0022
+2025-08-17T17:08:24.169236 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-17T17:11:28.185320 | Démarrage cycle trading
+2025-08-17T17:13:52.926842 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T17:13:52.927740 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T17:13:52.927780 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T17:13:52.927812 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T17:13:52.927842 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T17:19:29.951743 | Démarrage cycle trading
+2025-08-17T17:23:47.183156 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-17T17:23:47.184483 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-17T17:23:47.184533 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-17T17:23:47.184576 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-17T17:23:47.184618 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-17T17:23:47.184658 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-17T17:23:47.184734 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-17T17:23:47.184789 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-17T17:23:47.184839 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-17T17:23:47.184884 | [NEWS CHECK] ⚠️ News sans symboles: Ark Invest de Cathie Wood achète 177 millions de dollars en actions haussiers ap
+2025-08-17T17:23:47.184966 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-17T17:29:26.823459 | Démarrage cycle trading
+2025-08-17T17:29:27.468458 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T17:39:32.525644 | Démarrage cycle trading
+2025-08-17T17:41:30.919028 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T17:49:28.116350 | Démarrage cycle trading
+2025-08-17T17:49:28.790601 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T17:59:25.670613 | Démarrage cycle trading
+2025-08-17T18:01:28.829674 | 🚫 Cycle bloqué - Pause news active

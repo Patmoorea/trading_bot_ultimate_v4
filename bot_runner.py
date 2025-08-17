@@ -124,7 +124,7 @@ LOG_FILE = "src/bot_logs.txt"
 
 
 class DatasetLogger:
-    def __init__(self, filename="trading_dataset.csv"):
+    def __init__(self, filename="training_data.csv"):
         self.filename = filename
         # Si le fichier n’existe pas, créer avec header
         if not os.path.isfile(self.filename):
@@ -139,10 +139,11 @@ class DatasetLogger:
                         "confidence",
                         "price",
                         "features",
+                        "status",  # <--- nouvelle colonne
                     ]
                 )
 
-    def log_cycle(self, pair, equity, decision, price, features):
+    def log_cycle(self, pair, equity, decision, price, features, status="neutral"):
         try:
             with open(self.filename, mode="a", newline="") as f:
                 writer = csv.writer(f)
@@ -163,6 +164,7 @@ class DatasetLogger:
                         ),
                         price,
                         str(features),  # on stocke les features en string JSON-like
+                        status,  # <--- log du statut
                     ]
                 )
         except Exception as e:
@@ -595,6 +597,7 @@ class TelegramNotifier:
                 data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
                 for attempt in range(3):
                     try:
+                        print(f"[TELEGRAM] Envoi message à {url}: {data}")
                         async with session.post(url, json=data) as response:
                             result = await response.json()
                             if not result.get("ok"):
@@ -603,9 +606,12 @@ class TelegramNotifier:
                                 )
                             break
                     except asyncio.TimeoutError as e:
+                        import traceback
+
                         print(
-                            f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {e}"
+                            f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
                         )
+                        traceback.print_exc()
                         if attempt == 2:
                             self._log_to_file(msg)
                     except Exception as e:
@@ -8478,6 +8484,7 @@ async def execute_trade_decisions(bot, trade_decisions):
             pair = decision.get("pair")
             action = decision.get("action")
             confidence = safe_float(decision.get("confidence", 0))
+            status = "neutral"  # statut par défaut
 
             # Vérification pause news
             active_pauses = bot.news_pause_manager.get_active_pauses()
@@ -8485,20 +8492,49 @@ async def execute_trade_decisions(bot, trade_decisions):
                 p.get("asset") == pair or p.get("asset") == "GLOBAL"
                 for p in active_pauses
             ):
+                status = "refused"
                 log_dashboard(
                     f"[NEWS PAUSE] Trade {str(action).upper()} sur {pair} bloqué (pause news)"
                 )
                 await bot.telegram.send_message(
                     f"🚨 Trading {str(action).upper()} sur {pair} bloqué (pause news)"
                 )
+                # Log la décision même refusée
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=bot.get_performance_metrics().get("balance", 0),
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
             # Validation par le RiskManager
             if not bot.risk_manager.validate_trade(decision.get("signals", {})):
+                status = "refused"
                 log_dashboard(
                     f"[RISK] Trade {str(action).upper()} sur {pair} rejeté "
                     "(critères de risque non respectés)"
                 )
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=bot.get_performance_metrics().get("balance", 0),
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
             # Calcul de la taille de position
@@ -8518,14 +8554,42 @@ async def execute_trade_decisions(bot, trade_decisions):
             )
 
             if amount <= 0:
+                status = "refused"
                 log_dashboard(f"[RISK] Taille position nulle pour {pair}, trade ignoré")
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=balance,
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
             # Vérification exposition totale
             if not bot.risk_manager.check_exposure_limit(bot.positions, amount):
+                status = "refused"
                 log_dashboard(
                     f"[RISK] Limite d'exposition dépassée pour {pair}, trade ignoré"
                 )
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=balance,
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
             # Log pré-exécution
@@ -8541,30 +8605,49 @@ async def execute_trade_decisions(bot, trade_decisions):
 
             # Notification du résultat
             if trade_result and trade_result.get("status") == "completed":
+                status = "executed"
                 await send_trade_notification(
                     bot=bot, decision=decision, trade_result=trade_result, amount=amount
                 )
                 log_dashboard(f"[SUCCESS] Trade exécuté sur {pair}")
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=decision.get("pair"),
-                        equity=bot.get_performance_metrics().get("balance", 0),
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                    )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
             else:
+                status = "refused"
                 log_dashboard(
                     f"[ERROR] Échec exécution trade sur {pair}: "
                     f"{trade_result.get('reason', 'raison inconnue')}"
                 )
 
+            # Log la décision finale (executed ou refused)
+            try:
+                bot.dataset_logger.log_cycle(
+                    pair=pair,
+                    equity=bot.get_performance_metrics().get("balance", 0),
+                    decision=decision,
+                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                    .get("1h", {})
+                    .get("close", [0])[-1],
+                    features=decision.get("signals", {}),
+                    status=status,
+                )
+            except Exception as e:
+                print(f"[LOGGER] Erreur dataset log: {e}")
+
         except Exception as e:
             log_dashboard(f"[ERROR] Erreur exécution trade {pair}: {str(e)}")
+            # Même en cas d'exception, log en "refused"
+            try:
+                bot.dataset_logger.log_cycle(
+                    pair=pair,
+                    equity=bot.get_performance_metrics().get("balance", 0),
+                    decision=decision,
+                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                    .get("1h", {})
+                    .get("close", [0])[-1],
+                    features=decision.get("signals", {}),
+                    status="refused",
+                )
+            except Exception as e2:
+                print(f"[LOGGER] Erreur dataset log (except): {e2}")
             continue
 
 
