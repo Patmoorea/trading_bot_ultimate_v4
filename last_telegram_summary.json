@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 10,
+      "cycles_left": 1,
       "type": "GLOBAL",
-      "reason": "Pourquoi XRP vide pendant que Cardano pompe: Analyse",
-      "max_cycles": 10,
-      "total_remaining": 10
+      "reason": "",
+      "max_cycles": 1,
+      "total_remaining": 1
     }
   ],
   "sentiment": 0.6285236420338614,
   "risky_positions": [],
-  "timestamp": 1755453229.808326
+  "timestamp": 1755460876.704679
 }

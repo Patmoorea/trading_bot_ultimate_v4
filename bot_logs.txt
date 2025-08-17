@@ -7644,3 +7644,46 @@
 2025-08-17T17:49:28.790601 | 🚫 Cycle bloqué - Pause news active
 2025-08-17T17:59:25.670613 | Démarrage cycle trading
 2025-08-17T18:01:28.829674 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T18:06:47.079160 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T18:06:47.083061 | Initialisation des modèles d'IA...
+2025-08-17T18:06:47.284550 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T18:06:48.672050 | ✅ PPO Strategy initialized successfully
+2025-08-17T18:06:54.072719 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T18:06:54.073302 | ✅ Trading en direct: True
+2025-08-17T18:06:54.073354 | ✅ IA activée: True
+2025-08-17T18:06:54.073400 | ✅ Analyse de news activée: True
+2025-08-17T18:09:49.245273 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-17T18:10:29.757399 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-17T18:15:42.547229 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0267 | Tendance: 0.0016
+2025-08-17T18:15:42.548218 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-17T18:18:45.285660 | Démarrage cycle trading
+2025-08-17T18:18:45.901328 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T18:28:44.636385 | Démarrage cycle trading
+2025-08-17T18:30:46.643261 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T18:40:51.829672 | Démarrage cycle trading
+2025-08-17T18:40:52.900674 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T18:52:45.977951 | Démarrage cycle trading
+2025-08-17T18:52:46.610016 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T18:57:34.800974 | Démarrage cycle trading
+2025-08-17T18:57:35.429716 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T19:05:30.491638 | Démarrage cycle trading
+2025-08-17T19:07:25.887959 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T19:15:21.922292 | Démarrage cycle trading
+2025-08-17T19:15:22.519234 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T19:25:18.492070 | Démarrage cycle trading
+2025-08-17T19:27:15.555626 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T19:37:19.572224 | Démarrage cycle trading
+2025-08-17T19:37:20.233129 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T19:49:42.031070 | Démarrage cycle trading
+2025-08-17T19:54:11.141818 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-17T19:54:11.142616 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-17T19:54:11.142666 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-17T19:54:11.142712 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-17T19:54:11.142755 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-17T19:54:11.142854 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-17T19:54:11.142918 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-17T19:54:11.142969 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-17T19:54:11.143015 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-17T19:54:11.143092 | [NEWS CHECK] ⚠️ News sans symboles: Ark Invest de Cathie Wood achète 177 millions de dollars en actions haussiers ap
+2025-08-17T19:54:11.143143 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-17T20:06:49.122314 | Démarrage cycle trading

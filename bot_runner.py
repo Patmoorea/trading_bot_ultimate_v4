@@ -561,6 +561,22 @@ class TelegramNotifier:
     def get_input_dim(self):
         return self.N_FEATURES * self.N_STEPS * len(getattr(self, "pairs_valid", []))
 
+    def split_message(self, msg, max_length=4000):
+        """Fractionne un message en plusieurs parties pour Telegram"""
+        lines = msg.split("\n")
+        out = []
+        chunk = ""
+        for line in lines:
+            # add +1 for newline
+            if len(chunk) + len(line) + 1 < max_length:
+                chunk += line + "\n"
+            else:
+                out.append(chunk)
+                chunk = line + "\n"
+        if chunk:
+            out.append(chunk)
+        return out
+
     async def send_message(self, message):
         """Envoie un message sur Telegram via une queue non bloquante"""
         if not self.bot_token or not self.chat_id:
@@ -574,14 +590,7 @@ class TelegramNotifier:
         )
         full_message = header + message
 
-        MAX_TELEGRAM_LENGTH = 4000
-        if len(full_message) > MAX_TELEGRAM_LENGTH:
-            full_message = (
-                full_message[: MAX_TELEGRAM_LENGTH - 20]
-                + "\n... (troncature automatique)"
-            )
-
-        # utilisation d'une file asyncio pour déléguer l'envoi
+        # On ne tronque plus ici : la découpe se fait dans _telegram_worker pour gérer les très gros textes
         if not hasattr(self, "_queue"):
             self._queue = asyncio.Queue()
             self._worker_task = asyncio.create_task(self._telegram_worker())
@@ -590,37 +599,44 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=60)  # augmente le timeout à 60s
+        TIMEOUT = aiohttp.ClientTimeout(total=60)  # timeout à 60s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
-                data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
-                for attempt in range(3):
-                    try:
-                        print(f"[TELEGRAM] Envoi message à {url}: {data}")
-                        async with session.post(url, json=data) as response:
-                            result = await response.json()
-                            if not result.get("ok"):
-                                print(
-                                    f"⚠️ Erreur Telegram (API): {result.get('description')}"
-                                )
-                            break
-                    except asyncio.TimeoutError as e:
-                        import traceback
+                # PATCH : fractionnement ici
+                for part in self.split_message(msg):
+                    # Telegram max length is 4096, but we use 4000 to be safe
+                    if len(part) > 4000:
+                        part = part[:3980] + "\n... (troncature automatique)"
+                    data = {"chat_id": self.chat_id, "text": part, "parse_mode": "HTML"}
+                    for attempt in range(3):
+                        try:
+                            print(f"[TELEGRAM] Envoi message à {url}: {data}")
+                            async with session.post(url, json=data) as response:
+                                result = await response.json()
+                                if not result.get("ok"):
+                                    print(
+                                        f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                    )
+                                break
+                        except asyncio.TimeoutError as e:
+                            import traceback
 
-                        print(
-                            f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
-                        )
-                        traceback.print_exc()
-                        if attempt == 2:
-                            self._log_to_file(msg)
-                    except Exception as e:
-                        print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
-                        traceback.print_exc()
-                        self._log_to_file(msg)
-                        break
+                            print(
+                                f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                            )
+                            traceback.print_exc()
+                            if attempt == 2:
+                                self._log_to_file(part)
+                        except Exception as e:
+                            print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
+                            import traceback
+
+                            traceback.print_exc()
+                            self._log_to_file(part)
+                            break
+                    await asyncio.sleep(0.7)  # Ajout du délai anti-spam
                 self._queue.task_done()
-                await asyncio.sleep(0.7)  # Ajout du délai anti-spam
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -726,6 +742,8 @@ class TelegramNotifier:
 
         def real_translate_title(title):
             try:
+                from deep_translator import GoogleTranslator
+
                 return GoogleTranslator(source="auto", target="fr").translate(title)
             except Exception:
                 return title
