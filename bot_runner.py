@@ -585,38 +585,31 @@ class TelegramNotifier:
         await self._queue.put(full_message)
 
     async def _telegram_worker(self):
-        """Worker qui envoie les messages Telegram en arrière-plan avec debug prints"""
-        import traceback
-
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=5)
-        print(
-            f"[TELEGRAM WORKER] Démarrage du worker Telegram. URL: {url}, chat_id: {self.chat_id}"
-        )
+        TIMEOUT = aiohttp.ClientTimeout(total=15)  # augmente le timeout à 15s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
-                print(
-                    f"[TELEGRAM WORKER] Message à envoyer (len={len(msg)}): {msg[:200]}"
-                )  # Affiche les 200 premiers caractères pour debug
                 data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
-                try:
-                    print(f"[TELEGRAM WORKER] Envoi POST à Telegram...")
-                    async with session.post(url, json=data) as response:
-                        print(f"[TELEGRAM WORKER] POST envoyé, attente réponse...")
-                        result = await response.json()
-                        print(f"[TELEGRAM WORKER] Réponse Telegram: {result}")
-                        if not result.get("ok"):
-                            print(
-                                f"⚠️ Erreur Telegram (API): {result.get('description')}"
-                            )
-                except Exception as e:
-                    print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
-                    traceback.print_exc()
-                    self._log_to_file(msg)
-                finally:
-                    print(f"[TELEGRAM WORKER] task_done() appelé pour le message.")
-                    self._queue.task_done()
+                for attempt in range(3):  # 3 essais en cas d'échec
+                    try:
+                        async with session.post(url, json=data) as response:
+                            result = await response.json()
+                            if not result.get("ok"):
+                                print(
+                                    f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                )
+                            break
+                    except asyncio.TimeoutError:
+                        print(f"⚠️ Timeout Telegram: tentative {attempt+1}/3")
+                        if attempt == 2:
+                            self._log_to_file(msg)
+                    except Exception as e:
+                        print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
+                        traceback.print_exc()
+                        self._log_to_file(msg)
+                        break
+                self._queue.task_done()
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -1560,6 +1553,28 @@ class TradingBotM4:
         self.sync_positions_with_binance()
         self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
         self.dataset_logger = DatasetLogger("training_data.csv")
+
+    async def get_equity_usd(self):
+        """
+        Méthode asynchrone pour récupérer le solde USDC (équity) réel depuis Binance.
+        Si le bot n'est pas en mode live trading ou Binance n'est pas dispo, retourne 0.
+        """
+        try:
+            if getattr(self, "is_live_trading", False) and hasattr(
+                self, "binance_client"
+            ):
+                # Appel API Binance (async safe, convertit en thread si bloquant)
+                balance_info = await asyncio.to_thread(
+                    self.binance_client.get_asset_balance, asset="USDC"
+                )
+                if balance_info:
+                    return float(balance_info.get("free", 0))
+            # Fallback : utilise la dernière performance connue
+            perf = self.get_performance_metrics()
+            return float(perf.get("balance", 0))
+        except Exception as e:
+            print(f"[ERROR get_equity_usd] {e}")
+            return 0.0
 
     def _preserve_and_update_dashboard(self, new_fields):
         if os.path.exists(self.data_file):

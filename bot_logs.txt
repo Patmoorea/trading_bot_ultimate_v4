@@ -7081,3 +7081,15 @@
 2025-08-17T00:29:19.902121 | Initialisation des modèles d'IA...
 2025-08-17T00:29:20.059623 | ✅ Modèles d'IA initialisés avec succès
 2025-08-17T00:29:21.259675 | ✅ PPO Strategy initialized successfully
+2025-08-17T00:29:28.334541 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T00:29:28.335085 | ✅ Trading en direct: True
+2025-08-17T00:29:28.335126 | ✅ IA activée: True
+2025-08-17T00:29:28.335165 | ✅ Analyse de news activée: True
+2025-08-17T00:32:12.974755 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-17T00:32:52.026351 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-17T00:37:32.615508 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0204 | Tendance: 0.0001
+2025-08-17T00:37:32.617113 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-17T00:40:37.237861 | Démarrage cycle trading
+2025-08-17T00:40:37.869631 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T00:48:31.661633 | Démarrage cycle trading
+2025-08-17T00:48:32.324247 | 🚫 Cycle bloqué - Pause news active
