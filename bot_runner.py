@@ -37,6 +37,7 @@ import lz4.frame
 import shutil
 import joblib
 import ast
+import traceback
 
 from decimal import Decimal
 from dotenv import load_dotenv
@@ -584,22 +585,37 @@ class TelegramNotifier:
         await self._queue.put(full_message)
 
     async def _telegram_worker(self):
-        """Worker qui envoie les messages Telegram en arrière-plan"""
+        """Worker qui envoie les messages Telegram en arrière-plan avec debug prints"""
+        import traceback
+
         url = f"{self.base_url}/sendMessage"
         TIMEOUT = aiohttp.ClientTimeout(total=5)
+        print(
+            f"[TELEGRAM WORKER] Démarrage du worker Telegram. URL: {url}, chat_id: {self.chat_id}"
+        )
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
+                print(
+                    f"[TELEGRAM WORKER] Message à envoyer (len={len(msg)}): {msg[:200]}"
+                )  # Affiche les 200 premiers caractères pour debug
                 data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
                 try:
+                    print(f"[TELEGRAM WORKER] Envoi POST à Telegram...")
                     async with session.post(url, json=data) as response:
+                        print(f"[TELEGRAM WORKER] POST envoyé, attente réponse...")
                         result = await response.json()
+                        print(f"[TELEGRAM WORKER] Réponse Telegram: {result}")
                         if not result.get("ok"):
-                            print(f"⚠️ Erreur Telegram: {result.get('description')}")
+                            print(
+                                f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                            )
                 except Exception as e:
-                    print(f"⚠️ Erreur envoi Telegram: {e}")
+                    print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
+                    traceback.print_exc()
                     self._log_to_file(msg)
                 finally:
+                    print(f"[TELEGRAM WORKER] task_done() appelé pour le message.")
                     self._queue.task_done()
 
     def _log_to_file(self, message):
