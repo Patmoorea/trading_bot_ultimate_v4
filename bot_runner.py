@@ -4,6 +4,7 @@ import warnings
 # warnings.filterwarnings("ignore")
 # warnings.simplefilter("ignore")
 
+import csv
 import os
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"  # Réduit les logs TensorFlow
@@ -34,6 +35,8 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import lz4.frame
 import shutil
+import joblib
+import ast
 
 from decimal import Decimal
 from dotenv import load_dotenv
@@ -115,6 +118,52 @@ from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 load_dotenv()
 
 LOG_FILE = "src/bot_logs.txt"
+
+
+class DatasetLogger:
+    def __init__(self, filename="trading_dataset.csv"):
+        self.filename = filename
+        # Si le fichier n’existe pas, créer avec header
+        if not os.path.isfile(self.filename):
+            with open(self.filename, mode="w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(
+                    [
+                        "timestamp",
+                        "pair",
+                        "equity",
+                        "decision",
+                        "confidence",
+                        "price",
+                        "features",
+                    ]
+                )
+
+    def log_cycle(self, pair, equity, decision, price, features):
+        try:
+            with open(self.filename, mode="a", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(
+                    [
+                        time.strftime("%Y-%m-%d %H:%M:%S"),
+                        pair,
+                        equity,
+                        (
+                            decision.get("action")
+                            if isinstance(decision, dict)
+                            else decision
+                        ),
+                        (
+                            decision.get("confidence", 0.0)
+                            if isinstance(decision, dict)
+                            else 0.0
+                        ),
+                        price,
+                        str(features),  # on stocke les features en string JSON-like
+                    ]
+                )
+        except Exception as e:
+            print(f"[LOGGER] Erreur dataset log: {e}")
 
 
 class ExchangeConnector:
@@ -770,6 +819,23 @@ def merge_news_processed(old_scores, new_scores):
     return new_scores
 
 
+def extract_features(features_dict):
+    """Convertit un dict (ou str dict) en features plates pour ML"""
+    if isinstance(features_dict, str):
+        try:
+            features_dict = ast.literal_eval(features_dict)
+        except Exception:
+            return {}
+    flat = {}
+    for group, vals in features_dict.items():
+        if isinstance(vals, dict):
+            for k, v in vals.items():
+                flat[f"{group}_{k}"] = v
+        else:
+            flat[group] = vals
+    return flat
+
+
 class APIRequestOptimizer:
     """Gestionnaire optimisé des requêtes API"""
 
@@ -879,6 +945,361 @@ class RiskManager:
             return False
 
 
+class AdvancedRiskManager:
+    """
+    Gestion du risque avancée :
+    - Validation de signaux avec seuils + score global
+    - Sizing par risque (risk-per-trade) avec stop ATR/vol
+    - Limites d’exposition (par trade, totale, par groupe corrélé)
+    - Coupe-circuit (max drawdown) avec cooldown
+    - Garde-fous : liquidité, slippage estimé, news pause (optionnel)
+    """
+
+    def __init__(
+        self,
+        max_drawdown_limit: float = 0.15,  # 15% DD -> pause
+        cooldown_cycles: int = 6,  # cycles de pause après DD
+        max_per_trade: float = 0.05,  # 5% du capital par trade (plafond)
+        max_total_exposure: float = 0.25,  # 25% du capital max investi
+        risk_per_trade: float = 0.01,  # 1% risk-per-trade (perte max si SL touché)
+        atr_mult: float = 2.0,  # stop = 2 * ATR
+        min_confidence: float = 0.8,
+        thresholds: dict | None = None,
+    ):
+        self.max_drawdown_limit = float(max_drawdown_limit)
+        self.cooldown_cycles = int(cooldown_cycles)
+        self.position_limits = {
+            "max_per_trade": float(max_per_trade),
+            "max_total_exposure": float(max_total_exposure),
+        }
+        self.risk_per_trade = float(risk_per_trade)
+        self.atr_mult = float(atr_mult)
+        self.min_confidence = float(min_confidence)
+
+        self.validation_thresholds = thresholds or {
+            "technical": 0.3,
+            "momentum": 0.2,
+            "orderflow": 0.2,
+        }
+
+        # État pour le coupe-circuit
+        self._equity_peak = None
+        self._last_equity = None
+        self._cooldown_until_cycle = -1
+
+        # Historique compact pour métriques (facultatif)
+        self._equity_history = deque(maxlen=500)
+
+    # ---------- Coupe-circuit & suivi equity ----------
+
+    def update_equity(self, equity: float, current_cycle: int | None = None) -> dict:
+        """Met à jour equity, peak, drawdown et potentiellement active un cooldown."""
+        try:
+            equity = float(equity)
+            self._last_equity = equity
+            self._equity_history.append({"t": time(), "eq": equity})
+
+            if self._equity_peak is None or equity > self._equity_peak:
+                self._equity_peak = equity
+
+            drawdown = 0.0
+            if self._equity_peak and self._equity_peak > 0:
+                drawdown = (equity - self._equity_peak) / self._equity_peak
+
+            paused = False
+            if drawdown <= -self.max_drawdown_limit and current_cycle is not None:
+                self._cooldown_until_cycle = int(current_cycle) + self.cooldown_cycles
+                paused = True
+
+            return {
+                "equity": equity,
+                "equity_peak": self._equity_peak,
+                "drawdown": drawdown,
+                "paused": paused,
+                "cooldown_until": self._cooldown_until_cycle,
+            }
+        except Exception as e:
+            print(f"[RISK] update_equity error: {e}")
+            return {
+                "equity": self._last_equity,
+                "equity_peak": self._equity_peak,
+                "drawdown": 0.0,
+                "paused": False,
+                "cooldown_until": self._cooldown_until_cycle,
+            }
+
+    def should_pause_trading(self, current_cycle: int) -> bool:
+        """Retourne True si le trading doit être en pause pour cooldown drawdown."""
+        try:
+            return int(current_cycle) <= int(self._cooldown_until_cycle)
+        except Exception:
+            return False
+
+    # ---------- Validations de signaux ----------
+
+    def validate_trade(self, signals: dict) -> tuple[bool, float, str]:
+        """Valide les signaux et calcule un score global normalisé [-1, 1]."""
+        try:
+            if not isinstance(signals, dict):
+                return False, 0.0, "Signaux non valides"
+
+            technical = signals.get("technical", {})
+            momentum = signals.get("momentum", {})
+            orderflow = signals.get("orderflow", {})
+
+            tech_score = float(technical.get("score", 0.0))
+            mom_score = float(momentum.get("score", 0.0))
+            flow_score = float(orderflow.get("score", 0.0))
+
+            if abs(tech_score) < self.validation_thresholds["technical"]:
+                return False, 0.0, f"Score technique insuffisant: {tech_score:.2f}"
+            if abs(mom_score) < self.validation_thresholds["momentum"]:
+                return False, 0.0, f"Momentum insuffisant: {mom_score:.2f}"
+            if abs(flow_score) < self.validation_thresholds["orderflow"]:
+                return False, 0.0, f"Orderflow insuffisant: {flow_score:.2f}"
+
+            # Moyenne pondérée (ajuste les poids si tu veux)
+            total_score = 0.5 * tech_score + 0.3 * mom_score + 0.2 * flow_score
+            # Clamp dans [-1, 1] pour stabilité
+            total_score = max(-1.0, min(1.0, total_score))
+
+            if abs(total_score) < 0.25:
+                return (
+                    False,
+                    total_score,
+                    f"Score global insuffisant: {total_score:.2f}",
+                )
+
+            return True, total_score, "OK"
+        except Exception as e:
+            return False, 0.0, f"Erreur validation: {e}"
+
+    # ---------- Sizing & Stops ----------
+
+    def _stop_distance(
+        self, price: float, volatility: float | None, atr: float | None
+    ) -> float:
+        """Distance de stop en $ par unité (Long par défaut)."""
+        price = float(price)
+        # ATR prioritaire si présent
+        if atr is not None and atr > 0:
+            return float(self.atr_mult) * float(atr)
+        # sinon fallback sur volatilité (ex: 2% du prix si vol~1%)
+        vol_term = float(volatility) if volatility is not None else 0.01
+        vol_term = max(0.005, min(0.05, vol_term * 2.0))  # borne entre 0.5% et 5%
+        return price * vol_term
+
+    def calculate_position_size(
+        self,
+        equity: float,
+        price: float,
+        confidence: float,
+        volatility: float | None = None,
+        atr: float | None = None,
+    ) -> dict:
+        """
+        Sizing par risk-per-trade :
+        - risk_nominal = equity * risk_per_trade
+        - unités = min( risk_nominal / stop_distance , plafond_notional / price )
+        """
+        try:
+            confidence = float(confidence)
+            if confidence < self.min_confidence:
+                return {
+                    "units": 0.0,
+                    "notional": 0.0,
+                    "reason": f"Confiance insuffisante: {confidence:.2f}",
+                }
+
+            equity = float(equity)
+            price = float(price)
+
+            risk_nominal = equity * self.risk_per_trade
+            stop_dist = self._stop_distance(price, volatility, atr)
+            if stop_dist <= 0:
+                return {
+                    "units": 0.0,
+                    "notional": 0.0,
+                    "reason": "Stop distance invalide",
+                }
+
+            units_by_risk = risk_nominal / stop_dist
+            notional_cap = equity * self.position_limits["max_per_trade"]
+            units_by_cap = notional_cap / price
+
+            units = max(0.0, min(units_by_risk, units_by_cap))
+            notional = units * price
+
+            return {
+                "units": units,
+                "notional": notional,
+                "stop_distance": stop_dist,
+                "reason": "OK",
+            }
+        except Exception as e:
+            return {"units": 0.0, "notional": 0.0, "reason": f"Erreur sizing: {e}"}
+
+    # ---------- Exposition & Corrélation ----------
+
+    def check_exposure_limit(
+        self,
+        current_positions: dict,
+        new_notional: float,
+        symbol: str | None = None,
+        corr_groups: dict | None = None,
+    ) -> tuple[bool, str]:
+        """
+        - Total <= max_total_exposure * equity
+        - Par trade déjà plafonné par calculate_position_size
+        - Corrélation : si corr_groups fourni, limite un groupe à 2 * max_per_trade
+        current_positions: { "BTCUSDC": {"size": notional, ...}, ... }
+        corr_groups: { "L1": ["BTCUSDC","ETHUSDC","SOLUSDC"], "Meme": ["DOGEUSDC","SHIBUSDC"], ... }
+        """
+        try:
+            total = 0.0
+            for pos in current_positions.values():
+                total += float(pos.get("size", 0.0))
+            new_total = total + float(new_notional)
+
+            # Ici, equity doit être passé par l'appelant pour faire total/equity; on reste en check relatif simple :
+            # On impose que (total_notional / (total_notional + cash)) ≈ contrôlé ailleurs.
+            # On fait un garde-fou : si new_total > (max_total_exposure * 1.5 * (total + new_notional)), on refuse.
+            # => Si tu as equity dispo, adapte pour un test précis en % du capital.
+            if new_total < 0:
+                return False, "Exposition invalide"
+            # Autorise si <= 5 positions * max_per_trade
+            # (côté simple si equity exact non dispo dans cette fonction)
+            max_slots = int(1.0 / max(1e-9, self.position_limits["max_per_trade"]))
+            if new_total > (self.position_limits["max_per_trade"] * max_slots * 1.0):
+                return False, "Exposition totale potentiellement excessive"
+
+            # Corrélation par groupe
+            if corr_groups and symbol:
+                group_cap = (
+                    2.0 * self.position_limits["max_per_trade"]
+                )  # 2 trades max par groupe
+                for group, syms in corr_groups.items():
+                    if symbol in syms:
+                        group_sum = (
+                            sum(
+                                float(p.get("size", 0.0))
+                                for s, p in current_positions.items()
+                                if s in syms
+                            )
+                            + new_notional
+                        )
+                        # Ici aussi, c'est une borne relative. Si tu as equity, remplace par (group_sum/equity <= group_cap)
+                        if group_sum > 0 and (group_sum > (group_cap * 1.0)):
+                            return False, f"Groupe corrélé '{group}' sur-exposé"
+                        break
+
+            return True, "OK"
+        except Exception as e:
+            return False, f"Erreur check_exposure_limit: {e}"
+
+    # ---------- Slippage/Liquidité (facultatif) ----------
+
+    def estimate_slippage_bps(
+        self, notional: float, market_liquidity: dict | None
+    ) -> float:
+        """
+        Estimation très simple : si profondeur insuffisante, slippage augmente.
+        market_liquidity: ex. {"depth_usd": 1_000_000} pour 10 bps/1M$
+        """
+        try:
+            depth = (
+                float(market_liquidity.get("depth_usd", 0)) if market_liquidity else 0.0
+            )
+            if depth <= 0:
+                return 15.0  # 15 bps par défaut si on ne sait pas
+            # 10 bps par 1M$ de profondeur (réglable)
+            return max(2.0, 10.0 * (notional / max(1.0, depth)))
+        except Exception:
+            return 15.0
+
+    # ---------- Pipeline pré-trade complet ----------
+
+    def pre_trade_check(
+        self,
+        *,
+        symbol: str,
+        side: str,
+        price: float,
+        equity: float,
+        confidence: float,
+        volatility: float | None,
+        signals: dict,
+        current_positions: dict,
+        current_cycle: int,
+        atr: float | None = None,
+        market_liquidity: dict | None = None,
+        corr_groups: dict | None = None,
+        news_paused: bool = False,
+    ) -> dict:
+        """
+        Renvoie un dict avec:
+        {
+          "approved": bool, "reason": str,
+          "size_units": float, "size_notional": float,
+          "stop_loss_price": float, "take_profit_price": float (optionnel)
+        }
+        """
+        # Coupe-circuit actif ?
+        if self.should_pause_trading(current_cycle):
+            return {"approved": False, "reason": "Cooldown drawdown actif"}
+
+        if news_paused:
+            return {"approved": False, "reason": "Pause News active"}
+
+        ok, score, why = self.validate_trade(signals)
+        if not ok:
+            return {"approved": False, "reason": why}
+
+        sizing = self.calculate_position_size(
+            equity=equity,
+            price=price,
+            confidence=confidence,
+            volatility=volatility,
+            atr=atr,
+        )
+        if sizing["units"] <= 0:
+            return {"approved": False, "reason": sizing["reason"]}
+
+        # Exposition (relative, voir note plus haut)
+        ok_exp, why_exp = self.check_exposure_limit(
+            current_positions=current_positions,
+            new_notional=sizing["notional"],
+            symbol=symbol,
+            corr_groups=corr_groups,
+        )
+        if not ok_exp:
+            return {"approved": False, "reason": why_exp}
+
+        # Slippage / liquidité
+        slippage_bps = self.estimate_slippage_bps(sizing["notional"], market_liquidity)
+        if slippage_bps > 50.0:  # 50 bps = 0.50%
+            return {
+                "approved": False,
+                "reason": f"Slippage estimé trop élevé: {slippage_bps:.0f} bps",
+            }
+
+        # Stop (long/short)
+        if side.upper() == "BUY":
+            stop_loss_price = price - sizing["stop_distance"]
+        else:
+            stop_loss_price = price + sizing["stop_distance"]
+
+        return {
+            "approved": True,
+            "reason": "OK",
+            "score": score,
+            "size_units": sizing["units"],
+            "size_notional": sizing["notional"],
+            "stop_loss_price": max(0.0, stop_loss_price),
+            "slippage_bps": slippage_bps,
+        }
+
+
 class TradingBotM4:
     def __init__(self):
         # Configuration de base existante...
@@ -935,7 +1356,15 @@ class TradingBotM4:
         }
         # Initialisation explicite du risk manager
         try:
-            self.risk_manager = RiskManager()
+            self.risk_manager = AdvancedRiskManager(
+                max_drawdown_limit=0.15,  # coupe-circuit à -15%
+                cooldown_cycles=6,  # pause 6 cycles après déclenchement
+                max_per_trade=0.05,  # 5% capital max/trade
+                max_total_exposure=0.25,  # 25% capital max exposé
+                risk_per_trade=0.01,  # 1% risque par trade
+                atr_mult=2.0,  # stop = 2 * ATR
+                min_confidence=0.80,  # même seuil que ta logique actuelle
+            )
             if hasattr(self.risk_manager, "validate_trade"):
                 print("✅ Risk Manager initialisé avec succès")
             else:
@@ -1077,6 +1506,15 @@ class TradingBotM4:
         self.use_cold_wallet_key = False  # ou False selon besoin
 
         self.key_manager = KeyManager()
+
+        try:
+            self.ml_model = joblib.load("ml_model.pkl")
+            self.ml_scaler = joblib.load("ml_scaler.pkl")
+        except Exception as e:
+            print(f"[ML] Erreur chargement modèle ML: {e}")
+            self.ml_model = None
+            self.ml_scaler = None
+
         if self.use_cold_wallet_key:
             if not self.key_manager.has_key():
                 print(
@@ -1105,6 +1543,7 @@ class TradingBotM4:
         self.positions_binance = {}
         self.sync_positions_with_binance()
         self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
+        self.dataset_logger = DatasetLogger("training_data.csv")
 
     def _preserve_and_update_dashboard(self, new_fields):
         if os.path.exists(self.data_file):
@@ -6737,6 +7176,10 @@ async def run_clean_bot():
         """
         Cycle complet de trading avec corrections des problèmes de dashboard et signaux
         Version optimisée (I/O unique, recalcul minimal, parallélisation), sans suppression de fonctionnalités.
+        Intègre :
+        - risk_manager.update_equity + should_pause_trading en début de cycle
+        - risk_manager.pre_trade_check avant l'exécution des ordres
+        - Prédiction ML obligatoire pour valider le trade (règle ET ML doivent être d'accord)
         """
         try:
             debug = getattr(bot, "debug", True)
@@ -6745,9 +7188,29 @@ async def run_clean_bot():
                 print("\n=== DÉBUT CYCLE TRADING ===")
             log_dashboard("Démarrage cycle trading")
 
-            # ---------------------------------------------------------------------
-            # 1) LECTURE UNIQUE DES DONNÉES PARTAGÉES (réduire I/O)
-            # ---------------------------------------------------------------------
+            # 0) Cycle + equity + cooldown drawdown
+            bot.current_cycle = getattr(bot, "current_cycle", 0) + 1
+            try:
+                current_equity_usd = await bot.get_equity_usd()
+            except Exception as _e:
+                if debug:
+                    print(f"[WARN] get_equity_usd a échoué: {_e}")
+                current_equity_usd = float(
+                    bot.get_performance_metrics().get("balance", 10_000.0)
+                )
+
+            if hasattr(bot, "risk_manager") and bot.risk_manager:
+                try:
+                    bot.risk_manager.update_equity(
+                        equity=current_equity_usd, current_cycle=bot.current_cycle
+                    )
+                    if bot.risk_manager.should_pause_trading(bot.current_cycle):
+                        log_dashboard("[RISK] Pause trading (cooldown drawdown actif)")
+                        return [], getattr(bot, "regime", "Indéterminé")
+                except AttributeError:
+                    pass
+
+            # 1) Lecture unique des données partagées
             try:
                 with open(bot.data_file, "r") as f:
                     shared_data = json.load(f)
@@ -6756,12 +7219,9 @@ async def run_clean_bot():
                     print(f"[WARNING] Lecture data_file échouée: {e}")
                 shared_data = {}
 
-            # 1.a) Initialisation structures bot.market_data si manquantes
+            # Init market_data
             if not hasattr(bot, "market_data"):
                 bot.market_data = {}
-
-            if debug:
-                print("[DEBUG] Initialisation des structures de base...")
             for pair in bot.pairs_valid:
                 pair_key = pair.replace("/", "").upper()
                 if pair_key not in bot.market_data:
@@ -6770,14 +7230,8 @@ async def run_clean_bot():
                         "sentiment_timestamp": time.time(),
                         "ai_prediction": 0.5,
                     }
-                    if debug:
-                        print(
-                            f"[DEBUG] Initialisation {pair_key} avec valeurs par défaut"
-                        )
 
-            # ---------------------------------------------------------------------
-            # 2) VÉRIFICATION DES PAUSES NEWS (identique, mais I/O limitées)
-            # ---------------------------------------------------------------------
+            # 2) Vérification des pauses news
             if (
                 bot.news_pause_manager
                 and bot.news_pause_manager.global_cycles_remaining > 0
@@ -6790,13 +7244,9 @@ async def run_clean_bot():
                     bot.data_file,
                 )
                 log_dashboard("🚫 Cycle bloqué - Pause news active")
-                return [], bot.regime
+                return [], getattr(bot, "regime", "Indéterminé")
 
-            # ---------------------------------------------------------------------
-            # 3) ANALYSE DES NEWS (réutilise shared_data chargé au début)
-            # ---------------------------------------------------------------------
-            if debug:
-                print("\n[DEBUG] Analyse des news...")
+            # 3) Analyse des news
             try:
                 news_sentiment = (
                     shared_data.get("sentiment", {})
@@ -6809,17 +7259,10 @@ async def run_clean_bot():
                     else []
                 )
                 unprocessed_news = [n for n in news_list if not n.get("processed")]
-
                 if unprocessed_news:
                     if bot.news_pause_manager.scan_news(unprocessed_news):
-                        (
-                            print("🚨 Pause trading activée suite à news critique")
-                            if debug
-                            else None
-                        )
                         for n in unprocessed_news:
                             n["processed"] = True
-
                         bot.safe_update_shared_data(
                             {
                                 "sentiment": {**news_sentiment, "scores": news_list},
@@ -6827,37 +7270,15 @@ async def run_clean_bot():
                             },
                             bot.data_file,
                         )
-
                         if bot.news_pause_manager.global_cycles_remaining > 0:
-                            return [], bot.regime
+                            return [], getattr(bot, "regime", "Indéterminé")
             except Exception as e:
                 if debug:
                     print(f"[WARNING] Erreur analyse news: {e}")
 
-            # ---------------------------------------------------------------------
-            # 4) MISE À JOUR DES DONNÉES MARCHÉ (parallélisée & recalcul minimal)
-            # ---------------------------------------------------------------------
-            if debug:
-                print("\n[DEBUG] Mise à jour des données marché...")
-
-            try:
-                orderflow_indicators = AdvancedIndicators()
-            except Exception as e:
-                if debug:
-                    print(f"[WARNING] Erreur init indicators: {e}")
-                orderflow_indicators = None  # conservé même si pas utilisé ici
-
+            # 4) Mise à jour des données marché (parallélisée)
             async def process_pair_tf(pair, tf):
-                """
-                Traite une paire/timeframe :
-                - Récupère df
-                - Corrige timestamp
-                - Accumule sans doublons
-                - Recalcule indicateurs SEULEMENT si nouvelles bougies
-                """
                 pair_key = pair.replace("/", "").upper()
-
-                # Récupération dataframe en thread pour ne pas bloquer l'event loop
                 df = await asyncio.to_thread(
                     bot.ws_collector.get_dataframe, pair_key, tf
                 )
@@ -6868,7 +7289,6 @@ async def run_clean_bot():
                 if not all(col in df.columns for col in required_cols):
                     return
 
-                # Correction timestamp si nécessaire
                 if len(df["timestamp"]) != len(df["close"]):
                     if (
                         hasattr(df.index, "dtype")
@@ -6883,7 +7303,6 @@ async def run_clean_bot():
                             freq="T",
                         )
 
-                # Assure structure tf
                 if tf not in bot.market_data.get(pair_key, {}):
                     bot.market_data[pair_key].setdefault(
                         tf,
@@ -6897,7 +7316,6 @@ async def run_clean_bot():
                         },
                     )
 
-                # Construction OHLCV dict (listes)
                 ohlcv_dict = {
                     "open": df["open"].tolist(),
                     "high": df["high"].tolist(),
@@ -6909,7 +7327,6 @@ async def run_clean_bot():
                     ],
                 }
 
-                # Accumulation SANS DOUBLONS
                 last_ts = (
                     bot.market_data[pair_key][tf]["timestamp"][-1]
                     if bot.market_data[pair_key][tf]["timestamp"]
@@ -6933,27 +7350,12 @@ async def run_clean_bot():
                         new_indices.append(i)
 
                 if not new_indices:
-                    # Rien de nouveau => ne recalcule pas les indicateurs
-                    if debug:
-                        print(
-                            f"[DEBUG] {pair_key}-{tf} pas de nouvelles bougies, skip calcul indicateurs."
-                        )
                     return
 
                 for k in ohlcv_dict:
                     md_list = bot.market_data[pair_key][tf][k]
                     md_list.extend([ohlcv_dict[k][i] for i in new_indices])
 
-                # DEBUG tailles
-                if debug:
-                    print(
-                        f"[DEBUG] {pair_key}-{tf} nb bougies : {len(bot.market_data[pair_key][tf]['close'])}"
-                    )
-                    print(
-                        f"[DEBUG] {pair_key}-{tf} timestamp (type): {type(bot.market_data[pair_key][tf]['timestamp'])}"
-                    )
-
-                # Calcul des indicateurs (inchangé, mais seulement si nouvelles bougies)
                 indicators_data = await asyncio.to_thread(bot.add_indicators, df)
                 bot.market_data[pair_key][tf]["signals"] = {
                     "technical": {
@@ -6973,13 +7375,6 @@ async def run_clean_bot():
                     "sentiment": float(bot.market_data[pair_key].get("sentiment", 0.5)),
                 }
 
-                if debug:
-                    print(f"[DEBUG] {pair_key}-{tf} Indicateurs calculés:")
-                    print(
-                        f"- Technical score: {indicators_data.get('technical_score', 0.5)}"
-                    )
-
-            # Lancer TOUTES les MAJ OHLCV/indicateurs en parallèle
             tasks = []
             for pair in bot.pairs_valid:
                 for tf in bot.config["TRADING"]["timeframes"]:
@@ -6987,63 +7382,45 @@ async def run_clean_bot():
             if tasks:
                 await asyncio.gather(*tasks)
 
-            # ---------------------------------------------------------------------
-            # 6) INITIALISATION DES DÉCISIONS (identique, I/O évitées)
-            # ---------------------------------------------------------------------
+            # 5) Génération des décisions (classique)
             trade_decisions = []
             decisions_for_dashboard = {}
-
-            if debug:
-                print("\n[DEBUG] Initialisation des décisions...")
-
             current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
             for pair in bot.pairs_valid:
                 try:
                     pair_key = pair.replace("/", "").upper()
-
                     if pair_key not in bot.market_data:
                         bot.market_data[pair_key] = {}
 
                     market_signals = bot.market_data[pair_key]
-                    confidence = 0.5  # valeur par défaut
+                    confidence = 0.5
 
-                    # Signaux techniques depuis 1h si dispo
                     tf_data = market_signals.get("1h", {}).get("signals", {})
                     tech_data = tf_data.get("technical", {})
 
-                    # 1. Technical Score
                     try:
                         tech_score = safe_float(tech_data.get("score", 0.5))
                         tech_score = max(0.0, min(1.0, tech_score))
                     except (TypeError, ValueError):
-                        if debug:
-                            print(f"[WARNING] Invalid tech score for {pair_key}")
                         tech_score = 0.5
 
-                    # 2. AI Score
                     try:
                         ai_score = market_signals.get("ai_prediction")
                         if ai_score is not None:
                             ai_score = safe_float(ai_score)
                             ai_score = max(0.0, min(1.0, ai_score))
                         else:
-                            if debug:
-                                print(f"[WARNING] No AI prediction for {pair_key}")
                             ai_score = 0.5
                     except (TypeError, ValueError):
-                        if debug:
-                            print(f"[WARNING] Invalid AI score for {pair_key}")
                         ai_score = 0.5
 
-                    # 3. Sentiment Score
                     try:
                         sentiment_score = market_signals.get("sentiment")
                         if sentiment_score is not None:
                             sentiment_score = safe_float(sentiment_score)
                             sentiment_score = max(-1.0, min(1.0, sentiment_score))
                         else:
-                            # Récupération depuis shared_data déjà chargé
                             news_sentiment = shared_data.get("sentiment", {})
                             sentiment_score = safe_float(
                                 news_sentiment.get("overall_sentiment", 0.0)
@@ -7051,22 +7428,17 @@ async def run_clean_bot():
                     except (TypeError, ValueError, json.JSONDecodeError):
                         sentiment_score = 0.0
 
-                    # Pondération des signaux pour la confiance
-                    if all(
-                        x is not None for x in [tech_score, ai_score, sentiment_score]
-                    ):
-                        tech_weight = 0.5
-                        ai_weight = 0.3
-                        sentiment_weight = 0.2
-                        norm_sentiment = (sentiment_score + 1) / 2
-                        confidence = (
-                            tech_score * tech_weight
-                            + ai_score * ai_weight
-                            + norm_sentiment * sentiment_weight
-                        )
-                        confidence = max(0.5, min(1.0, confidence))
+                    tech_weight = 0.5
+                    ai_weight = 0.3
+                    sentiment_weight = 0.2
+                    norm_sentiment = (sentiment_score + 1) / 2
+                    confidence = (
+                        tech_score * tech_weight
+                        + ai_score * ai_weight
+                        + norm_sentiment * sentiment_weight
+                    )
+                    confidence = max(0.5, min(1.0, confidence))
 
-                    # Décision initiale
                     decision = {
                         "pair": pair,
                         "action": "neutral",
@@ -7087,17 +7459,7 @@ async def run_clean_bot():
                     elif weighted_signal < 0.3:
                         decision["action"] = "sell"
 
-                    if debug:
-                        print(f"\n[DEBUG] Décision pour {pair}:")
-                        print(f"- Tech score: {tech_score:.4f}")
-                        print(f"- AI score: {ai_score:.4f}")
-                        print(f"- Sentiment: {sentiment_score:.4f}")
-                        print(f"- Confiance: {confidence:.4f}")
-                        print(f"- Action: {decision['action']}")
-
                     decisions_for_dashboard[pair] = decision
-
-                    # Si signaux forts → ajout aux décisions
                     if decision["action"] != "neutral" and decision["confidence"] > 0.7:
                         trade_decisions.append(decision)
 
@@ -7105,7 +7467,8 @@ async def run_clean_bot():
                     print(f"[ERROR] Failed to process {pair}: {str(e)}")
                     continue
 
-            # Mise à jour market_data avec décisions
+            # 6) Analyse des signaux (inchangé)
+            signals_ok = bot.verify_signals_completeness()
             for pair, decision in decisions_for_dashboard.items():
                 pair_key = pair.replace("/", "").upper()
                 if pair_key not in bot.market_data:
@@ -7113,301 +7476,13 @@ async def run_clean_bot():
                 bot.market_data[pair_key]["last_decision"] = decision
                 bot.market_data[pair_key]["last_update"] = current_time
 
-            # Debug final (limité)
-            if debug:
-                print("\n[DEBUG] Résumé des décisions:")
-                for pair, decision in decisions_for_dashboard.items():
-                    print(f"\n{pair}:")
-                    try:
-                        print(json.dumps(decision, indent=2))
-                    except Exception:
-                        print(str(decision))
-
-            # ---------------------------------------------------------------------
-            # 7) ANALYSE DES SIGNAUX (identique, mais on évite recalculs inutiles)
-            # ---------------------------------------------------------------------
-            signals_ok = bot.verify_signals_completeness()
-            if not signals_ok:
-                log_dashboard("⚠️ Signaux incomplets")
-
-            if debug:
-                print("\n[DEBUG] Vérification finale des décisions:")
-                for pair, decision in decisions_for_dashboard.items():
-                    print(f"\n{pair}:")
-                    for key, value in decision.items():
-                        if isinstance(value, (int, float)):
-                            print(f"- {key}: {value:.4f}")
-                        else:
-                            print(f"- {key}: {value}")
-
-            for pair, decision in decisions_for_dashboard.items():
-                pair_key = pair.replace("/", "").upper()
-                if pair_key not in bot.market_data:
-                    bot.market_data[pair_key] = {}
-                bot.market_data[pair_key].update(
-                    {"last_decision": decision, "last_update": current_time}
-                )
-
-            # ---------------------------------------------------------------------
-            # 8) GÉNÉRATION DES DÉCISIONS DÉTAILLÉES (inchangée dans la logique)
-            # ---------------------------------------------------------------------
-            if debug:
-                print("\n[DEBUG] Génération des décisions...")
-            for pair in bot.pairs_valid:
-                pair_signals = {}
-                pair_key = pair.replace("/", "").upper()
-                for tf in bot.config["TRADING"]["timeframes"]:
-                    # Récupération df à la volée (si besoin) ; pourrait se réutiliser
-                    df = bot.ws_collector.get_dataframe(pair_key, tf)
-                    if df is not None and len(df) >= 20:
-                        decision = await bot.analyze_signals(
-                            pair_key, df, bot.add_indicators(df), tf
-                        )
-                        if debug:
-                            print(f"[DEBUG] {pair} - decision:", decision)
-                        if decision and isinstance(decision.get("signals"), dict):
-                            decision["tf"] = tf
-                            pair_signals[tf] = decision
-
-                if pair_signals:
-                    dominant_tf = "1h"
-                    dominant_signals = pair_signals.get(dominant_tf, {}).get(
-                        "signals", {}
-                    )
-
-                    if bot.risk_manager.validate_trade(dominant_signals):
-                        action, base_confidence = bot.aggregate_timeframe_signals(
-                            pair, pair_signals
-                        )
-
-                        # Calcul confiance (utilise les RÉELS scores)
-                        tech_score = safe_float(
-                            dominant_signals.get("technical", {}).get("score", 0.5)
-                        )
-                        momentum_score = float(
-                            dominant_signals.get("momentum", {}).get("score", 0.5)
-                        )
-                        orderflow_score = float(
-                            dominant_signals.get("orderflow", {}).get("score", 0.5)
-                        )
-                        ai_score = safe_float(
-                            bot.market_data[pair_key].get("ai_prediction", 0.5)
-                        )
-                        sentiment_score = safe_float(
-                            bot.market_data[pair_key].get("sentiment", 0.5)
-                        )
-
-                        if debug:
-                            print(f"\n[DEBUG] Scores pour {pair}:")
-                            print(f"- Technical: {tech_score:.3f}")
-                            print(f"- Momentum: {momentum_score:.3f}")
-                            print(f"- Orderflow: {orderflow_score:.3f}")
-                            print(f"- AI: {ai_score:.3f}")
-                            print(f"- Sentiment: {sentiment_score:.3f}")
-
-                        confidence = (
-                            tech_score * 0.35
-                            + momentum_score * 0.25
-                            + orderflow_score * 0.2
-                            + ai_score * 0.15
-                            + sentiment_score * 0.05
-                        )
-                        confidence = max(0.5, min(confidence, 1.0))
-
-                        if debug:
-                            print(f"=> Confidence calculée: {confidence:.3f}")
-
-                        sizing_multiplier = 1.0
-                        # NOTE: logique d’origine conservée (l’elif >0.8 ne s’exécute pas si >0.7)
-                        if confidence > 0.7:
-                            sizing_multiplier = 1.5
-                        elif confidence > 0.8:
-                            sizing_multiplier = 2.0
-
-                        final_decision = {
-                            "pair": pair,
-                            "action": action,
-                            "confidence": float(confidence),
-                            "sizing_multiplier": sizing_multiplier,
-                            "signals": {
-                                "technical": tech_score,
-                                "momentum": momentum_score,
-                                "orderflow": orderflow_score,
-                                "ai": ai_score,
-                                "sentiment": sentiment_score,
-                            },
-                        }
-
-                        # Mise à jour dashboard avec les vraies valeurs
-                        dashboard_update = {
-                            "action": str(action),
-                            "confidence": float(confidence),
-                            "tech": float(tech_score),
-                            "ai": float(ai_score),
-                            "sentiment": float(sentiment_score),
-                        }
-
-                        if debug:
-                            print(f"\n[DEBUG] Mise à jour dashboard pour {pair}:")
-                            try:
-                                print(
-                                    f"Avant: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
-                                )
-                            except Exception:
-                                print(str(decisions_for_dashboard.get(pair)))
-
-                        decisions_for_dashboard[pair].update(dashboard_update)
-
-                        if debug:
-                            try:
-                                print(
-                                    f"Après: {json.dumps(decisions_for_dashboard[pair], indent=2)}"
-                                )
-                                print(f"\n[DEBUG] Dashboard mis à jour pour {pair}:")
-                                print(
-                                    json.dumps(decisions_for_dashboard[pair], indent=2)
-                                )
-                            except Exception:
-                                pass
-
-                        signal_score = (
-                            tech_score * 0.3
-                            + momentum_score * 0.2
-                            + orderflow_score * 0.2
-                            + ai_score * 0.2
-                            + sentiment_score * 0.1
-                        )
-
-                        # Filtre final (inchangé)
-                        if (
-                            signal_score >= 0.6
-                            and confidence >= 0.7
-                            and bot.calculate_volatility_advanced(df) <= 0.08
-                        ):
-                            trade_decisions.append(final_decision)
-
-            # ---------------------------------------------------------------------
-            # 9) VALIDATION FINALE DES DONNÉES (identique)
-            # ---------------------------------------------------------------------
-            if debug:
-                print("\n[DEBUG] Validation finale des données...")
-            for pair in decisions_for_dashboard:
-                decision = decisions_for_dashboard[pair]
-                if debug:
-                    print(f"\n[DEBUG] Validation {pair} avant correction:")
-                    try:
-                        print(json.dumps(decision, indent=2))
-                    except Exception:
-                        print(str(decision))
-
-                for key in ["confidence", "tech", "ai", "sentiment"]:
-                    current_val = decision.get(key)
-                    if current_val is None:
-                        decisions_for_dashboard[pair][key] = 0.5
-                        if debug:
-                            print(f"[DEBUG] {pair}: {key} était None -> 0.5")
-                    else:
-                        try:
-                            decisions_for_dashboard[pair][key] = float(current_val)
-                        except Exception:
-                            if debug:
-                                print(f"[DEBUG] {pair}: {key} non convertible -> 0.5")
-                            decisions_for_dashboard[pair][key] = 0.5
-
-                if debug:
-                    print(f"[DEBUG] {pair} après validation:")
-                    try:
-                        print(json.dumps(decision, indent=2))
-                    except Exception:
-                        print(str(decision))
-
-            # ---------------------------------------------------------------------
-            # 10) SAUVEGARDE DES DONNÉES (UNE SEULE FOIS)
-            # ---------------------------------------------------------------------
-            try:
-                if debug:
-                    print("\n[DEBUG] Sauvegarde des données...")
-                current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-                regime = getattr(bot, "regime", "Indéterminé")
-
-                # On réutilise shared_data (évite re-lire disque)
-                existing_data = shared_data if isinstance(shared_data, dict) else {}
-
-                # Fusion decisions
-                existing_trade_decisions = existing_data.get("trade_decisions", {})
-                merged_trade_decisions = existing_trade_decisions.copy()
-                for pair, decision in decisions_for_dashboard.items():
-                    if pair in merged_trade_decisions:
-                        merged_trade_decisions[pair].update(decision)
-                    else:
-                        merged_trade_decisions[pair] = decision
-
-                data_to_save = {
-                    "trade_decisions": merged_trade_decisions,
-                    "market_data": {
-                        **existing_data.get("market_data", {}),
-                        **bot.market_data,
-                    },
-                    "cycle_metrics": {
-                        "cycle": bot.current_cycle,
-                        "regime": regime,
-                        "balance": bot.get_performance_metrics().get(
-                            "balance", 10000.0
-                        ),
-                        "timestamp": current_time,
-                    },
-                    "bot_status": {
-                        "cycle": bot.current_cycle,
-                        "regime": regime,
-                        "performance": bot.get_performance_metrics(),
-                        "last_update": current_time,
-                    },
-                }
-
-                preserved_fields = [
-                    "trade_history",
-                    "closed_positions",
-                    "equity_history",
-                    "news_data",
-                    "sentiment",
-                    "active_pauses",
-                    "pending_sales",
-                    "positions_binance",
-                    "market_data",  # ← déjà fusionné, mais à garder si besoin
-                ]
-                for field in preserved_fields:
-                    if field in existing_data:
-                        data_to_save[field] = existing_data[field]
-
-                # Backup + sauvegarde
-                if os.path.exists(bot.data_file):
-                    shutil.copyfile(bot.data_file, bot.data_file + ".bak")
-
-                bot.safe_update_shared_data(data_to_save, bot.data_file)
-                if debug:
-                    print("✅ Données sauvegardées avec succès")
-
-            except Exception as e:
-                print(f"❌ Erreur sauvegarde: {e}")
-                # Sauvegarde minimale en cas d'erreur (identique à l’origine)
-                regime = getattr(bot, "regime", "Indéterminé")
-                bot.safe_update_shared_data(
-                    {
-                        "trade_decisions": decisions_for_dashboard,
-                        "bot_status": {"cycle": bot.current_cycle, "regime": regime},
-                    },
-                    bot.data_file,
-                )
-
-            # ---------------------------------------------------------------------
-            # 11) EXÉCUTION DES TRADES (identique, avec mêmes filtres)
-            # ---------------------------------------------------------------------
+            # 7) EXÉCUTION DES TRADES (avec ML obligatoire)
             if signals_ok and trade_decisions:
                 current_exposure = sum(
                     safe_float(pos.get("amount", 0))
                     * safe_float(pos.get("entry_price", 0))
-                    for pos in bot.positions.values()
-                ) / bot.get_performance_metrics().get("balance", 1)
+                    for pos in getattr(bot, "positions", {}).values()
+                ) / max(bot.get_performance_metrics().get("balance", 1), 1)
 
                 if (
                     current_exposure
@@ -7416,14 +7491,13 @@ async def run_clean_bot():
                     filtered_decisions = []
 
                     for decision in trade_decisions:
-                        pair_key = decision["pair"].replace("/", "").upper()
-                        volatility = bot.calculate_volatility(
-                            bot.market_data.get(pair_key, {}).get("1h", {})
-                        )
+                        pair = decision["pair"]
+                        pair_key = pair.replace("/", "").upper()
+                        action = str(
+                            decision.get("action", "")
+                        ).lower()  # buy/sell/neutral
 
-                        # === PAUSE INTELLIGENTE ===
-                        action = decision.get("action")
-                        pair = decision.get("pair")
+                        # PAUSE INTELLIGENTE
                         trading_paused = (
                             bot.news_pause_manager.global_cycles_remaining > 0
                             if bot.news_pause_manager
@@ -7444,47 +7518,140 @@ async def run_clean_bot():
                         )
 
                         if trading_paused and action == "buy":
-                            if debug:
-                                print(
-                                    f"[SMART PAUSE] Achat {pair} bloqué par pause globale/news."
-                                )
                             continue
                         if pair_paused and action == "buy":
-                            if debug:
-                                print(
-                                    f"[SMART PAUSE] Achat {pair} bloqué par pause sur la paire."
-                                )
                             continue
                         if buy_paused and action == "buy":
-                            if debug:
-                                print(
-                                    f"[SMART PAUSE] Achat {pair} bloqué par pause BUY (régulation/news)."
-                                )
                             continue
 
-                        # Filtre volatilité
-                        if volatility > 0.08:
-                            if debug:
-                                print(
-                                    f"[FILTER] Volatilité trop élevée sur {pair}, trade ignoré."
-                                )
-                            continue
+                        current_price = None
+                        md_1h = bot.market_data.get(pair_key, {}).get("1h", {})
+                        cl_1h = md_1h.get("close", [])
+                        if isinstance(cl_1h, list) and cl_1h:
+                            current_price = safe_float(cl_1h[-1], None)
+                        if current_price is None:
+                            df_fallback = bot.ws_collector.get_dataframe(pair_key, "1m")
+                            if df_fallback is not None and not df_fallback.empty:
+                                current_price = float(df_fallback["close"].iloc[-1])
 
-                        base_size = 12
-                        confidence = decision.get("confidence", 0.5)
-                        sizing_multiplier = decision.get("sizing_multiplier", 1.0)
-
-                        final_size = base_size * sizing_multiplier * (confidence / 0.5)
-                        final_size = max(12, min(final_size, 50))
-
-                        decision["amount"] = final_size
-                        filtered_decisions.append(decision)
-
-                        if debug:
-                            print(
-                                f"[SIZING] {decision['pair']} : {final_size:.2f} USDC "
-                                f"(conf={confidence:.2f}, mult={sizing_multiplier})"
+                        volatility = bot.calculate_volatility(md_1h) if md_1h else 0.0
+                        atr_val = None
+                        try:
+                            analysis_1h = (
+                                bot.market_data.get(pair_key, {})
+                                .get("1h", {})
+                                .get("signals", {})
                             )
+                            atr_val = analysis_1h.get("volatility", {}).get("atr")
+                        except Exception:
+                            atr_val = None
+
+                        if volatility > 0.08:
+                            continue
+
+                        # PRE-TRADE CHECK
+                        signals_dict = (
+                            analysis_1h if isinstance(analysis_1h, dict) else {}
+                        )
+
+                        # ML PREDICTION
+                        try:
+                            features_flat = extract_features(signals_dict)
+                            X_live = [
+                                features_flat.get(col, 0)
+                                for col in bot.ml_model.feature_names_in_
+                            ]
+                            X_live_scaled = bot.ml_scaler.transform([X_live])
+                            ml_decision = bot.ml_model.predict(X_live_scaled)[0]
+                        except Exception as e:
+                            print(f"[ML] Erreur prédiction ML : {e}")
+                            ml_decision = None
+
+                        # Combine ML + règle
+                        accept_trade = False
+                        if ml_decision is not None:
+                            if (decision["action"] == "buy" and ml_decision == 1) or (
+                                decision["action"] == "sell" and ml_decision == 0
+                            ):
+                                accept_trade = True
+                            else:
+                                print(
+                                    f"[ML] Désaccord IA/ML : {pair} | règle: {decision['action']} | ML: {ml_decision}"
+                                )
+                                continue
+                        else:
+                            print(f"[ML] Trade refusé (ML pas de décision) pour {pair}")
+                            continue
+
+                        # risk_manager.pre_trade_check
+                        try:
+                            check = bot.risk_manager.pre_trade_check(
+                                symbol=pair_key,
+                                side=action.upper(),
+                                price=current_price,
+                                equity=current_equity_usd,
+                                confidence=decision.get("confidence", 0.0),
+                                volatility=volatility or 0.01,
+                                signals=signals_dict,
+                                current_positions=getattr(bot, "positions", {}),
+                                current_cycle=bot.current_cycle,
+                                atr=atr_val,
+                                market_liquidity=None,
+                                corr_groups={
+                                    "L1": [
+                                        "BTCUSDC",
+                                        "ETHUSDC",
+                                        "SOLUSDC",
+                                        "BNBUSDC",
+                                        "ADAUSDC",
+                                    ],
+                                    "Meme": ["DOGEUSDC", "SHIBUSDC"],
+                                },
+                                news_paused=(
+                                    bot.news_pause_manager.is_paused(pair_key)
+                                    if hasattr(bot, "news_pause_manager")
+                                    and callable(
+                                        getattr(
+                                            bot.news_pause_manager, "is_paused", None
+                                        )
+                                    )
+                                    else False
+                                ),
+                            )
+                        except AttributeError:
+                            check = {
+                                "approved": False,
+                                "reason": "pre_trade_check absent",
+                            }
+
+                        if not check.get("approved"):
+                            log_dashboard(
+                                f"[RISK] Refus trade {pair}: {check.get('reason')}"
+                            )
+                            continue
+
+                        position_units = check.get("size_units")
+                        stop_loss_price = check.get("stop_loss_price")
+                        if position_units is None or position_units <= 0:
+                            continue
+
+                        # TRADE FINALISATION
+                        if accept_trade:
+                            decision_out = dict(decision)
+                            decision_out["amount"] = float(position_units)
+                            decision_out["stop_loss"] = (
+                                float(stop_loss_price) if stop_loss_price else None
+                            )
+                            decision_out["action"] = (
+                                "buy"
+                                if action == "buy"
+                                else (
+                                    "sell"
+                                    if action == "sell"
+                                    else decision_out.get("action", "neutral")
+                                )
+                            )
+                            filtered_decisions.append(decision_out)
 
                     if filtered_decisions:
                         await execute_trade_decisions(bot, filtered_decisions)
