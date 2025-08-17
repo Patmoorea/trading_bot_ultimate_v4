@@ -39,6 +39,7 @@ import joblib
 import ast
 import traceback
 
+
 from decimal import Decimal
 from dotenv import load_dotenv
 from binance.client import Client
@@ -242,6 +243,33 @@ def deep_cast_floats(d):
                     d[idx] = safe_float(v, v)
                 except Exception:
                     pass
+
+
+import joblib
+
+
+def _flatten_features_for_ml(signals: dict) -> dict:
+    """
+    Aplati un dict imbriqué de signaux vers un dict plat: clefs 'group_key'.
+    Valeurs non numériques -> ignorées. None -> 0.0.
+    """
+    flat = {}
+    if not isinstance(signals, dict):
+        return flat
+    for g, vals in signals.items():
+        if isinstance(vals, dict):
+            for k, v in vals.items():
+                key = f"{g}_{k}"
+                try:
+                    flat[key] = float(v) if v is not None else 0.0
+                except Exception:
+                    pass
+        else:
+            try:
+                flat[g] = float(vals) if vals is not None else 0.0
+            except Exception:
+                pass
+    return flat
 
 
 def add_dl_features(df):
@@ -599,13 +627,11 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=60)  # timeout à 60s
+        TIMEOUT = aiohttp.ClientTimeout(total=120)  # timeout augmenté à 120s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
-                # PATCH : fractionnement ici
                 for part in self.split_message(msg):
-                    # Telegram max length is 4096, but we use 4000 to be safe
                     if len(part) > 4000:
                         part = part[:3980] + "\n... (troncature automatique)"
                     data = {"chat_id": self.chat_id, "text": part, "parse_mode": "HTML"}
@@ -619,13 +645,18 @@ class TelegramNotifier:
                                         f"⚠️ Erreur Telegram (API): {result.get('description')}"
                                     )
                                 break
-                        except asyncio.TimeoutError as e:
+                        except (
+                            asyncio.TimeoutError,
+                            aiohttp.ClientConnectorError,
+                            aiohttp.ClientOSError,
+                        ) as e:
                             import traceback
 
                             print(
-                                f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                                f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
                             )
                             traceback.print_exc()
+                            await asyncio.sleep(2**attempt)  # backoff exponentiel
                             if attempt == 2:
                                 self._log_to_file(part)
                         except Exception as e:
@@ -635,7 +666,7 @@ class TelegramNotifier:
                             traceback.print_exc()
                             self._log_to_file(part)
                             break
-                    await asyncio.sleep(0.7)  # Ajout du délai anti-spam
+                    await asyncio.sleep(0.7)
                 self._queue.task_done()
 
     def _log_to_file(self, message):
@@ -1582,6 +1613,56 @@ class TradingBotM4:
         self.sync_positions_with_binance()
         self.refused_trades_cycle = []  # PATCH: accumule les refus "Achat REFUSÉ"
         self.dataset_logger = DatasetLogger("training_data.csv")
+
+        # === ML: chargement modèle/scaler (optionnel si absents) ===
+        self.ml_model = None
+        self.ml_scaler = None
+        try:
+            self.ml_model = joblib.load("ml_model.pkl")
+            self.ml_scaler = joblib.load("ml_scaler.pkl")
+            print("✅ ML model & scaler chargés")
+        except Exception as e:
+            print(f"ℹ️ ML non actif (pas de modèle/scaler): {e}")
+
+    def ml_predict_action(self, signals_dict: dict):
+        """
+        Retourne (ml_action, ml_prob_buy, ml_prob_sell).
+        ml_action ∈ {"buy","sell","hold"} selon le modèle (1=BUY, 0=SELL, -1=HOLD).
+        Si ML inactif -> ("hold", 0.5, 0.5)
+        """
+        if not self.ml_model or not self.ml_scaler:
+            return "hold", 0.5, 0.5
+
+        flat = _flatten_features_for_ml(signals_dict or {})
+        if not flat:
+            return "hold", 0.5, 0.5
+
+        # Ordonner les features pour une stabilité d’entrée
+        keys = sorted(flat.keys())
+        X = [[flat[k] for k in keys]]
+        try:
+            Xs = self.ml_scaler.transform(X)
+            if hasattr(self.ml_model, "predict_proba"):
+                proba = self.ml_model.predict_proba(Xs)
+                # Cas multi-classes [-1,0,1] — on mappe prudemment
+                # Si ton modèle est binaire, adapte ici.
+                # Hypothèse: classes = [-1,0,1] (hold, sell, buy)
+                cls = list(self.ml_model.classes_)
+                p_buy = proba[0][cls.index(1)] if 1 in cls else 0.0
+                p_sell = proba[0][cls.index(0)] if 0 in cls else 0.0
+                y = self.ml_model.predict(Xs)[0]
+            else:
+                y = self.ml_model.predict(Xs)[0]
+                p_buy, p_sell = (0.5, 0.5)
+        except Exception:
+            return "hold", 0.5, 0.5
+
+        if y == 1:
+            return "buy", float(p_buy), float(p_sell)
+        elif y == 0:
+            return "sell", float(p_buy), float(p_sell)
+        else:
+            return "hold", float(p_buy), float(p_sell)
 
     async def get_equity_usd(self):
         """
