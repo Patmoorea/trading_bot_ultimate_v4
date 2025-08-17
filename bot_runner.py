@@ -8545,6 +8545,18 @@ async def execute_trade_decisions(bot, trade_decisions):
                     bot=bot, decision=decision, trade_result=trade_result, amount=amount
                 )
                 log_dashboard(f"[SUCCESS] Trade exécuté sur {pair}")
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=decision.get("pair"),
+                        equity=bot.get_performance_metrics().get("balance", 0),
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
             else:
                 log_dashboard(
                     f"[ERROR] Échec exécution trade sur {pair}: "

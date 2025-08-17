@@ -7601,3 +7601,8 @@
 2025-08-17T16:46:29.545237 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
 2025-08-17T16:46:29.545272 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
 2025-08-17T16:52:31.893093 | Démarrage cycle trading
+2025-08-17T16:54:46.379043 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:54:46.380308 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:54:46.380349 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:54:46.380387 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:54:46.380424 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
