@@ -1,18 +1,13 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [
-    {
-      "asset": "GLOBAL",
-      "action": "ALL",
-      "cycles_left": 9,
-      "type": "GLOBAL",
-      "reason": "",
-      "max_cycles": 9,
-      "total_remaining": 9
-    }
+  "pauses": [],
+  "sentiment": 0.1765718522824739,
+  "risky_positions": [
+    "BNB/USDC",
+    "XRP/USDC",
+    "DOGE/USDC",
+    "NOT/USDC"
   ],
-  "sentiment": 0,
-  "risky_positions": [],
-  "timestamp": 1755405005.542985
+  "timestamp": 1755448719.561912
 }

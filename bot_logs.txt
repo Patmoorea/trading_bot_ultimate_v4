@@ -7161,3 +7161,443 @@
 2025-08-17T04:14:37.743766 | 🚫 Cycle bloqué - Pause news active
 2025-08-17T04:25:45.530513 | Démarrage cycle trading
 2025-08-17T04:27:49.472775 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T04:32:38.164980 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T04:32:38.167145 | Initialisation des modèles d'IA...
+2025-08-17T04:32:38.361824 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T04:32:40.102166 | ✅ PPO Strategy initialized successfully
+2025-08-17T04:32:46.959995 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T04:32:46.960524 | ✅ Trading en direct: True
+2025-08-17T04:32:46.960567 | ✅ IA activée: True
+2025-08-17T04:32:46.960605 | ✅ Analyse de news activée: True
+2025-08-17T04:35:35.616182 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-17T04:36:14.634765 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-17T04:38:05.257476 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0176 | Tendance: -0.0003
+2025-08-17T04:38:05.258631 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-17T04:41:06.604146 | Démarrage cycle trading
+2025-08-17T04:41:07.220603 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T04:51:00.728714 | Démarrage cycle trading
+2025-08-17T04:51:01.466300 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T04:59:33.495837 | Démarrage cycle trading
+2025-08-17T04:59:34.129999 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:07:40.814697 | Démarrage cycle trading
+2025-08-17T05:07:41.405375 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:16:09.533980 | Démarrage cycle trading
+2025-08-17T05:16:10.158856 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:24:02.362088 | Démarrage cycle trading
+2025-08-17T05:24:02.973061 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:32:36.045781 | Démarrage cycle trading
+2025-08-17T05:32:36.669621 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:40:34.455808 | Démarrage cycle trading
+2025-08-17T05:40:35.056076 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:49:15.890114 | Démarrage cycle trading
+2025-08-17T05:49:16.515545 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T05:57:14.633191 | Démarrage cycle trading
+2025-08-17T05:57:15.247617 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:12:50.846218 | Démarrage cycle trading
+2025-08-17T06:12:51.475502 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:20:55.423110 | Démarrage cycle trading
+2025-08-17T06:20:56.045432 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:29:28.284685 | Démarrage cycle trading
+2025-08-17T06:29:28.949315 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:37:38.882393 | Démarrage cycle trading
+2025-08-17T06:37:39.475898 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:46:01.391378 | Démarrage cycle trading
+2025-08-17T06:46:02.021718 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T06:54:04.913866 | Démarrage cycle trading
+2025-08-17T06:56:21.124849 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T06:56:21.125289 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T06:56:21.125338 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T06:56:21.125366 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T06:56:21.125393 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:02:27.003426 | Démarrage cycle trading
+2025-08-17T07:04:45.050531 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:04:45.050913 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:04:45.050944 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:04:45.050971 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:04:45.050998 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:10:22.421675 | Démarrage cycle trading
+2025-08-17T07:12:43.358160 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:12:43.358583 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:12:43.358615 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:12:43.358642 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:12:43.358667 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:18:51.430684 | Démarrage cycle trading
+2025-08-17T07:21:09.850184 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:21:09.851921 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:21:09.851983 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:21:09.852764 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:21:09.852814 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:26:55.876404 | Démarrage cycle trading
+2025-08-17T07:29:13.676922 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:29:13.677571 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:29:13.677613 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:29:13.677651 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:29:13.677687 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:42:15.697851 | Démarrage cycle trading
+2025-08-17T07:44:37.835620 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:44:37.836812 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:44:37.836872 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:44:37.836913 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:44:37.836952 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:50:12.836772 | Démarrage cycle trading
+2025-08-17T07:52:38.043655 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T07:52:38.044439 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T07:52:38.044489 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T07:52:38.044533 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T07:52:38.044573 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T07:58:49.484607 | Démarrage cycle trading
+2025-08-17T08:01:09.894466 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:01:09.895170 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:01:09.895222 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:01:09.895267 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:01:09.895308 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:06:44.124593 | Démarrage cycle trading
+2025-08-17T08:09:01.035136 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:09:01.036003 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:09:01.036034 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:09:01.036062 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:09:01.036087 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:15:09.439890 | Démarrage cycle trading
+2025-08-17T08:17:26.770625 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:17:26.771607 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:17:26.771640 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:17:26.771671 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:17:26.771723 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:22:56.458149 | Démarrage cycle trading
+2025-08-17T08:25:16.572676 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:25:16.573171 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:25:16.573224 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:25:16.573258 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:25:16.573290 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:31:28.173909 | Démarrage cycle trading
+2025-08-17T08:33:43.549609 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:33:43.551347 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:33:43.551402 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:33:43.551447 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:33:43.551486 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:39:25.134906 | Démarrage cycle trading
+2025-08-17T08:41:43.741923 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:41:43.742530 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:41:43.742567 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:41:43.742599 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:41:43.742633 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:47:54.900169 | Démarrage cycle trading
+2025-08-17T08:50:16.668707 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:50:16.669465 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:50:16.669501 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:50:16.669539 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:50:16.669571 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T08:55:53.026849 | Démarrage cycle trading
+2025-08-17T08:58:11.634659 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T08:58:11.636133 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T08:58:11.636188 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T08:58:11.636236 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T08:58:11.636277 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:11:15.628827 | Démarrage cycle trading
+2025-08-17T09:13:38.703470 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:13:38.704108 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:13:38.704184 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:13:38.704220 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:13:38.704250 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:19:15.646529 | Démarrage cycle trading
+2025-08-17T09:21:32.600220 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:21:32.601340 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:21:32.601969 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:21:32.602015 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:21:32.602058 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:27:32.462296 | Démarrage cycle trading
+2025-08-17T09:29:53.594728 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:29:53.595531 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:29:53.595576 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:29:53.595612 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:29:53.595646 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:35:32.430880 | Démarrage cycle trading
+2025-08-17T09:37:50.823584 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:37:50.824204 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:37:50.824250 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:37:50.824285 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:37:50.824320 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:44:01.481115 | Démarrage cycle trading
+2025-08-17T09:46:18.335248 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:46:18.337267 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:46:18.337313 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:46:18.337355 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:46:18.337397 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T09:51:57.014839 | Démarrage cycle trading
+2025-08-17T09:54:12.344793 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T09:54:12.345924 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T09:54:12.345964 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T09:54:12.346021 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T09:54:12.346062 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:00:15.724867 | Démarrage cycle trading
+2025-08-17T10:02:31.699995 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:02:31.700647 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:02:31.700690 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:02:31.700726 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:02:31.700761 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:08:04.468126 | Démarrage cycle trading
+2025-08-17T10:10:19.033239 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:10:19.033920 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:10:19.033967 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:10:19.034010 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:10:19.034050 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:16:19.929588 | Démarrage cycle trading
+2025-08-17T10:18:37.883901 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:18:37.884511 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:18:37.884549 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:18:37.884583 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:18:37.884641 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:24:11.467645 | Démarrage cycle trading
+2025-08-17T10:26:30.398535 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:26:30.399017 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:26:30.399090 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:26:30.399127 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:26:30.399164 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:39:35.740176 | Démarrage cycle trading
+2025-08-17T10:41:52.518011 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:41:52.519085 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:41:52.519117 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:41:52.519166 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:41:52.519198 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:47:26.331686 | Démarrage cycle trading
+2025-08-17T10:49:46.009661 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:49:46.010107 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:49:46.010144 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:49:46.010174 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:49:46.010202 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T10:55:57.210173 | Démarrage cycle trading
+2025-08-17T10:58:15.415180 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T10:58:15.416051 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T10:58:15.416088 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T10:58:15.416120 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T10:58:15.416148 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:03:45.164929 | Démarrage cycle trading
+2025-08-17T11:06:03.260721 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:06:03.261405 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:06:03.261448 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:06:03.261481 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:06:03.261511 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:12:10.630752 | Démarrage cycle trading
+2025-08-17T11:14:33.271460 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:14:33.272709 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:14:33.272760 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:14:33.272811 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:14:33.272863 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:20:06.014975 | Démarrage cycle trading
+2025-08-17T11:22:22.874115 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:22:22.874624 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:22:22.874667 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:22:22.874723 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:22:22.874757 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:28:24.289177 | Démarrage cycle trading
+2025-08-17T11:30:43.738685 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:30:43.739424 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:30:43.739472 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:30:43.739515 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:30:43.739555 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:36:25.499207 | Démarrage cycle trading
+2025-08-17T11:38:45.645467 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:38:45.646875 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:38:45.646926 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:38:45.646973 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:38:45.647018 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:44:49.191683 | Démarrage cycle trading
+2025-08-17T11:47:05.369995 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:47:05.370928 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:47:05.370988 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:47:05.371037 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:47:05.371087 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T11:52:48.802770 | Démarrage cycle trading
+2025-08-17T11:55:12.160401 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T11:55:12.163628 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T11:55:12.163710 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T11:55:12.163785 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T11:55:12.163858 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:08:21.384822 | Démarrage cycle trading
+2025-08-17T12:10:38.310145 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:10:38.311102 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:10:38.311165 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:10:38.311227 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:10:38.311336 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:16:15.804581 | Démarrage cycle trading
+2025-08-17T12:18:36.358930 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:18:36.359564 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:18:36.359604 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:18:36.359641 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:18:36.359673 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:24:38.907514 | Démarrage cycle trading
+2025-08-17T12:26:59.673937 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:26:59.674737 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:26:59.674778 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:26:59.674815 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:26:59.674854 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:32:34.253967 | Démarrage cycle trading
+2025-08-17T12:34:48.651492 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:34:48.652786 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:34:48.652816 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:34:48.652841 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:34:48.652865 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:40:56.396868 | Démarrage cycle trading
+2025-08-17T12:43:15.791977 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:43:15.793119 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:43:15.793165 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:43:15.793199 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:43:15.793228 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:48:56.223375 | Démarrage cycle trading
+2025-08-17T12:51:13.927370 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:51:13.928268 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:51:13.928301 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:51:13.928327 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:51:13.928366 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T12:57:18.807094 | Démarrage cycle trading
+2025-08-17T12:59:40.204290 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T12:59:40.205655 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T12:59:40.205696 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T12:59:40.205729 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T12:59:40.205758 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T13:05:28.978529 | Démarrage cycle trading
+2025-08-17T13:13:58.274782 | Démarrage cycle trading
+2025-08-17T13:16:21.204031 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T13:16:21.204446 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T13:16:21.204479 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T13:16:21.204511 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T13:16:21.204538 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T13:21:57.246176 | Démarrage cycle trading
+2025-08-17T13:24:13.469746 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T13:24:13.470200 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T13:24:13.470234 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T13:24:13.470263 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T13:24:13.470291 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T13:37:23.956163 | Démarrage cycle trading
+2025-08-17T13:39:47.714561 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T13:39:47.715360 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T13:39:47.715409 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T13:39:47.715454 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T13:39:47.715498 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T13:45:29.498360 | Démarrage cycle trading
+2025-08-17T13:47:46.187061 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T13:47:46.187918 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T13:47:46.187970 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T13:47:46.188010 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T13:47:46.188087 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T13:53:57.608384 | Démarrage cycle trading
+2025-08-17T13:56:17.235347 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T13:56:17.236621 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T13:56:17.236667 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T13:56:17.236707 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T13:56:17.236746 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:01:54.849757 | Démarrage cycle trading
+2025-08-17T14:04:16.472385 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:04:16.474357 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:04:16.474410 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:04:16.474455 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:04:16.474499 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:10:31.487944 | Démarrage cycle trading
+2025-08-17T14:12:52.901675 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:12:52.902656 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:12:52.902723 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:12:52.902787 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:12:52.902842 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:18:29.785421 | Démarrage cycle trading
+2025-08-17T14:20:51.273874 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:20:51.275159 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:20:51.275223 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:20:51.275273 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:20:51.275320 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:27:02.683723 | Démarrage cycle trading
+2025-08-17T14:29:23.604141 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:29:23.604862 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:29:23.604925 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:29:23.604970 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:29:23.605035 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:34:59.098064 | Démarrage cycle trading
+2025-08-17T14:37:23.599509 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:37:23.600524 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:37:23.600569 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:37:23.600606 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:37:23.600638 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:43:33.569225 | Démarrage cycle trading
+2025-08-17T14:45:58.639062 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:45:58.639814 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:45:58.639867 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:45:58.639914 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:45:58.639959 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T14:51:39.948964 | Démarrage cycle trading
+2025-08-17T14:54:04.465692 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T14:54:04.466840 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T14:54:04.466876 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T14:54:04.466911 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T14:54:04.466946 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:07:10.066164 | Démarrage cycle trading
+2025-08-17T15:09:30.345739 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:09:30.346239 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:09:30.346277 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:09:30.346311 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:09:30.346398 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:15:02.701973 | Démarrage cycle trading
+2025-08-17T15:17:25.005125 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:17:25.005593 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:17:25.005629 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:17:25.005660 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:17:25.005708 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:23:39.144237 | Démarrage cycle trading
+2025-08-17T15:26:03.003410 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:26:03.003914 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:26:03.003942 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:26:03.003967 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:26:03.003991 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:31:51.542803 | Démarrage cycle trading
+2025-08-17T15:34:14.147153 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:34:14.147892 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:34:14.147936 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:34:14.147984 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:34:14.148020 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:40:15.446010 | Démarrage cycle trading
+2025-08-17T15:42:35.527410 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:42:35.529432 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:42:35.529473 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:42:35.529509 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:42:35.529554 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:48:15.533672 | Démarrage cycle trading
+2025-08-17T15:50:35.613273 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:50:35.614376 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:50:35.614412 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:50:35.614439 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:50:35.614478 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T15:56:57.352761 | Démarrage cycle trading
+2025-08-17T15:59:13.977902 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T15:59:13.980873 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T15:59:13.980919 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T15:59:13.980957 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T15:59:13.980993 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:04:49.637316 | Démarrage cycle trading
+2025-08-17T16:07:10.764782 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:07:10.765657 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:07:10.765696 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:07:10.765730 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:07:10.765763 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:13:06.238495 | Démarrage cycle trading
+2025-08-17T16:15:28.056652 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:15:28.057577 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:15:28.057624 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:15:28.057669 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:15:28.057710 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:20:54.679648 | Démarrage cycle trading
+2025-08-17T16:23:09.702989 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:23:09.703625 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:23:09.703676 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:23:09.703721 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:23:09.703763 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:36:19.475349 | Démarrage cycle trading
+2025-08-17T16:38:38.415313 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:38:38.416459 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:38:38.416492 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:38:38.416524 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:38:38.416555 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:44:09.828485 | Démarrage cycle trading
+2025-08-17T16:46:29.543640 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-17T16:46:29.545160 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-17T16:46:29.545200 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-17T16:46:29.545237 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-17T16:46:29.545272 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-17T16:52:31.893093 | Démarrage cycle trading
