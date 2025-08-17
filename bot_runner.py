@@ -113,6 +113,8 @@ from cachetools import TTLCache
 
 from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 
+from collections import deque
+
 # from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
 
 # Charger les variables d'environnement depuis .env
@@ -586,7 +588,7 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=15)  # augmente le timeout à 15s
+        TIMEOUT = aiohttp.ClientTimeout(total="30")  # augmente le timeout à 30s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
@@ -2189,41 +2191,6 @@ class TradingBotM4:
             return float(str(value).strip())
         except (TypeError, ValueError):
             return default
-
-    def fetch_trades_fifo(self, binance_client, symbol):
-        """
-        Récupère la liste des achats (buys) et ventes (sells) spot pour la paire donnée (ex: "BTCUSDC"),
-        formatée pour le calcul FIFO.
-        Retourne:
-            buys: [{"qty":..., "price":..., "time":..., "id":...}, ...]
-            sells: [{"qty":..., "price":..., "time":..., "id":...}, ...]
-        """
-        buys, sells = [], []
-        try:
-            # Appel correct de l'API Binance : paramètre passé en mot-clé !
-            trades = binance_client.get_my_trades(symbol=symbol)
-            for trade in trades:
-                qty = float(trade["qty"])
-                price = float(trade["price"])
-                time = int(trade["time"])
-                trade_id = trade.get("id", trade.get("orderId", None))
-                trade_dict = {
-                    "qty": qty,
-                    "price": price,
-                    "time": time,
-                    "id": trade_id,
-                }
-                if trade["isBuyer"]:
-                    buys.append(trade_dict)
-                else:
-                    sells.append(trade_dict)
-            # Tri chronologique (optionnel mais conseillé)
-            buys = sorted(buys, key=lambda x: x["time"])
-            sells = sorted(sells, key=lambda x: x["time"])
-            return buys, sells
-        except Exception as e:
-            print(f"[DEBUG FIFO] Erreur fetch_trades_fifo pour {symbol}: {e}")
-            return [], []
 
     def get_last_fifo_pnl(self, symbol):
         """

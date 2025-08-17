@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 8,
+      "cycles_left": 11,
       "type": "GLOBAL",
-      "reason": "",
-      "max_cycles": 8,
-      "total_remaining": 8
+      "reason": "Le r\u00e9gulateur de Hong Kong resserre les normes de garde pour les \u00e9changes de cryptographie au milieu des risques mondiaux croissants",
+      "max_cycles": 11,
+      "total_remaining": 11
     }
   ],
-  "sentiment": 0,
+  "sentiment": 0.609871815855258,
   "risky_positions": [],
-  "timestamp": 1755391376.193942
+  "timestamp": 1755396024.868729
 }

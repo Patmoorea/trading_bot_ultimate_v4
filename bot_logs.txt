@@ -7093,3 +7093,41 @@
 2025-08-17T00:40:37.869631 | 🚫 Cycle bloqué - Pause news active
 2025-08-17T00:48:31.661633 | Démarrage cycle trading
 2025-08-17T00:48:32.324247 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T00:50:35.558905 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T00:50:35.560461 | Initialisation des modèles d'IA...
+2025-08-17T00:50:35.750175 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T00:50:36.964202 | ✅ PPO Strategy initialized successfully
+2025-08-17T00:50:43.949798 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T00:50:43.950401 | ✅ Trading en direct: True
+2025-08-17T00:50:43.950451 | ✅ IA activée: True
+2025-08-17T00:50:43.950498 | ✅ Analyse de news activée: True
+2025-08-17T00:53:32.438779 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-17T00:54:12.536074 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-17T01:03:15.025311 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0197 | Tendance: -0.0001
+2025-08-17T01:03:15.026273 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-17T01:06:23.816869 | Démarrage cycle trading
+2025-08-17T01:06:24.449638 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T01:18:20.961206 | Démarrage cycle trading
+2025-08-17T01:18:21.624331 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T01:29:23.753029 | Démarrage cycle trading
+2025-08-17T01:29:24.391462 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T01:44:13.091928 | Démarrage cycle trading
+2025-08-17T01:44:13.776775 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T01:55:10.162239 | Démarrage cycle trading
+2025-08-17T01:55:10.753584 | 🚫 Cycle bloqué - Pause news active
+2025-08-17T03:24:48.344437 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T03:24:48.347177 | Initialisation des modèles d'IA...
+2025-08-17T03:24:48.608716 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T03:24:50.170878 | ✅ PPO Strategy initialized successfully
+2025-08-17T03:24:55.850469 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T03:24:55.850973 | ✅ Trading en direct: True
+2025-08-17T03:24:55.851021 | ✅ IA activée: True
+2025-08-17T03:24:55.851066 | ✅ Analyse de news activée: True
+2025-08-17T03:35:30.532670 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-17T03:35:30.534304 | Initialisation des modèles d'IA...
+2025-08-17T03:35:30.719912 | ✅ Modèles d'IA initialisés avec succès
+2025-08-17T03:35:32.417338 | ✅ PPO Strategy initialized successfully
+2025-08-17T03:35:39.525437 | ✅ Bot initialisé avec Telegram: True
+2025-08-17T03:35:39.525962 | ✅ Trading en direct: True
+2025-08-17T03:35:39.526012 | ✅ IA activée: True
+2025-08-17T03:35:39.526057 | ✅ Analyse de news activée: True
