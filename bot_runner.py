@@ -7286,6 +7286,7 @@ async def run_clean_bot():
         - risk_manager.update_equity + should_pause_trading en début de cycle
         - risk_manager.pre_trade_check avant l'exécution des ordres
         - Prédiction ML obligatoire pour valider le trade (règle ET ML doivent être d'accord)
+        - Appel ML et filtre alignement ML sur la décision finale
         """
         try:
             debug = getattr(bot, "debug", True)
@@ -7488,7 +7489,7 @@ async def run_clean_bot():
             if tasks:
                 await asyncio.gather(*tasks)
 
-            # 5) Génération des décisions (classique)
+            # 5) Génération des décisions avec ML
             trade_decisions = []
             decisions_for_dashboard = {}
             current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -7510,6 +7511,20 @@ async def run_clean_bot():
                         tech_score = max(0.0, min(1.0, tech_score))
                     except (TypeError, ValueError):
                         tech_score = 0.5
+
+                    try:
+                        momentum_score = safe_float(
+                            tf_data.get("momentum", {}).get("score", 0.5)
+                        )
+                    except Exception:
+                        momentum_score = 0.5
+
+                    try:
+                        orderflow_score = safe_float(
+                            tf_data.get("orderflow", {}).get("score", 0.5)
+                        )
+                    except Exception:
+                        orderflow_score = 0.5
 
                     try:
                         ai_score = market_signals.get("ai_prediction")
@@ -7534,40 +7549,110 @@ async def run_clean_bot():
                     except (TypeError, ValueError, json.JSONDecodeError):
                         sentiment_score = 0.0
 
-                    tech_weight = 0.5
-                    ai_weight = 0.3
-                    sentiment_weight = 0.2
-                    norm_sentiment = (sentiment_score + 1) / 2
-                    confidence = (
-                        tech_score * tech_weight
-                        + ai_score * ai_weight
-                        + norm_sentiment * sentiment_weight
-                    )
-                    confidence = max(0.5, min(1.0, confidence))
+                    # Dummy sizing_multiplier for illustration
+                    sizing_multiplier = 1.0
 
-                    decision = {
-                        "pair": pair,
-                        "action": "neutral",
-                        "confidence": round(confidence, 4),
-                        "tech": round(tech_score, 4),
-                        "ai": round(ai_score, 4),
-                        "sentiment": round(sentiment_score, 4),
-                        "timestamp": current_time,
+                    # Dominant signals for ML
+                    dominant_signals = {
+                        "technical": tf_data.get("technical", {}),
+                        "momentum": tf_data.get("momentum", {}),
+                        "orderflow": tf_data.get("orderflow", {}),
+                        "ai": {"score": ai_score},
+                        "sentiment": {"score": sentiment_score},
                     }
 
+                    # Détermination de l'action
+                    action = "neutral"
                     weighted_signal = (
                         tech_score * 0.5
                         + ai_score * 0.3
                         + ((sentiment_score + 1) / 2) * 0.2
                     )
                     if weighted_signal > 0.7:
-                        decision["action"] = "buy"
+                        action = "buy"
                     elif weighted_signal < 0.3:
-                        decision["action"] = "sell"
+                        action = "sell"
 
-                    decisions_for_dashboard[pair] = decision
-                    if decision["action"] != "neutral" and decision["confidence"] > 0.7:
-                        trade_decisions.append(decision)
+                    # SECTION 8) GÉNÉRATION DES DÉCISIONS DÉTAILLÉES
+                    final_decision = {
+                        "pair": pair,
+                        "action": action,
+                        "confidence": float(confidence),
+                        "sizing_multiplier": sizing_multiplier,
+                        "signals": {
+                            "technical": tech_score,
+                            "momentum": momentum_score,
+                            "orderflow": orderflow_score,
+                            "ai": ai_score,
+                            "sentiment": sentiment_score,
+                        },
+                    }
+
+                    # === ML: décision IA supervisée sur les signaux dominants ===
+                    ml_signals = (
+                        dominant_signals  # {"technical": {...}, "momentum": {...}, ...}
+                    )
+                    ml_action, p_buy, p_sell = bot.ml_predict_action(ml_signals)
+
+                    # On enrichit la décision avec la vue ML
+                    final_decision["ml_action"] = ml_action
+                    final_decision["ml_p_buy"] = p_buy
+                    final_decision["ml_p_sell"] = p_sell
+
+                    # Règle d’alignement : ne trade QUE si la règle et le ML sont cohérents
+                    # - Si rule="buy" mais ML="sell" (ou inverse) -> neutralise (sécurité)
+                    # - Si ML concorde, boost léger la confiance
+                    rule_action = (action or "neutral").lower()
+                    if ml_action == "hold":
+                        # pas de veto, on garde la décision mais sans boost
+                        pass
+                    elif (rule_action == "buy" and ml_action == "sell") or (
+                        rule_action == "sell" and ml_action == "buy"
+                    ):
+                        final_decision["action"] = "neutral"
+                        final_decision["confidence"] = max(
+                            0.5, min(final_decision["confidence"] * 0.85, 1.0)
+                        )
+                    else:
+                        # Accord => boost modéré (cap à 1.0)
+                        final_decision["confidence"] = max(
+                            0.5, min(final_decision["confidence"] * 1.05, 1.0)
+                        )
+
+                    # Calcul du score
+                    signal_score = (
+                        tech_score * 0.3
+                        + momentum_score * 0.2
+                        + orderflow_score * 0.2
+                        + ai_score * 0.2
+                        + sentiment_score * 0.1
+                    )
+
+                    # Veto ML: on exige soit accord ML, soit ML=hold (ne s’oppose pas)
+                    ml_ok = final_decision.get("ml_action") in (
+                        "hold",
+                        final_decision["action"],
+                    )
+
+                    # Récupération du DataFrame OHLCV (ex: df = bot.ws_collector.get_dataframe(pair_key, "1h"))
+                    df = (
+                        bot.ws_collector.get_dataframe(pair_key, "1h")
+                        if hasattr(bot, "ws_collector")
+                        else None
+                    )
+                    volatility_ok = True
+                    if df is not None and not df.empty:
+                        volatility_ok = bot.calculate_volatility_advanced(df) <= 0.08
+
+                    if (
+                        signal_score >= 0.6
+                        and final_decision["confidence"] >= 0.7
+                        and ml_ok
+                        and volatility_ok
+                    ):
+                        trade_decisions.append(final_decision)
+
+                    decisions_for_dashboard[pair] = final_decision
 
                 except Exception as e:
                     print(f"[ERROR] Failed to process {pair}: {str(e)}")
@@ -7660,34 +7745,23 @@ async def run_clean_bot():
                             analysis_1h if isinstance(analysis_1h, dict) else {}
                         )
 
-                        # ML PREDICTION
-                        try:
-                            features_flat = extract_features(signals_dict)
-                            X_live = [
-                                features_flat.get(col, 0)
-                                for col in bot.ml_model.feature_names_in_
-                            ]
-                            X_live_scaled = bot.ml_scaler.transform([X_live])
-                            ml_decision = bot.ml_model.predict(X_live_scaled)[0]
-                        except Exception as e:
-                            print(f"[ML] Erreur prédiction ML : {e}")
-                            ml_decision = None
+                        # ML PREDICTION (déjà incluse dans final_decision si patch ML, on peut commenter ici)
+                        # try:
+                        #     features_flat = extract_features(signals_dict)
+                        #     X_live = [
+                        #         features_flat.get(col, 0)
+                        #         for col in bot.ml_model.feature_names_in_
+                        #     ]
+                        #     X_live_scaled = bot.ml_scaler.transform([X_live])
+                        #     ml_decision = bot.ml_model.predict(X_live_scaled)[0]
+                        # except Exception as e:
+                        #     print(f"[ML] Erreur prédiction ML : {e}")
+                        #     ml_decision = None
 
                         # Combine ML + règle
-                        accept_trade = False
-                        if ml_decision is not None:
-                            if (decision["action"] == "buy" and ml_decision == 1) or (
-                                decision["action"] == "sell" and ml_decision == 0
-                            ):
-                                accept_trade = True
-                            else:
-                                print(
-                                    f"[ML] Désaccord IA/ML : {pair} | règle: {decision['action']} | ML: {ml_decision}"
-                                )
-                                continue
-                        else:
-                            print(f"[ML] Trade refusé (ML pas de décision) pour {pair}")
-                            continue
+                        accept_trade = True  # déduite par le filtre ML plus haut
+                        if decision["action"] == "neutral":
+                            accept_trade = False
 
                         # risk_manager.pre_trade_check
                         try:
