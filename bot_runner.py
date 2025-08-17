@@ -588,12 +588,12 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=30)  # augmente le timeout à 30s
+        TIMEOUT = aiohttp.ClientTimeout(total=60)  # augmente le timeout à 60s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()
                 data = {"chat_id": self.chat_id, "text": msg, "parse_mode": "HTML"}
-                for attempt in range(3):  # 3 essais en cas d'échec
+                for attempt in range(3):
                     try:
                         async with session.post(url, json=data) as response:
                             result = await response.json()
@@ -602,8 +602,10 @@ class TelegramNotifier:
                                     f"⚠️ Erreur Telegram (API): {result.get('description')}"
                                 )
                             break
-                    except asyncio.TimeoutError:
-                        print(f"⚠️ Timeout Telegram: tentative {attempt+1}/3")
+                    except asyncio.TimeoutError as e:
+                        print(
+                            f"⚠️ Timeout Telegram: tentative {attempt+1}/3, détail: {e}"
+                        )
                         if attempt == 2:
                             self._log_to_file(msg)
                     except Exception as e:
@@ -612,6 +614,7 @@ class TelegramNotifier:
                         self._log_to_file(msg)
                         break
                 self._queue.task_done()
+                await asyncio.sleep(0.7)  # Ajout du délai anti-spam
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -1008,7 +1011,7 @@ class AdvancedRiskManager:
         try:
             equity = float(equity)
             self._last_equity = equity
-            self._equity_history.append({"t": time(), "eq": equity})
+            self._equity_history.append({"t": time.time(), "eq": equity})
 
             if self._equity_peak is None or equity > self._equity_peak:
                 self._equity_peak = equity
