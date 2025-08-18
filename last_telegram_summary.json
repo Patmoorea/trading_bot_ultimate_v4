@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 7,
+      "cycles_left": 5,
       "type": "GLOBAL",
-      "reason": "L'ancien employ\u00e9 de Pump.fun plaide coupable, attend la condamnation pour 2 millions de dollars de vol de Solana",
-      "max_cycles": 7,
-      "total_remaining": 7
+      "reason": "",
+      "max_cycles": 5,
+      "total_remaining": 5
     }
   ],
-  "sentiment": 0.6056796443044093,
+  "sentiment": 0.6835957609794356,
   "risky_positions": [],
-  "timestamp": 1755536161.040767
+  "timestamp": 1755537859.507898
 }

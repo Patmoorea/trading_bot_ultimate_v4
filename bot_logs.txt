@@ -9158,3 +9158,33 @@
 2025-08-18T17:05:41.462942 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
 2025-08-18T17:05:41.466542 | Démarrage cycle trading
 2025-08-18T17:05:42.085090 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T17:06:29.223302 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T17:06:29.224537 | Initialisation des modèles d'IA...
+2025-08-18T17:06:29.400883 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T17:06:30.602022 | ✅ PPO Strategy initialized successfully
+2025-08-18T17:06:37.591740 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T17:06:37.592314 | ✅ Trading en direct: True
+2025-08-18T17:06:37.592356 | ✅ IA activée: True
+2025-08-18T17:06:37.592398 | ✅ Analyse de news activée: True
+2025-08-18T17:09:21.295652 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T17:09:58.351143 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T17:16:11.516848 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0628 | Tendance: -0.0030
+2025-08-18T17:16:11.519299 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-18T17:19:24.658042 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-18T17:19:24.668119 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T17:19:24.671309 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T17:19:24.672958 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T17:19:24.674571 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T17:19:24.677886 | Démarrage cycle trading
+2025-08-18T17:19:25.321239 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T17:32:16.732960 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-18T17:32:16.747451 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T17:32:16.750757 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T17:32:16.752431 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T17:32:16.754085 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T17:32:16.757657 | Démarrage cycle trading
+2025-08-18T17:32:17.418933 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T17:34:23.428386 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T17:34:23.429909 | Initialisation des modèles d'IA...
+2025-08-18T17:34:23.604268 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T17:34:24.871515 | ✅ PPO Strategy initialized successfully
