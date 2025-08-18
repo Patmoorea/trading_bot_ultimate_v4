@@ -625,66 +625,77 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=60)  # timeout augmenté à 60s
+        TIMEOUT = aiohttp.ClientTimeout(total=60)
 
         while True:
             try:
                 async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
                     while True:
-                        msg = await self._queue.get()
-                        for part in self.split_message(msg):
-                            if len(part) > 4000:
-                                part = part[:3980] + "\n... (troncature automatique)"
-                            data = {
-                                "chat_id": self.chat_id,
-                                "text": part,
-                                "parse_mode": "HTML",
-                            }
-                            for attempt in range(3):
-                                try:
-                                    async with session.post(url, json=data) as response:
-                                        result = await response.json()
-                                        if not result.get("ok"):
-                                            print(
-                                                f"⚠️ Erreur Telegram (API): {result.get('description')}"
-                                            )
-                                        break
-                                except (
-                                    asyncio.TimeoutError,
-                                    aiohttp.ClientConnectorError,
-                                    aiohttp.ClientOSError,
-                                    asyncio.CancelledError,  # <--- Ajout ici !
-                                ) as e:
-                                    import traceback
-
-                                    print(
-                                        f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                        try:
+                            msg = await self._queue.get()
+                            for part in self.split_message(msg):
+                                if len(part) > 4000:
+                                    part = (
+                                        part[:3980] + "\n... (troncature automatique)"
                                     )
-                                    traceback.print_exc()
-                                    await asyncio.sleep(
-                                        2**attempt
-                                    )  # backoff exponentiel
-                                    if attempt == 2:
+                                data = {
+                                    "chat_id": self.chat_id,
+                                    "text": part,
+                                    "parse_mode": "HTML",
+                                }
+                                for attempt in range(3):
+                                    try:
+                                        async with session.post(
+                                            url, json=data
+                                        ) as response:
+                                            result = await response.json()
+                                            if not result.get("ok"):
+                                                print(
+                                                    f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                                )
+                                            break
+                                    except (
+                                        asyncio.TimeoutError,
+                                        aiohttp.ClientConnectorError,
+                                        aiohttp.ClientOSError,
+                                        asyncio.CancelledError,
+                                    ) as e:
+                                        import traceback
+
+                                        print(
+                                            f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                                        )
+                                        traceback.print_exc()
+                                        await asyncio.sleep(2**attempt)
+                                        if attempt == 2:
+                                            self._log_to_file(part)
+                                    except Exception as e:
+                                        print(
+                                            f"⚠️ Erreur envoi Telegram (Exception Python): {e}"
+                                        )
+                                        import traceback
+
+                                        traceback.print_exc()
                                         self._log_to_file(part)
-                                except Exception as e:
-                                    print(
-                                        f"⚠️ Erreur envoi Telegram (Exception Python): {e}"
-                                    )
-                                    import traceback
+                                        break
+                                await asyncio.sleep(0.7)
+                            self._queue.task_done()
+                        except Exception as e:
+                            # Catch toute exception dans le sous-worker : log et continue
+                            print(f"⚠️ Exception dans _telegram_worker (loop): {e}")
+                            import traceback
 
-                                    traceback.print_exc()
-                                    self._log_to_file(part)
-                                    break
-                            await asyncio.sleep(0.7)
-                        self._queue.task_done()
+                            traceback.print_exc()
+                            await asyncio.sleep(5)
+                            continue
             except Exception as e:
-                # Si toute la session ou le worker crash, log et relance après 5s
+                # Si la session entière ou le worker crash, log et relance après 5s
                 print(f"⚠️ Worker Telegram crashé: {e}, redémarrage dans 5s...")
                 import traceback
 
                 traceback.print_exc()
                 await asyncio.sleep(5)
-                continue  # relance le worker
+                continue  # relance le worker principal
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""

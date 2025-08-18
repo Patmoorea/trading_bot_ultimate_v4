@@ -9250,3 +9250,272 @@
 2025-08-18T18:38:52.767218 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
 2025-08-18T18:38:52.772025 | Démarrage cycle trading
 2025-08-18T18:38:53.328390 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:48:40.541619 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:48:40.546109 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:48:40.547900 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:48:40.549642 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:48:40.553271 | Démarrage cycle trading
+2025-08-18T18:48:41.167439 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:59:00.264897 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:59:00.270900 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:59:00.272570 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:59:00.274208 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:59:00.277719 | Démarrage cycle trading
+2025-08-18T19:03:35.163983 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T19:03:35.165637 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T19:03:35.165681 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T19:03:35.165715 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T19:03:35.165747 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T19:03:35.165778 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T19:03:35.165808 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T19:03:35.165837 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T19:03:35.165865 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T19:03:35.165893 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T19:03:35.165922 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T19:03:35.165950 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T19:09:13.577929 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T19:09:13.583338 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T19:09:13.585204 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T19:09:13.587006 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T19:09:13.590612 | Démarrage cycle trading
+2025-08-18T19:13:38.929800 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T19:13:38.934815 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T19:13:38.934900 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T19:13:38.934939 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T19:13:38.934971 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T19:13:38.935036 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T19:13:38.935066 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T19:13:38.935148 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T19:13:38.935181 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T19:13:38.935222 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T19:13:38.935253 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T19:13:38.935288 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T19:29:15.769431 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T19:29:15.773820 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T19:29:15.775604 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T19:29:15.777360 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T19:29:15.782605 | Démarrage cycle trading
+2025-08-18T19:33:36.250496 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T19:33:36.252518 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T19:33:36.252585 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T19:33:36.252643 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T19:33:36.252691 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T19:33:36.252736 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T19:33:36.252776 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T19:33:36.252864 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T19:33:36.252912 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T19:33:36.252950 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T19:33:36.252987 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T19:33:36.253028 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T19:39:14.536249 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T19:39:14.540125 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T19:39:14.541761 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T19:39:14.543394 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T19:39:14.547010 | Démarrage cycle trading
+2025-08-18T19:43:33.423311 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T19:43:33.424568 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T19:43:33.424621 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T19:43:33.424673 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T19:43:33.424750 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T19:43:33.424784 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T19:43:33.424817 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T19:43:33.424848 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T19:43:33.424880 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T19:43:33.424912 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T19:43:33.424942 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T19:43:33.424973 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T19:51:07.378454 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T19:51:07.382620 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T19:51:07.384253 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T19:51:07.385811 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T19:51:07.389059 | Démarrage cycle trading
+2025-08-18T19:55:28.876295 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T19:55:28.877325 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T19:55:28.877364 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T19:55:28.877412 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T19:55:28.877450 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T19:55:28.877482 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T19:55:28.877511 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T19:55:28.877539 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T19:55:28.877567 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T19:55:28.877594 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T19:55:28.877622 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T19:55:28.877649 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T20:01:07.010405 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:01:07.014099 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:01:07.015682 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:01:07.017571 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:01:07.021196 | Démarrage cycle trading
+2025-08-18T20:05:22.884178 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T20:05:22.886191 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T20:05:22.886334 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T20:05:22.886454 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T20:05:22.886521 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T20:05:22.886570 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T20:05:22.886615 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T20:05:22.886657 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T20:05:22.886696 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T20:05:22.886733 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T20:05:22.886771 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T20:05:22.886807 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T20:13:08.564382 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:13:08.568712 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:13:08.570399 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:13:08.572083 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:13:08.575298 | Démarrage cycle trading
+2025-08-18T20:17:23.219942 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T20:17:23.220660 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T20:17:23.220691 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T20:17:23.220719 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T20:17:23.220745 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T20:17:23.220771 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T20:17:23.220797 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T20:17:23.220821 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T20:17:23.220847 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T20:17:23.220873 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T20:17:23.220898 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T20:17:23.220923 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T20:22:54.492837 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:22:54.496528 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:22:54.498124 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:22:54.499697 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:22:54.502970 | Démarrage cycle trading
+2025-08-18T20:27:01.684766 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T20:27:01.685531 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T20:27:01.685575 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T20:27:01.685616 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T20:27:01.685653 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T20:27:01.685689 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T20:27:01.685724 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T20:27:01.685758 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T20:27:01.685793 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T20:27:01.685825 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T20:27:01.685859 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T20:27:01.685892 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T20:34:32.674718 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:34:32.683122 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:34:32.684936 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:34:32.686588 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:34:32.694366 | Démarrage cycle trading
+2025-08-18T20:38:52.384932 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T20:38:52.387674 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T20:38:52.387740 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T20:38:52.387794 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T20:38:52.387842 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T20:38:52.387888 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T20:38:52.387933 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T20:38:52.387975 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T20:38:52.388019 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T20:38:52.388061 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T20:38:52.388103 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T20:38:52.388143 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T20:44:31.330671 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:44:31.334777 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:44:31.336358 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:44:31.337956 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:44:31.341220 | Démarrage cycle trading
+2025-08-18T20:51:53.664405 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T20:51:53.668639 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T20:51:53.670248 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T20:51:53.671843 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T20:51:53.675046 | Démarrage cycle trading
+2025-08-18T20:56:28.749746 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T20:56:28.750963 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T20:56:28.751025 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T20:56:28.751073 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T20:56:28.751117 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T20:56:28.751170 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T20:56:28.751213 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T20:56:28.751254 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T20:56:28.751293 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T20:56:28.751335 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T20:56:28.751375 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T20:56:28.751413 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T21:02:04.832088 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T21:02:04.836408 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T21:02:04.838143 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T21:02:04.839836 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T21:02:04.843993 | Démarrage cycle trading
+2025-08-18T21:06:26.042448 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T21:06:26.043370 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T21:06:26.043422 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T21:06:26.043468 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T21:06:26.043511 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T21:06:26.043553 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T21:06:26.043626 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T21:06:26.043660 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T21:06:26.043690 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T21:06:26.043721 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T21:06:26.043753 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T21:06:26.043784 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T21:21:15.598561 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T21:21:15.602749 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T21:21:15.604439 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T21:21:15.606182 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T21:21:15.609723 | Démarrage cycle trading
+2025-08-18T21:31:13.932448 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T21:31:13.935955 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T21:31:13.937441 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T21:31:13.939022 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T21:31:13.942492 | Démarrage cycle trading
+2025-08-18T21:41:12.841209 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T21:41:12.845386 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T21:41:12.846970 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T21:41:12.848506 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T21:41:12.852128 | Démarrage cycle trading
+2025-08-18T21:45:32.066453 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T21:45:32.067430 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T21:45:32.067465 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T21:45:32.067497 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T21:45:32.067527 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T21:45:32.067556 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T21:45:32.067585 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T21:45:32.067613 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T21:45:32.067642 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T21:45:32.067670 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T21:45:32.067698 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T21:45:32.067725 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T21:51:06.422515 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T21:51:06.430636 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T21:51:06.432283 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T21:51:06.433880 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T21:51:06.437916 | Démarrage cycle trading
+2025-08-18T21:55:26.132338 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T21:55:26.135412 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T21:55:26.135465 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T21:55:26.135896 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T21:55:26.135944 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T21:55:26.135990 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T21:55:26.136052 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T21:55:26.136095 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T21:55:26.136137 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T21:55:26.136178 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T21:55:26.136216 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T21:55:26.136255 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T22:03:00.220798 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T22:03:00.226672 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T22:03:00.228680 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T22:03:00.230622 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T22:03:00.233728 | Démarrage cycle trading
+2025-08-18T22:07:14.606793 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T22:07:14.610220 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T22:07:14.610260 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T22:07:14.610294 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T22:07:14.610325 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T22:07:14.610356 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T22:07:14.610386 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T22:07:14.610416 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T22:07:14.610446 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T22:07:14.610475 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T22:07:14.610787 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T22:07:14.610830 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T22:12:52.973650 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T22:12:52.980637 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T22:12:52.982211 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T22:12:52.983759 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T22:12:52.986975 | Démarrage cycle trading
+2025-08-18T22:24:56.418166 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T22:24:56.422129 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T22:24:56.423847 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T22:24:56.425479 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T22:24:56.428691 | Démarrage cycle trading
