@@ -595,7 +595,6 @@ class TelegramNotifier:
         out = []
         chunk = ""
         for line in lines:
-            # add +1 for newline
             if len(chunk) + len(line) + 1 < max_length:
                 chunk += line + "\n"
             else:
@@ -618,7 +617,6 @@ class TelegramNotifier:
         )
         full_message = header + message
 
-        # On ne tronque plus ici : la découpe se fait dans _telegram_worker pour gérer les très gros textes
         if not hasattr(self, "_queue"):
             self._queue = asyncio.Queue()
             self._worker_task = asyncio.create_task(self._telegram_worker())
@@ -628,46 +626,65 @@ class TelegramNotifier:
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
         TIMEOUT = aiohttp.ClientTimeout(total=60)  # timeout augmenté à 60s
-        async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
-            while True:
-                msg = await self._queue.get()
-                for part in self.split_message(msg):
-                    if len(part) > 4000:
-                        part = part[:3980] + "\n... (troncature automatique)"
-                    data = {"chat_id": self.chat_id, "text": part, "parse_mode": "HTML"}
-                    for attempt in range(3):
-                        try:
-                            # print(f"[TELEGRAM] Envoi message à {url}: {data}")
-                            async with session.post(url, json=data) as response:
-                                result = await response.json()
-                                if not result.get("ok"):
+
+        while True:
+            try:
+                async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
+                    while True:
+                        msg = await self._queue.get()
+                        for part in self.split_message(msg):
+                            if len(part) > 4000:
+                                part = part[:3980] + "\n... (troncature automatique)"
+                            data = {
+                                "chat_id": self.chat_id,
+                                "text": part,
+                                "parse_mode": "HTML",
+                            }
+                            for attempt in range(3):
+                                try:
+                                    async with session.post(url, json=data) as response:
+                                        result = await response.json()
+                                        if not result.get("ok"):
+                                            print(
+                                                f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                            )
+                                        break
+                                except (
+                                    asyncio.TimeoutError,
+                                    aiohttp.ClientConnectorError,
+                                    aiohttp.ClientOSError,
+                                    asyncio.CancelledError,
+                                ) as e:
+                                    import traceback
+
                                     print(
-                                        f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                        f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
                                     )
-                                break
-                        except (
-                            asyncio.TimeoutError,
-                            aiohttp.ClientConnectorError,
-                            aiohttp.ClientOSError,
-                        ) as e:
-                            import traceback
+                                    traceback.print_exc()
+                                    await asyncio.sleep(
+                                        2**attempt
+                                    )  # backoff exponentiel
+                                    if attempt == 2:
+                                        self._log_to_file(part)
+                                except Exception as e:
+                                    print(
+                                        f"⚠️ Erreur envoi Telegram (Exception Python): {e}"
+                                    )
+                                    import traceback
 
-                            # print(
-                            # f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
-                            # )
-                            traceback.print_exc()
-                            await asyncio.sleep(2**attempt)  # backoff exponentiel
-                            if attempt == 2:
-                                self._log_to_file(part)
-                        except Exception as e:
-                            print(f"⚠️ Erreur envoi Telegram (Exception Python): {e}")
-                            import traceback
+                                    traceback.print_exc()
+                                    self._log_to_file(part)
+                                    break
+                            await asyncio.sleep(0.7)
+                        self._queue.task_done()
+            except Exception as e:
+                # Si le worker crash, log et redémarre automatiquement
+                print(f"⚠️ Worker Telegram crashé: {e}, redémarrage dans 5s...")
+                import traceback
 
-                            traceback.print_exc()
-                            self._log_to_file(part)
-                            break
-                    await asyncio.sleep(0.7)
-                self._queue.task_done()
+                traceback.print_exc()
+                await asyncio.sleep(5)
+                continue  # relance le worker
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -751,12 +768,10 @@ class TelegramNotifier:
 
         filtered_news = []
         for news in news_data:
-            # Filtrage par symbole
             if filter_symbols:
                 news_symbols = [s.upper() for s in news.get("symbols", [])]
                 if not any(sym in news_symbols for sym in filter_symbols):
                     continue
-            # Filtrage par volatilité
             if filter_volatility and market_data and news.get("symbols"):
                 symbol = news["symbols"][0].replace("/", "")
                 vol = market_data.get(symbol, {}).get("1h", {}).get("volatility", 0)
