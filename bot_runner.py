@@ -116,7 +116,43 @@ from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 
 from collections import deque
 
-# from src.risk_tools.enhanced_risk_manager import EnhancedRiskManager
+
+def check_and_restore_shared_data(data_file="src/shared_data.json"):
+    """
+    Vérifie que le fichier partagé existe et est un JSON valide.
+    Sinon restaure le backup ou initialise un dict vide.
+    Appeler cette fonction AVANT toute lecture/écriture du fichier partagé !
+    """
+    backup_file = data_file + ".bak"
+    # Si le fichier est vide ou corrompu, restaure le backup ou initialise un dict vide
+    try:
+        # 1. Fichier absent ou vide ?
+        if not os.path.exists(data_file) or os.stat(data_file).st_size == 0:
+            print(f"[WARN] {data_file} absent ou vide, tentative de restauration...")
+            if os.path.exists(backup_file) and os.stat(backup_file).st_size > 0:
+                shutil.copy2(backup_file, data_file)
+                print(f"[INFO] Backup {backup_file} restauré.")
+            else:
+                with open(data_file, "w") as f:
+                    json.dump({}, f)
+                print(f"[INFO] {data_file} initialisé vide.")
+        else:
+            # 2. Fichier corrompu (= JSON illisible) ?
+            with open(data_file, "r") as f:
+                try:
+                    json.load(f)
+                except Exception:
+                    print(f"[ERROR] {data_file} corrompu, restauration en cours...")
+                    if os.path.exists(backup_file) and os.stat(backup_file).st_size > 0:
+                        shutil.copy2(backup_file, data_file)
+                        print(f"[INFO] Backup {backup_file} restauré.")
+                    else:
+                        with open(data_file, "w") as f2:
+                            json.dump({}, f2)
+                        print(f"[INFO] {data_file} réinitialisé vide.")
+    except Exception as e:
+        print(f"[CRITIQUE] Impossible de restaurer {data_file}: {e}")
+
 
 # Charger les variables d'environnement depuis .env
 load_dotenv()
@@ -501,6 +537,54 @@ def main():
         exit(0)
 
 
+# --- DÉBUT PATCH HARD TP/SL ---
+# Ce patch force des sorties si les positions SPOT dépassent +5% ou perdent plus de 25%
+# Fonctionne en complément de ton ExitManager
+
+
+async def forced_exit_spot_positions(exchange_connector, config, logger):
+    """
+    Parcourt les positions SPOT ouvertes et force un market sell
+    si elles dépassent un take-profit ou tombent sous un hard stop-loss.
+    """
+    HARD_STOP_LOSS_PCT = config.get("hard_stop_loss_pct", 25.0)  # –25 %
+    FORCE_TAKE_PROFIT_PCT = config.get("force_tp_pct", 5.0)  # +5 %
+
+    # Récupère les balances SPOT : symbol -> amount disponible
+    balances = await exchange_connector.get_spot_balances()  # à adapter selon ton code
+    prices = await exchange_connector.get_latest_prices()  # ticker last price
+
+    for symbol, amount in balances.items():
+        if not amount or amount <= 0:
+            continue
+
+        avg_price = await get_avg_entry_price_binance_spot(
+            exchange_connector.client, symbol
+        )
+        last_price = prices.get(symbol)
+
+        if avg_price is None or last_price is None:
+            logger.warning(
+                f"[FORCED_EXIT] {symbol} impossible à évaluer (avg={avg_price}, last={last_price})"
+            )
+            continue
+
+        pnl_pct = (last_price - avg_price) / avg_price * 100.0
+
+        # Conditions Hard TP / SL
+        if pnl_pct >= FORCE_TAKE_PROFIT_PCT or pnl_pct <= -HARD_STOP_LOSS_PCT:
+            try:
+                # On vend entire amount
+                await exchange_connector.client.order_market_sell(
+                    symbol=symbol, quantity=amount
+                )
+                logger.info(
+                    f"[FORCED_EXIT] SOLD {symbol}: pnl={pnl_pct:.2f}% (TP/SL trigger)"
+                )
+            except Exception as e:
+                logger.exception(f"[FORCED_EXIT] Échec sell {symbol}: {e}")
+
+
 def debug_market_data_structure(market_data, pairs_valid, timeframes):
     for pair in pairs_valid:
         pair_key = pair.replace("/", "").upper()
@@ -660,18 +744,18 @@ class TelegramNotifier:
                                         aiohttp.ClientOSError,
                                         asyncio.CancelledError,
                                     ) as e:
-                                        import traceback
-
                                         print(
                                             f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
                                         )
+                                        import traceback
+
                                         traceback.print_exc()
                                         await asyncio.sleep(2**attempt)
                                         if attempt == 2:
                                             self._log_to_file(part)
                                     except Exception as e:
                                         print(
-                                            f"⚠️ Erreur envoi Telegram (Exception Python): {e}"
+                                            f"⚠️ Erreur envoi Telegram (Exception): {e}"
                                         )
                                         import traceback
 
@@ -681,7 +765,6 @@ class TelegramNotifier:
                                 await asyncio.sleep(0.7)
                             self._queue.task_done()
                         except Exception as e:
-                            # Catch toute exception dans le sous-worker : log et continue
                             print(f"⚠️ Exception dans _telegram_worker (loop): {e}")
                             import traceback
 
@@ -689,7 +772,6 @@ class TelegramNotifier:
                             await asyncio.sleep(5)
                             continue
             except Exception as e:
-                # Si la session entière ou le worker crash, log et relance après 5s
                 print(f"⚠️ Worker Telegram crashé: {e}, redémarrage dans 5s...")
                 import traceback
 
@@ -7631,7 +7713,8 @@ async def execute_trading_cycle(bot, valid_pairs):
                             f"[RISK] Refus trade {pair}: {check.get('reason')}"
                         )
                         continue
-
+                    # 🚨 Forced exit (TP / SL)
+                    await forced_exit_spot_positions(bot)
                     position_units = check.get("size_units")
                     stop_loss_price = check.get("stop_loss_price")
                     if position_units is None or position_units <= 0:

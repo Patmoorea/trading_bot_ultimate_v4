@@ -9519,3 +9519,15 @@
 2025-08-18T22:24:56.423847 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
 2025-08-18T22:24:56.425479 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
 2025-08-18T22:24:56.428691 | Démarrage cycle trading
+2025-08-18T22:29:13.386923 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T22:29:13.391365 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T22:29:13.391440 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T22:29:13.391491 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T22:29:13.391538 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T22:29:13.391583 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T22:29:13.391627 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T22:29:13.391672 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T22:29:13.391712 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T22:29:13.391778 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T22:29:13.391824 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T22:29:13.391897 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
