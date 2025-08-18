@@ -540,12 +540,13 @@ def main():
 # --- DÉBUT PATCH HARD TP/SL ---
 # Ce patch force des sorties si les positions SPOT dépassent +5% ou perdent plus de 25%
 # Fonctionne en complément de ton ExitManager
+"""
 async def forced_exit_spot_positions(bot):
-    """
+
     Force la sortie des positions spot si le take profit ou stop loss est atteint.
     - Take Profit fixé à +5%
     - Stop Loss fixé à -20%
-    """
+
     # Utilise le buffer réel des positions spot Binance
     positions = getattr(bot, "positions_binance", {})
     for symbol, pos in list(positions.items()):
@@ -582,6 +583,7 @@ async def forced_exit_spot_positions(bot):
         except Exception as e:
             log_dashboard(f"Erreur forced_exit_spot_positions sur {symbol} : {str(e)}")
             print(f"Erreur forced_exit_spot_positions sur {symbol} : {e}")
+"""
 
 
 def debug_market_data_structure(market_data, pairs_valid, timeframes):
@@ -7713,7 +7715,7 @@ async def execute_trading_cycle(bot, valid_pairs):
                         )
                         continue
                     # 🚨 Forced exit (TP / SL)
-                    await forced_exit_spot_positions(bot)
+                    # await forced_exit_spot_positions(bot)
                     position_units = check.get("size_units")
                     stop_loss_price = check.get("stop_loss_price")
                     if position_units is None or position_units <= 0:
@@ -8359,13 +8361,26 @@ async def run_clean_bot():
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
-                        if pos.get("side") == "long" and bot.check_stop_loss(symbol):
+                        # Récupère le prix live Binance à chaque tick
+                        try:
+                            ticker = bot.binance_client.get_symbol_ticker(
+                                symbol=symbol.replace("/", "")
+                            )
+                            last_price = float(ticker.get("price", 0))
+                        except Exception:
+                            last_price = safe_float(pos.get("current_price"), 0)
+
+                        entry_price = safe_float(pos.get("entry_price"), 0)
+                        amount = safe_float(pos.get("amount"), 0)
+
+                        # Stop-loss spot
+                        if pos.get("side") == "long" and bot.check_stop_loss(
+                            symbol, price=last_price
+                        ):
                             print(
                                 f"[STOPLOSS] Déclenchement automatique du stop-loss pour {symbol}"
                             )
-                            await bot.execute_trade(
-                                symbol, "SELL", safe_float(pos.get("amount"), 0)
-                            )
+                            await bot.execute_trade(symbol, "SELL", amount)
                             print(f"[STOPLOSS] Position fermée pour {symbol}")
                             getattr(bot, "positions_binance", {}).pop(symbol, None)
                             continue  # Passe à la position suivante
@@ -8393,29 +8408,20 @@ async def run_clean_bot():
                         if "max_price" not in pos:
                             pos["max_price"] = safe_float(pos.get("entry_price"), 0)
 
-                        # Récupération du dernier prix
-                        last_price = (
-                            bot.ws_collector.get_last_price(symbol)
-                            if hasattr(bot, "ws_collector")
-                            else None
-                        )
-                        if (
-                            last_price is None
-                            and symbol in bot.market_data
-                            and "1h" in bot.market_data[symbol]
-                        ):
-                            closes = bot.market_data[symbol]["1h"].get("close", [])
-                            if closes:
-                                last_price = closes[-1]
-                        if last_price is None:
-                            continue
-
-                        last_price = safe_float(last_price, 0)
+                        # Récupère le prix live Binance
+                        try:
+                            ticker = bot.binance_client.get_symbol_ticker(
+                                symbol=symbol.replace("/", "")
+                            )
+                            last_price = float(ticker.get("price", 0))
+                        except Exception:
+                            last_price = safe_float(pos.get("current_price"), 0)
                         pos["price_history"].append(last_price)
 
-                        # Take Profit partiel
                         entry_price = safe_float(pos.get("entry_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
+
+                        # Take Profit partiel
                         to_exit, new_filled = bot.exit_manager.check_tp_partial(
                             entry_price, last_price, pos["filled_tp_targets"]
                         )
@@ -8429,7 +8435,7 @@ async def run_clean_bot():
                                 f"[TP PARTIEL] {symbol}: Vente {amount_to_sell} à TP, nouveau amount={pos['amount']} | filled_tp_targets={pos['filled_tp_targets']}"
                             )
                             if safe_float(pos.get("amount"), 0) <= 0:
-                                bot.positions.pop(symbol)
+                                getattr(bot, "positions_binance", {}).pop(symbol, None)
                                 continue
 
                         # Trailing stop
@@ -8443,7 +8449,7 @@ async def run_clean_bot():
                             await bot.execute_trade(
                                 symbol, "SELL", safe_float(pos.get("amount"), 0)
                             )
-                            bot.positions.pop(symbol)
+                            getattr(bot, "positions_binance", {}).pop(symbol, None)
 
                     # Gestion des shorts BingX
                     for symbol, pos in list(
