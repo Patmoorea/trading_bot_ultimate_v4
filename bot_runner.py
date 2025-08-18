@@ -7076,6 +7076,775 @@ class TradingBotM4:
                     print(f"  Pas de données live pour {pair_key} / {tf}, skip.")
 
 
+async def execute_trading_cycle(bot, valid_pairs):
+    """
+    Cycle complet de trading avec corrections des problèmes de dashboard et signaux
+    Version optimisée (I/O unique, recalcul minimal, parallélisation), sans suppression de fonctionnalités.
+    Intègre :
+    - risk_manager.update_equity + should_pause_trading en début de cycle
+    - risk_manager.pre_trade_check avant l'exécution des ordres
+    - Prédiction ML obligatoire pour valider le trade (règle ET ML doivent être d'accord)
+    - Appel ML et filtre alignement ML sur la décision finale
+    """
+    try:
+        debug = getattr(bot, "debug", True)
+
+        if debug:
+            print("\n=== DÉBUT CYCLE TRADING ===")
+        log_dashboard("Démarrage cycle trading")
+
+        # 0) Cycle + equity + cooldown drawdown
+        bot.current_cycle = getattr(bot, "current_cycle", 0) + 1
+        try:
+            current_equity_usd = await bot.get_equity_usd()
+        except Exception as _e:
+            if debug:
+                print(f"[WARN] get_equity_usd a échoué: {_e}")
+            current_equity_usd = float(
+                bot.get_performance_metrics().get("balance", 10_000.0)
+            )
+
+        if hasattr(bot, "risk_manager") and bot.risk_manager:
+            try:
+                bot.risk_manager.update_equity(
+                    equity=current_equity_usd, current_cycle=bot.current_cycle
+                )
+                if bot.risk_manager.should_pause_trading(bot.current_cycle):
+                    log_dashboard("[RISK] Pause trading (cooldown drawdown actif)")
+                    return [], getattr(bot, "regime", "Indéterminé")
+            except AttributeError:
+                pass
+
+        # 1) Lecture unique des données partagées
+        try:
+            with open(bot.data_file, "r") as f:
+                shared_data = json.load(f)
+        except Exception as e:
+            if debug:
+                print(f"[WARNING] Lecture data_file échouée: {e}")
+            shared_data = {}
+
+        # Init market_data
+        if not hasattr(bot, "market_data"):
+            bot.market_data = {}
+        for pair in bot.pairs_valid:
+            pair_key = pair.replace("/", "").upper()
+            if pair_key not in bot.market_data:
+                bot.market_data[pair_key] = {
+                    "sentiment": 0.5,
+                    "sentiment_timestamp": time.time(),
+                    "ai_prediction": 0.5,
+                }
+
+        # 2) Vérification des pauses news
+        if (
+            bot.news_pause_manager
+            and bot.news_pause_manager.global_cycles_remaining > 0
+        ):
+            bot.safe_update_shared_data(
+                {
+                    "active_pauses": bot.news_pause_manager.get_active_pauses(),
+                    "market_data": bot.market_data,
+                },
+                bot.data_file,
+            )
+            log_dashboard("🚫 Cycle bloqué - Pause news active")
+            return [], getattr(bot, "regime", "Indéterminé")
+
+        # 3) Analyse des news
+        try:
+            news_sentiment = (
+                shared_data.get("sentiment", {})
+                if isinstance(shared_data, dict)
+                else {}
+            )
+            news_list = (
+                news_sentiment.get("scores", [])
+                if isinstance(news_sentiment, dict)
+                else []
+            )
+            unprocessed_news = [n for n in news_list if not n.get("processed")]
+            if unprocessed_news:
+                if bot.news_pause_manager.scan_news(unprocessed_news):
+                    for n in unprocessed_news:
+                        n["processed"] = True
+                    bot.safe_update_shared_data(
+                        {
+                            "sentiment": {**news_sentiment, "scores": news_list},
+                            "active_pauses": bot.news_pause_manager.get_active_pauses(),
+                        },
+                        bot.data_file,
+                    )
+                    if bot.news_pause_manager.global_cycles_remaining > 0:
+                        return [], getattr(bot, "regime", "Indéterminé")
+        except Exception as e:
+            if debug:
+                print(f"[WARNING] Erreur analyse news: {e}")
+
+        # 4) Mise à jour des données marché (parallélisée)
+        async def process_pair_tf(pair, tf):
+            pair_key = pair.replace("/", "").upper()
+            df = await asyncio.to_thread(bot.ws_collector.get_dataframe, pair_key, tf)
+            if df is None or df.empty:
+                return
+
+            required_cols = ["open", "high", "low", "close", "volume", "timestamp"]
+            if not all(col in df.columns for col in required_cols):
+                return
+
+            if len(df["timestamp"]) != len(df["close"]):
+                if (
+                    hasattr(df.index, "dtype")
+                    and np.issubdtype(df.index.dtype, np.datetime64)
+                    and len(df.index) == len(df["close"])
+                ):
+                    df["timestamp"] = df.index
+                else:
+                    df["timestamp"] = pd.date_range(
+                        end=pd.Timestamp.utcnow(),
+                        periods=len(df["close"]),
+                        freq="T",
+                    )
+
+            if tf not in bot.market_data.get(pair_key, {}):
+                bot.market_data[pair_key].setdefault(
+                    tf,
+                    {
+                        "open": [],
+                        "high": [],
+                        "low": [],
+                        "close": [],
+                        "volume": [],
+                        "timestamp": [],
+                    },
+                )
+
+            ohlcv_dict = {
+                "open": df["open"].tolist(),
+                "high": df["high"].tolist(),
+                "low": df["low"].tolist(),
+                "close": df["close"].tolist(),
+                "volume": df["volume"].tolist(),
+                "timestamp": [
+                    int(pd.Timestamp(t).timestamp()) for t in df["timestamp"]
+                ],
+            }
+
+            last_ts = (
+                bot.market_data[pair_key][tf]["timestamp"][-1]
+                if bot.market_data[pair_key][tf]["timestamp"]
+                else None
+            )
+            if last_ts is not None and isinstance(last_ts, str):
+                try:
+                    last_ts = int(pd.Timestamp(last_ts).timestamp())
+                except Exception:
+                    last_ts = None
+
+            new_indices = []
+            for i, ts in enumerate(ohlcv_dict["timestamp"]):
+                ts_int = ts
+                if isinstance(ts, str):
+                    try:
+                        ts_int = int(pd.Timestamp(ts).timestamp())
+                    except Exception:
+                        continue
+                if last_ts is None or ts_int > last_ts:
+                    new_indices.append(i)
+
+            if not new_indices:
+                return
+
+            for k in ohlcv_dict:
+                md_list = bot.market_data[pair_key][tf][k]
+                md_list.extend([ohlcv_dict[k][i] for i in new_indices])
+
+            indicators_data = await asyncio.to_thread(bot.add_indicators, df)
+            bot.market_data[pair_key][tf]["signals"] = {
+                "technical": {
+                    "score": float(indicators_data.get("technical_score", 0.5)),
+                    "details": indicators_data,
+                    "factors": len(indicators_data),
+                },
+                "momentum": {"score": 0.5, "details": {}, "factors": 0},
+                "orderflow": {
+                    "score": 0.5,
+                    "details": {},
+                    "factors": 0,
+                    "liquidity": 0.5,
+                    "market_pressure": 0.5,
+                },
+                "ai": float(bot.market_data[pair_key].get("ai_prediction", 0.5)),
+                "sentiment": float(bot.market_data[pair_key].get("sentiment", 0.5)),
+            }
+
+        tasks = []
+        for pair in bot.pairs_valid:
+            for tf in bot.config["TRADING"]["timeframes"]:
+                tasks.append(process_pair_tf(pair, tf))
+        if tasks:
+            await asyncio.gather(*tasks)
+
+        # 5) Génération des décisions avec ML
+        trade_decisions = []
+        decisions_for_dashboard = {}
+        current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        for pair in bot.pairs_valid:
+            try:
+                pair_key = pair.replace("/", "").upper()
+                if pair_key not in bot.market_data:
+                    bot.market_data[pair_key] = {}
+
+                market_signals = bot.market_data[pair_key]
+                confidence = 0.5
+
+                tf_data = market_signals.get("1h", {}).get("signals", {})
+                tech_data = tf_data.get("technical", {})
+
+                try:
+                    tech_score = safe_float(tech_data.get("score", 0.5))
+                    tech_score = max(0.0, min(1.0, tech_score))
+                except (TypeError, ValueError):
+                    tech_score = 0.5
+
+                try:
+                    momentum_score = safe_float(
+                        tf_data.get("momentum", {}).get("score", 0.5)
+                    )
+                except Exception:
+                    momentum_score = 0.5
+
+                try:
+                    orderflow_score = safe_float(
+                        tf_data.get("orderflow", {}).get("score", 0.5)
+                    )
+                except Exception:
+                    orderflow_score = 0.5
+
+                try:
+                    ai_score = market_signals.get("ai_prediction")
+                    if ai_score is not None:
+                        ai_score = safe_float(ai_score)
+                        ai_score = max(0.0, min(1.0, ai_score))
+                    else:
+                        ai_score = 0.5
+                except (TypeError, ValueError):
+                    ai_score = 0.5
+
+                try:
+                    sentiment_score = market_signals.get("sentiment")
+                    if sentiment_score is not None:
+                        sentiment_score = safe_float(sentiment_score)
+                        sentiment_score = max(-1.0, min(1.0, sentiment_score))
+                    else:
+                        news_sentiment = shared_data.get("sentiment", {})
+                        sentiment_score = safe_float(
+                            news_sentiment.get("overall_sentiment", 0.0)
+                        )
+                except (TypeError, ValueError, json.JSONDecodeError):
+                    sentiment_score = 0.0
+
+                # Dummy sizing_multiplier for illustration
+                sizing_multiplier = 1.0
+
+                # Dominant signals for ML
+                dominant_signals = {
+                    "technical": tf_data.get("technical", {}),
+                    "momentum": tf_data.get("momentum", {}),
+                    "orderflow": tf_data.get("orderflow", {}),
+                    "ai": {"score": ai_score},
+                    "sentiment": {"score": sentiment_score},
+                }
+
+                # Détermination de l'action
+                action = "neutral"
+                weighted_signal = (
+                    tech_score * 0.5
+                    + ai_score * 0.3
+                    + ((sentiment_score + 1) / 2) * 0.2
+                )
+                if weighted_signal > 0.7:
+                    action = "buy"
+                elif weighted_signal < 0.3:
+                    action = "sell"
+
+                # SECTION 8) GÉNÉRATION DES DÉCISIONS DÉTAILLÉES
+                final_decision = {
+                    "pair": pair,
+                    "action": action,
+                    "confidence": float(confidence),
+                    "sizing_multiplier": sizing_multiplier,
+                    "signals": {
+                        "technical": tech_score,
+                        "momentum": momentum_score,
+                        "orderflow": orderflow_score,
+                        "ai": ai_score,
+                        "sentiment": sentiment_score,
+                    },
+                }
+
+                # === ML: décision IA supervisée sur les signaux dominants ===
+                ml_signals = (
+                    dominant_signals  # {"technical": {...}, "momentum": {...}, ...}
+                )
+                ml_action, p_buy, p_sell = bot.ml_predict_action(ml_signals)
+
+                # On enrichit la décision avec la vue ML
+                final_decision["ml_action"] = ml_action
+                final_decision["ml_p_buy"] = p_buy
+                final_decision["ml_p_sell"] = p_sell
+
+                # Règle d’alignement : ne trade QUE si la règle et le ML sont cohérents
+                # - Si rule="buy" mais ML="sell" (ou inverse) -> neutralise (sécurité)
+                # - Si ML concorde, boost léger la confiance
+                rule_action = (action or "neutral").lower()
+                if ml_action == "hold":
+                    # pas de veto, on garde la décision mais sans boost
+                    pass
+                elif (rule_action == "buy" and ml_action == "sell") or (
+                    rule_action == "sell" and ml_action == "buy"
+                ):
+                    final_decision["action"] = "neutral"
+                    final_decision["confidence"] = max(
+                        0.5, min(final_decision["confidence"] * 0.85, 1.0)
+                    )
+                else:
+                    # Accord => boost modéré (cap à 1.0)
+                    final_decision["confidence"] = max(
+                        0.5, min(final_decision["confidence"] * 1.05, 1.0)
+                    )
+
+                # Calcul du score
+                signal_score = (
+                    tech_score * 0.3
+                    + momentum_score * 0.2
+                    + orderflow_score * 0.2
+                    + ai_score * 0.2
+                    + sentiment_score * 0.1
+                )
+
+                # Veto ML: on exige soit accord ML, soit ML=hold (ne s’oppose pas)
+                ml_ok = final_decision.get("ml_action") in (
+                    "hold",
+                    final_decision["action"],
+                )
+
+                # Récupération du DataFrame OHLCV (ex: df = bot.ws_collector.get_dataframe(pair_key, "1h"))
+                df = (
+                    bot.ws_collector.get_dataframe(pair_key, "1h")
+                    if hasattr(bot, "ws_collector")
+                    else None
+                )
+                volatility_ok = True
+                if df is not None and not df.empty:
+                    volatility_ok = bot.calculate_volatility_advanced(df) <= 0.08
+
+                if (
+                    signal_score >= 0.6
+                    and final_decision["confidence"] >= 0.7
+                    and ml_ok
+                    and volatility_ok
+                ):
+                    trade_decisions.append(final_decision)
+
+                decisions_for_dashboard[pair] = final_decision
+
+            except Exception as e:
+                print(f"[ERROR] Failed to process {pair}: {str(e)}")
+                continue
+
+        # 6) Analyse des signaux (inchangé)
+        signals_ok = bot.verify_signals_completeness()
+        for pair, decision in decisions_for_dashboard.items():
+            pair_key = pair.replace("/", "").upper()
+            if pair_key not in bot.market_data:
+                bot.market_data[pair_key] = {}
+            bot.market_data[pair_key]["last_decision"] = decision
+            bot.market_data[pair_key]["last_update"] = current_time
+
+        # 7) EXÉCUTION DES TRADES (avec ML obligatoire)
+        if signals_ok and trade_decisions:
+            current_exposure = sum(
+                safe_float(pos.get("amount", 0)) * safe_float(pos.get("entry_price", 0))
+                for pos in getattr(bot, "positions", {}).values()
+            ) / max(bot.get_performance_metrics().get("balance", 1), 1)
+
+            if (
+                current_exposure
+                < bot.risk_manager.position_limits["max_total_exposure"]
+            ):
+                filtered_decisions = []
+
+                for decision in trade_decisions:
+                    pair = decision["pair"]
+                    pair_key = pair.replace("/", "").upper()
+                    action = str(decision.get("action", "")).lower()  # buy/sell/neutral
+
+                    # PAUSE INTELLIGENTE
+                    trading_paused = (
+                        bot.news_pause_manager.global_cycles_remaining > 0
+                        if bot.news_pause_manager
+                        else False
+                    )
+                    pair_paused = (
+                        (
+                            pair in bot.news_pause_manager.pair_pauses
+                            and bot.news_pause_manager.pair_pauses[pair] > 0
+                        )
+                        if bot.news_pause_manager
+                        else False
+                    )
+                    buy_paused = (
+                        (pair in bot.news_pause_manager.buy_paused_pairs)
+                        if bot.news_pause_manager
+                        else False
+                    )
+
+                    if trading_paused and action == "buy":
+                        continue
+                    if pair_paused and action == "buy":
+                        continue
+                    if buy_paused and action == "buy":
+                        continue
+
+                    current_price = None
+                    md_1h = bot.market_data.get(pair_key, {}).get("1h", {})
+                    cl_1h = md_1h.get("close", [])
+                    if isinstance(cl_1h, list) and cl_1h:
+                        current_price = safe_float(cl_1h[-1], None)
+                    if current_price is None:
+                        df_fallback = bot.ws_collector.get_dataframe(pair_key, "1m")
+                        if df_fallback is not None and not df_fallback.empty:
+                            current_price = float(df_fallback["close"].iloc[-1])
+
+                    volatility = bot.calculate_volatility(md_1h) if md_1h else 0.0
+                    atr_val = None
+                    try:
+                        analysis_1h = (
+                            bot.market_data.get(pair_key, {})
+                            .get("1h", {})
+                            .get("signals", {})
+                        )
+                        atr_val = analysis_1h.get("volatility", {}).get("atr")
+                    except Exception:
+                        atr_val = None
+
+                    if volatility > 0.08:
+                        continue
+
+                    # PRE-TRADE CHECK
+                    signals_dict = analysis_1h if isinstance(analysis_1h, dict) else {}
+
+                    # ML PREDICTION (déjà incluse dans final_decision si patch ML, on peut commenter ici)
+                    # try:
+                    #     features_flat = extract_features(signals_dict)
+                    #     X_live = [
+                    #         features_flat.get(col, 0)
+                    #         for col in bot.ml_model.feature_names_in_
+                    #     ]
+                    #     X_live_scaled = bot.ml_scaler.transform([X_live])
+                    #     ml_decision = bot.ml_model.predict(X_live_scaled)[0]
+                    # except Exception as e:
+                    #     print(f"[ML] Erreur prédiction ML : {e}")
+                    #     ml_decision = None
+
+                    # Combine ML + règle
+                    accept_trade = True  # déduite par le filtre ML plus haut
+                    if decision["action"] == "neutral":
+                        accept_trade = False
+
+                    # risk_manager.pre_trade_check
+                    try:
+                        check = bot.risk_manager.pre_trade_check(
+                            symbol=pair_key,
+                            side=action.upper(),
+                            price=current_price,
+                            equity=current_equity_usd,
+                            confidence=decision.get("confidence", 0.0),
+                            volatility=volatility or 0.01,
+                            signals=signals_dict,
+                            current_positions=getattr(bot, "positions", {}),
+                            current_cycle=bot.current_cycle,
+                            atr=atr_val,
+                            market_liquidity=None,
+                            corr_groups={
+                                "L1": [
+                                    "BTCUSDC",
+                                    "ETHUSDC",
+                                    "SOLUSDC",
+                                    "BNBUSDC",
+                                    "ADAUSDC",
+                                ],
+                                "Meme": ["DOGEUSDC", "SHIBUSDC"],
+                            },
+                            news_paused=(
+                                bot.news_pause_manager.is_paused(pair_key)
+                                if hasattr(bot, "news_pause_manager")
+                                and callable(
+                                    getattr(bot.news_pause_manager, "is_paused", None)
+                                )
+                                else False
+                            ),
+                        )
+                    except AttributeError:
+                        check = {
+                            "approved": False,
+                            "reason": "pre_trade_check absent",
+                        }
+
+                    if not check.get("approved"):
+                        log_dashboard(
+                            f"[RISK] Refus trade {pair}: {check.get('reason')}"
+                        )
+                        continue
+
+                    position_units = check.get("size_units")
+                    stop_loss_price = check.get("stop_loss_price")
+                    if position_units is None or position_units <= 0:
+                        continue
+
+                    # TRADE FINALISATION
+                    if accept_trade:
+                        decision_out = dict(decision)
+                        decision_out["amount"] = float(position_units)
+                        decision_out["stop_loss"] = (
+                            float(stop_loss_price) if stop_loss_price else None
+                        )
+                        decision_out["action"] = (
+                            "buy"
+                            if action == "buy"
+                            else (
+                                "sell"
+                                if action == "sell"
+                                else decision_out.get("action", "neutral")
+                            )
+                        )
+                        filtered_decisions.append(decision_out)
+
+                if filtered_decisions:
+                    await execute_trade_decisions(bot, filtered_decisions)
+                    log_dashboard(
+                        f"✅ {len(filtered_decisions)}/{len(trade_decisions)} trades exécutés"
+                    )
+                else:
+                    log_dashboard("ℹ️ Toutes décisions rejetées après filtrage")
+            else:
+                log_dashboard(f"🚫 Exposition ({current_exposure:.1%}) > limite")
+
+        return trade_decisions, getattr(bot, "regime", "Indéterminé")
+
+    except Exception as e:
+        logger.error(f"❌ Erreur cycle trading: {e}")
+        raise
+
+
+async def execute_trade_decisions(bot, trade_decisions):
+    """
+    Exécute toutes les décisions de trade du cycle.
+    Intègre la gestion avancée de pause news par asset/action
+    et la validation par le RiskManager.
+    Corrigé pour éviter tout bug de type (int + str) sur les montants.
+    """
+    # Vérification des news du cycle
+    news_list = []
+    try:
+        with open(bot.data_file, "r") as f:
+            shared_data = json.load(f)
+        news_sentiment = (
+            shared_data.get("sentiment", {}) if isinstance(shared_data, dict) else {}
+        )
+        news_list = (
+            news_sentiment.get("scores", []) if isinstance(news_sentiment, dict) else []
+        )
+    except Exception as e:
+        print(f"[WARNING] Erreur chargement news: {e}")
+        news_list = []
+
+    # Validation des champs obligatoires des news
+    for news in news_list:
+        if "symbols" not in news or not news["symbols"]:
+            log_dashboard(
+                f"[NEWS CHECK] ⚠️ News sans symboles: {news.get('title', '')[:80]}"
+            )
+        if "sentiment" not in news:
+            log_dashboard(
+                f"[NEWS CHECK] ⚠️ News sans sentiment: {news.get('title', '')[:80]}"
+            )
+
+    # Traitement des décisions de trade
+    for decision in trade_decisions:
+        try:
+            pair = decision.get("pair")
+            action = decision.get("action")
+            confidence = safe_float(decision.get("confidence", 0))
+            status = "neutral"  # statut par défaut
+
+            # Vérification pause news
+            active_pauses = bot.news_pause_manager.get_active_pauses()
+            if any(
+                p.get("asset") == pair or p.get("asset") == "GLOBAL"
+                for p in active_pauses
+            ):
+                status = "refused"
+                log_dashboard(
+                    f"[NEWS PAUSE] Trade {str(action).upper()} sur {pair} bloqué (pause news)"
+                )
+                await bot.telegram.send_message(
+                    f"🚨 Trading {str(action).upper()} sur {pair} bloqué (pause news)"
+                )
+                # Log la décision même refusée
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=bot.get_performance_metrics().get("balance", 0),
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
+                continue
+
+            # Validation par le RiskManager
+            if not bot.risk_manager.validate_trade(decision.get("signals", {})):
+                status = "refused"
+                log_dashboard(
+                    f"[RISK] Trade {str(action).upper()} sur {pair} rejeté "
+                    "(critères de risque non respectés)"
+                )
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=bot.get_performance_metrics().get("balance", 0),
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
+                continue
+
+            # Calcul de la taille de position
+            balance = safe_float(bot.get_performance_metrics().get("balance", 0), 0)
+            volatility = safe_float(
+                bot.calculate_volatility_advanced(
+                    bot.market_data.get(pair.replace("/", "").upper(), {}).get("1h", {})
+                ),
+                0.02,
+            )
+
+            amount = safe_float(
+                bot.risk_manager.calculate_position_size(
+                    equity=balance, confidence=confidence, volatility=volatility
+                ),
+                0,
+            )
+
+            if amount <= 0:
+                status = "refused"
+                log_dashboard(f"[RISK] Taille position nulle pour {pair}, trade ignoré")
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=balance,
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
+                continue
+
+            # Vérification exposition totale
+            if not bot.risk_manager.check_exposure_limit(bot.positions, amount):
+                status = "refused"
+                log_dashboard(
+                    f"[RISK] Limite d'exposition dépassée pour {pair}, trade ignoré"
+                )
+                try:
+                    bot.dataset_logger.log_cycle(
+                        pair=pair,
+                        equity=balance,
+                        decision=decision,
+                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                        .get("1h", {})
+                        .get("close", [0])[-1],
+                        features=decision.get("signals", {}),
+                        status=status,
+                    )
+                except Exception as e:
+                    print(f"[LOGGER] Erreur dataset log: {e}")
+                continue
+
+            # Log pré-exécution
+            log_dashboard(
+                f"[EXECUTE] {pair} | {str(action).upper()} | "
+                f"Amount: {amount:.6f} | Conf: {confidence:.2f}"
+            )
+
+            # Exécution du trade
+            trade_result = await bot.execute_trade(
+                symbol=pair, side=action, amount=amount
+            )
+
+            # Notification du résultat
+            if trade_result and trade_result.get("status") == "completed":
+                status = "executed"
+                await send_trade_notification(
+                    bot=bot, decision=decision, trade_result=trade_result, amount=amount
+                )
+                log_dashboard(f"[SUCCESS] Trade exécuté sur {pair}")
+            else:
+                status = "refused"
+                log_dashboard(
+                    f"[ERROR] Échec exécution trade sur {pair}: "
+                    f"{trade_result.get('reason', 'raison inconnue')}"
+                )
+
+            # Log la décision finale (executed ou refused)
+            try:
+                bot.dataset_logger.log_cycle(
+                    pair=pair,
+                    equity=bot.get_performance_metrics().get("balance", 0),
+                    decision=decision,
+                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                    .get("1h", {})
+                    .get("close", [0])[-1],
+                    features=decision.get("signals", {}),
+                    status=status,
+                )
+            except Exception as e:
+                print(f"[LOGGER] Erreur dataset log: {e}")
+
+        except Exception as e:
+            log_dashboard(f"[ERROR] Erreur exécution trade {pair}: {str(e)}")
+            # Même en cas d'exception, log en "refused"
+            try:
+                bot.dataset_logger.log_cycle(
+                    pair=pair,
+                    equity=bot.get_performance_metrics().get("balance", 0),
+                    decision=decision,
+                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
+                    .get("1h", {})
+                    .get("close", [0])[-1],
+                    features=decision.get("signals", {}),
+                    status="refused",
+                )
+            except Exception as e2:
+                print(f"[LOGGER] Erreur dataset log (except): {e2}")
+            continue
+
+
 def filter_pairs(
     bot,
     min_volatility=0.01,
@@ -8882,775 +9651,6 @@ if __name__ == "__main__":
     # --- 6. Lancement du bot de trading en mode normal
     else:
         asyncio.run(run_clean_bot())
-
-
-async def execute_trading_cycle(bot, valid_pairs):
-    """
-    Cycle complet de trading avec corrections des problèmes de dashboard et signaux
-    Version optimisée (I/O unique, recalcul minimal, parallélisation), sans suppression de fonctionnalités.
-    Intègre :
-    - risk_manager.update_equity + should_pause_trading en début de cycle
-    - risk_manager.pre_trade_check avant l'exécution des ordres
-    - Prédiction ML obligatoire pour valider le trade (règle ET ML doivent être d'accord)
-    - Appel ML et filtre alignement ML sur la décision finale
-    """
-    try:
-        debug = getattr(bot, "debug", True)
-
-        if debug:
-            print("\n=== DÉBUT CYCLE TRADING ===")
-        log_dashboard("Démarrage cycle trading")
-
-        # 0) Cycle + equity + cooldown drawdown
-        bot.current_cycle = getattr(bot, "current_cycle", 0) + 1
-        try:
-            current_equity_usd = await bot.get_equity_usd()
-        except Exception as _e:
-            if debug:
-                print(f"[WARN] get_equity_usd a échoué: {_e}")
-            current_equity_usd = float(
-                bot.get_performance_metrics().get("balance", 10_000.0)
-            )
-
-        if hasattr(bot, "risk_manager") and bot.risk_manager:
-            try:
-                bot.risk_manager.update_equity(
-                    equity=current_equity_usd, current_cycle=bot.current_cycle
-                )
-                if bot.risk_manager.should_pause_trading(bot.current_cycle):
-                    log_dashboard("[RISK] Pause trading (cooldown drawdown actif)")
-                    return [], getattr(bot, "regime", "Indéterminé")
-            except AttributeError:
-                pass
-
-        # 1) Lecture unique des données partagées
-        try:
-            with open(bot.data_file, "r") as f:
-                shared_data = json.load(f)
-        except Exception as e:
-            if debug:
-                print(f"[WARNING] Lecture data_file échouée: {e}")
-            shared_data = {}
-
-        # Init market_data
-        if not hasattr(bot, "market_data"):
-            bot.market_data = {}
-        for pair in bot.pairs_valid:
-            pair_key = pair.replace("/", "").upper()
-            if pair_key not in bot.market_data:
-                bot.market_data[pair_key] = {
-                    "sentiment": 0.5,
-                    "sentiment_timestamp": time.time(),
-                    "ai_prediction": 0.5,
-                }
-
-        # 2) Vérification des pauses news
-        if (
-            bot.news_pause_manager
-            and bot.news_pause_manager.global_cycles_remaining > 0
-        ):
-            bot.safe_update_shared_data(
-                {
-                    "active_pauses": bot.news_pause_manager.get_active_pauses(),
-                    "market_data": bot.market_data,
-                },
-                bot.data_file,
-            )
-            log_dashboard("🚫 Cycle bloqué - Pause news active")
-            return [], getattr(bot, "regime", "Indéterminé")
-
-        # 3) Analyse des news
-        try:
-            news_sentiment = (
-                shared_data.get("sentiment", {})
-                if isinstance(shared_data, dict)
-                else {}
-            )
-            news_list = (
-                news_sentiment.get("scores", [])
-                if isinstance(news_sentiment, dict)
-                else []
-            )
-            unprocessed_news = [n for n in news_list if not n.get("processed")]
-            if unprocessed_news:
-                if bot.news_pause_manager.scan_news(unprocessed_news):
-                    for n in unprocessed_news:
-                        n["processed"] = True
-                    bot.safe_update_shared_data(
-                        {
-                            "sentiment": {**news_sentiment, "scores": news_list},
-                            "active_pauses": bot.news_pause_manager.get_active_pauses(),
-                        },
-                        bot.data_file,
-                    )
-                    if bot.news_pause_manager.global_cycles_remaining > 0:
-                        return [], getattr(bot, "regime", "Indéterminé")
-        except Exception as e:
-            if debug:
-                print(f"[WARNING] Erreur analyse news: {e}")
-
-        # 4) Mise à jour des données marché (parallélisée)
-        async def process_pair_tf(pair, tf):
-            pair_key = pair.replace("/", "").upper()
-            df = await asyncio.to_thread(bot.ws_collector.get_dataframe, pair_key, tf)
-            if df is None or df.empty:
-                return
-
-            required_cols = ["open", "high", "low", "close", "volume", "timestamp"]
-            if not all(col in df.columns for col in required_cols):
-                return
-
-            if len(df["timestamp"]) != len(df["close"]):
-                if (
-                    hasattr(df.index, "dtype")
-                    and np.issubdtype(df.index.dtype, np.datetime64)
-                    and len(df.index) == len(df["close"])
-                ):
-                    df["timestamp"] = df.index
-                else:
-                    df["timestamp"] = pd.date_range(
-                        end=pd.Timestamp.utcnow(),
-                        periods=len(df["close"]),
-                        freq="T",
-                    )
-
-            if tf not in bot.market_data.get(pair_key, {}):
-                bot.market_data[pair_key].setdefault(
-                    tf,
-                    {
-                        "open": [],
-                        "high": [],
-                        "low": [],
-                        "close": [],
-                        "volume": [],
-                        "timestamp": [],
-                    },
-                )
-
-            ohlcv_dict = {
-                "open": df["open"].tolist(),
-                "high": df["high"].tolist(),
-                "low": df["low"].tolist(),
-                "close": df["close"].tolist(),
-                "volume": df["volume"].tolist(),
-                "timestamp": [
-                    int(pd.Timestamp(t).timestamp()) for t in df["timestamp"]
-                ],
-            }
-
-            last_ts = (
-                bot.market_data[pair_key][tf]["timestamp"][-1]
-                if bot.market_data[pair_key][tf]["timestamp"]
-                else None
-            )
-            if last_ts is not None and isinstance(last_ts, str):
-                try:
-                    last_ts = int(pd.Timestamp(last_ts).timestamp())
-                except Exception:
-                    last_ts = None
-
-            new_indices = []
-            for i, ts in enumerate(ohlcv_dict["timestamp"]):
-                ts_int = ts
-                if isinstance(ts, str):
-                    try:
-                        ts_int = int(pd.Timestamp(ts).timestamp())
-                    except Exception:
-                        continue
-                if last_ts is None or ts_int > last_ts:
-                    new_indices.append(i)
-
-            if not new_indices:
-                return
-
-            for k in ohlcv_dict:
-                md_list = bot.market_data[pair_key][tf][k]
-                md_list.extend([ohlcv_dict[k][i] for i in new_indices])
-
-            indicators_data = await asyncio.to_thread(bot.add_indicators, df)
-            bot.market_data[pair_key][tf]["signals"] = {
-                "technical": {
-                    "score": float(indicators_data.get("technical_score", 0.5)),
-                    "details": indicators_data,
-                    "factors": len(indicators_data),
-                },
-                "momentum": {"score": 0.5, "details": {}, "factors": 0},
-                "orderflow": {
-                    "score": 0.5,
-                    "details": {},
-                    "factors": 0,
-                    "liquidity": 0.5,
-                    "market_pressure": 0.5,
-                },
-                "ai": float(bot.market_data[pair_key].get("ai_prediction", 0.5)),
-                "sentiment": float(bot.market_data[pair_key].get("sentiment", 0.5)),
-            }
-
-        tasks = []
-        for pair in bot.pairs_valid:
-            for tf in bot.config["TRADING"]["timeframes"]:
-                tasks.append(process_pair_tf(pair, tf))
-        if tasks:
-            await asyncio.gather(*tasks)
-
-        # 5) Génération des décisions avec ML
-        trade_decisions = []
-        decisions_for_dashboard = {}
-        current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-
-        for pair in bot.pairs_valid:
-            try:
-                pair_key = pair.replace("/", "").upper()
-                if pair_key not in bot.market_data:
-                    bot.market_data[pair_key] = {}
-
-                market_signals = bot.market_data[pair_key]
-                confidence = 0.5
-
-                tf_data = market_signals.get("1h", {}).get("signals", {})
-                tech_data = tf_data.get("technical", {})
-
-                try:
-                    tech_score = safe_float(tech_data.get("score", 0.5))
-                    tech_score = max(0.0, min(1.0, tech_score))
-                except (TypeError, ValueError):
-                    tech_score = 0.5
-
-                try:
-                    momentum_score = safe_float(
-                        tf_data.get("momentum", {}).get("score", 0.5)
-                    )
-                except Exception:
-                    momentum_score = 0.5
-
-                try:
-                    orderflow_score = safe_float(
-                        tf_data.get("orderflow", {}).get("score", 0.5)
-                    )
-                except Exception:
-                    orderflow_score = 0.5
-
-                try:
-                    ai_score = market_signals.get("ai_prediction")
-                    if ai_score is not None:
-                        ai_score = safe_float(ai_score)
-                        ai_score = max(0.0, min(1.0, ai_score))
-                    else:
-                        ai_score = 0.5
-                except (TypeError, ValueError):
-                    ai_score = 0.5
-
-                try:
-                    sentiment_score = market_signals.get("sentiment")
-                    if sentiment_score is not None:
-                        sentiment_score = safe_float(sentiment_score)
-                        sentiment_score = max(-1.0, min(1.0, sentiment_score))
-                    else:
-                        news_sentiment = shared_data.get("sentiment", {})
-                        sentiment_score = safe_float(
-                            news_sentiment.get("overall_sentiment", 0.0)
-                        )
-                except (TypeError, ValueError, json.JSONDecodeError):
-                    sentiment_score = 0.0
-
-                # Dummy sizing_multiplier for illustration
-                sizing_multiplier = 1.0
-
-                # Dominant signals for ML
-                dominant_signals = {
-                    "technical": tf_data.get("technical", {}),
-                    "momentum": tf_data.get("momentum", {}),
-                    "orderflow": tf_data.get("orderflow", {}),
-                    "ai": {"score": ai_score},
-                    "sentiment": {"score": sentiment_score},
-                }
-
-                # Détermination de l'action
-                action = "neutral"
-                weighted_signal = (
-                    tech_score * 0.5
-                    + ai_score * 0.3
-                    + ((sentiment_score + 1) / 2) * 0.2
-                )
-                if weighted_signal > 0.7:
-                    action = "buy"
-                elif weighted_signal < 0.3:
-                    action = "sell"
-
-                # SECTION 8) GÉNÉRATION DES DÉCISIONS DÉTAILLÉES
-                final_decision = {
-                    "pair": pair,
-                    "action": action,
-                    "confidence": float(confidence),
-                    "sizing_multiplier": sizing_multiplier,
-                    "signals": {
-                        "technical": tech_score,
-                        "momentum": momentum_score,
-                        "orderflow": orderflow_score,
-                        "ai": ai_score,
-                        "sentiment": sentiment_score,
-                    },
-                }
-
-                # === ML: décision IA supervisée sur les signaux dominants ===
-                ml_signals = (
-                    dominant_signals  # {"technical": {...}, "momentum": {...}, ...}
-                )
-                ml_action, p_buy, p_sell = bot.ml_predict_action(ml_signals)
-
-                # On enrichit la décision avec la vue ML
-                final_decision["ml_action"] = ml_action
-                final_decision["ml_p_buy"] = p_buy
-                final_decision["ml_p_sell"] = p_sell
-
-                # Règle d’alignement : ne trade QUE si la règle et le ML sont cohérents
-                # - Si rule="buy" mais ML="sell" (ou inverse) -> neutralise (sécurité)
-                # - Si ML concorde, boost léger la confiance
-                rule_action = (action or "neutral").lower()
-                if ml_action == "hold":
-                    # pas de veto, on garde la décision mais sans boost
-                    pass
-                elif (rule_action == "buy" and ml_action == "sell") or (
-                    rule_action == "sell" and ml_action == "buy"
-                ):
-                    final_decision["action"] = "neutral"
-                    final_decision["confidence"] = max(
-                        0.5, min(final_decision["confidence"] * 0.85, 1.0)
-                    )
-                else:
-                    # Accord => boost modéré (cap à 1.0)
-                    final_decision["confidence"] = max(
-                        0.5, min(final_decision["confidence"] * 1.05, 1.0)
-                    )
-
-                # Calcul du score
-                signal_score = (
-                    tech_score * 0.3
-                    + momentum_score * 0.2
-                    + orderflow_score * 0.2
-                    + ai_score * 0.2
-                    + sentiment_score * 0.1
-                )
-
-                # Veto ML: on exige soit accord ML, soit ML=hold (ne s’oppose pas)
-                ml_ok = final_decision.get("ml_action") in (
-                    "hold",
-                    final_decision["action"],
-                )
-
-                # Récupération du DataFrame OHLCV (ex: df = bot.ws_collector.get_dataframe(pair_key, "1h"))
-                df = (
-                    bot.ws_collector.get_dataframe(pair_key, "1h")
-                    if hasattr(bot, "ws_collector")
-                    else None
-                )
-                volatility_ok = True
-                if df is not None and not df.empty:
-                    volatility_ok = bot.calculate_volatility_advanced(df) <= 0.08
-
-                if (
-                    signal_score >= 0.6
-                    and final_decision["confidence"] >= 0.7
-                    and ml_ok
-                    and volatility_ok
-                ):
-                    trade_decisions.append(final_decision)
-
-                decisions_for_dashboard[pair] = final_decision
-
-            except Exception as e:
-                print(f"[ERROR] Failed to process {pair}: {str(e)}")
-                continue
-
-        # 6) Analyse des signaux (inchangé)
-        signals_ok = bot.verify_signals_completeness()
-        for pair, decision in decisions_for_dashboard.items():
-            pair_key = pair.replace("/", "").upper()
-            if pair_key not in bot.market_data:
-                bot.market_data[pair_key] = {}
-            bot.market_data[pair_key]["last_decision"] = decision
-            bot.market_data[pair_key]["last_update"] = current_time
-
-        # 7) EXÉCUTION DES TRADES (avec ML obligatoire)
-        if signals_ok and trade_decisions:
-            current_exposure = sum(
-                safe_float(pos.get("amount", 0)) * safe_float(pos.get("entry_price", 0))
-                for pos in getattr(bot, "positions", {}).values()
-            ) / max(bot.get_performance_metrics().get("balance", 1), 1)
-
-            if (
-                current_exposure
-                < bot.risk_manager.position_limits["max_total_exposure"]
-            ):
-                filtered_decisions = []
-
-                for decision in trade_decisions:
-                    pair = decision["pair"]
-                    pair_key = pair.replace("/", "").upper()
-                    action = str(decision.get("action", "")).lower()  # buy/sell/neutral
-
-                    # PAUSE INTELLIGENTE
-                    trading_paused = (
-                        bot.news_pause_manager.global_cycles_remaining > 0
-                        if bot.news_pause_manager
-                        else False
-                    )
-                    pair_paused = (
-                        (
-                            pair in bot.news_pause_manager.pair_pauses
-                            and bot.news_pause_manager.pair_pauses[pair] > 0
-                        )
-                        if bot.news_pause_manager
-                        else False
-                    )
-                    buy_paused = (
-                        (pair in bot.news_pause_manager.buy_paused_pairs)
-                        if bot.news_pause_manager
-                        else False
-                    )
-
-                    if trading_paused and action == "buy":
-                        continue
-                    if pair_paused and action == "buy":
-                        continue
-                    if buy_paused and action == "buy":
-                        continue
-
-                    current_price = None
-                    md_1h = bot.market_data.get(pair_key, {}).get("1h", {})
-                    cl_1h = md_1h.get("close", [])
-                    if isinstance(cl_1h, list) and cl_1h:
-                        current_price = safe_float(cl_1h[-1], None)
-                    if current_price is None:
-                        df_fallback = bot.ws_collector.get_dataframe(pair_key, "1m")
-                        if df_fallback is not None and not df_fallback.empty:
-                            current_price = float(df_fallback["close"].iloc[-1])
-
-                    volatility = bot.calculate_volatility(md_1h) if md_1h else 0.0
-                    atr_val = None
-                    try:
-                        analysis_1h = (
-                            bot.market_data.get(pair_key, {})
-                            .get("1h", {})
-                            .get("signals", {})
-                        )
-                        atr_val = analysis_1h.get("volatility", {}).get("atr")
-                    except Exception:
-                        atr_val = None
-
-                    if volatility > 0.08:
-                        continue
-
-                    # PRE-TRADE CHECK
-                    signals_dict = analysis_1h if isinstance(analysis_1h, dict) else {}
-
-                    # ML PREDICTION (déjà incluse dans final_decision si patch ML, on peut commenter ici)
-                    # try:
-                    #     features_flat = extract_features(signals_dict)
-                    #     X_live = [
-                    #         features_flat.get(col, 0)
-                    #         for col in bot.ml_model.feature_names_in_
-                    #     ]
-                    #     X_live_scaled = bot.ml_scaler.transform([X_live])
-                    #     ml_decision = bot.ml_model.predict(X_live_scaled)[0]
-                    # except Exception as e:
-                    #     print(f"[ML] Erreur prédiction ML : {e}")
-                    #     ml_decision = None
-
-                    # Combine ML + règle
-                    accept_trade = True  # déduite par le filtre ML plus haut
-                    if decision["action"] == "neutral":
-                        accept_trade = False
-
-                    # risk_manager.pre_trade_check
-                    try:
-                        check = bot.risk_manager.pre_trade_check(
-                            symbol=pair_key,
-                            side=action.upper(),
-                            price=current_price,
-                            equity=current_equity_usd,
-                            confidence=decision.get("confidence", 0.0),
-                            volatility=volatility or 0.01,
-                            signals=signals_dict,
-                            current_positions=getattr(bot, "positions", {}),
-                            current_cycle=bot.current_cycle,
-                            atr=atr_val,
-                            market_liquidity=None,
-                            corr_groups={
-                                "L1": [
-                                    "BTCUSDC",
-                                    "ETHUSDC",
-                                    "SOLUSDC",
-                                    "BNBUSDC",
-                                    "ADAUSDC",
-                                ],
-                                "Meme": ["DOGEUSDC", "SHIBUSDC"],
-                            },
-                            news_paused=(
-                                bot.news_pause_manager.is_paused(pair_key)
-                                if hasattr(bot, "news_pause_manager")
-                                and callable(
-                                    getattr(bot.news_pause_manager, "is_paused", None)
-                                )
-                                else False
-                            ),
-                        )
-                    except AttributeError:
-                        check = {
-                            "approved": False,
-                            "reason": "pre_trade_check absent",
-                        }
-
-                    if not check.get("approved"):
-                        log_dashboard(
-                            f"[RISK] Refus trade {pair}: {check.get('reason')}"
-                        )
-                        continue
-
-                    position_units = check.get("size_units")
-                    stop_loss_price = check.get("stop_loss_price")
-                    if position_units is None or position_units <= 0:
-                        continue
-
-                    # TRADE FINALISATION
-                    if accept_trade:
-                        decision_out = dict(decision)
-                        decision_out["amount"] = float(position_units)
-                        decision_out["stop_loss"] = (
-                            float(stop_loss_price) if stop_loss_price else None
-                        )
-                        decision_out["action"] = (
-                            "buy"
-                            if action == "buy"
-                            else (
-                                "sell"
-                                if action == "sell"
-                                else decision_out.get("action", "neutral")
-                            )
-                        )
-                        filtered_decisions.append(decision_out)
-
-                if filtered_decisions:
-                    await execute_trade_decisions(bot, filtered_decisions)
-                    log_dashboard(
-                        f"✅ {len(filtered_decisions)}/{len(trade_decisions)} trades exécutés"
-                    )
-                else:
-                    log_dashboard("ℹ️ Toutes décisions rejetées après filtrage")
-            else:
-                log_dashboard(f"🚫 Exposition ({current_exposure:.1%}) > limite")
-
-        return trade_decisions, getattr(bot, "regime", "Indéterminé")
-
-    except Exception as e:
-        logger.error(f"❌ Erreur cycle trading: {e}")
-        raise
-
-
-async def execute_trade_decisions(bot, trade_decisions):
-    """
-    Exécute toutes les décisions de trade du cycle.
-    Intègre la gestion avancée de pause news par asset/action
-    et la validation par le RiskManager.
-    Corrigé pour éviter tout bug de type (int + str) sur les montants.
-    """
-    # Vérification des news du cycle
-    news_list = []
-    try:
-        with open(bot.data_file, "r") as f:
-            shared_data = json.load(f)
-        news_sentiment = (
-            shared_data.get("sentiment", {}) if isinstance(shared_data, dict) else {}
-        )
-        news_list = (
-            news_sentiment.get("scores", []) if isinstance(news_sentiment, dict) else []
-        )
-    except Exception as e:
-        print(f"[WARNING] Erreur chargement news: {e}")
-        news_list = []
-
-    # Validation des champs obligatoires des news
-    for news in news_list:
-        if "symbols" not in news or not news["symbols"]:
-            log_dashboard(
-                f"[NEWS CHECK] ⚠️ News sans symboles: {news.get('title', '')[:80]}"
-            )
-        if "sentiment" not in news:
-            log_dashboard(
-                f"[NEWS CHECK] ⚠️ News sans sentiment: {news.get('title', '')[:80]}"
-            )
-
-    # Traitement des décisions de trade
-    for decision in trade_decisions:
-        try:
-            pair = decision.get("pair")
-            action = decision.get("action")
-            confidence = safe_float(decision.get("confidence", 0))
-            status = "neutral"  # statut par défaut
-
-            # Vérification pause news
-            active_pauses = bot.news_pause_manager.get_active_pauses()
-            if any(
-                p.get("asset") == pair or p.get("asset") == "GLOBAL"
-                for p in active_pauses
-            ):
-                status = "refused"
-                log_dashboard(
-                    f"[NEWS PAUSE] Trade {str(action).upper()} sur {pair} bloqué (pause news)"
-                )
-                await bot.telegram.send_message(
-                    f"🚨 Trading {str(action).upper()} sur {pair} bloqué (pause news)"
-                )
-                # Log la décision même refusée
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=bot.get_performance_metrics().get("balance", 0),
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
-                    )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
-                continue
-
-            # Validation par le RiskManager
-            if not bot.risk_manager.validate_trade(decision.get("signals", {})):
-                status = "refused"
-                log_dashboard(
-                    f"[RISK] Trade {str(action).upper()} sur {pair} rejeté "
-                    "(critères de risque non respectés)"
-                )
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=bot.get_performance_metrics().get("balance", 0),
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
-                    )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
-                continue
-
-            # Calcul de la taille de position
-            balance = safe_float(bot.get_performance_metrics().get("balance", 0), 0)
-            volatility = safe_float(
-                bot.calculate_volatility_advanced(
-                    bot.market_data.get(pair.replace("/", "").upper(), {}).get("1h", {})
-                ),
-                0.02,
-            )
-
-            amount = safe_float(
-                bot.risk_manager.calculate_position_size(
-                    equity=balance, confidence=confidence, volatility=volatility
-                ),
-                0,
-            )
-
-            if amount <= 0:
-                status = "refused"
-                log_dashboard(f"[RISK] Taille position nulle pour {pair}, trade ignoré")
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=balance,
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
-                    )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
-                continue
-
-            # Vérification exposition totale
-            if not bot.risk_manager.check_exposure_limit(bot.positions, amount):
-                status = "refused"
-                log_dashboard(
-                    f"[RISK] Limite d'exposition dépassée pour {pair}, trade ignoré"
-                )
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=balance,
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
-                    )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
-                continue
-
-            # Log pré-exécution
-            log_dashboard(
-                f"[EXECUTE] {pair} | {str(action).upper()} | "
-                f"Amount: {amount:.6f} | Conf: {confidence:.2f}"
-            )
-
-            # Exécution du trade
-            trade_result = await bot.execute_trade(
-                symbol=pair, side=action, amount=amount
-            )
-
-            # Notification du résultat
-            if trade_result and trade_result.get("status") == "completed":
-                status = "executed"
-                await send_trade_notification(
-                    bot=bot, decision=decision, trade_result=trade_result, amount=amount
-                )
-                log_dashboard(f"[SUCCESS] Trade exécuté sur {pair}")
-            else:
-                status = "refused"
-                log_dashboard(
-                    f"[ERROR] Échec exécution trade sur {pair}: "
-                    f"{trade_result.get('reason', 'raison inconnue')}"
-                )
-
-            # Log la décision finale (executed ou refused)
-            try:
-                bot.dataset_logger.log_cycle(
-                    pair=pair,
-                    equity=bot.get_performance_metrics().get("balance", 0),
-                    decision=decision,
-                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                    .get("1h", {})
-                    .get("close", [0])[-1],
-                    features=decision.get("signals", {}),
-                    status=status,
-                )
-            except Exception as e:
-                print(f"[LOGGER] Erreur dataset log: {e}")
-
-        except Exception as e:
-            log_dashboard(f"[ERROR] Erreur exécution trade {pair}: {str(e)}")
-            # Même en cas d'exception, log en "refused"
-            try:
-                bot.dataset_logger.log_cycle(
-                    pair=pair,
-                    equity=bot.get_performance_metrics().get("balance", 0),
-                    decision=decision,
-                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                    .get("1h", {})
-                    .get("close", [0])[-1],
-                    features=decision.get("signals", {}),
-                    status="refused",
-                )
-            except Exception as e2:
-                print(f"[LOGGER] Erreur dataset log (except): {e2}")
-            continue
 
 
 __all__ = [
