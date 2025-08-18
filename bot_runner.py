@@ -637,7 +637,7 @@ class TelegramNotifier:
                     data = {"chat_id": self.chat_id, "text": part, "parse_mode": "HTML"}
                     for attempt in range(3):
                         try:
-                            print(f"[TELEGRAM] Envoi message à {url}: {data}")
+                            # print(f"[TELEGRAM] Envoi message à {url}: {data}")
                             async with session.post(url, json=data) as response:
                                 result = await response.json()
                                 if not result.get("ok"):
@@ -652,9 +652,9 @@ class TelegramNotifier:
                         ) as e:
                             import traceback
 
-                            print(
-                                f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
-                            )
+                            # print(
+                            # f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                            # )
                             traceback.print_exc()
                             await asyncio.sleep(2**attempt)  # backoff exponentiel
                             if attempt == 2:

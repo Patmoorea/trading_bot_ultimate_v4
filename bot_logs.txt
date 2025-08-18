@@ -8039,3 +8039,62 @@
 2025-08-18T02:39:36.488250 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
 2025-08-18T02:45:03.629205 | Démarrage cycle trading
 2025-08-18T02:56:51.271376 | Démarrage cycle trading
+2025-08-18T03:06:32.074579 | Démarrage cycle trading
+2025-08-18T03:11:15.555344 | Démarrage cycle trading
+2025-08-18T03:19:00.434475 | Démarrage cycle trading
+2025-08-18T03:23:14.487145 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T03:23:14.487865 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T03:23:14.487901 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T03:23:14.487933 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T03:23:14.487965 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T03:23:14.487995 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T03:23:14.488026 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T03:23:14.488054 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T03:23:14.488080 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-18T03:23:14.488106 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-18T03:23:14.488134 | [NEWS CHECK] ⚠️ News sans symboles: Ark Invest de Cathie Wood achète 177 millions de dollars en actions haussiers ap
+2025-08-18T03:23:14.488159 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-18T03:35:58.868492 | Démarrage cycle trading
+2025-08-18T03:40:20.549523 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T03:40:20.551596 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T03:40:20.551638 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T03:40:20.551674 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T03:40:20.551710 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T03:40:20.551744 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T03:40:20.551779 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T03:40:20.551812 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T03:40:20.551844 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-18T03:40:20.551878 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-18T03:40:20.551940 | [NEWS CHECK] ⚠️ News sans symboles: Ark Invest de Cathie Wood achète 177 millions de dollars en actions haussiers ap
+2025-08-18T03:40:20.551967 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-18T03:47:58.693168 | Démarrage cycle trading
+2025-08-18T03:51:19.881161 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T03:51:19.882730 | Initialisation des modèles d'IA...
+2025-08-18T03:51:20.062645 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T03:51:21.379264 | ✅ PPO Strategy initialized successfully
+2025-08-18T03:51:29.465038 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T03:51:29.465662 | ✅ Trading en direct: True
+2025-08-18T03:51:29.465707 | ✅ IA activée: True
+2025-08-18T03:51:29.465743 | ✅ Analyse de news activée: True
+2025-08-18T03:53:27.455394 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T03:53:27.456787 | Initialisation des modèles d'IA...
+2025-08-18T03:53:27.668033 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T03:53:29.365219 | ✅ PPO Strategy initialized successfully
+2025-08-18T03:53:32.921520 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T03:53:32.922019 | ✅ Trading en direct: True
+2025-08-18T03:53:32.922060 | ✅ IA activée: True
+2025-08-18T03:53:32.922096 | ✅ Analyse de news activée: True
+2025-08-18T03:54:20.920112 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T03:54:58.305963 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T03:59:50.691901 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T03:59:50.694151 | Initialisation des modèles d'IA...
+2025-08-18T03:59:50.867728 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T03:59:52.143242 | ✅ PPO Strategy initialized successfully
+2025-08-18T03:59:58.367536 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T03:59:58.368090 | ✅ Trading en direct: True
+2025-08-18T03:59:58.368125 | ✅ IA activée: True
+2025-08-18T03:59:58.368156 | ✅ Analyse de news activée: True
+2025-08-18T04:02:50.128826 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T04:03:29.947721 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T04:08:26.971537 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0452 | Tendance: -0.0057
+2025-08-18T04:08:26.973176 | 🔈 Régime de marché détecté: Range/Scalping
