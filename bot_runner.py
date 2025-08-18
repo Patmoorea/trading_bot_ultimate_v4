@@ -3397,9 +3397,9 @@ class TradingBotM4:
             self.logger.info(
                 f"✅ {n_valid} indicateurs extraits automatiquement sur {df.shape[0]} lignes"
             )
-            print(
-                f"[DEBUG add_indicators] {n_valid} indicateurs extraits: {list(indicators.keys())[:5]}"
-            )
+            # print(
+            # f"[DEBUG add_indicators] {n_valid} indicateurs extraits: {list(indicators.keys())[:5]}"
+            # )
             return indicators
 
         except Exception as e:
@@ -4454,7 +4454,7 @@ class TradingBotM4:
             # Ajoute ici les autres positions (futures/simu) si besoin, selon ta logique
 
             # PATCH: DEBUG pour vérifier le résultat
-            print("[DEBUG] get_pending_sales generated:", pending)
+            # print("[DEBUG] get_pending_sales generated:", pending)
             # Sauvegarde dans shared_data.json
             self.safe_update_shared_data({"pending_sales": pending}, self.data_file)
             return pending
@@ -4636,7 +4636,7 @@ class TradingBotM4:
         Déclenche le stop-loss court et/ou le trailing stop sur une position short BingX.
         - trailing_pct : trailing stop en % (ex: 0.03 = 3%)
         """
-        pos = self.positions.get(symbol)
+        pos = self.positions_binance.get(symbol)
         if not pos or pos.get("side") != "short":
             return False
         entry = pos.get("entry_price")
@@ -5523,9 +5523,16 @@ class TradingBotM4:
     def check_stop_loss(self, symbol, price: float = None):
         """
         Stop-loss dynamique basé sur la volatilité (ATR).
+        Corrigé : utilise positions_binance en live, positions en simu.
         """
         try:
-            pos = self.positions.get(symbol)
+            # --- PATCH: détection du mode ---
+            positions_dict = (
+                self.positions_binance
+                if getattr(self, "is_live_trading", False)
+                else self.positions
+            )
+            pos = positions_dict.get(symbol)
             if not pos or pos.get("side") != "long":
                 return False
             entry = safe_float(pos.get("entry_price"), 0)
@@ -5547,7 +5554,7 @@ class TradingBotM4:
             if price == 0:
                 return False
 
-            # Utilisation de self.calculate_atr au lieu de calculate_atr
+            # Utilisation de self.calculate_atr
             df_ohlcv = pd.DataFrame(self.market_data[symbol_ws]["1h"])
             atr = safe_float(self.calculate_atr(df_ohlcv, period=14), 0)
             dynamic_stop_pct = max(

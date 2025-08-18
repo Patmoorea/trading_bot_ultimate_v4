@@ -8098,3 +8098,1037 @@
 2025-08-18T04:03:29.947721 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
 2025-08-18T04:08:26.971537 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0452 | Tendance: -0.0057
 2025-08-18T04:08:26.973176 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-18T04:44:02.037669 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T04:44:02.040088 | Initialisation des modèles d'IA...
+2025-08-18T04:44:02.238891 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T04:44:03.538945 | ✅ PPO Strategy initialized successfully
+2025-08-18T04:44:10.698956 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T04:44:10.699554 | ✅ Trading en direct: True
+2025-08-18T04:44:10.699593 | ✅ IA activée: True
+2025-08-18T04:44:10.699625 | ✅ Analyse de news activée: True
+2025-08-18T04:46:59.930663 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T04:47:38.422583 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T04:49:36.761260 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T04:49:36.762962 | Initialisation des modèles d'IA...
+2025-08-18T04:49:36.973206 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T04:49:38.562163 | ✅ PPO Strategy initialized successfully
+2025-08-18T04:49:44.464730 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T04:49:44.465415 | ✅ Trading en direct: True
+2025-08-18T04:49:44.465463 | ✅ IA activée: True
+2025-08-18T04:49:44.465506 | ✅ Analyse de news activée: True
+2025-08-18T04:52:55.441506 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0466 | Tendance: -0.0056
+2025-08-18T04:52:55.443428 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-18T04:56:01.118441 | Démarrage cycle trading
+2025-08-18T05:00:20.899664 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T05:00:20.901245 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T05:00:20.901289 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T05:00:20.901333 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T05:00:20.901367 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T05:00:20.901398 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T05:00:20.901428 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T05:00:20.901458 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T05:00:20.901487 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-18T05:00:20.901515 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-18T05:00:20.901543 | [NEWS CHECK] ⚠️ News sans symboles: Ark Invest de Cathie Wood achète 177 millions de dollars en actions haussiers ap
+2025-08-18T05:00:20.901576 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-18T05:05:52.587106 | Démarrage cycle trading
+2025-08-18T05:12:08.388842 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T05:12:08.389328 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T05:12:08.389359 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T05:12:08.389389 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T05:12:08.389415 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T05:12:08.389444 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T05:12:08.389473 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T05:12:08.389497 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T05:12:08.389520 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T05:12:08.389544 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T05:12:08.389567 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T05:12:08.389590 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T05:12:08.389613 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T05:12:08.389637 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T05:12:08.389659 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T05:12:08.389683 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T05:12:08.389723 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T05:12:08.389749 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T05:12:08.389775 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T05:12:08.389801 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T05:17:44.379180 | Démarrage cycle trading
+2025-08-18T05:17:44.982320 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T05:28:01.116522 | Démarrage cycle trading
+2025-08-18T05:28:01.764667 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T05:36:20.238293 | Démarrage cycle trading
+2025-08-18T05:36:20.901325 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T05:46:47.060607 | Démarrage cycle trading
+2025-08-18T05:46:47.663154 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T05:55:00.774030 | Démarrage cycle trading
+2025-08-18T05:55:01.380838 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:05:30.793230 | Démarrage cycle trading
+2025-08-18T06:05:31.426456 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:13:59.151037 | Démarrage cycle trading
+2025-08-18T06:13:59.753060 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:24:25.577346 | Démarrage cycle trading
+2025-08-18T06:24:26.196978 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:40:01.668854 | Démarrage cycle trading
+2025-08-18T06:40:02.249210 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:50:31.494610 | Démarrage cycle trading
+2025-08-18T06:50:32.105123 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T06:59:01.366285 | Démarrage cycle trading
+2025-08-18T06:59:01.978330 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T07:09:24.196901 | Démarrage cycle trading
+2025-08-18T07:12:07.006028 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:12:07.007058 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:12:07.007093 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:12:07.007126 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:12:07.007156 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:12:07.007186 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:12:07.007218 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:12:07.007249 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:12:07.007277 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:12:07.007306 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:12:07.007335 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:12:07.007362 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:12:07.007392 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:12:07.007420 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:12:07.007449 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:12:07.007503 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:12:07.007534 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:12:07.007566 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:12:07.007600 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:12:07.007642 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T07:17:49.952023 | Démarrage cycle trading
+2025-08-18T07:20:39.365787 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:20:39.366875 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:20:39.366918 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:20:39.366955 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:20:39.366990 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:20:39.367024 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:20:39.367060 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:20:39.367092 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:20:39.367128 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:20:39.367161 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:20:39.367194 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:20:39.367226 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:20:39.367258 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:20:39.367292 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:20:39.367324 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:20:39.367355 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:20:39.367387 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:20:39.367418 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:20:39.367449 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:20:39.367481 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T07:28:25.683346 | Démarrage cycle trading
+2025-08-18T07:31:11.773554 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:31:11.774129 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:31:11.774160 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:31:11.774190 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:31:11.774217 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:31:11.774243 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:31:11.774269 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:31:11.774295 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:31:11.774322 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:31:11.774346 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:31:11.774371 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:31:11.774397 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:31:11.774422 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:31:11.774448 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:31:11.774475 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:31:11.774499 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:31:11.774523 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:31:11.774547 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:31:11.774572 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:31:11.774595 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T07:36:47.398987 | Démarrage cycle trading
+2025-08-18T07:39:33.647459 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:39:33.648014 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:39:33.648046 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:39:33.648075 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:39:33.648103 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:39:33.648128 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:39:33.648154 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:39:33.648178 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:39:33.648203 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:39:33.648251 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:39:33.648281 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:39:33.648308 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:39:33.648340 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:39:33.648368 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:39:33.648396 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:39:33.648425 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:39:33.648452 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:39:33.648480 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:39:33.648508 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:39:33.648535 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T07:47:12.595095 | Démarrage cycle trading
+2025-08-18T07:49:55.119026 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:49:55.120540 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:49:55.120598 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:49:55.120643 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:49:55.120683 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:49:55.120722 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:49:55.120759 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:49:55.120796 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:49:55.120832 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:49:55.120867 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:49:55.120902 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:49:55.120937 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:49:55.120971 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:49:55.121005 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:49:55.121038 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:49:55.121072 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:49:55.121140 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:49:55.121179 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:49:55.121217 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:49:55.121254 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T07:55:37.328131 | Démarrage cycle trading
+2025-08-18T07:58:23.235376 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T07:58:23.240769 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T07:58:23.240833 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T07:58:23.240934 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T07:58:23.240978 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T07:58:23.241011 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T07:58:23.241089 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T07:58:23.241134 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T07:58:23.241162 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T07:58:23.241203 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T07:58:23.241230 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T07:58:23.241311 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T07:58:23.241415 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T07:58:23.241465 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T07:58:23.241501 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T07:58:23.241531 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T07:58:23.241562 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T07:58:23.241592 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T07:58:23.241620 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T07:58:23.241722 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:06:00.491273 | Démarrage cycle trading
+2025-08-18T08:08:43.414893 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T08:08:43.415461 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T08:08:43.415515 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T08:08:43.415552 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T08:08:43.415586 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T08:08:43.415620 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T08:08:43.415654 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T08:08:43.415687 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T08:08:43.415720 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T08:08:43.415752 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T08:08:43.415787 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T08:08:43.415821 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T08:08:43.415852 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T08:08:43.415884 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T08:08:43.415915 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T08:08:43.415947 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T08:08:43.415978 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T08:08:43.416009 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T08:08:43.416041 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T08:08:43.416072 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:21:15.438134 | Démarrage cycle trading
+2025-08-18T08:23:57.356222 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T08:23:57.356724 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T08:23:57.356760 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T08:23:57.356792 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T08:23:57.356823 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T08:23:57.356853 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T08:23:57.356887 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T08:23:57.356928 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T08:23:57.356963 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T08:23:57.356995 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T08:23:57.357044 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T08:23:57.357069 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T08:23:57.357091 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T08:23:57.357114 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T08:23:57.357137 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T08:23:57.357158 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T08:23:57.357180 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T08:23:57.357201 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T08:23:57.357221 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T08:23:57.357241 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:31:45.758145 | Démarrage cycle trading
+2025-08-18T08:34:27.406638 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T08:34:27.407661 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T08:34:27.407693 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T08:34:27.407722 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T08:34:27.407750 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T08:34:27.407776 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T08:34:27.407801 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T08:34:27.407827 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T08:34:27.407856 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T08:34:27.407881 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T08:34:27.407906 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T08:34:27.407932 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T08:34:27.407957 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T08:34:27.407981 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T08:34:27.408006 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T08:34:27.408030 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T08:34:27.408055 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T08:34:27.408103 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T08:34:27.408131 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T08:34:27.408160 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:40:00.894889 | Démarrage cycle trading
+2025-08-18T08:42:42.949361 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T08:42:42.950210 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T08:42:42.950248 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T08:42:42.950278 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T08:42:42.950307 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T08:42:42.950333 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T08:42:42.950358 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T08:42:42.950383 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T08:42:42.950408 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T08:42:42.950433 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T08:42:42.950457 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T08:42:42.950480 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T08:42:42.950505 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T08:42:42.950529 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T08:42:42.950553 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T08:42:42.950577 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T08:42:42.950601 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T08:42:42.950625 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T08:42:42.950648 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T08:42:42.950672 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:50:15.929423 | Démarrage cycle trading
+2025-08-18T08:52:55.747338 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T08:52:55.748021 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T08:52:55.748059 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T08:52:55.748119 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T08:52:55.748161 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T08:52:55.748199 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T08:52:55.748236 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T08:52:55.748270 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T08:52:55.748305 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T08:52:55.748339 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T08:52:55.748373 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T08:52:55.748406 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T08:52:55.748440 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T08:52:55.748472 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T08:52:55.748508 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T08:52:55.748552 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T08:52:55.748598 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T08:52:55.748630 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T08:52:55.748664 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T08:52:55.748697 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T08:58:26.773562 | Démarrage cycle trading
+2025-08-18T09:01:12.646271 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:01:12.646808 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:01:12.646841 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:01:12.646871 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:01:12.646900 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:01:12.646929 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:01:12.646956 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:01:12.646982 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:01:12.647011 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:01:12.647047 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:01:12.647085 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:01:12.647144 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:01:12.647174 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:01:12.647204 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:01:12.647235 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:01:12.647264 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:01:12.647292 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:01:12.647320 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:01:12.647349 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:01:12.647377 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T09:08:52.863265 | Démarrage cycle trading
+2025-08-18T09:11:33.512942 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:11:33.514122 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:11:33.514166 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:11:33.514209 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:11:33.514247 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:11:33.514285 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:11:33.514322 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:11:33.514359 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:11:33.514394 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:11:33.514427 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:11:33.514461 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:11:33.514493 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:11:33.514525 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:11:33.514558 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:11:33.514594 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:11:33.514629 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:11:33.514668 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:11:33.514704 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:11:33.514764 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:11:33.514790 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T09:17:01.838608 | Démarrage cycle trading
+2025-08-18T09:19:41.244448 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:19:41.245047 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:19:41.245088 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:19:41.245127 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:19:41.245161 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:19:41.245194 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:19:41.245227 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:19:41.245260 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:19:41.245290 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:19:41.245319 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:19:41.245348 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:19:41.245378 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:19:41.245406 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:19:41.245435 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:19:41.245461 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:19:41.245487 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:19:41.245516 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:19:41.245545 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:19:41.245572 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:19:41.245602 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T09:27:13.070819 | Démarrage cycle trading
+2025-08-18T09:29:55.364439 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:29:55.365026 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:29:55.365062 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:29:55.365095 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:29:55.365125 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:29:55.365180 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:29:55.365214 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:29:55.365245 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:29:55.365276 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:29:55.365306 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:29:55.365337 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:29:55.365366 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:29:55.365396 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:29:55.365424 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:29:55.365463 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:29:55.365503 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:29:55.365535 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:29:55.365576 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:29:55.365606 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:29:55.365635 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T09:35:30.925079 | Démarrage cycle trading
+2025-08-18T09:38:12.113583 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:38:12.114178 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:38:12.114214 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:38:12.114247 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:38:12.114277 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:38:12.114304 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:38:12.114332 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:38:12.114361 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:38:12.114389 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:38:12.114415 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:38:12.114442 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:38:12.114471 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:38:12.114517 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:38:12.114547 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:38:12.114577 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:38:12.114607 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:38:12.114643 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:38:12.114672 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:38:12.114700 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:38:12.114728 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T09:45:47.465747 | Démarrage cycle trading
+2025-08-18T09:48:26.326192 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T09:48:26.326817 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T09:48:26.326858 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T09:48:26.326894 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T09:48:26.326928 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T09:48:26.326960 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T09:48:26.326992 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T09:48:26.327022 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T09:48:26.327054 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T09:48:26.327085 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T09:48:26.327115 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T09:48:26.327148 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T09:48:26.327178 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T09:48:26.327210 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T09:48:26.327240 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T09:48:26.327270 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T09:48:26.327300 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T09:48:26.327329 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T09:48:26.327361 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T09:48:26.327414 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:00:49.106389 | Démarrage cycle trading
+2025-08-18T10:03:38.338949 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:03:38.339813 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:03:38.339852 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:03:38.339884 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:03:38.339916 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:03:38.339946 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:03:38.339976 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:03:38.340005 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:03:38.340033 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:03:38.340062 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:03:38.340091 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:03:38.340120 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:03:38.340148 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:03:38.340176 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:03:38.340204 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:03:38.340232 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:03:38.340259 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:03:38.340286 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:03:38.340314 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:03:38.340341 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:11:03.927441 | Démarrage cycle trading
+2025-08-18T10:13:44.470780 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:13:44.471694 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:13:44.471735 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:13:44.471771 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:13:44.471806 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:13:44.471841 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:13:44.471895 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:13:44.471921 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:13:44.471947 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:13:44.471972 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:13:44.471997 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:13:44.472023 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:13:44.472047 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:13:44.472072 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:13:44.472097 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:13:44.472121 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:13:44.472146 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:13:44.472171 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:13:44.472195 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:13:44.472219 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:19:16.624197 | Démarrage cycle trading
+2025-08-18T10:21:57.144843 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:21:57.145467 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:21:57.145502 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:21:57.145531 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:21:57.145559 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:21:57.145588 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:21:57.145615 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:21:57.145641 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:21:57.145668 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:21:57.145693 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:21:57.145717 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:21:57.145742 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:21:57.145766 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:21:57.145811 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:21:57.145841 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:21:57.145870 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:21:57.145898 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:21:57.145927 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:21:57.145955 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:21:57.145982 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:29:28.183040 | Démarrage cycle trading
+2025-08-18T10:32:08.203269 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:32:08.204127 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:32:08.204161 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:32:08.204192 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:32:08.204224 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:32:08.204255 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:32:08.204285 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:32:08.204312 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:32:08.204339 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:32:08.204366 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:32:08.204393 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:32:08.204421 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:32:08.204446 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:32:08.204472 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:32:08.204500 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:32:08.204525 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:32:08.204551 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:32:08.204577 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:32:08.204602 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:32:08.204630 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:37:35.517340 | Démarrage cycle trading
+2025-08-18T10:40:14.720369 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:40:14.720985 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:40:14.721024 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:40:14.721058 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:40:14.721093 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:40:14.721138 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:40:14.721173 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:40:14.721207 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:40:14.721241 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:40:14.721274 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:40:14.721305 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:40:14.721336 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:40:14.721367 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:40:14.721397 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:40:14.721429 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:40:14.721459 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:40:14.721488 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:40:14.721518 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:40:14.721547 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:40:14.721577 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:47:48.223052 | Démarrage cycle trading
+2025-08-18T10:50:27.787963 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:50:27.788600 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:50:27.788638 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:50:27.788673 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:50:27.788706 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:50:27.788739 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:50:27.788770 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:50:27.788824 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:50:27.788858 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:50:27.788892 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:50:27.788927 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:50:27.788959 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:50:27.788993 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:50:27.789025 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:50:27.789059 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:50:27.789092 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:50:27.789128 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:50:27.789160 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:50:27.789195 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:50:27.789230 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T10:55:52.189261 | Démarrage cycle trading
+2025-08-18T10:58:34.034627 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T10:58:34.035253 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T10:58:34.035296 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T10:58:34.035333 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T10:58:34.035368 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T10:58:34.035405 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T10:58:34.035440 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T10:58:34.035486 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T10:58:34.035538 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T10:58:34.035582 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T10:58:34.035619 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T10:58:34.035652 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T10:58:34.035688 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T10:58:34.035724 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T10:58:34.035798 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T10:58:34.035824 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T10:58:34.035849 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T10:58:34.035874 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T10:58:34.035898 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T10:58:34.035922 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:05:59.690381 | Démarrage cycle trading
+2025-08-18T11:08:38.101404 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T11:08:38.102486 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T11:08:38.102518 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T11:08:38.102548 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T11:08:38.102576 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T11:08:38.102604 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T11:08:38.102630 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T11:08:38.102655 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T11:08:38.102680 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T11:08:38.102705 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T11:08:38.102730 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T11:08:38.102754 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T11:08:38.102784 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T11:08:38.102808 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T11:08:38.102832 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T11:08:38.102857 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T11:08:38.102881 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T11:08:38.102905 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T11:08:38.102931 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T11:08:38.102955 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:13:59.429134 | Démarrage cycle trading
+2025-08-18T11:16:38.025515 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T11:16:38.026577 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T11:16:38.026615 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T11:16:38.026647 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T11:16:38.026675 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T11:16:38.026701 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T11:16:38.026729 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T11:16:38.026754 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T11:16:38.026780 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T11:16:38.026805 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T11:16:38.026830 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T11:16:38.026854 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T11:16:38.026879 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T11:16:38.026904 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T11:16:38.026930 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T11:16:38.026954 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T11:16:38.026980 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T11:16:38.027005 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T11:16:38.027029 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T11:16:38.027053 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:24:01.726906 | Démarrage cycle trading
+2025-08-18T11:26:44.597051 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T11:26:44.597670 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T11:26:44.597715 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T11:26:44.597749 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T11:26:44.597779 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T11:26:44.597808 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T11:26:44.597838 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T11:26:44.597866 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T11:26:44.598035 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T11:26:44.598080 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T11:26:44.598116 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T11:26:44.598149 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T11:26:44.598181 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T11:26:44.598214 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T11:26:44.598246 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T11:26:44.598276 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T11:26:44.598306 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T11:26:44.598335 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T11:26:44.598364 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T11:26:44.598394 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:39:19.345974 | Démarrage cycle trading
+2025-08-18T11:42:09.439584 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T11:42:09.441005 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T11:42:09.441057 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T11:42:09.441100 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T11:42:09.441140 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T11:42:09.441178 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T11:42:09.441217 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T11:42:09.441254 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T11:42:09.441289 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T11:42:09.441325 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T11:42:09.441360 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T11:42:09.441396 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T11:42:09.441431 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T11:42:09.441467 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T11:42:09.441501 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T11:42:09.441653 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T11:42:09.441692 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T11:42:09.441730 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T11:42:09.441773 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T11:42:09.441816 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:49:45.835624 | Démarrage cycle trading
+2025-08-18T11:52:31.596896 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T11:52:31.598034 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T11:52:31.598075 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T11:52:31.598111 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T11:52:31.598144 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T11:52:31.598176 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T11:52:31.598209 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T11:52:31.598241 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T11:52:31.598273 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T11:52:31.598304 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T11:52:31.598336 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T11:52:31.598368 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T11:52:31.598398 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T11:52:31.598430 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T11:52:31.598462 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T11:52:31.598492 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T11:52:31.598522 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T11:52:31.598552 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T11:52:31.598582 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T11:52:31.598610 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T11:58:04.911510 | Démarrage cycle trading
+2025-08-18T12:08:37.717323 | Démarrage cycle trading
+2025-08-18T12:13:19.056550 | Démarrage cycle trading
+2025-08-18T12:21:18.224926 | Démarrage cycle trading
+2025-08-18T12:25:32.244566 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T12:25:32.245420 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T12:25:32.245453 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T12:25:32.245484 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T12:25:32.245512 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T12:25:32.245541 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T12:25:32.245568 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T12:25:32.245595 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T12:25:32.245622 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T12:25:32.245648 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T12:25:32.245675 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T12:25:32.245702 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T12:25:32.245727 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T12:25:32.245753 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T12:25:32.245780 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T12:25:32.245805 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T12:25:32.245835 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T12:25:32.245860 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T12:25:32.245885 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T12:25:32.245911 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T12:31:04.385723 | Démarrage cycle trading
+2025-08-18T12:33:52.420043 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T12:33:52.420615 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T12:33:52.420650 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T12:33:52.420679 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T12:33:52.420707 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T12:33:52.420737 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T12:33:52.420763 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T12:33:52.420790 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T12:33:52.420856 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T12:33:52.420888 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T12:33:52.420917 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T12:33:52.420948 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T12:33:52.420979 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T12:33:52.421009 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T12:33:52.421040 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T12:33:52.421070 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T12:33:52.421100 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T12:33:52.421131 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T12:33:52.421160 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T12:33:52.421188 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T12:39:28.648934 | Démarrage cycle trading
+2025-08-18T12:44:22.309295 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T12:44:22.310762 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T12:44:22.310798 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T12:44:22.310829 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T12:44:22.310859 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T12:44:22.310890 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T12:44:22.310919 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T12:44:22.310948 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T12:44:22.310976 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T12:44:22.311005 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T12:44:22.311035 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T12:44:22.311062 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T12:44:22.311090 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T12:44:22.311120 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T12:44:22.311147 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T12:44:22.311346 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T12:44:22.311380 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T12:44:22.311411 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T12:44:22.311443 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T12:44:22.311473 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T12:49:56.456743 | Démarrage cycle trading
+2025-08-18T12:52:43.387562 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T12:52:43.389000 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T12:52:43.389043 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T12:52:43.389080 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T12:52:43.389115 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T12:52:43.389149 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T12:52:43.389182 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T12:52:43.389216 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T12:52:43.389249 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T12:52:43.389280 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T12:52:43.389313 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T12:52:43.389344 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T12:52:43.389376 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T12:52:43.389408 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T12:52:43.389439 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T12:52:43.389471 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T12:52:43.389502 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T12:52:43.389534 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T12:52:43.389565 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T12:52:43.389596 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T13:00:32.524042 | Démarrage cycle trading
+2025-08-18T13:03:16.735554 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T13:03:16.736932 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T13:03:16.736999 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T13:03:16.737040 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T13:03:16.737078 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T13:03:16.737114 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T13:03:16.737150 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T13:03:16.737186 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T13:03:16.737221 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T13:03:16.737256 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T13:03:16.737291 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T13:03:16.737325 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T13:03:16.737361 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T13:03:16.737394 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T13:03:16.737429 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T13:03:16.737463 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T13:03:16.737497 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T13:03:16.737530 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T13:03:16.737564 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T13:03:16.737599 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T13:16:01.111566 | Démarrage cycle trading
+2025-08-18T13:18:51.812812 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T13:18:51.813704 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T13:18:51.813735 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T13:18:51.813765 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T13:18:51.813792 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T13:18:51.813819 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T13:18:51.813846 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T13:18:51.813873 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T13:18:51.813900 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T13:18:51.813939 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T13:18:51.813958 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T13:18:51.813977 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T13:18:51.813996 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T13:18:51.814015 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T13:18:51.814034 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T13:18:51.814052 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T13:18:51.814070 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T13:18:51.814093 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T13:18:51.814119 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T13:18:51.814143 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T13:26:41.712314 | Démarrage cycle trading
+2025-08-18T13:29:23.925662 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T13:29:23.926597 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T13:29:23.926631 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T13:29:23.926662 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T13:29:23.926691 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T13:29:23.926718 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T13:29:23.926745 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T13:29:23.926771 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T13:29:23.926797 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T13:29:23.926822 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T13:29:23.926848 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T13:29:23.926874 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T13:29:23.926901 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T13:29:23.926927 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T13:29:23.926951 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T13:29:23.926976 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T13:29:23.927019 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T13:29:23.927048 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T13:29:23.927076 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T13:29:23.927105 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T13:34:59.967473 | Démarrage cycle trading
+2025-08-18T13:37:46.663185 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T13:37:46.663879 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T13:37:46.663918 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T13:37:46.663954 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T13:37:46.663986 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T13:37:46.664018 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T13:37:46.664053 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T13:37:46.664084 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T13:37:46.664116 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T13:37:46.664145 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T13:37:46.664174 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T13:37:46.664204 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T13:37:46.664233 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T13:37:46.664263 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T13:37:46.664292 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T13:37:46.664322 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T13:37:46.664351 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T13:37:46.664380 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T13:37:46.664413 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T13:37:46.664443 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T13:45:23.057686 | Démarrage cycle trading
+2025-08-18T13:49:50.678036 | Démarrage cycle trading
+2025-08-18T13:57:42.561483 | Démarrage cycle trading
+2025-08-18T14:01:52.789586 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:01:52.790513 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:01:52.790560 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:01:52.790597 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:01:52.790630 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:01:52.790661 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:01:52.790696 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:01:52.790732 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:01:52.790762 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:01:52.790792 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:01:52.790821 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:01:52.790850 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:01:52.791014 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:01:52.791044 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:01:52.791075 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:01:52.791104 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:01:52.791133 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:01:52.791162 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:01:52.791190 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:01:52.791218 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T14:07:29.254095 | Démarrage cycle trading
+2025-08-18T14:10:12.124894 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:10:12.125776 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:10:12.125819 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:10:12.125856 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:10:12.125889 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:10:12.125919 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:10:12.125948 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:10:12.125979 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:10:12.126008 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:10:12.126036 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:10:12.126097 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:10:12.126129 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:10:12.126157 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:10:12.126187 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:10:12.126220 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:10:12.126250 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:10:12.126279 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:10:12.126310 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:10:12.126343 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:10:12.126373 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T14:15:42.397866 | Démarrage cycle trading
+2025-08-18T14:20:30.333256 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:20:30.333912 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:20:30.333952 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:20:30.333989 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:20:30.334025 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:20:30.334060 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:20:30.334095 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:20:30.334129 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:20:30.334163 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:20:30.334197 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:20:30.334229 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:20:30.334261 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:20:30.334295 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:20:30.334328 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:20:30.334360 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:20:30.334392 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:20:30.334428 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:20:30.334492 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:20:30.334527 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:20:30.334554 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T14:26:08.003473 | Démarrage cycle trading
+2025-08-18T14:28:49.629761 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:28:49.630502 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:28:49.630553 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:28:49.630585 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:28:49.630614 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:28:49.630648 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:28:49.630674 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:28:49.630700 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:28:49.630737 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:28:49.630839 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:28:49.630893 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:28:49.631005 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:28:49.631050 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:28:49.631076 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:28:49.631101 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:28:49.631125 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:28:49.631148 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:28:49.631171 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:28:49.631193 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:28:49.631253 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T14:36:25.817583 | Démarrage cycle trading
+2025-08-18T14:39:06.495655 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:39:06.497474 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:39:06.497535 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:39:06.497585 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:39:06.497673 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:39:06.497722 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:39:06.497770 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:39:06.497816 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:39:06.497860 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:39:06.497904 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:39:06.497948 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:39:06.497989 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:39:06.498071 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:39:06.498149 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:39:06.498209 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:39:06.498260 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:39:06.498309 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:39:06.498353 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:39:06.498395 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:39:06.498434 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T14:43:34.337668 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T14:43:34.340477 | Initialisation des modèles d'IA...
+2025-08-18T14:43:34.569097 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T14:43:35.135730 | ✅ PPO Strategy initialized successfully
+2025-08-18T14:43:41.426887 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T14:43:41.427468 | ✅ Trading en direct: True
+2025-08-18T14:43:41.427506 | ✅ IA activée: True
+2025-08-18T14:43:41.427538 | ✅ Analyse de news activée: True
+2025-08-18T14:44:48.205135 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T14:44:48.206464 | Initialisation des modèles d'IA...
+2025-08-18T14:44:48.353458 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T14:44:49.981545 | ✅ PPO Strategy initialized successfully
+2025-08-18T14:44:53.743430 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T14:44:53.744073 | ✅ Trading en direct: True
+2025-08-18T14:44:53.744107 | ✅ IA activée: True
+2025-08-18T14:44:53.744138 | ✅ Analyse de news activée: True
+2025-08-18T14:47:40.419948 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T14:48:17.273463 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T14:53:10.498342 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0542 | Tendance: -0.0070
+2025-08-18T14:53:10.500286 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-18T14:56:16.665498 | Démarrage cycle trading
+2025-08-18T14:59:00.713006 | [NEWS CHECK] ⚠️ News sans symboles: Thaïlande prévoit le lancement d'un bac à sable de paiement cryptographique pour
+2025-08-18T14:59:00.714966 | [NEWS CHECK] ⚠️ News sans symboles: Le cryptojacker obtient 1 an de prison après avoir admis une fraude de 3,5 milli
+2025-08-18T14:59:00.715011 | [NEWS CHECK] ⚠️ News sans symboles: La prochaine étape d'Altsaison dépend du relance chinoise, de la réponse des inv
+2025-08-18T14:59:00.715051 | [NEWS CHECK] ⚠️ News sans symboles: Japon pour approuver les premières stablescoins à dos de Yen cet automne
+2025-08-18T14:59:00.715087 | [NEWS CHECK] ⚠️ News sans symboles: Centrifuge est en tête de 1 milliard de dollars TVL alors que les institutions c
+2025-08-18T14:59:00.715124 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain pèse la vérification de l'identification numérique dans Defi
+2025-08-18T14:59:00.715159 | [NEWS CHECK] ⚠️ News sans symboles: 5 pays où la crypto est (étonnamment) libre d'impôt en 2025
+2025-08-18T14:59:00.715192 | [NEWS CHECK] ⚠️ News sans symboles: Comment réserver un vol avec Crypto aux EAU: guide étape par étape
+2025-08-18T14:59:00.715229 | [NEWS CHECK] ⚠️ News sans symboles: Kraken fait une pause des dépôts de Monero après 51% d'attaque
+2025-08-18T14:59:00.715265 | [NEWS CHECK] ⚠️ News sans symboles: Les règles de capital de Basel Bank créent & # 039; ChokePoint & # 039; Pour la 
+2025-08-18T14:59:00.715298 | [NEWS CHECK] ⚠️ News sans symboles: Crypto pour devenir le deuxième plus grand secteur des EAU en 5 ans - investisse
+2025-08-18T14:59:00.715334 | [NEWS CHECK] ⚠️ News sans symboles: La sécurité de la blockchain doit se localiser pour arrêter la vague de criminal
+2025-08-18T14:59:00.715369 | [NEWS CHECK] ⚠️ News sans symboles: S & amp; p dow jones en pourparlers pour apporter des index tokenisés aux échang
+2025-08-18T14:59:00.715405 | [NEWS CHECK] ⚠️ News sans symboles: Spot Ether ETFS Post les sorties après 8 jours de 3,7 milliards de dollars.
+2025-08-18T14:59:00.715438 | [NEWS CHECK] ⚠️ News sans symboles: Twitter l'utilisateur affirme que TradingView a ignoré un bogue de rétrogradatio
+2025-08-18T14:59:00.715470 | [NEWS CHECK] ⚠️ News sans symboles: Dossier d'introduction en bourse Gemini: l'échange cible le nasdaq en tant que G
+2025-08-18T14:59:00.715503 | [NEWS CHECK] ⚠️ News sans symboles: US Federal Reserve Shutters Crypto Bank Supervision Programme au milieu d'un rec
+2025-08-18T14:59:00.715535 | [NEWS CHECK] ⚠️ News sans symboles: Le groupe de devises numériques dépose le procès contre Genesis de la filiale de
+2025-08-18T14:59:00.715574 | [NEWS CHECK] ⚠️ News sans symboles: Crypto Exchange Okx brûle en permanence 279 millions de jetons OKB d'une valeur 
+2025-08-18T14:59:00.715604 | [NEWS CHECK] ⚠️ News sans symboles: Le régulateur de Hong Kong resserre les normes de garde pour les échanges de cry
+2025-08-18T15:04:35.466966 | Démarrage cycle trading
+2025-08-18T15:09:24.720886 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T15:09:24.722883 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T15:09:24.722925 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T15:09:24.722960 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T15:09:24.722996 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T15:09:24.723031 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T15:09:24.723064 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T15:09:24.723096 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T15:09:24.723145 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T15:09:24.723179 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T15:09:24.723214 | [NEWS CHECK] ⚠️ News sans symboles: Google obtient une offre de 35 milliards de dollars pour Chrome alors que le com
+2025-08-18T15:09:24.723248 | [NEWS CHECK] ⚠️ News sans symboles: Le Trésor américain punit les sociétés de crypto russes sur les liens de cybercr
+2025-08-18T15:09:24.723283 | [NEWS CHECK] ⚠️ News sans symboles: Pourquoi les stocks tokenisés sont importants: une panne
+2025-08-18T15:15:02.648917 | Démarrage cycle trading
+2025-08-18T15:15:03.285760 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T15:22:27.092807 | Démarrage cycle trading
+2025-08-18T15:22:27.734845 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T15:32:20.679871 | Démarrage cycle trading
+2025-08-18T15:32:21.295214 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T15:44:23.395892 | Démarrage cycle trading
+2025-08-18T15:44:24.015206 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T15:54:03.484398 | Démarrage cycle trading
+2025-08-18T15:54:04.112263 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T16:05:46.759657 | Démarrage cycle trading
+2025-08-18T16:05:47.365965 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T16:15:25.762157 | Démarrage cycle trading
+2025-08-18T16:15:26.355555 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T16:22:47.873749 | Démarrage cycle trading
+2025-08-18T16:22:48.489556 | 🚫 Cycle bloqué - Pause news active

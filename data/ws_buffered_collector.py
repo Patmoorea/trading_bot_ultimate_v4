@@ -94,10 +94,10 @@ class BufferedWSCollector:
         buf = self.buffers.get((symbol.upper(), timeframe), [])
         df = pd.DataFrame(list(buf)) if buf else pd.DataFrame()
         if not df.empty and "timestamp" in df.columns:
-            print(
-                f"[DEBUG] Timestamps avant tri {symbol}-{timeframe}:",
-                df["timestamp"].head(10).tolist(),
-            )
+            # print(
+            # f"[DEBUG] Timestamps avant tri {symbol}-{timeframe}:",
+            # df["timestamp"].head(10).tolist(),
+            # )
             df["timestamp"] = pd.to_datetime(df["timestamp"])
             df = df.drop_duplicates(subset="timestamp", keep="last")
             df = df.sort_values("timestamp")
