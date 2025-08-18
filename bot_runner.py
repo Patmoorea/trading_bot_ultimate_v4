@@ -1890,6 +1890,11 @@ class TradingBotM4:
             self._preserve_and_update_dashboard({"news_bilan": [bilan]})
 
     def auto_update_pairs_from_binance(self):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Met à jour self.pairs_valid en ajoutant automatiquement les paires USDC
         disponibles sur Binance (où les achats sont possibles).
@@ -1924,6 +1929,11 @@ class TradingBotM4:
         print(f"[PAIR AUTO-UPDATE] Paires valides actualisées : {self.pairs_valid}")
 
     def detect_pump_candidates(self, min_pct=0.05, min_volume_ratio=2, tf="1h"):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Détecte les cryptos en pump (hausse brutale prix et volume) sur TOUTES les paires USDC spot Binance,
         même hors self.pairs_valid.
@@ -2003,6 +2013,11 @@ class TradingBotM4:
         return candidates
 
     def detect_breakout_candidates(self, tf="1h"):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Détection des cassures de résistance sur TOUTES les paires USDC spot Binance,
         même hors self.pairs_valid.
@@ -2076,6 +2091,11 @@ class TradingBotM4:
         return candidates
 
     def detect_news_candidates(self, news_list, min_sentiment=0.7):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         candidates = []
         bilan_list = []  # Pour historiser les bilans dans le dashboard
         for news in news_list:
@@ -2141,6 +2161,11 @@ class TradingBotM4:
         return candidates
 
     async def detect_arbitrage_candidates(self, min_diff_pct=0.5):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Arbitrage rapide entre Binance et BingX/OKX/Kucoin sur TOUTES les paires USDC spot Binance.
         Confirmation via indicateurs avant achat.
@@ -2319,6 +2344,11 @@ class TradingBotM4:
             return None
 
     def fetch_trades_fifo(self, binance_client, symbol):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Récupère la liste des achats (buys) et ventes (sells) spot pour la paire donnée (ex: "BTCUSDC"),
         formatée pour le calcul FIFO.
@@ -2356,6 +2386,8 @@ class TradingBotM4:
             return [], []
 
     def fifo_pnl(self, buys, sells):
+        if not self.is_live_trading:
+            return []  # skip API call in backtest, retourne la valeur factice attendue
         """
         Calcule la plus-value de chaque vente (FIFO).
         Associe chaque vente aux achats les plus anciens restants.
@@ -4238,6 +4270,11 @@ class TradingBotM4:
         return False, max_price
 
     def get_last_fifo_pnl(self, symbol):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Récupère la plus-value FIFO (en %) et en USD de la dernière vente spot pour une paire donnée.
         Retourne un tuple : (pnl_pct, pnl_usd)
@@ -4503,6 +4540,11 @@ class TradingBotM4:
             return "neutral", abs(avg_score)
 
     def sync_positions_with_binance(self):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         if self.is_live_trading and self.binance_client:
             account = self.binance_client.get_account()
             positions = {}
@@ -4649,6 +4691,11 @@ class TradingBotM4:
         self._initialize_ai()
 
     def get_ws_orderbook(self, symbol):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Récupère le carnet d'ordres (bid/ask) depuis le ws_collector (WebSocket) ou via Binance API REST en fallback.
         - symbol : exemple 'BTCUSDC'
@@ -4684,6 +4731,14 @@ class TradingBotM4:
         return None, None
 
     async def execute_arbitrage_cross_exchange(self, opportunity, amount):
+        if not self.is_live_trading:
+            return ...  # skip API call in backtest, retourne la valeur factice attendue
+        if not self.is_live_trading:
+            return {
+                "status": "error",
+                "step": "backtest",
+                "message": "Backtest mode active, skipping trade execution.",
+            }
         """
         Exécute un arbitrage spot cross-exchange réel avec gestion des erreurs, logs et notifications Telegram.
         Args:
@@ -4817,6 +4872,11 @@ class TradingBotM4:
             return {"status": "error", "step": "exception", "message": str(e)}
 
     async def test_news_sentiment(self):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Test manuel du batch d'analyse de sentiment des news.
         Exécute l'analyse Bert/FinBERT sur toutes les news du buffer et affiche le résumé global.
@@ -4956,6 +5016,8 @@ class TradingBotM4:
             await asyncio.sleep(self.news_update_interval)
 
     def get_binance_real_balance(self, asset="USDC"):
+        if not self.is_live_trading:
+            return 10000.0  # skip API call in backtest, retourne la valeur factice attendue
         if self.is_live_trading and self.binance_client:
             try:
                 balance_info = self.binance_client.get_asset_balance(asset=asset)
@@ -5506,6 +5568,8 @@ class TradingBotM4:
     async def execute_trade(
         self, symbol, side, amount, price=None, iceberg=False, iceberg_visible_size=0.1
     ):
+        if not self.is_live_trading:
+            return 10000.0  # skip API call in backtest, retourne la valeur factice attendue
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
 
@@ -5738,6 +5802,11 @@ class TradingBotM4:
         max_cycles=2,
         reason="",
     ):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
         Enregistre la raison de l'achat pour le dashboard.
@@ -5766,6 +5835,11 @@ class TradingBotM4:
         )
 
     async def handle_auto_sell(self):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """
         Vérifie toutes les positions auto_sell et exécute la vente si TP/SL/durée atteint.
         Appel à chaque cycle.
@@ -6327,6 +6401,11 @@ class TradingBotM4:
             return self.regime, None, {}
 
     async def _fetch_real_market_data(self):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """Récupère les données de marché réelles depuis Binance"""
         try:
             if not self.is_live_trading or not self.binance_client:
@@ -6494,6 +6573,11 @@ class TradingBotM4:
                         )
 
     async def study_market_period(self, symbol, start_time, end_time, timeframe="1h"):
+        if not self.is_live_trading:
+            return (
+                [],
+                [],
+            )  # skip API call in backtest, retourne la valeur factice attendue
         """Étudie le marché sur une période définie et établit un plan de trading"""
         try:
             # Convertir les dates en timestamps (ms)
@@ -6914,6 +6998,12 @@ class TradingBotM4:
         return data
 
     def train_cnn_lstm_on_live(self, pair="BTCUSDT", tf="1h"):
+        if not self.is_live_trading:
+            return {
+                "status": "error",
+                "step": "backtest",
+                "message": "Backtest mode active, skipping trade execution.",
+            }
         """
         Entraîne le modèle CNN-LSTM sur les données live de ws_collector pour la paire/timeframe donnée,
         et sauvegarde les poids dans src/models/cnn_lstm_model.pth
@@ -6943,6 +7033,12 @@ class TradingBotM4:
             print("Aucune donnée live disponible pour entraîner le modèle.")
 
     def train_cnn_lstm_on_all_live(self):
+        if not self.is_live_trading:
+            return {
+                "status": "error",
+                "step": "backtest",
+                "message": "Backtest mode active, skipping trade execution.",
+            }
         """
         Entraîne le modèle CNN-LSTM sur toutes les paires et timeframes de la config,
         en utilisant les données live du ws_collector.
