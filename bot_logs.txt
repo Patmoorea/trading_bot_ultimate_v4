@@ -9578,3 +9578,13 @@
 2025-08-18T23:21:41.235158 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
 2025-08-18T23:21:42.326452 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
 2025-08-18T23:21:47.945329 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T23:22:22.379583 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T23:22:22.382263 | Initialisation des modèles d'IA...
+2025-08-18T23:22:22.572006 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T23:22:23.763406 | ✅ PPO Strategy initialized successfully
+2025-08-18T23:22:30.478790 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T23:22:30.479400 | ✅ Trading en direct: True
+2025-08-18T23:22:30.479445 | ✅ IA activée: True
+2025-08-18T23:22:30.479484 | ✅ Analyse de news activée: True
+2025-08-18T23:25:20.553648 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T23:25:59.106193 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
