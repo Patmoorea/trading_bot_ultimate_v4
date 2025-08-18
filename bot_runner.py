@@ -653,7 +653,7 @@ class TelegramNotifier:
                                     asyncio.TimeoutError,
                                     aiohttp.ClientConnectorError,
                                     aiohttp.ClientOSError,
-                                    asyncio.CancelledError,
+                                    asyncio.CancelledError,  # <--- Ajout ici !
                                 ) as e:
                                     import traceback
 
@@ -678,7 +678,7 @@ class TelegramNotifier:
                             await asyncio.sleep(0.7)
                         self._queue.task_done()
             except Exception as e:
-                # Si le worker crash, log et redémarre automatiquement
+                # Si toute la session ou le worker crash, log et relance après 5s
                 print(f"⚠️ Worker Telegram crashé: {e}, redémarrage dans 5s...")
                 import traceback
 
@@ -8913,7 +8913,7 @@ async def handle_arbitrage_opportunities(bot):
         if not opportunities:
             return
 
-        print(f"💹 {len(opportunities)} opportunités d'arbitrage détectées")
+        # print(f"💹 {len(opportunities)} opportunités d'arbitrage détectées")
         # log_dashboard(f"💹 {len(opportunities)} opportunités d'arbitrage détectées")
         for opp in opportunities:
             # Logging de l'opportunité

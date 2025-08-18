@@ -9188,3 +9188,65 @@
 2025-08-18T17:34:23.429909 | Initialisation des modèles d'IA...
 2025-08-18T17:34:23.604268 | ✅ Modèles d'IA initialisés avec succès
 2025-08-18T17:34:24.871515 | ✅ PPO Strategy initialized successfully
+2025-08-18T17:34:31.523270 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T17:34:31.523971 | ✅ Trading en direct: True
+2025-08-18T17:34:31.524011 | ✅ IA activée: True
+2025-08-18T17:34:31.524049 | ✅ Analyse de news activée: True
+2025-08-18T17:37:18.612901 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T17:37:57.648462 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T17:42:43.808167 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0659 | Tendance: -0.0028
+2025-08-18T17:42:43.809712 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-18T17:46:06.877183 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T17:46:06.883686 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T17:46:06.885667 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T17:46:06.887566 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T17:46:06.891041 | Démarrage cycle trading
+2025-08-18T17:46:07.518550 | 🚫 Cycle bloqué - Pause news active
+2025-08-18T17:54:02.791334 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T17:54:02.795859 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T17:54:02.797442 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T17:54:02.798897 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T17:54:02.801950 | Démarrage cycle trading
+2025-08-18T17:54:02.804497 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:02:06.080345 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:02:06.085481 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:02:06.087089 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:02:06.088656 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:02:06.091794 | Démarrage cycle trading
+2025-08-18T18:02:06.649986 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:07:36.961032 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:07:36.965171 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:07:36.966610 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:07:36.968041 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:07:36.971079 | Démarrage cycle trading
+2025-08-18T18:07:37.509091 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:17:14.043759 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:17:14.047446 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:17:14.049186 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:17:14.050919 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:17:14.054391 | Démarrage cycle trading
+2025-08-18T18:17:14.606825 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:21:19.573967 | [NEWS CHECK] ⚠️ News sans symboles: Ce que le Borussia Dortmund Team-Up signifie pour les joueurs des «rivaux de la 
+2025-08-18T18:21:19.574665 | [NEWS CHECK] ⚠️ News sans symboles: Pirates utilisant de faux captchas pour répandre le malware Lumma Stealer
+2025-08-18T18:21:19.574702 | [NEWS CHECK] ⚠️ News sans symboles: Influenceur de crypto emprisonné pour un système de cryptojacking de 3,5 million
+2025-08-18T18:21:19.574733 | [NEWS CHECK] ⚠️ News sans symboles: JPYC prévoit de garantir l'approbation de la première écume à dosage réglementée
+2025-08-18T18:21:19.574764 | [NEWS CHECK] ⚠️ News sans symboles: Les plans de robot d'Apple refairent surface - il y a le dernier
+2025-08-18T18:21:19.574793 | [NEWS CHECK] ⚠️ News sans symboles: Les NFT de Moonbirds montent à nouveau: ce qui est derrière la surtension des pr
+2025-08-18T18:21:19.574821 | [NEWS CHECK] ⚠️ News sans symboles: Gemini prévoit de rendre public via le NASDAQ en tant que Boom IPOS crypto
+2025-08-18T18:21:19.574851 | [NEWS CHECK] ⚠️ News sans symboles: La taxe cryptographique de New York pourrait générer 158 millions de dollars par
+2025-08-18T18:21:19.574878 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met fin au programme de surveillance supervisant l'activité cryptographiq
+2025-08-18T18:21:19.574907 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
+2025-08-18T18:21:19.574934 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
+2025-08-18T18:21:19.574961 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T18:26:49.717732 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:26:49.721029 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:26:49.722465 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:26:49.723903 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:26:49.726946 | Démarrage cycle trading
+2025-08-18T18:26:50.275322 | [RISK] Pause trading (cooldown drawdown actif)
+2025-08-18T18:38:52.750050 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-18T18:38:52.756840 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-18T18:38:52.761628 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-18T18:38:52.767218 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-18T18:38:52.772025 | Démarrage cycle trading
+2025-08-18T18:38:53.328390 | [RISK] Pause trading (cooldown drawdown actif)

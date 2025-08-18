@@ -1,18 +1,15 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [
-    {
-      "asset": "GLOBAL",
-      "action": "ALL",
-      "cycles_left": 5,
-      "type": "GLOBAL",
-      "reason": "",
-      "max_cycles": 5,
-      "total_remaining": 5
-    }
+  "pauses": [],
+  "sentiment": 0.6112605856176008,
+  "risky_positions": [
+    "BNB/USDC",
+    "XRP/USDC",
+    "DOGE/USDC",
+    "SOL/USDC",
+    "SUI/USDC",
+    "NOT/USDC"
   ],
-  "sentiment": 0.6835957609794356,
-  "risky_positions": [],
-  "timestamp": 1755537859.507898
+  "timestamp": 1755541281.1087968
 }
