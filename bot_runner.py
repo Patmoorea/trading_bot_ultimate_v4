@@ -627,7 +627,7 @@ class TelegramNotifier:
 
     async def _telegram_worker(self):
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=120)  # timeout augmenté à 120s
+        TIMEOUT = aiohttp.ClientTimeout(total=60)  # timeout augmenté à 60s
         async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
             while True:
                 msg = await self._queue.get()

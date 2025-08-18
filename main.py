@@ -13,6 +13,7 @@ from src.backtesting.core.backtest_engine import BacktestEngine
 from src.strategies import sma_strategy, breakout_strategy, arbitrage_strategy
 from src.bot_runner import _generate_analysis_report
 from src.risk_tools import kelly_criterion, calculate_var, calculate_max_drawdown
+from src.backtesting.backtest_full_bot import backtest_full_bot
 
 TRADING_PARAMS = {
     "entry_confirmation_threshold": 0.8,
@@ -107,6 +108,7 @@ def load_json_file(path):
     return {}
 
 
+# --- SIDEBAR ---
 with st.sidebar:
     st.header("🤖 Bot Status")
     status = load_json_file(STATUS_FILE)
@@ -201,9 +203,6 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     try:
-        import os, json
-
-        # Charger l'existant pour préserver les historiques
         if os.path.exists(SHARED_DATA_PATH):
             with open(SHARED_DATA_PATH, "r") as f:
                 existing_data = json.load(f)
@@ -221,23 +220,19 @@ with st.sidebar:
             "positions_binance",
             "market_data",
         ]
-        # Merge les historiques
         for field in preserved_fields:
             if field in existing_data and field not in shared_data:
                 shared_data[field] = existing_data[field]
 
-        # Mise à jour des paramètres de filtrage
         shared_data["filtering_params"] = {
             "min_volatility": float(min_volatility),
             "min_signal": float(min_signal),
             "top_n": int(top_n),
         }
-        # Sauvegarde sécurisée du dashboard complet
         save_shared_data(shared_data, SHARED_DATA_PATH)
     except Exception as e:
         st.sidebar.warning(f"Erreur sauvegarde filtres dynamiques: {e}")
 
-# --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6, tab_logs = st.tabs(
     [
         "📊 Trading",
@@ -624,9 +619,10 @@ with tab5:
         "SMA Crossover": sma_strategy,
         "Breakout": breakout_strategy,
         "Arbitrage": arbitrage_strategy,
+        "Bot Fidèle (full cycle)": None,
     }
     strategy_name = st.sidebar.selectbox("Stratégie", list(strategy_options.keys()))
-    strategy_func = strategy_options[strategy_name]
+    strategy_func = strategy_options.get(strategy_name)
     params = {}
     if strategy_name == "SMA Crossover":
         params["fast_window"] = st.sidebar.slider("SMA rapide", 2, 50, 10)
@@ -638,13 +634,44 @@ with tab5:
             "Seuil de spread (%)", min_value=0.01, max_value=5.0, value=0.5
         )
     dataset_file = st.sidebar.file_uploader("Données historiques (CSV)", type=["csv"])
-    if dataset_file:
+    n_cycles = st.sidebar.number_input(
+        "Nombre de cycles (bot full)", min_value=100, value=300
+    )
+    capital = st.sidebar.number_input("Capital initial", min_value=100, value=10000)
+    run_fidèle = strategy_name == "Bot Fidèle (full cycle)" and st.sidebar.button(
+        "Lancer le backtest fidèle"
+    )
+    if dataset_file and not run_fidèle:
         df = pd.read_csv(dataset_file)
-        capital = st.sidebar.number_input("Capital initial", min_value=100, value=10000)
-        if st.sidebar.button("Lancer le backtest"):
+        if st.sidebar.button("Lancer le backtest classique"):
             backtester = BacktestEngine(initial_capital=capital)
             results = backtester.run_backtest(df, strategy_func, **params)
             st.write("Résultats du backtest :", results)
+    if dataset_file and run_fidèle:
+        st.info("Simulation complète du cycle du bot…")
+        df = pd.read_csv(dataset_file)
+        historical_data = {"PAIR/USDC": df}
+        col_candidates = [c for c in df.columns if "symbol" in c or "pair" in c]
+        pair_name = "PAIR/USDC"
+        if col_candidates:
+            pair_name = str(df[col_candidates[0]].iloc[0])
+            historical_data = {pair_name: df}
+        import asyncio
+
+        perf, market_data, trade_decisions = asyncio.run(
+            backtest_full_bot(
+                historical_data,
+                n_cycles=n_cycles,
+                capital_start=capital,
+                timeframes=["1h"],
+                debug=True,
+            )
+        )
+        st.success("Backtest fidèle terminé!")
+        st.write("Performance : ", perf)
+        st.write("Exemples de décisions :", trade_decisions)
+
+    # --- Rest of tab5 unchanged
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Configuration de base")
