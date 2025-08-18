@@ -754,6 +754,8 @@ class TelegramNotifier:
                                         await asyncio.sleep(2**attempt)
                                         if attempt == 2:
                                             self._log_to_file(part)
+                                        # PATCH ABSOLU: continue la boucle même sur CancelledError
+                                        continue
                                     except Exception as e:
                                         print(
                                             f"⚠️ Erreur envoi Telegram (Exception): {e}"
@@ -1838,17 +1840,14 @@ class TradingBotM4:
             return 0
 
     def check_exposure_limit(self, current_positions, new_position_size):
-        """Vérifie les limites d'exposition"""
         try:
             total_exposure = sum(
-                float(pos.get("size", 0)) for pos in current_positions.values()
+                safe_float(pos.get("size"), 0) for pos in current_positions.values()
             )
-            new_total = total_exposure + float(new_position_size)
+            new_total = total_exposure + safe_float(new_position_size, 0)
             is_valid = new_total <= self.position_limits["max_total_exposure"]
-
-            print(f"[RISK] Exposition totale: {new_total:.2f USDC}")
+            print(f"[RISK] Exposition totale: {new_total:.2f} USDC")
             return is_valid
-
         except Exception as e:
             print(f"[RISK] Erreur vérification exposition: {e}")
             return False
@@ -4649,11 +4648,13 @@ class TradingBotM4:
             return "neutral", abs(avg_score)
 
     def sync_positions_with_binance(self):
+        """
+        Synchronise les positions SPOT réelles Binance (positions_binance).
+        Caste tous les champs en float pour éviter les bugs d'addition (int + str).
+        """
         if not self.is_live_trading:
-            return (
-                [],
-                [],
-            )  # skip API call in backtest, retourne la valeur factice attendue
+            return [], []  # skip API call in backtest
+
         if self.is_live_trading and self.binance_client:
             account = self.binance_client.get_account()
             positions = {}
@@ -4684,9 +4685,14 @@ class TradingBotM4:
                         buys_since_last_sell = buys
 
                     if buys_since_last_sell:
-                        total_qty = sum(b["qty"] for b in buys_since_last_sell)
+                        total_qty = sum(
+                            safe_float(b["qty"], 0) for b in buys_since_last_sell
+                        )
                         entry_price = (
-                            sum(b["qty"] * b["price"] for b in buys_since_last_sell)
+                            sum(
+                                safe_float(b["qty"], 0) * safe_float(b["price"], 0)
+                                for b in buys_since_last_sell
+                            )
                             / total_qty
                             if total_qty > 0
                             else None
@@ -4696,26 +4702,41 @@ class TradingBotM4:
 
                     fifo_pnl_pct = self.get_last_fifo_pnl(symbol)
                     prev_pos = self.positions_binance.get(symbol, {})
+
+                    # PATCH: cast strict sur tous les champs
                     positions[symbol] = {
                         "side": self.positions.get(symbol, {}).get("side", "long"),
-                        "amount": free,
-                        "entry_price": entry_price,
-                        "current_price": current_price,
+                        "amount": safe_float(free, 0),
+                        "entry_price": safe_float(entry_price, 0),
+                        "current_price": safe_float(current_price, 0),
                         "pnl_pct": fifo_pnl_pct,
                         "pnl_usd": (
-                            (current_price - entry_price) * free
+                            (safe_float(current_price, 0) - safe_float(entry_price, 0))
+                            * safe_float(free, 0)
                             if entry_price and current_price
                             else 0.0
                         ),
                         "value_usd": (
-                            free * current_price if free and current_price else 0.0
+                            safe_float(free, 0) * safe_float(current_price, 0)
+                            if free and current_price
+                            else 0.0
                         ),
                         "filled_tp_targets": prev_pos.get(
                             "filled_tp_targets", [False, False]
                         ),
-                        "price_history": prev_pos.get("price_history", [entry_price]),
-                        "max_price": prev_pos.get("max_price", entry_price),
+                        "price_history": prev_pos.get(
+                            "price_history", [safe_float(entry_price, 0)]
+                        ),
+                        "max_price": safe_float(
+                            prev_pos.get("max_price", entry_price),
+                            safe_float(entry_price, 0),
+                        ),
                     }
+
+            # Cast tous les champs en float pour éviter (int + str)
+            from src.bot_runner import deep_cast_floats
+
+            deep_cast_floats(positions)
             self.positions_binance = positions
 
     def is_short(self, symbol):
