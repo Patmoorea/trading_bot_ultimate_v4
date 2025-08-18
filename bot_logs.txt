@@ -9531,3 +9531,11 @@
 2025-08-18T22:29:13.391778 | [NEWS CHECK] ⚠️ News sans symboles: Les autorités texanes saisissent 2,8 millions de dollars en crypto de l'opérateu
 2025-08-18T22:29:13.391824 | [NEWS CHECK] ⚠️ News sans symboles: SFC de Hong Kong ordonne des normes de garde de cryptographie plus strictes aprè
 2025-08-18T22:29:13.391897 | [NEWS CHECK] ⚠️ News sans symboles: Clouds d'inflation chaude nourris, mais la surtension de liquidité de l'œil des 
+2025-08-18T22:33:20.567359 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T22:33:20.569100 | Initialisation des modèles d'IA...
+2025-08-18T22:33:20.739994 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T22:33:22.059456 | ✅ PPO Strategy initialized successfully
+2025-08-18T22:33:29.552812 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T22:33:29.554156 | ✅ Trading en direct: True
+2025-08-18T22:33:29.554201 | ✅ IA activée: True
+2025-08-18T22:33:29.554272 | ✅ Analyse de news activée: True

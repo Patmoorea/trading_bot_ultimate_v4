@@ -540,49 +540,48 @@ def main():
 # --- DÉBUT PATCH HARD TP/SL ---
 # Ce patch force des sorties si les positions SPOT dépassent +5% ou perdent plus de 25%
 # Fonctionne en complément de ton ExitManager
-
-
-async def forced_exit_spot_positions(exchange_connector, config, logger):
+async def forced_exit_spot_positions(bot):
     """
-    Parcourt les positions SPOT ouvertes et force un market sell
-    si elles dépassent un take-profit ou tombent sous un hard stop-loss.
+    Force la sortie des positions spot si le take profit ou stop loss est atteint.
+    - Take Profit fixé à +5%
+    - Stop Loss fixé à -20%
     """
-    HARD_STOP_LOSS_PCT = config.get("hard_stop_loss_pct", 25.0)  # –25 %
-    FORCE_TAKE_PROFIT_PCT = config.get("force_tp_pct", 5.0)  # +5 %
-
-    # Récupère les balances SPOT : symbol -> amount disponible
-    balances = await exchange_connector.get_spot_balances()  # à adapter selon ton code
-    prices = await exchange_connector.get_latest_prices()  # ticker last price
-
-    for symbol, amount in balances.items():
-        if not amount or amount <= 0:
-            continue
-
-        avg_price = await get_avg_entry_price_binance_spot(
-            exchange_connector.client, symbol
-        )
-        last_price = prices.get(symbol)
-
-        if avg_price is None or last_price is None:
-            logger.warning(
-                f"[FORCED_EXIT] {symbol} impossible à évaluer (avg={avg_price}, last={last_price})"
+    # Utilise le buffer réel des positions spot Binance
+    positions = getattr(bot, "positions_binance", {})
+    for symbol, pos in list(positions.items()):
+        try:
+            # Récupère le prix actuel via Binance
+            ticker = bot.binance_client.get_symbol_ticker(
+                symbol=symbol.replace("/", "")
             )
-            continue
+            current_price = float(ticker.get("price", 0))
+            entry_price = safe_float(pos.get("entry_price"), 0)
+            amount = safe_float(pos.get("amount"), 0)
+            if entry_price == 0 or amount == 0:
+                continue
+            pnl = (current_price - entry_price) / entry_price * 100
 
-        pnl_pct = (last_price - avg_price) / avg_price * 100.0
+            # TAKE PROFIT +5%
+            if pnl >= 5:
+                await bot.execute_trade(symbol, "SELL", amount)
+                log_dashboard(
+                    f"[FORCED EXIT] Vente {symbol} en Take Profit (+{pnl:.2f}%)"
+                )
+                print(f"[FORCED EXIT] Vente {symbol} en Take Profit (+{pnl:.2f}%)")
+                positions.pop(symbol, None)
+                continue
 
-        # Conditions Hard TP / SL
-        if pnl_pct >= FORCE_TAKE_PROFIT_PCT or pnl_pct <= -HARD_STOP_LOSS_PCT:
-            try:
-                # On vend entire amount
-                await exchange_connector.client.order_market_sell(
-                    symbol=symbol, quantity=amount
-                )
-                logger.info(
-                    f"[FORCED_EXIT] SOLD {symbol}: pnl={pnl_pct:.2f}% (TP/SL trigger)"
-                )
-            except Exception as e:
-                logger.exception(f"[FORCED_EXIT] Échec sell {symbol}: {e}")
+            # STOP LOSS -20%
+            if pnl <= -20:
+                await bot.execute_trade(symbol, "SELL", amount)
+                log_dashboard(f"[FORCED EXIT] Vente {symbol} en Stop Loss ({pnl:.2f}%)")
+                print(f"[FORCED EXIT] Vente {symbol} en Stop Loss ({pnl:.2f}%)")
+                positions.pop(symbol, None)
+                continue
+
+        except Exception as e:
+            log_dashboard(f"Erreur forced_exit_spot_positions sur {symbol} : {str(e)}")
+            print(f"Erreur forced_exit_spot_positions sur {symbol} : {e}")
 
 
 def debug_market_data_structure(market_data, pairs_valid, timeframes):
