@@ -9541,3 +9541,13 @@
 2025-08-18T22:33:29.554272 | ✅ Analyse de news activée: True
 2025-08-18T22:36:24.070965 | [NEWS] Lancement boucle d'analyse des news…
 2025-08-18T22:37:00.593257 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-18T22:52:56.711986 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-18T22:52:56.714987 | Initialisation des modèles d'IA...
+2025-08-18T22:52:56.907125 | ✅ Modèles d'IA initialisés avec succès
+2025-08-18T22:52:58.456548 | ✅ PPO Strategy initialized successfully
+2025-08-18T22:53:05.898536 | ✅ Bot initialisé avec Telegram: True
+2025-08-18T22:53:05.899217 | ✅ Trading en direct: True
+2025-08-18T22:53:05.899265 | ✅ IA activée: True
+2025-08-18T22:53:05.899321 | ✅ Analyse de news activée: True
+2025-08-18T22:55:58.136718 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-18T22:56:37.751625 | [NEWS] Aucun élément à analyser dans news_data, skip boucle

@@ -79,7 +79,7 @@
       "tech": 0.5,
       "ai": 0.534460985660553,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "ETH/USDC": {
       "action": "neutral",
@@ -87,7 +87,7 @@
       "tech": 0.5,
       "ai": 0.5349973797798157,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "LTC/USDC": {
       "action": "neutral",
@@ -95,7 +95,7 @@
       "tech": 0.5,
       "ai": 0.5325931191444396,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "XRP/USDC": {
       "action": "neutral",
@@ -103,7 +103,7 @@
       "tech": 0.5,
       "ai": 0.5356644511222839,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "DOGE/USDC": {
       "action": "neutral",
@@ -111,7 +111,7 @@
       "tech": 0.5,
       "ai": 0.5365129351615906,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "BNB/USDC": {
       "action": "neutral",
@@ -119,7 +119,7 @@
       "tech": 0.5,
       "ai": 0.5370682299137115,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "ADA/USDC": {
       "action": "neutral",
@@ -127,7 +127,7 @@
       "tech": 0.5,
       "ai": 0.5376013696193694,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "SOL/USDC": {
       "action": "neutral",
@@ -135,7 +135,7 @@
       "tech": 0.5,
       "ai": 0.5363773763179779,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "TRX/USDC": {
       "action": "neutral",
@@ -143,7 +143,7 @@
       "tech": 0.5,
       "ai": 0.5370356440544128,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "SUI/USDC": {
       "action": "neutral",
@@ -151,7 +151,7 @@
       "tech": 0.5,
       "ai": 0.5353980481624603,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     },
     "LINK/USDC": {
       "action": "neutral",
@@ -159,7 +159,7 @@
       "tech": 0.5,
       "ai": 0.5235120117664337,
       "sentiment": 0.6515418489774069,
-      "timestamp": "2025-08-18 22:33:30"
+      "timestamp": "2025-08-18 22:53:06"
     }
   },
   "market_data": {
@@ -42233,12 +42233,12 @@
       "max_price": null
     }
   },
-  "timestamp": "2025-08-18 12:33:29",
+  "timestamp": "2025-08-18 12:53:05",
   "user": "Patmoorea",
   "bot_status": {
     "regime": "Range/Scalping",
     "cycle": 0,
-    "last_update": "2025-08-18 12:33:29",
+    "last_update": "2025-08-18 12:53:05",
     "performance": {
       "balance": 46.69139068
     }
