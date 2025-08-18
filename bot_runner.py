@@ -754,7 +754,7 @@ class TelegramNotifier:
                                         await asyncio.sleep(2**attempt)
                                         if attempt == 2:
                                             self._log_to_file(part)
-                                        continue  # Continue la boucle même sur CancelledError/TimeoutError
+                                        continue  # Continue même sur CancelledError/TimeoutError
                                     except Exception as e:
                                         print(
                                             f"⚠️ Erreur envoi Telegram (Exception): {e}"
