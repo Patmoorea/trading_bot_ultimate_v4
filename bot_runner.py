@@ -732,6 +732,8 @@ class TelegramNotifier:
         Worker Telegram robuste avec retry, gestion des timeouts et reconnexion propre.
         PATCH: Session recréée à chaque envoi, timeout 30s, logs détaillés.
         """
+        import time
+
         url = f"{self.base_url}/sendMessage"
         TIMEOUT = aiohttp.ClientTimeout(total=30)  # 30s pour éviter faux timeout
 
@@ -750,13 +752,15 @@ class TelegramNotifier:
 
                     for attempt in range(3):
                         try:
+                            start_time = time.time()
                             print(f"📨 Tentative envoi Telegram (try {attempt+1}/3)...")
                             async with aiohttp.ClientSession(
                                 timeout=TIMEOUT
                             ) as session:
                                 async with session.post(url, json=data) as response:
+                                    elapsed = time.time() - start_time
                                     print(
-                                        f"✅ Requête envoyée, statut {response.status}"
+                                        f"✅ Requête envoyée, statut {response.status}, durée {elapsed:.2f}s"
                                     )
                                     result = await response.json()
                                     print(f"📩 Réponse Telegram: {result}")
@@ -769,8 +773,9 @@ class TelegramNotifier:
                                     break  # succès ou erreur API → on sort
 
                         except (asyncio.TimeoutError, aiohttp.ClientError) as e:
+                            elapsed = time.time() - start_time
                             print(
-                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)} (durée réelle: {elapsed:.2f}s)"
                             )
                             await asyncio.sleep(2**attempt)
                             if attempt == 2:
@@ -959,6 +964,8 @@ class WarningFilter:
 
 
 # n'affecte sys.stderr qu'une fois
+import sys
+
 sys.stderr = WarningFilter(sys.stderr)
 
 
