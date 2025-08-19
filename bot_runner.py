@@ -730,10 +730,11 @@ class TelegramNotifier:
     async def _telegram_worker(self):
         """
         Worker Telegram robuste avec retry, gestion des timeouts et reconnexion propre.
-        PATCH: Session recréée à chaque envoi, donc jamais bloqué.
+        PATCH: Session recréée à chaque envoi, timeout 30s, logs détaillés.
         """
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=10)
+        TIMEOUT = aiohttp.ClientTimeout(total=30)  # 30s pour éviter faux timeout
+
         while True:
             try:
                 msg = await self._queue.get()
@@ -749,20 +750,24 @@ class TelegramNotifier:
 
                     for attempt in range(3):
                         try:
+                            print(f"📨 Tentative envoi Telegram (try {attempt+1}/3)...")
                             async with aiohttp.ClientSession(
                                 timeout=TIMEOUT
                             ) as session:
-                                async with session.post(
-                                    url, json=data, timeout=TIMEOUT
-                                ) as response:
-                                    response.raise_for_status()
+                                async with session.post(url, json=data) as response:
+                                    print(
+                                        f"✅ Requête envoyée, statut {response.status}"
+                                    )
                                     result = await response.json()
+                                    print(f"📩 Réponse Telegram: {result}")
+
                                     if not result.get("ok"):
                                         print(
-                                            f"⚠️ Erreur Telegram (API): {result.get('description')}"
+                                            f"⚠️ Erreur API Telegram: {result.get('description')}"
                                         )
                                         self._log_to_file(part)
-                                    break
+                                    break  # succès ou erreur API → on sort
+
                         except (asyncio.TimeoutError, aiohttp.ClientError) as e:
                             print(
                                 f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
@@ -781,8 +786,10 @@ class TelegramNotifier:
                             self._log_to_file(part)
                             break
 
-                    await asyncio.sleep(0.7)
+                    await asyncio.sleep(0.7)  # anti-rate-limit
+
                 self._queue.task_done()
+
             except asyncio.CancelledError:
                 print("🛑 _telegram_worker annulé (shutdown bot)")
                 break
