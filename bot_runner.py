@@ -709,77 +709,70 @@ class TelegramNotifier:
         await self._queue.put(full_message)
 
     async def _telegram_worker(self):
+        """
+        Worker Telegram robuste avec retry, gestion des timeouts et reconnexion propre.
+        """
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=60)
+        TIMEOUT = aiohttp.ClientTimeout(total=10)  # raccourci à 10s
 
-        while True:
-            try:
-                async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
-                    while True:
-                        try:
-                            msg = await self._queue.get()
-                            for part in self.split_message(msg):
-                                if len(part) > 4000:
-                                    part = (
-                                        part[:3980] + "\n... (troncature automatique)"
-                                    )
-                                data = {
-                                    "chat_id": self.chat_id,
-                                    "text": part,
-                                    "parse_mode": "HTML",
-                                }
-                                for attempt in range(3):
-                                    try:
-                                        async with session.post(
-                                            url, json=data
-                                        ) as response:
-                                            result = await response.json()
-                                            if not result.get("ok"):
-                                                print(
-                                                    f"⚠️ Erreur Telegram (API): {result.get('description')}"
-                                                )
-                                            break
-                                    except (
-                                        asyncio.TimeoutError,
-                                        aiohttp.ClientConnectorError,
-                                        aiohttp.ClientOSError,
-                                        asyncio.CancelledError,
-                                    ) as e:
+        async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
+            while True:
+                try:
+                    msg = await self._queue.get()
+                    for part in self.split_message(msg):
+                        if len(part) > 4000:
+                            part = part[:3980] + "\n... (troncature automatique)"
+
+                        data = {
+                            "chat_id": self.chat_id,
+                            "text": part,
+                            "parse_mode": "HTML",
+                        }
+
+                        for attempt in range(3):
+                            try:
+                                async with session.post(
+                                    url, json=data, timeout=TIMEOUT
+                                ) as response:
+                                    response.raise_for_status()  # si 500/429 → exception
+                                    result = await response.json()
+                                    if not result.get("ok"):
                                         print(
-                                            f"⚠️ Timeout ou connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                                            f"⚠️ Erreur Telegram (API): {result.get('description')}"
                                         )
-                                        import traceback
-
-                                        traceback.print_exc()
-                                        await asyncio.sleep(2**attempt)
-                                        if attempt == 2:
-                                            self._log_to_file(part)
-                                        continue  # Continue même sur CancelledError/TimeoutError
-                                    except Exception as e:
-                                        print(
-                                            f"⚠️ Erreur envoi Telegram (Exception): {e}"
-                                        )
-                                        import traceback
-
-                                        traceback.print_exc()
                                         self._log_to_file(part)
-                                        break
-                                await asyncio.sleep(0.7)
-                            self._queue.task_done()
-                        except Exception as e:
-                            print(f"⚠️ Exception dans _telegram_worker (loop): {e}")
-                            import traceback
+                                    break
+                            except (asyncio.TimeoutError, aiohttp.ClientError) as e:
+                                print(
+                                    f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                                )
+                                await asyncio.sleep(2**attempt)
+                                if attempt == 2:  # dernier essai échoué
+                                    self._log_to_file(part)
+                            except asyncio.CancelledError:
+                                print("🛑 _telegram_worker annulé proprement")
+                                return
+                            except Exception as e:
+                                print(f"⚠️ Erreur inattendue Telegram: {e}")
+                                import traceback
 
-                            traceback.print_exc()
-                            await asyncio.sleep(5)
-                            continue
-            except Exception as e:
-                print(f"⚠️ Worker Telegram crashé: {e}, redémarrage dans 5s...")
-                import traceback
+                                traceback.print_exc()
+                                self._log_to_file(part)
+                                break
 
-                traceback.print_exc()
-                await asyncio.sleep(5)
-                continue  # relance le worker principal
+                        await asyncio.sleep(0.7)  # évite le rate-limit
+
+                    self._queue.task_done()
+
+                except asyncio.CancelledError:
+                    print("🛑 _telegram_worker annulé (shutdown bot)")
+                    break
+                except Exception as e:
+                    print(f"⚠️ Erreur boucle Telegram principale: {e}")
+                    import traceback
+
+                    traceback.print_exc()
+                    await asyncio.sleep(5)
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
@@ -1873,9 +1866,11 @@ class TradingBotM4:
             pair_key = pair.replace("/", "").upper()
             # 2. Vérifie si la paire existe sur Binance (spot USDC)
             try:
-                ticker = self.binance_client.get_symbol_ticker(
-                    symbol=pair.replace("/", "")
-                )
+                if "/" in symbol:
+                    symbol_binance = symbol.replace("/", "")
+                else:
+                    symbol_binance = symbol
+                ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
                 price_binance = float(ticker.get("price", 0))
                 if price_binance == 0:
                     reason.append("Paire indisponible sur Binance USDC")
@@ -2025,9 +2020,11 @@ class TradingBotM4:
         for asset in assets:
             symbol = f"{asset}/USDC"
             try:
-                ticker = self.binance_client.get_symbol_ticker(
-                    symbol=symbol.replace("/", "")
-                )
+                if "/" in symbol:
+                    symbol_binance = symbol.replace("/", "")
+                else:
+                    symbol_binance = symbol
+                ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
                 if ticker and float(ticker.get("price", 0)) > 0:
                     available_pairs.append(symbol)
             except Exception:
@@ -2214,8 +2211,12 @@ class TradingBotM4:
                     reason = []
                     try:
                         # Vérifie que la paire existe sur Binance
+                        if "/" in symbol:
+                            symbol_binance = symbol.replace("/", "")
+                        else:
+                            symbol_binance = symbol
                         ticker = self.binance_client.get_symbol_ticker(
-                            symbol=pair.replace("/", "")
+                            symbol=symbol_binance
                         )
                         if ticker and float(ticker.get("price", 0)) > 0:
                             # Confirmation par autres indicateurs
@@ -4489,8 +4490,12 @@ class TradingBotM4:
                     entry_price = safe_float(pos.get("entry_price"), 0)
                     # PATCH: récupère le prix live Binance à chaque tick/cycle
                     try:
+                        if "/" in symbol:
+                            symbol_binance = symbol.replace("/", "")
+                        else:
+                            symbol_binance = symbol
                         ticker = self.binance_client.get_symbol_ticker(
-                            symbol=symbol.replace("/", "")
+                            symbol=symbol_binance
                         )
                         current_price = float(ticker.get("price", 0))
                         pos["current_price"] = current_price
@@ -4663,8 +4668,12 @@ class TradingBotM4:
                 if free > 0 and asset not in ("USDC", "USDT"):
                     symbol = f"{asset}/USDC"
                     try:
+                        if "/" in symbol:
+                            symbol_binance = symbol.replace("/", "")
+                        else:
+                            symbol_binance = symbol
                         ticker = self.binance_client.get_symbol_ticker(
-                            symbol=symbol.replace("/", "")
+                            symbol=symbol_binance
                         )
                         current_price = safe_float(ticker.get("price"))
                     except Exception:
@@ -5789,7 +5798,7 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
                 result = await self.executor.execute_order(
-                    symbol=symbol,
+                    symbol=symbol_binance,
                     side=side,
                     quoteOrderQty=amount,
                     orderbook=orderbook,
@@ -5851,7 +5860,7 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
                 result = await self.executor.execute_order(
-                    symbol=symbol,
+                    symbol=symbol_binance,
                     side=side,
                     quoteOrderQty=use_amount,
                     orderbook=orderbook,
@@ -5947,6 +5956,10 @@ class TradingBotM4:
         Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
         Enregistre la raison de l'achat pour le dashboard.
         """
+        if "/" in symbol:
+            symbol_binance = symbol.replace("/", "")
+        else:
+            symbol_binance = symbol
         auto_sell_list = []
         try:
             shared_data = safe_load_shared_data(self.data_file)
@@ -5993,9 +6006,11 @@ class TradingBotM4:
 
             # Récupère le prix courant live depuis Binance
             try:
-                ticker = self.binance_client.get_symbol_ticker(
-                    symbol=symbol.replace("/", "")
-                )
+                if "/" in symbol:
+                    symbol_binance = symbol.replace("/", "")
+                else:
+                    symbol_binance = symbol
+                ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
                 current_price = float(ticker.get("price", 0))
             except Exception:
                 # Fallback: utilise le WS collector si Binance échoue
