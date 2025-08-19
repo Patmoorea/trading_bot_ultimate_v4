@@ -117,6 +117,25 @@ from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 from collections import deque
 
 
+def audit_numeric_dict(d, context=""):
+    """
+    Log toutes les clés dont la valeur n'est pas strictement un float/int (ex: str, None, etc.)
+    """
+    for k, v in d.items():
+        if isinstance(v, dict):
+            audit_numeric_dict(v, context=f"{context}.{k}" if context else k)
+        elif isinstance(v, list):
+            for i, item in enumerate(v):
+                if isinstance(item, dict):
+                    audit_numeric_dict(item, context=f"{context}.{k}[{i}]")
+                elif not isinstance(item, (int, float)):
+                    print(
+                        f"[AUDIT] {context}.{k}[{i}] = {item} <type: {type(item).__name__}>"
+                    )
+        elif not isinstance(v, (int, float)):
+            print(f"[AUDIT] {context}.{k} = {v} <type: {type(v).__name__}>")
+
+
 def check_and_restore_shared_data(data_file="src/shared_data.json"):
     """
     Vérifie que le fichier partagé existe et est un JSON valide.
@@ -7614,13 +7633,18 @@ async def execute_trading_cycle(bot, valid_pairs):
             bot.market_data[pair_key]["last_decision"] = decision
             bot.market_data[pair_key]["last_update"] = current_time
 
+        # ---> AUDIT DES TYPES DANS LES POSITIONS AVANT LE CALCUL DE L'EXPOSITION <---
+        current_exposure_dict = getattr(bot, "positions", {})
+        audit_numeric_dict(current_exposure_dict, context="positions")  # Audit auto
+
+        current_exposure = sum(
+            safe_float(pos.get("amount", 0)) * safe_float(pos.get("entry_price", 0))
+            for pos in current_exposure_dict.values()
+        ) / max(bot.get_performance_metrics().get("balance", 1), 1)
+
         # 7) EXÉCUTION DES TRADES (avec ML obligatoire)
         if signals_ok and trade_decisions:
-            current_exposure = sum(
-                safe_float(pos.get("amount", 0)) * safe_float(pos.get("entry_price", 0))
-                for pos in getattr(bot, "positions", {}).values()
-            ) / max(bot.get_performance_metrics().get("balance", 1), 1)
-
+            # Utilise current_exposure déjà calculé et audité !
             if (
                 current_exposure
                 < bot.risk_manager.position_limits["max_total_exposure"]
