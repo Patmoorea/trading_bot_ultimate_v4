@@ -691,146 +691,52 @@ class TelegramNotifier:
         self.N_STEPS = 63
 
     def get_input_dim(self):
-        return self.N_FEATURES * self.N_STEPS * len(getattr(self, "pairs_valid", []))
-
-    def split_message(self, msg, max_length=4000):
-        """Fractionne un message en plusieurs parties pour Telegram"""
-        lines = msg.split("\n")
-        out = []
-        chunk = ""
-        for line in lines:
-            if len(chunk) + len(line) + 1 < max_length:
-                chunk += line + "\n"
-            else:
-                out.append(chunk)
-                chunk = line + "\n"
-        if chunk:
-            out.append(chunk)
-        return out
+        return self.N_FEATURES * self.N_STEPS * len(self.pairs_valid)
 
     async def send_message(self, message):
-        """Envoie un message sur Telegram via une queue non bloquante"""
+        """Envoie un message sur Telegram"""
         if not self.bot_token or not self.chat_id:
             print("⚠️ Message non envoyé: Configuration Telegram manquante")
             return
 
         header = (
-            f"🕒 {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"👤 Patmoorea\n"
+            f"🕒 {get_current_time()}\n"
+            f"👤 {CURRENT_USER}\n"
             "------------------------\n"
         )
         full_message = header + message
 
-        if not hasattr(self, "_queue"):
-            self._queue = asyncio.Queue()
-            self._worker_task = asyncio.create_task(self._telegram_worker())
-
-        await self._queue.put(full_message)
-
-    async def _telegram_worker(self):
-        """
-        Worker Telegram robuste avec retry, gestion des timeouts et reconnexion propre.
-        PATCH: Session recréée à chaque envoi, timeout 30s, logs détaillés.
-        """
-        import time
+        MAX_TELEGRAM_LENGTH = 4000
+        if len(full_message) > MAX_TELEGRAM_LENGTH:
+            full_message = (
+                full_message[: MAX_TELEGRAM_LENGTH - 20]
+                + "\n... (troncature automatique)"
+            )
 
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=30)  # 30s pour éviter faux timeout
-
-        while True:
-            try:
-                msg = await self._queue.get()
-                for part in self.split_message(msg):
-                    if len(part) > 4000:
-                        part = part[:3980] + "\n... (troncature automatique)"
-
-                    data = {
-                        "chat_id": self.chat_id,
-                        "text": part,
-                        "parse_mode": "HTML",
-                    }
-
-                    # Log debug
-                    print(f"🌍 URL appelée: {url}")
-                    print(f"📦 Payload: {data}")
-
-                    for attempt in range(3):
-                        try:
-                            start_time = time.time()
-                            print(f"📨 Tentative envoi Telegram (try {attempt+1}/3)...")
-
-                            async with aiohttp.ClientSession(
-                                timeout=TIMEOUT
-                            ) as session:
-                                async with session.post(url, json=data) as response:
-                                    elapsed = time.time() - start_time
-                                    print(
-                                        f"✅ Requête envoyée, statut {response.status}, durée {elapsed:.2f}s"
-                                    )
-
-                                    result = await response.json()
-                                    print(f"📩 Réponse Telegram: {result}")
-
-                                    if not result.get("ok"):
-                                        print(
-                                            f"⚠️ Erreur API Telegram: {result.get('description')}"
-                                        )
-                                        self._log_to_file(part)
-                                    break  # succès ou erreur API → on sort
-
-                        except (asyncio.TimeoutError, aiohttp.ClientError) as e:
-                            elapsed = time.time() - start_time
-                            print(
-                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, "
-                                f"détail: {repr(e)} (durée réelle: {elapsed:.2f}s)"
-                            )
-                            await asyncio.sleep(2**attempt)
-                            if attempt == 2:
-                                self._log_to_file(part)
-                        except asyncio.CancelledError:
-                            print("🛑 _telegram_worker annulé proprement")
-                            return
-                        except Exception as e:
-                            print(f"⚠️ Erreur inattendue Telegram: {e}")
-                            import traceback
-
-                            traceback.print_exc()
-                            self._log_to_file(part)
-                            break
-
-                    await asyncio.sleep(0.7)  # anti-rate-limit
-
-                self._queue.task_done()
-
-            except asyncio.CancelledError:
-                print("🛑 _telegram_worker annulé (shutdown bot)")
-                break
-            except Exception as e:
-                print(f"⚠️ Erreur boucle Telegram principale: {e}")
-                import traceback
-
-                traceback.print_exc()
-                await asyncio.sleep(5)
-
-    def _log_to_file(self, message):
-        """Fallback: log le message dans un fichier local si l'envoi échoue"""
+        data = {"chat_id": self.chat_id, "text": full_message, "parse_mode": "HTML"}
         try:
-            with open("telegram_fallback.log", "a", encoding="utf-8") as f:
-                f.write(f"\n[{datetime.utcnow()}] {message}\n")
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, json=data) as response:
+                    result = await response.json()
+                    if not result.get("ok"):
+                        print(f"⚠️ Erreur Telegram: {result.get('description')}")
+                    return result
         except Exception as e:
-            print(f"⚠️ Impossible d'écrire dans telegram_fallback.log: {e}")
+            print(f"⚠️ Erreur envoi Telegram: {e}")
 
     async def send_performance_update(self, performance_data):
         message = (
             "🤖 <b>Trading Bot Status Update</b>\n\n"
-            f"💰 Balance: ${performance_data.get('balance')}\n"
-            f"📊 Win Rate: {performance_data.get('win_rate', 0)*100:.1f}%\n"
-            f"📈 Profit Factor: {performance_data.get('profit_factor')}\n"
-            f"🔄 Total Trades: {performance_data.get('total_trades','N/A')}\n"
+            f"💰 Balance: ${safe(performance_data.get('balance'))}\n"
+            f"📊 Win Rate: {safe(performance_data.get('win_rate', 0)*100, 'N/A', '{:.1f}')}%\n"
+            f"📈 Profit Factor: {safe(performance_data.get('profit_factor'))}\n"
+            f"🔄 Total Trades: {safe(performance_data.get('total_trades'), 'N/A', '{:d}')}\n"
         )
         await self.send_message(message)
 
     async def send_cycle_update(self, cycle, regime, duration):
+        """Envoie une mise à jour du cycle"""
         message = (
             "🔄 <b>Cycle Update</b>\n\n"
             f"📊 Cycle: {cycle}\n"
@@ -840,6 +746,7 @@ class TelegramNotifier:
         await self.send_message(message)
 
     async def send_trade_alert(self, trade_data):
+        """Envoie un message unique et lisible pour chaque trade exécuté"""
         emoji = (
             "🟢"
             if trade_data.get("side", "").upper() == "BUY"
@@ -859,6 +766,7 @@ class TelegramNotifier:
         await self.send_message(message)
 
     async def send_arbitrage_alert(self, opportunity):
+        """Envoie une alerte d'opportunité d'arbitrage"""
         message = (
             f"🔄 <b>Opportunité d'Arbitrage</b>\n\n"
             f"📊 Paire: {opportunity['pair']}\n"
@@ -883,6 +791,7 @@ class TelegramNotifier:
             )
             return
 
+        # Mapping emoji par source
         source_emoji = {
             "CoinDesk": "📰",
             "Cointelegraph": "🟣",
@@ -892,12 +801,15 @@ class TelegramNotifier:
             "default": "🗞️",
         }
 
+        # Filtrage avancé selon symboles ou volatilité
         filtered_news = []
         for news in news_data:
+            # Filtrage par symbole
             if filter_symbols:
                 news_symbols = [s.upper() for s in news.get("symbols", [])]
                 if not any(sym in news_symbols for sym in filter_symbols):
                     continue
+            # Filtrage par volatilité
             if filter_volatility and market_data and news.get("symbols"):
                 symbol = news["symbols"][0].replace("/", "")
                 vol = market_data.get(symbol, {}).get("1h", {}).get("volatility", 0)
@@ -905,26 +817,72 @@ class TelegramNotifier:
                     continue
             filtered_news.append(news)
 
+        # Si rien ne passe le filtre, utilise tout
         if not filtered_news:
             filtered_news = news_data
 
         message = "📰 <b>Dernières Nouvelles Importantes</b>\n\n"
+
+        # Ajoute le résumé IA si fourni
         if ai_summary:
             message += f"🤖 <b>Résumé IA:</b>\n{ai_summary}\n\n"
 
         def real_translate_title(title):
             try:
-                from deep_translator import GoogleTranslator
-
                 return GoogleTranslator(source="auto", target="fr").translate(title)
             except Exception:
                 return title
 
+        def translate_title(title):
+            original = title
+            dico = {
+                "Bitcoin": "Bitcoin",
+                "Ethereum": "Ethereum",
+                "price": "prix",
+                "update": "mise à jour",
+                "reaches": "atteint",
+                "falls": "chute",
+                "surges": "explose",
+                "network": "réseau",
+                "record": "record",
+                "launch": "lancement",
+                "approval": "approbation",
+                "hack": "piratage",
+                "coin": "jeton",
+                "exchange": "plateforme",
+                "regulation": "réglementation",
+                "ETF": "ETF",
+                "market": "marché",
+                "crash": "effondrement",
+                "rise": "hausse",
+                "buy": "achat",
+                "sell": "vente",
+                "token": "jeton",
+                "trading": "trading",
+                "volume": "volume",
+                "support": "support",
+                "resistance": "résistance",
+            }
+            for en, fr in dico.items():
+                title = title.replace(en, fr)
+
+            if title == original:
+                try:
+                    from deep_translator import GoogleTranslator
+
+                    return GoogleTranslator(source="auto", target="fr").translate(title)
+                except Exception:
+                    return title
+
+            return title
+
+        # Remplacer [:5] par rien pour prendre tous les titres
         for news in filtered_news:
             src = news.get("source", "default")
             emoji = source_emoji.get(src, source_emoji["default"])
             title = news.get("title", "NO_TITLE")
             url = news.get("url", "")
+            # Traduction simplifiée
             fr_title = real_translate_title(title)
             if url:
                 title_line = f'{emoji} <a href="{url}">{fr_title}</a>'
@@ -971,8 +929,6 @@ class WarningFilter:
 
 
 # n'affecte sys.stderr qu'une fois
-import sys
-
 sys.stderr = WarningFilter(sys.stderr)
 
 
