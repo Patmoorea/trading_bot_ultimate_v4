@@ -7893,12 +7893,102 @@ async def execute_trading_cycle(bot, valid_pairs):
 async def execute_trade_decisions(bot, trade_decisions):
     """
     Exécute toutes les décisions de trade du cycle.
-    Intègre la gestion avancée de pause news par asset/action
-    et la validation par le RiskManager.
-    Corrigé pour éviter tout bug de type (int + str) sur les montants.
+    - Normalisation des symboles pour l'exchange (ex: BTC/USDC -> BTCUSDC)
+    - Anti (int + str) via safe_float
+    - Respect des pauses news (globales, par paire, buy-paused)
+    - Validation RiskManager (critères + exposition en notionnel)
+    - Utilise decision['amount'] si présent, sinon calcule la taille
     """
-    # Vérification des news du cycle
-    news_list = []
+
+    # ---------- Helpers locaux ----------
+    def safe_float(x, default=0.0):
+        try:
+            if x is None:
+                return float(default)
+            if isinstance(x, (int, float)):
+                return float(x)
+            s = str(x).strip().replace("%", "")
+            return float(s)
+        except Exception:
+            return float(default)
+
+    def normalize_pair(pair: str) -> str:
+        """
+        Normalise pour (par ex.) Binance spot: 'BTC/USDC' -> 'BTCUSDC'.
+        Adapte ici si tu utilises un autre exchange.
+        """
+        p = (pair or "").upper().strip()
+        return p.replace("/", "")
+
+    async def get_current_price_and_vol(bot, symbol_norm: str):
+        """
+        Tente de récupérer prix courant et volatilité (1h) à partir des DataFrames.
+        Fallback sur market_data sinon.
+        """
+        price = None
+        vol = None
+
+        # 1) Essaye via ws_collector (dataframe 1m/1h)
+        try:
+            df_1m = bot.ws_collector.get_dataframe(symbol_norm, "1m")
+            if df_1m is not None and not df_1m.empty:
+                price = safe_float(df_1m["close"].iloc[-1], None)
+        except Exception:
+            pass
+
+        try:
+            df_1h = bot.ws_collector.get_dataframe(symbol_norm, "1h")
+            if df_1h is not None and not df_1h.empty:
+                if price is None:
+                    price = safe_float(df_1h["close"].iloc[-1], None)
+                try:
+                    vol = bot.calculate_volatility_advanced(df_1h)
+                except Exception:
+                    vol = None
+        except Exception:
+            pass
+
+        # 2) Fallback market_data
+        if price is None:
+            md_1h = bot.market_data.get(symbol_norm, {}).get("1h", {})
+            cl = md_1h.get("close", [])
+            if isinstance(cl, list) and cl:
+                price = safe_float(cl[-1], None)
+
+        if vol is None:
+            try:
+                md_1h = bot.market_data.get(symbol_norm, {}).get("1h", {})
+                vol = (
+                    safe_float(bot.calculate_volatility(md_1h), None) if md_1h else None
+                )
+            except Exception:
+                vol = None
+
+        return price, vol
+
+    def is_paused(npm, symbol_norm: str, action: str) -> bool:
+        if not npm:
+            return False
+        # Pause globale
+        if getattr(npm, "global_cycles_remaining", 0) > 0:
+            return True
+        # Pause par paire
+        if (
+            symbol_norm in getattr(npm, "pair_pauses", {})
+            and npm.pair_pauses[symbol_norm] > 0
+        ):
+            return True
+        # Pause d'achat spécifique
+        if action.lower() == "buy" and symbol_norm in getattr(
+            npm, "buy_paused_pairs", set()
+        ):
+            return True
+        # Fallback méthode is_paused si dispo
+        if callable(getattr(npm, "is_paused", None)):
+            return npm.is_paused(symbol_norm)
+        return False
+
+    # ---------- Préchargement des news pour logs qualité (optionnel/robuste) ----------
     try:
         with open(bot.data_file, "r") as f:
             shared_data = json.load(f)
@@ -7912,7 +8002,6 @@ async def execute_trade_decisions(bot, trade_decisions):
         print(f"[WARNING] Erreur chargement news: {e}")
         news_list = []
 
-    # Validation des champs obligatoires des news
     for news in news_list:
         if "symbols" not in news or not news["symbols"]:
             log_dashboard(
@@ -7923,36 +8012,46 @@ async def execute_trade_decisions(bot, trade_decisions):
                 f"[NEWS CHECK] ⚠️ News sans sentiment: {news.get('title', '')[:80]}"
             )
 
-    # Traitement des décisions de trade
-    for decision in trade_decisions:
+    # ---------- Exécution séquentielle des décisions ----------
+    npm = getattr(bot, "news_pause_manager", None)
+    risk = getattr(bot, "risk_manager", None)
+    balance = safe_float(bot.get_performance_metrics().get("balance", 0), 0.0)
+
+    for decision in trade_decisions or []:
+        status = "neutral"
         try:
-            pair = decision.get("pair")
-            action = decision.get("action")
-            confidence = safe_float(decision.get("confidence", 0))
-            status = "neutral"  # statut par défaut
+            pair_disp = decision.get("pair") or decision.get(
+                "symbol"
+            )  # pour logs humains
+            action = (decision.get("action") or "neutral").lower()
 
-            # Vérification pause news
-            active_pauses = bot.news_pause_manager.get_active_pauses()
-            if any(
-                p.get("asset") == pair or p.get("asset") == "GLOBAL"
-                for p in active_pauses
-            ):
+            # Normalisation symbole pour l'exchange
+            symbol_norm = decision.get("symbol") or normalize_pair(pair_disp or "")
+            if not symbol_norm:
+                log_dashboard(f"[EXECUTE] ⚠️ Symbole vide pour décision: {decision}")
+                status = "refused"
+                continue
+
+            # Pauses news
+            if is_paused(npm, symbol_norm, action):
                 status = "refused"
                 log_dashboard(
-                    f"[NEWS PAUSE] Trade {str(action).upper()} sur {pair} bloqué (pause news)"
+                    f"[NEWS PAUSE] Trade {action.upper()} sur {pair_disp} bloqué (pause active)"
                 )
-                await bot.telegram.send_message(
-                    f"🚨 Trading {str(action).upper()} sur {pair} bloqué (pause news)"
-                )
-                # Log la décision même refusée
                 try:
+                    await bot.telegram.send_message(
+                        f"🚨 Trading {action.upper()} sur {pair_disp} bloqué (pause news)"
+                    )
+                except Exception:
+                    pass
+                # Log dataset
+                try:
+                    price_for_log, _ = await get_current_price_and_vol(bot, symbol_norm)
                     bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=bot.get_performance_metrics().get("balance", 0),
+                        pair=pair_disp,
+                        equity=balance,
                         decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
+                        price=price_for_log or 0.0,
                         features=decision.get("signals", {}),
                         status=status,
                     )
@@ -7960,55 +8059,73 @@ async def execute_trade_decisions(bot, trade_decisions):
                     print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
-            # Validation par le RiskManager
-            if not bot.risk_manager.validate_trade(decision.get("signals", {})):
-                status = "refused"
-                log_dashboard(
-                    f"[RISK] Trade {str(action).upper()} sur {pair} rejeté "
-                    "(critères de risque non respectés)"
-                )
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=bot.get_performance_metrics().get("balance", 0),
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
+            # Validation RiskManager sur les signaux (si méthode dispo)
+            if callable(getattr(risk, "validate_trade", None)):
+                if not risk.validate_trade(decision.get("signals", {})):
+                    status = "refused"
+                    log_dashboard(
+                        f"[RISK] Trade {action.upper()} sur {pair_disp} rejeté (critères de risque)"
                     )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
+                    try:
+                        price_for_log, _ = await get_current_price_and_vol(
+                            bot, symbol_norm
+                        )
+                        bot.dataset_logger.log_cycle(
+                            pair=pair_disp,
+                            equity=balance,
+                            decision=decision,
+                            price=price_for_log or 0.0,
+                            features=decision.get("signals", {}),
+                            status=status,
+                        )
+                    except Exception as e:
+                        print(f"[LOGGER] Erreur dataset log: {e}")
+                    continue
+
+            # Prix & volatilité
+            current_price, volatility = await get_current_price_and_vol(
+                bot, symbol_norm
+            )
+            if current_price is None:
+                status = "refused"
+                log_dashboard(f"[EXECUTE] ⚠️ Pas de prix pour {pair_disp}, trade ignoré")
                 continue
 
-            # Calcul de la taille de position
-            balance = safe_float(bot.get_performance_metrics().get("balance", 0), 0)
-            volatility = safe_float(
-                bot.calculate_volatility_advanced(
-                    bot.market_data.get(pair.replace("/", "").upper(), {}).get("1h", {})
-                ),
-                0.02,
-            )
+            if volatility is None:
+                # défaut raisonnable si non calculable
+                volatility = 0.02
 
-            amount = safe_float(
-                bot.risk_manager.calculate_position_size(
-                    equity=balance, confidence=confidence, volatility=volatility
-                ),
-                0,
-            )
+            confidence = safe_float(decision.get("confidence", 0.0), 0.0)
+
+            # Taille : priorité à la taille déjà fixée dans la décision
+            amount = decision.get("amount", None)
+            amount = safe_float(amount, None)
+            if amount is None or amount <= 0:
+                # calcul via RiskManager si pas fourni
+                if callable(getattr(risk, "calculate_position_size", None)):
+                    amount = safe_float(
+                        risk.calculate_position_size(
+                            equity=balance, confidence=confidence, volatility=volatility
+                        ),
+                        0.0,
+                    )
+                else:
+                    # fallback simple : 1% du solde en notionnel
+                    notional = 0.01 * balance
+                    amount = notional / current_price if current_price > 0 else 0.0
 
             if amount <= 0:
                 status = "refused"
-                log_dashboard(f"[RISK] Taille position nulle pour {pair}, trade ignoré")
+                log_dashboard(
+                    f"[RISK] Taille position nulle pour {pair_disp}, trade ignoré"
+                )
                 try:
+                    price_for_log, _ = await get_current_price_and_vol(bot, symbol_norm)
                     bot.dataset_logger.log_cycle(
-                        pair=pair,
+                        pair=pair_disp,
                         equity=balance,
                         decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
+                        price=price_for_log or 0.0,
                         features=decision.get("signals", {}),
                         status=status,
                     )
@@ -8016,61 +8133,75 @@ async def execute_trade_decisions(bot, trade_decisions):
                     print(f"[LOGGER] Erreur dataset log: {e}")
                 continue
 
-            # Vérification exposition totale
-            if not bot.risk_manager.check_exposure_limit(bot.positions, amount):
-                status = "refused"
-                log_dashboard(
-                    f"[RISK] Limite d'exposition dépassée pour {pair}, trade ignoré"
-                )
-                try:
-                    bot.dataset_logger.log_cycle(
-                        pair=pair,
-                        equity=balance,
-                        decision=decision,
-                        price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                        .get("1h", {})
-                        .get("close", [0])[-1],
-                        features=decision.get("signals", {}),
-                        status=status,
+            # Vérification exposition (en notionnel)
+            notional = amount * current_price
+            if callable(getattr(risk, "check_exposure_limit", None)):
+                if not risk.check_exposure_limit(
+                    getattr(bot, "positions", {}), notional
+                ):
+                    status = "refused"
+                    log_dashboard(
+                        f"[RISK] Limite d'exposition dépassée pour {pair_disp}, trade ignoré"
                     )
-                except Exception as e:
-                    print(f"[LOGGER] Erreur dataset log: {e}")
-                continue
+                    try:
+                        bot.dataset_logger.log_cycle(
+                            pair=pair_disp,
+                            equity=balance,
+                            decision=decision,
+                            price=current_price,
+                            features=decision.get("signals", {}),
+                            status=status,
+                        )
+                    except Exception as e:
+                        print(f"[LOGGER] Erreur dataset log: {e}")
+                    continue
 
             # Log pré-exécution
             log_dashboard(
-                f"[EXECUTE] {pair} | {str(action).upper()} | "
-                f"Amount: {amount:.6f} | Conf: {confidence:.2f}"
+                f"[EXECUTE] {pair_disp} | {action.upper()} | Amount: {amount:.8f} | "
+                f"Price: {current_price:.6f} | Conf: {confidence:.2f} | Vol: {volatility:.4f}"
             )
 
-            # Exécution du trade
+            # Stop loss / params additionnels
+            extra_kwargs = {}
+            if "stop_loss" in decision and decision["stop_loss"]:
+                extra_kwargs["stop_loss"] = safe_float(decision["stop_loss"], None)
+
+            # ⚠️ Passage du symbole NORMALISÉ à l'exécuteur !
             trade_result = await bot.execute_trade(
-                symbol=pair, side=action, amount=amount
+                symbol=symbol_norm,
+                side=action,
+                amount=amount,
+                **extra_kwargs,
             )
 
-            # Notification du résultat
+            # Traitement du résultat
             if trade_result and trade_result.get("status") == "completed":
                 status = "executed"
-                await send_trade_notification(
-                    bot=bot, decision=decision, trade_result=trade_result, amount=amount
-                )
-                log_dashboard(f"[SUCCESS] Trade exécuté sur {pair}")
+                try:
+                    await send_trade_notification(
+                        bot=bot,
+                        decision=decision,
+                        trade_result=trade_result,
+                        amount=amount,
+                    )
+                except Exception:
+                    pass
+                log_dashboard(f"[SUCCESS] Trade exécuté sur {pair_disp}")
             else:
                 status = "refused"
+                reason = (trade_result or {}).get("reason", "raison inconnue")
                 log_dashboard(
-                    f"[ERROR] Échec exécution trade sur {pair}: "
-                    f"{trade_result.get('reason', 'raison inconnue')}"
+                    f"[ERROR] Échec exécution trade sur {pair_disp}: {reason}"
                 )
 
-            # Log la décision finale (executed ou refused)
+            # Logging dataset
             try:
                 bot.dataset_logger.log_cycle(
-                    pair=pair,
-                    equity=bot.get_performance_metrics().get("balance", 0),
+                    pair=pair_disp,
+                    equity=balance,
                     decision=decision,
-                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                    .get("1h", {})
-                    .get("close", [0])[-1],
+                    price=current_price,
                     features=decision.get("signals", {}),
                     status=status,
                 )
@@ -8078,16 +8209,22 @@ async def execute_trade_decisions(bot, trade_decisions):
                 print(f"[LOGGER] Erreur dataset log: {e}")
 
         except Exception as e:
-            log_dashboard(f"[ERROR] Erreur exécution trade {pair}: {str(e)}")
-            # Même en cas d'exception, log en "refused"
+            # Sécurité : ne jamais casser la boucle d'exécution d'un cycle
             try:
+                pair_disp = decision.get("pair") or decision.get("symbol") or "UNKNOWN"
+            except Exception:
+                pair_disp = "UNKNOWN"
+            log_dashboard(f"[ERROR] Erreur exécution trade {pair_disp}: {str(e)}")
+            try:
+                # Log en refused malgré l’exception
+                price_for_log, _ = await get_current_price_and_vol(
+                    bot, normalize_pair(pair_disp)
+                )
                 bot.dataset_logger.log_cycle(
-                    pair=pair,
-                    equity=bot.get_performance_metrics().get("balance", 0),
+                    pair=pair_disp,
+                    equity=balance,
                     decision=decision,
-                    price=bot.market_data.get(pair.replace("/", "").upper(), {})
-                    .get("1h", {})
-                    .get("close", [0])[-1],
+                    price=price_for_log or 0.0,
                     features=decision.get("signals", {}),
                     status="refused",
                 )
