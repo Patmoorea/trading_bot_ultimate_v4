@@ -750,10 +750,15 @@ class TelegramNotifier:
                         "parse_mode": "HTML",
                     }
 
+                    # Log debug
+                    print(f"🌍 URL appelée: {url}")
+                    print(f"📦 Payload: {data}")
+
                     for attempt in range(3):
                         try:
                             start_time = time.time()
                             print(f"📨 Tentative envoi Telegram (try {attempt+1}/3)...")
+
                             async with aiohttp.ClientSession(
                                 timeout=TIMEOUT
                             ) as session:
@@ -762,6 +767,7 @@ class TelegramNotifier:
                                     print(
                                         f"✅ Requête envoyée, statut {response.status}, durée {elapsed:.2f}s"
                                     )
+
                                     result = await response.json()
                                     print(f"📩 Réponse Telegram: {result}")
 
@@ -775,7 +781,8 @@ class TelegramNotifier:
                         except (asyncio.TimeoutError, aiohttp.ClientError) as e:
                             elapsed = time.time() - start_time
                             print(
-                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)} (durée réelle: {elapsed:.2f}s)"
+                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, "
+                                f"détail: {repr(e)} (durée réelle: {elapsed:.2f}s)"
                             )
                             await asyncio.sleep(2**attempt)
                             if attempt == 2:
