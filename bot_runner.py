@@ -711,30 +711,32 @@ class TelegramNotifier:
     async def _telegram_worker(self):
         """
         Worker Telegram robuste avec retry, gestion des timeouts et reconnexion propre.
+        PATCH: Session recréée à chaque envoi, donc jamais bloqué.
         """
         url = f"{self.base_url}/sendMessage"
-        TIMEOUT = aiohttp.ClientTimeout(total=10)  # raccourci à 10s
+        TIMEOUT = aiohttp.ClientTimeout(total=10)
+        while True:
+            try:
+                msg = await self._queue.get()
+                for part in self.split_message(msg):
+                    if len(part) > 4000:
+                        part = part[:3980] + "\n... (troncature automatique)"
 
-        async with aiohttp.ClientSession(timeout=TIMEOUT) as session:
-            while True:
-                try:
-                    msg = await self._queue.get()
-                    for part in self.split_message(msg):
-                        if len(part) > 4000:
-                            part = part[:3980] + "\n... (troncature automatique)"
+                    data = {
+                        "chat_id": self.chat_id,
+                        "text": part,
+                        "parse_mode": "HTML",
+                    }
 
-                        data = {
-                            "chat_id": self.chat_id,
-                            "text": part,
-                            "parse_mode": "HTML",
-                        }
-
-                        for attempt in range(3):
-                            try:
+                    for attempt in range(3):
+                        try:
+                            async with aiohttp.ClientSession(
+                                timeout=TIMEOUT
+                            ) as session:
                                 async with session.post(
                                     url, json=data, timeout=TIMEOUT
                                 ) as response:
-                                    response.raise_for_status()  # si 500/429 → exception
+                                    response.raise_for_status()
                                     result = await response.json()
                                     if not result.get("ok"):
                                         print(
@@ -742,37 +744,35 @@ class TelegramNotifier:
                                         )
                                         self._log_to_file(part)
                                     break
-                            except (asyncio.TimeoutError, aiohttp.ClientError) as e:
-                                print(
-                                    f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
-                                )
-                                await asyncio.sleep(2**attempt)
-                                if attempt == 2:  # dernier essai échoué
-                                    self._log_to_file(part)
-                            except asyncio.CancelledError:
-                                print("🛑 _telegram_worker annulé proprement")
-                                return
-                            except Exception as e:
-                                print(f"⚠️ Erreur inattendue Telegram: {e}")
-                                import traceback
-
-                                traceback.print_exc()
+                        except (asyncio.TimeoutError, aiohttp.ClientError) as e:
+                            print(
+                                f"⚠️ Timeout/connexion Telegram: tentative {attempt+1}/3, détail: {repr(e)}"
+                            )
+                            await asyncio.sleep(2**attempt)
+                            if attempt == 2:
                                 self._log_to_file(part)
-                                break
+                        except asyncio.CancelledError:
+                            print("🛑 _telegram_worker annulé proprement")
+                            return
+                        except Exception as e:
+                            print(f"⚠️ Erreur inattendue Telegram: {e}")
+                            import traceback
 
-                        await asyncio.sleep(0.7)  # évite le rate-limit
+                            traceback.print_exc()
+                            self._log_to_file(part)
+                            break
 
-                    self._queue.task_done()
+                    await asyncio.sleep(0.7)
+                self._queue.task_done()
+            except asyncio.CancelledError:
+                print("🛑 _telegram_worker annulé (shutdown bot)")
+                break
+            except Exception as e:
+                print(f"⚠️ Erreur boucle Telegram principale: {e}")
+                import traceback
 
-                except asyncio.CancelledError:
-                    print("🛑 _telegram_worker annulé (shutdown bot)")
-                    break
-                except Exception as e:
-                    print(f"⚠️ Erreur boucle Telegram principale: {e}")
-                    import traceback
-
-                    traceback.print_exc()
-                    await asyncio.sleep(5)
+                traceback.print_exc()
+                await asyncio.sleep(5)
 
     def _log_to_file(self, message):
         """Fallback: log le message dans un fichier local si l'envoi échoue"""
