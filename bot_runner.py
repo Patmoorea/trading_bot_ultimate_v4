@@ -7656,6 +7656,7 @@ async def execute_trading_cycle(bot, valid_pairs):
 
         # ---> AUDIT DES TYPES DANS LES POSITIONS AVANT LE CALCUL DE L'EXPOSITION <---
         current_exposure_dict = getattr(bot, "positions", {})
+        deep_cast_floats(current_exposure_dict)
         audit_numeric_dict(current_exposure_dict, context="positions")  # Audit auto
 
         current_exposure = sum(
