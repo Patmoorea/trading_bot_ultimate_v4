@@ -8673,73 +8673,127 @@ async def run_clean_bot():
                             continue
 
                     # =========================
-                    # Gestion TP partiels & Trailing (longs) - CORRIGÉ
+                    # Gestion TP partiels & Trailing (longs) - CORRIGÉ DÉFINITIVEMENT
                     # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
                         print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
 
-                        # --- PATCH ANTI int+str CORRIGÉ ---
-                        # Cast tous les scalaires importants SAUF pnl_pct (qui est un tuple)
-                        for k in [
+                        # --- PATCH ANTI int+str RENFORCÉ ---
+                        # Conversion FORCÉE de tous les champs numériques
+                        numeric_fields = [
                             "amount",
                             "entry_price",
                             "current_price",
                             "max_price",
                             "pnl_usd",
                             "value_usd",
-                        ]:
-                            if (
-                                k in pos and k != "pnl_pct"
-                            ):  # Exclure pnl_pct qui est un tuple
+                        ]
+
+                        for field in numeric_fields:
+                            if field in pos:
                                 try:
-                                    pos[k] = float(pos[k])
+                                    # Conversion agressive en float
+                                    if isinstance(pos[field], str):
+                                        # Nettoyage des chaînes (enlève les caractères non numériques)
+                                        cleaned = "".join(
+                                            c
+                                            for c in pos[field]
+                                            if c.isdigit() or c in [".", "-"]
+                                        )
+                                        pos[field] = float(cleaned) if cleaned else 0.0
+                                    elif isinstance(pos[field], (int, float)):
+                                        pos[field] = float(pos[field])
+                                    else:
+                                        pos[field] = 0.0
                                 except (TypeError, ValueError):
-                                    pos[k] = 0.0
+                                    pos[field] = 0.0
+                                    print(
+                                        f"[WARN] Conversion échouée pour {symbol}.{field}: {pos[field]}"
+                                    )
 
                         # Traitement spécial pour pnl_pct (tuple)
-                        if "pnl_pct" in pos and isinstance(pos["pnl_pct"], tuple):
-                            try:
-                                # Convertit chaque élément du tuple en float si possible
-                                new_pnl = []
-                                for item in pos["pnl_pct"]:
-                                    if item is None:
-                                        new_pnl.append(None)
-                                    else:
-                                        try:
+                        if "pnl_pct" in pos:
+                            if isinstance(pos["pnl_pct"], tuple):
+                                try:
+                                    new_pnl = []
+                                    for item in pos["pnl_pct"]:
+                                        if item is None:
+                                            new_pnl.append(None)
+                                        elif isinstance(item, str):
+                                            cleaned = "".join(
+                                                c
+                                                for c in item
+                                                if c.isdigit() or c in [".", "-"]
+                                            )
+                                            new_pnl.append(
+                                                float(cleaned) if cleaned else 0.0
+                                            )
+                                        else:
                                             new_pnl.append(float(item))
-                                        except (TypeError, ValueError):
-                                            new_pnl.append(0.0)
-                                pos["pnl_pct"] = tuple(new_pnl)
-                            except Exception:
-                                pos["pnl_pct"] = (0.0, 0.0)  # Fallback
+                                    pos["pnl_pct"] = tuple(new_pnl)
+                                except Exception:
+                                    pos["pnl_pct"] = (0.0, 0.0)
+                            elif isinstance(pos["pnl_pct"], str):
+                                # Cas où pnl_pct serait une chaîne au lieu d'un tuple
+                                try:
+                                    cleaned = "".join(
+                                        c
+                                        for c in pos["pnl_pct"]
+                                        if c.isdigit() or c in [".", "-"]
+                                    )
+                                    pos["pnl_pct"] = (
+                                        (float(cleaned),) if cleaned else (0.0,)
+                                    )
+                                except Exception:
+                                    pos["pnl_pct"] = (0.0, 0.0)
 
-                        # Cast la liste price_history
-                        if "price_history" in pos and isinstance(
-                            pos["price_history"], list
-                        ):
-                            pos["price_history"] = [
-                                float(x) if isinstance(x, (str, int, float)) else 0.0
-                                for x in pos["price_history"]
-                            ]
+                        # Conversion de price_history
+                        if "price_history" in pos:
+                            if isinstance(pos["price_history"], list):
+                                new_history = []
+                                for price in pos["price_history"]:
+                                    try:
+                                        if isinstance(price, str):
+                                            cleaned = "".join(
+                                                c
+                                                for c in price
+                                                if c.isdigit() or c in [".", "-"]
+                                            )
+                                            new_history.append(
+                                                float(cleaned) if cleaned else 0.0
+                                            )
+                                        else:
+                                            new_history.append(float(price))
+                                    except (TypeError, ValueError):
+                                        new_history.append(0.0)
+                                pos["price_history"] = new_history
+                            else:
+                                pos["price_history"] = [
+                                    safe_float(pos.get("entry_price"), 0)
+                                ]
 
-                        # Cast la liste filled_tp_targets
-                        if "filled_tp_targets" in pos and isinstance(
-                            pos["filled_tp_targets"], list
-                        ):
-                            pos["filled_tp_targets"] = [
-                                bool(x) for x in pos["filled_tp_targets"]
-                            ]
-                        # --- FIN PATCH CORRIGÉ ---
+                        # Conversion de filled_tp_targets
+                        if "filled_tp_targets" in pos:
+                            if isinstance(pos["filled_tp_targets"], list):
+                                new_filled = []
+                                for item in pos["filled_tp_targets"]:
+                                    if isinstance(item, str):
+                                        # Convertit "True"/"False" en booléen
+                                        if item.lower() in ["true", "1", "yes"]:
+                                            new_filled.append(True)
+                                        elif item.lower() in ["false", "0", "no"]:
+                                            new_filled.append(False)
+                                        else:
+                                            new_filled.append(bool(item))
+                                    else:
+                                        new_filled.append(bool(item))
+                                pos["filled_tp_targets"] = new_filled
+                            else:
+                                pos["filled_tp_targets"] = [False, False]
 
-                        if str(pos.get("side", "")).lower() != "long":
-                            print(
-                                f"[DEBUG SKIP] {symbol}: side={pos.get('side')} (not long)"
-                            )
-                            continue
-
-                        # Init des champs si absents
+                        # Initialisation des champs manquants
                         if "filled_tp_targets" not in pos:
                             pos["filled_tp_targets"] = [False, False]
                         if "price_history" not in pos:
@@ -8748,6 +8802,14 @@ async def run_clean_bot():
                             ]
                         if "max_price" not in pos:
                             pos["max_price"] = safe_float(pos.get("entry_price"), 0)
+
+                        # --- FIN PATCH RENFORCÉ ---
+
+                        if str(pos.get("side", "")).lower() != "long":
+                            print(
+                                f"[DEBUG SKIP] {symbol}: side={pos.get('side')} (not long)"
+                            )
+                            continue
 
                         # Prix live
                         try:
