@@ -8489,27 +8489,47 @@ async def run_clean_bot():
 
     async def main():
         try:
+            # =========================
             # Initialisation
+            # =========================
             bot, valid_pairs = await initialize_bot()
             if bot is None:
                 print("Erreur critique à l'initialisation du bot. Arrêt.")
                 return
 
+            # Vérifications/initialisations défensives
+            if not hasattr(bot, "positions_binance") or bot.positions_binance is None:
+                bot.positions_binance = {}
+            if not hasattr(bot, "positions") or bot.positions is None:
+                bot.positions = {}
+            if not hasattr(bot, "portfolio") or bot.portfolio is None:
+                bot.portfolio = {}
+            if not hasattr(bot, "pairs_valid") or bot.pairs_valid is None:
+                bot.pairs_valid = valid_pairs or []
+
             await bot.test_news_sentiment()
 
+            # =========================
             # Analyse initiale du marché
+            # =========================
             regime, _, _ = await bot.study_market("7d")
             log_dashboard(f"🔈 Régime de marché détecté: {regime}")
 
+            # =========================
             # Boucle principale
+            # =========================
             cycle = 0
             while True:
+                # -- housekeeping pré-cycle
                 await bot.handle_auto_sell()
-                bot.sync_positions_with_binance()
+                if hasattr(bot, "sync_positions_with_binance"):
+                    bot.sync_positions_with_binance()
 
+                # Purge positions avec amount <= 0
                 for symbol in list(bot.positions_binance.keys()):
                     if safe_float(bot.positions_binance[symbol].get("amount", 0)) <= 0:
                         del bot.positions_binance[symbol]
+
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
                 print(f"[DEBUG CYCLE] Positions (avant TP/SL): {bot.positions}")
                 print(f"[DEBUG CYCLE] bot.positions: {bot.positions}")
@@ -8517,14 +8537,22 @@ async def run_clean_bot():
                     f"[DEBUG CYCLE] Positions binance: {getattr(bot, 'positions_binance', {})}"
                 )
                 print(f"[DEBUG CYCLE] bot.portfolio: {getattr(bot, 'portfolio', {})}")
+
                 try:
                     cycle += 1
                     start = datetime.utcnow()
 
-                    # Mise à jour des positions en attente
-                    bot.get_pending_sales()
+                    # =========================
+                    # MAJ des positions en attente
+                    # =========================
+                    if hasattr(bot, "get_pending_sales"):
+                        bot.get_pending_sales()
 
+                    # =========================
                     # Gestion des news et pauses
+                    # =========================
+                    shared_data = {}
+                    news_list = []
                     try:
                         with open(bot.data_file, "r") as f:
                             shared_data = json.load(f)
@@ -8533,15 +8561,18 @@ async def run_clean_bot():
                             if isinstance(shared_data, dict)
                             else {}
                         )
-                        news_list = (
+                        raw_scores = (
                             news_sentiment.get("scores", [])
                             if isinstance(news_sentiment, dict)
                             else []
                         )
+                        # Sécurisation (si le fichier contient autre chose qu'une liste de dicts)
+                        news_list = [n for n in raw_scores if isinstance(n, dict)]
                     except Exception:
+                        shared_data = {}
                         news_list = []
 
-                    # Traitement des news non traitées
+                    # Traitement des news non traitées & pause
                     unprocessed_news = [n for n in news_list if not n.get("processed")]
                     if unprocessed_news and bot.news_pause_manager.scan_news(
                         unprocessed_news
@@ -8550,14 +8581,18 @@ async def run_clean_bot():
                         for n in unprocessed_news:
                             n["processed"] = True
 
-                        # Merge processed flags before saving
-                        old_scores = shared_data.get("sentiment", {}).get("scores", [])
+                        # Fusion des flags processed avant sauvegarde
+                        old_scores = (shared_data.get("sentiment", {}) or {}).get(
+                            "scores", []
+                        )
+                        if not isinstance(old_scores, list):
+                            old_scores = []
                         news_list = merge_news_processed(old_scores, news_list)
 
                         bot.safe_update_shared_data(
                             {
                                 "sentiment": {
-                                    **shared_data.get("sentiment", {}),
+                                    **(shared_data.get("sentiment", {}) or {}),
                                     "scores": news_list,
                                 }
                             },
@@ -8569,63 +8604,82 @@ async def run_clean_bot():
                     active_pauses = bot.get_active_pauses()
                     print("[DEBUG PATCH] Pauses RAM après tick:", active_pauses)
 
-                    # Synchronisation systématique avec le fichier partagé
+                    # Sync pauses -> fichier partagé
                     bot.safe_update_shared_data(
                         {"active_pauses": active_pauses}, bot.data_file
                     )
 
                     # Vérification pause globale
-                    trading_paused = bot.news_pause_manager.global_cycles_remaining > 0
+                    trading_paused = (
+                        safe_float(
+                            getattr(
+                                bot.news_pause_manager, "global_cycles_remaining", 0
+                            ),
+                            0,
+                        )
+                        > 0
+                    )
                     if trading_paused:
                         print(
                             "Trading en pause: calculs et signaux mis à jour, EXÉCUTION DES TRADES BLOQUÉE."
                         )
 
-                    # Hot reload du modèle IA
-                    bot.check_reload_dl_model()
+                    # Hot reload du modèle IA (si disponible)
+                    if hasattr(bot, "check_reload_dl_model"):
+                        bot.check_reload_dl_model()
 
-                    # Gestion des stop-loss SPOT
+                    # =========================
+                    # Gestion des stop-loss SPOT (positions longues)
+                    # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
-                        # Récupère le prix live Binance à chaque tick
                         try:
-                            ticker = bot.binance_client.get_symbol_ticker(
-                                symbol=symbol.replace("/", "")
-                            )
-                            last_price = float(ticker.get("price", 0))
-                        except Exception:
-                            last_price = safe_float(pos.get("current_price"), 0)
+                            # Récupère le prix live Binance
+                            try:
+                                ticker = bot.binance_client.get_symbol_ticker(
+                                    symbol=symbol.replace("/", "")
+                                )
+                                last_price = float(ticker.get("price", 0))
+                            except Exception:
+                                last_price = safe_float(pos.get("current_price"), 0)
 
-                        entry_price = safe_float(pos.get("entry_price"), 0)
-                        amount = safe_float(pos.get("amount"), 0)
+                            entry_price = safe_float(pos.get("entry_price"), 0)
+                            amount = safe_float(pos.get("amount"), 0)
 
-                        # Stop-loss spot
-                        if pos.get("side") == "long" and bot.check_stop_loss(
-                            symbol, price=last_price
-                        ):
-                            print(
-                                f"[STOPLOSS] Déclenchement automatique du stop-loss pour {symbol}"
-                            )
-                            await bot.execute_trade(symbol, "SELL", amount)
-                            print(f"[STOPLOSS] Position fermée pour {symbol}")
-                            getattr(bot, "positions_binance", {}).pop(symbol, None)
-                            continue  # Passe à la position suivante
+                            if str(
+                                pos.get("side", "")
+                            ).lower() == "long" and bot.check_stop_loss(
+                                symbol, price=last_price
+                            ):
+                                print(
+                                    f"[STOPLOSS] Déclenchement automatique du stop-loss pour {symbol}"
+                                )
+                                if amount > 0:
+                                    await bot.execute_trade(symbol, "SELL", amount)
+                                print(f"[STOPLOSS] Position fermée pour {symbol}")
+                                getattr(bot, "positions_binance", {}).pop(symbol, None)
+                                continue
+                        except Exception as _e:
+                            # On ne casse pas la boucle principale pour un symbole
+                            print(f"[STOPLOSS][WARN] {symbol}: {_e}")
+                            continue
 
-                    # Gestion des TP et trailing stop
+                    # =========================
+                    # Gestion TP partiels & Trailing (longs)
+                    # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
                         print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
 
-                        # Filtre seulement les positions "long"
-                        if pos.get("side") != "long":
+                        if str(pos.get("side", "")).lower() != "long":
                             print(
                                 f"[DEBUG SKIP] {symbol}: side={pos.get('side')} (not long)"
                             )
                             continue
 
-                        # Initialisation des champs si absents
+                        # Init des champs si absents
                         if "filled_tp_targets" not in pos:
                             pos["filled_tp_targets"] = [False, False]
                         if "price_history" not in pos:
@@ -8635,7 +8689,7 @@ async def run_clean_bot():
                         if "max_price" not in pos:
                             pos["max_price"] = safe_float(pos.get("entry_price"), 0)
 
-                        # Récupère le prix live Binance
+                        # Prix live
                         try:
                             ticker = bot.binance_client.get_symbol_ticker(
                                 symbol=symbol.replace("/", "")
@@ -8643,27 +8697,31 @@ async def run_clean_bot():
                             last_price = float(ticker.get("price", 0))
                         except Exception:
                             last_price = safe_float(pos.get("current_price"), 0)
-                        pos["price_history"].append(last_price)
+
+                        pos["price_history"].append(safe_float(last_price, 0))
 
                         entry_price = safe_float(pos.get("entry_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
 
-                        # Take Profit partiel
+                        # TP partiel
                         to_exit, new_filled = bot.exit_manager.check_tp_partial(
                             entry_price, last_price, pos["filled_tp_targets"]
                         )
                         to_exit = safe_float(to_exit, 0)
                         if to_exit > 0 and amount > 0:
                             amount_to_sell = amount * to_exit
-                            await bot.execute_trade(symbol, "SELL", amount_to_sell)
-                            pos["amount"] = amount - amount_to_sell
-                            pos["filled_tp_targets"] = new_filled
-                            print(
-                                f"[TP PARTIEL] {symbol}: Vente {amount_to_sell} à TP, nouveau amount={pos['amount']} | filled_tp_targets={pos['filled_tp_targets']}"
-                            )
-                            if safe_float(pos.get("amount"), 0) <= 0:
-                                getattr(bot, "positions_binance", {}).pop(symbol, None)
-                                continue
+                            if amount_to_sell > 0:
+                                await bot.execute_trade(symbol, "SELL", amount_to_sell)
+                                pos["amount"] = safe_float(amount - amount_to_sell, 0)
+                                pos["filled_tp_targets"] = new_filled
+                                print(
+                                    f"[TP PARTIEL] {symbol}: Vente {amount_to_sell} à TP, nouveau amount={pos['amount']} | filled_tp_targets={pos['filled_tp_targets']}"
+                                )
+                                if safe_float(pos.get("amount"), 0) <= 0:
+                                    getattr(bot, "positions_binance", {}).pop(
+                                        symbol, None
+                                    )
+                                    continue
 
                         # Trailing stop
                         should_exit, new_max = bot.exit_manager.check_trailing(
@@ -8678,7 +8736,9 @@ async def run_clean_bot():
                             )
                             getattr(bot, "positions_binance", {}).pop(symbol, None)
 
+                    # =========================
                     # Gestion des shorts BingX
+                    # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
@@ -8688,7 +8748,7 @@ async def run_clean_bot():
                                 ticker = await bot.bingx_client.fetch_ticker(
                                     symbol_bingx
                                 )
-                                price = safe_float(ticker["last"], 0)
+                                price = safe_float(ticker.get("last", 0), 0)
 
                                 if bot.check_short_stop(
                                     symbol, price=price, trailing_pct=0.03
@@ -8708,37 +8768,44 @@ async def run_clean_bot():
                             except Exception:
                                 continue
 
+                    # =========================
                     # Analyse de marché et génération des signaux
+                    # =========================
                     trade_decisions, regime = await execute_trading_cycle(
                         bot, valid_pairs
                     )
-                    # 1. Pump
+
+                    # ---------- 1. Pump ----------
                     pump_candidates = bot.detect_pump_candidates()
                     for c in pump_candidates:
-                        symbol = c["pair"].split("/")[0]
-                        if c["pair"] not in bot.pairs_valid:
-                            # Crypto non tradée : log & alerte spéciale
+                        pair = c.get("pair")
+                        if not pair:
+                            continue
+                        symbol = pair.split("/")[0]
+                        if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
-                        if bot.is_long(c["pair"]):
+                        if bot.is_long(pair):
                             print(
-                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
+
                         await bot.telegram.send_message(
-                            f"🚀 Pump détecté sur {c['pair']}: +{c['price_pct']*100:.1f}%, volume x{c['vol_ratio']:.1f}"
+                            f"🚀 Pump détecté sur {pair}: +{safe_float(c.get('price_pct'),0)*100:.1f}%, "
+                            f"volume x{safe_float(c.get('vol_ratio'),0):.1f}"
                         )
-                        base_amount = 15
-                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        base_amount = safe_float(15, 15)
+                        result = await bot.execute_trade(pair, "BUY", base_amount)
                         bot.safe_update_shared_data(
                             {
                                 "pump_opportunities": [
                                     {
                                         "timestamp": get_current_time_tahiti(),
-                                        "pair": c["pair"],
+                                        "pair": pair,
                                         "type": "pump",
-                                        "price_pct": c["price_pct"],
-                                        "vol_ratio": c["vol_ratio"],
+                                        "price_pct": safe_float(c.get("price_pct"), 0),
+                                        "vol_ratio": safe_float(c.get("vol_ratio"), 0),
                                         "result": result,
                                     }
                                 ]
@@ -8748,7 +8815,7 @@ async def run_clean_bot():
                         if result and result.get("status") == "completed":
                             entry_price = safe_float(result.get("avg_price", 0))
                             await bot.plan_auto_sell(
-                                c["pair"],
+                                pair,
                                 entry_price,
                                 base_amount,
                                 tp_pct=0.03,
@@ -8757,32 +8824,39 @@ async def run_clean_bot():
                                 reason="pump: trailing_stop",
                             )
 
-                    # 2. Breakout
+                    # ---------- 2. Breakout ----------
                     breakout_candidates = bot.detect_breakout_candidates()
                     for c in breakout_candidates:
-                        symbol = c["pair"].split("/")[0]
-                        if c["pair"] not in bot.pairs_valid:
+                        pair = c.get("pair")
+                        if not pair:
+                            continue
+                        symbol = pair.split("/")[0]
+                        if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
-                        if bot.is_long(c["pair"]):
+                        if bot.is_long(pair):
                             print(
-                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
+
                         await bot.telegram.send_message(
-                            f"💥 Breakout sur {c['pair']}: close={c['close']:.2f} > {c['breakout_level']:.2f}"
+                            f"💥 Breakout sur {pair}: close={safe_float(c.get('close'),0):.2f} > "
+                            f"{safe_float(c.get('breakout_level'),0):.2f}"
                         )
-                        base_amount = 15
-                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        base_amount = safe_float(15, 15)
+                        result = await bot.execute_trade(pair, "BUY", base_amount)
                         bot.safe_update_shared_data(
                             {
                                 "breakout_opportunities": [
                                     {
                                         "timestamp": get_current_time_tahiti(),
-                                        "pair": c["pair"],
+                                        "pair": pair,
                                         "type": "breakout",
-                                        "close": c["close"],
-                                        "breakout_level": c["breakout_level"],
+                                        "close": safe_float(c.get("close"), 0),
+                                        "breakout_level": safe_float(
+                                            c.get("breakout_level"), 0
+                                        ),
                                         "result": result,
                                     }
                                 ]
@@ -8790,9 +8864,9 @@ async def run_clean_bot():
                             bot.data_file,
                         )
                         if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price", 0))
+                            entry_price = safe_float(result.get("avg_price"), 0)
                             await bot.plan_auto_sell(
-                                c["pair"],
+                                pair,
                                 entry_price,
                                 base_amount,
                                 tp_pct=0.03,
@@ -8801,37 +8875,42 @@ async def run_clean_bot():
                                 reason="breakout: trailing_stop",
                             )
 
-                    # Appel impulsif sur news forte, même hors pairs_valid
+                    # Appel impulsif sur news très positives (même hors pairs_valid)
                     for news in news_list:
-                        if float(news.get("sentiment", 0)) > 0.7:
+                        if safe_float(news.get("sentiment"), 0) > 0.7:
                             await bot.detect_and_buy_news_impulsif(news)
 
-                    # 3. News
+                    # ---------- 3. News ----------
                     news_candidates = bot.detect_news_candidates(news_list)
                     for c in news_candidates:
-                        symbol = c["pair"].split("/")[0]
-                        if c["pair"] not in bot.pairs_valid:
+                        pair = c.get("pair")
+                        if not pair:
+                            continue
+                        symbol = pair.split("/")[0]
+                        if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
-                        if bot.is_long(c["pair"]):
+                        if bot.is_long(pair):
                             print(
-                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
+
                         await bot.telegram.send_message(
-                            f"📰 News positive sur {c['pair']}: sentiment={c['sentiment']:.2f}\n{c['title']}"
+                            f"📰 News positive sur {pair}: sentiment={safe_float(c.get('sentiment'),0):.2f}\n"
+                            f"{str(c.get('title', ''))}"
                         )
-                        base_amount = 15
-                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        base_amount = safe_float(15, 15)
+                        result = await bot.execute_trade(pair, "BUY", base_amount)
                         bot.safe_update_shared_data(
                             {
                                 "news_opportunities": [
                                     {
                                         "timestamp": get_current_time_tahiti(),
-                                        "pair": c["pair"],
+                                        "pair": pair,
                                         "type": "news",
-                                        "sentiment": c["sentiment"],
-                                        "title": c["title"],
+                                        "sentiment": safe_float(c.get("sentiment"), 0),
+                                        "title": str(c.get("title", "")),
                                         "result": result,
                                     }
                                 ]
@@ -8839,9 +8918,9 @@ async def run_clean_bot():
                             bot.data_file,
                         )
                         if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price", 0))
+                            entry_price = safe_float(result.get("avg_price"), 0)
                             await bot.plan_auto_sell(
-                                c["pair"],
+                                pair,
                                 entry_price,
                                 base_amount,
                                 tp_pct=0.03,
@@ -8850,33 +8929,44 @@ async def run_clean_bot():
                                 reason="news: trailing_stop",
                             )
 
-                    # 4. Arbitrage
+                    # ---------- 4. Arbitrage ----------
                     arbitrage_candidates = await bot.detect_arbitrage_candidates()
                     for c in arbitrage_candidates:
-                        symbol = c["pair"].split("/")[0]
-                        if c["pair"] not in bot.pairs_valid:
+                        pair = c.get("pair")
+                        if not pair:
+                            continue
+                        symbol = pair.split("/")[0]
+                        if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
-                        if bot.is_long(c["pair"]):
+                        if bot.is_long(pair):
                             print(
-                                f"[SKIP] Achat impulsif ignoré sur {c['pair']} — déjà en portefeuille."
+                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
+
                         await bot.telegram.send_message(
-                            f"💹 Arbitrage possible sur {c['pair']}: Binance={c['binance_price']} BingX={c['bingx_price']} Diff={c['diff_pct']:.2f}%"
+                            f"💹 Arbitrage possible sur {pair}: "
+                            f"Binance={safe_float(c.get('binance_price'),0)} "
+                            f"BingX={safe_float(c.get('bingx_price'),0)} "
+                            f"Diff={safe_float(c.get('diff_pct'),0):.2f}%"
                         )
-                        base_amount = 15
-                        result = await bot.execute_trade(c["pair"], "BUY", base_amount)
+                        base_amount = safe_float(15, 15)
+                        result = await bot.execute_trade(pair, "BUY", base_amount)
                         bot.safe_update_shared_data(
                             {
                                 "arbitrage_opportunities": [
                                     {
                                         "timestamp": get_current_time_tahiti(),
-                                        "pair": c["pair"],
+                                        "pair": pair,
                                         "type": "arbitrage",
-                                        "binance_price": c["binance_price"],
-                                        "bingx_price": c["bingx_price"],
-                                        "diff_pct": c["diff_pct"],
+                                        "binance_price": safe_float(
+                                            c.get("binance_price"), 0
+                                        ),
+                                        "bingx_price": safe_float(
+                                            c.get("bingx_price"), 0
+                                        ),
+                                        "diff_pct": safe_float(c.get("diff_pct"), 0),
                                         "result": result,
                                     }
                                 ]
@@ -8884,9 +8974,9 @@ async def run_clean_bot():
                             bot.data_file,
                         )
                         if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price", 0))
+                            entry_price = safe_float(result.get("avg_price"), 0)
                             await bot.plan_auto_sell(
-                                c["pair"],
+                                pair,
                                 entry_price,
                                 base_amount,
                                 tp_pct=0.03,
@@ -8895,11 +8985,15 @@ async def run_clean_bot():
                                 reason="arbitrage: trailing_stop",
                             )
 
+                    # =========================
                     # Mise à jour des données du bot
+                    # =========================
                     bot.current_cycle = cycle
                     bot.regime = regime
 
+                    # =========================
                     # Calcul des indicateurs techniques
+                    # =========================
                     bot.indicators = {}
                     for pair in bot.pairs_valid:
                         pair_key = pair.replace("/", "").upper()
@@ -8911,8 +9005,10 @@ async def run_clean_bot():
                                 market_data = bot.market_data[pair_key][tf]
                                 df = bot.ws_collector.get_dataframe(pair_key, tf)
 
-                                trend = bot.calculate_trend(market_data)
-                                volatility = bot.calculate_volatility(market_data)
+                                trend = safe_float(bot.calculate_trend(market_data), 0)
+                                volatility = safe_float(
+                                    bot.calculate_volatility(market_data), 0
+                                )
                                 volume_profile = bot.calculate_volume_profile(
                                     market_data
                                 )
@@ -8920,7 +9016,7 @@ async def run_clean_bot():
 
                                 indicators = (
                                     bot.add_indicators(df)
-                                    if df is not None and not df.empty
+                                    if (df is not None and not df.empty)
                                     else {}
                                 )
 
@@ -8933,7 +9029,9 @@ async def run_clean_bot():
                                     "ta": indicators,
                                 }
 
-                    # Sauvegarde et dashboard
+                    # =========================
+                    # Sauvegarde & dashboard
+                    # =========================
                     td_dict = {}
                     for pair in bot.pairs_valid:
                         pair_key = pair.replace("/", "").upper()
@@ -8945,19 +9043,21 @@ async def run_clean_bot():
                             if "1h" in bot.market_data[pair_key]:
                                 tf_data = bot.market_data[pair_key]["1h"]
                                 if (
-                                    "signals" in tf_data
+                                    isinstance(tf_data, dict)
+                                    and "signals" in tf_data
                                     and "technical" in tf_data["signals"]
                                 ):
                                     tech_score = safe_float(
                                         tf_data["signals"]["technical"].get(
                                             "score", 0.5
-                                        )
+                                        ),
+                                        0.5,
                                     )
                             ai_score = safe_float(
-                                bot.market_data[pair_key].get("ai_prediction", 0.5)
+                                bot.market_data[pair_key].get("ai_prediction", 0.5), 0.5
                             )
                             sentiment_score = safe_float(
-                                bot.market_data[pair_key].get("sentiment", 0.5)
+                                bot.market_data[pair_key].get("sentiment", 0.5), 0.5
                             )
 
                         td_dict[pair] = {
@@ -8971,31 +9071,44 @@ async def run_clean_bot():
                     for td in trade_decisions:
                         if td and isinstance(td, dict):
                             pair = td.get("pair")
+                            if not pair:
+                                continue
                             signals = (
                                 td.get("signals", {})
-                                if td
-                                and "signals" in td
-                                and isinstance(td["signals"], dict)
+                                if isinstance(td.get("signals", {}), dict)
                                 else {}
                             )
                             td_dict[pair].update(
                                 {
-                                    "confidence": safe_float(td.get("confidence", 0.5)),
-                                    "action": str(td.get("action", "neutral")),
-                                    "tech": safe_float(
-                                        signals.get("technical", {}).get("score", 0.5)
+                                    "confidence": safe_float(
+                                        td.get("confidence", 0.5), 0.5
                                     ),
-                                    "ai": safe_float(signals.get("ai", 0.5)),
+                                    "action": str(td.get("action", "neutral")),
+                                    "tech": (
+                                        safe_float(
+                                            signals.get("technical", {}).get(
+                                                "score", 0.5
+                                            ),
+                                            0.5,
+                                        )
+                                        if isinstance(
+                                            signals.get("technical", {}), dict
+                                        )
+                                        else 0.5
+                                    ),
+                                    "ai": safe_float(signals.get("ai", 0.5), 0.5),
                                     "sentiment": safe_float(
-                                        signals.get("sentiment", 0.5)
+                                        signals.get("sentiment", 0.5), 0.5
                                     ),
                                 }
                             )
 
                     cycle_metrics = {
-                        "cycle": cycle,
-                        "regime": regime,
-                        "balance": bot.get_performance_metrics().get("balance", 0.0),
+                        "cycle": int(cycle),
+                        "regime": str(regime),
+                        "balance": safe_float(
+                            bot.get_performance_metrics().get("balance", 0.0), 0.0
+                        ),
                     }
 
                     # Sauvegarde dans le fichier partagé
@@ -9034,13 +9147,23 @@ async def run_clean_bot():
                                 "regime": bot.regime,
                                 "cycle": bot.current_cycle,
                                 "last_update": get_current_time(),
-                                "performance": bot.get_performance_metrics(),
+                                "performance": {
+                                    # Sécurisation des métriques numériques
+                                    k: (
+                                        safe_float(v, 0.0)
+                                        if isinstance(v, (int, float, str))
+                                        else v
+                                    )
+                                    for k, v in bot.get_performance_metrics().items()
+                                },
                             }
                         },
                         bot.data_file,
                     )
 
+                    # =========================
                     # Exécution des trades si pas de pause
+                    # =========================
                     if not trading_paused:
                         await execute_trade_decisions(bot, trade_decisions)
                     else:
@@ -9048,40 +9171,71 @@ async def run_clean_bot():
                             "🚫 [PAUSE] Exécution des trades bloquée, signaux et IA à jour."
                         )
 
+                    # =========================
                     # Entraînement IA périodique
+                    # =========================
                     if cycle % 10 == 0:
                         print(
                             "=== Entraînement automatique IA sur toutes les paires/timeframes ==="
                         )
                         bot.train_cnn_lstm_on_all_live()
 
+                    # =========================
+                    # Logs fin de cycle + rapports
+                    # =========================
                     duration = (datetime.utcnow() - start).total_seconds()
                     print(f"✅ Cycle terminé en {duration:.1f}s")
 
-                    # Envoi du résumé synthétique Telegram
+                    performance = bot.get_performance_metrics()
                     await send_telegram_if_needed(
                         bot,
-                        cycle,
+                        int(cycle),
                         regime,
-                        bot.get_performance_metrics(),
-                        shared_data.get("sentiment", {}),
-                        shared_data.get("alerts", []),
-                        shared_data.get("pending_sales", []),
-                        shared_data.get("active_pauses", []),
-                        bot.get_performance_metrics().get("max_drawdown", 0.0),
+                        performance,
+                        (
+                            shared_data.get("sentiment", {})
+                            if isinstance(shared_data, dict)
+                            else {}
+                        ),
+                        (
+                            shared_data.get("alerts", [])
+                            if isinstance(shared_data, dict)
+                            else []
+                        ),
+                        (
+                            shared_data.get("pending_sales", [])
+                            if isinstance(shared_data, dict)
+                            else []
+                        ),
+                        (
+                            shared_data.get("active_pauses", [])
+                            if isinstance(shared_data, dict)
+                            else []
+                        ),
+                        safe_float(performance.get("max_drawdown", 0.0), 0.0),
                     )
 
-                    # Envoi des rapports complets
                     await send_cycle_reports(
-                        bot, trade_decisions, cycle, regime, duration
+                        bot,
+                        trade_decisions,
+                        int(cycle),
+                        regime,
+                        safe_float(duration, 0.0),
                     )
 
                 except Exception as e:
                     error_msg = f"⚠️ Erreur cycle {cycle}: {e}"
                     logger.error(error_msg)
-                    await bot.telegram.send_message(error_msg)
+                    try:
+                        await bot.telegram.send_message(error_msg)
+                    except Exception:
+                        pass
 
-                bot.get_pending_sales()
+                # =========================
+                # Fin de boucle: sync & pause
+                # =========================
+                if hasattr(bot, "get_pending_sales"):
+                    bot.get_pending_sales()
                 bot.save_shared_data()
                 bot.safe_update_shared_data(
                     {
@@ -9089,14 +9243,26 @@ async def run_clean_bot():
                             "regime": bot.regime,
                             "cycle": bot.current_cycle,
                             "last_update": get_current_time(),
-                            "performance": bot.get_performance_metrics(),
+                            "performance": {
+                                k: (
+                                    safe_float(v, 0.0)
+                                    if isinstance(v, (int, float, str))
+                                    else v
+                                )
+                                for k, v in bot.get_performance_metrics().items()
+                            },
                         }
                     },
                     bot.data_file,
                 )
                 await bot.handle_auto_sell()
+
                 # Attente avant le prochain cycle
-                await bot.send_refused_trades_summary()
+                try:
+                    await bot.send_refused_trades_summary()
+                except Exception:
+                    pass
+
                 await asyncio.sleep(1)
 
         except KeyboardInterrupt:
