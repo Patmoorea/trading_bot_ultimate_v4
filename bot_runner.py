@@ -4366,15 +4366,41 @@ class TradingBotM4:
     def check_trailing(self, entry_price, price_history, max_price, trailing_pct=0.03):
         """
         Trailing stop universel : sort si le prix retombe de X% par rapport au max atteint.
+        Version sécurisée contre les types de données.
         """
-        if not price_history or len(price_history) < 3:
-            return False, max_price
-        current_price = price_history[-1]
-        if current_price > max_price:
-            max_price = current_price
-        if current_price < max_price * (1 - trailing_pct):
-            return True, max_price
-        return False, max_price
+        try:
+            # Conversion FORCÉE de tous les paramètres
+            entry = float(entry_price) if entry_price is not None else 0.0
+            trailing_pct_float = float(trailing_pct)
+            current_max = float(max_price) if max_price is not None else 0.0
+
+            if not price_history or len(price_history) < 3:
+                return False, current_max
+
+            # Conversion de l'historique des prix
+            numeric_history = []
+            for price in price_history:
+                try:
+                    numeric_history.append(float(price))
+                except (ValueError, TypeError):
+                    numeric_history.append(0.0)
+
+            if not numeric_history:
+                return False, current_max
+
+            current_price = numeric_history[-1]
+
+            if current_price > current_max:
+                current_max = current_price
+
+            if current_price < current_max * (1 - trailing_pct_float):
+                return True, current_max
+
+            return False, current_max
+
+        except Exception as e:
+            print(f"[ERROR] Dans check_trailing: {e}")
+            return False, float(max_price) if max_price is not None else 0.0
 
     def get_last_fifo_pnl(self, symbol):
         if not self.is_live_trading:
@@ -8532,9 +8558,17 @@ async def run_clean_bot():
                 if hasattr(bot, "sync_positions_with_binance"):
                     bot.sync_positions_with_binance()
 
-                # Purge positions avec amount <= 0
+                # PATCH: Purge positions corrompues (amount, entry_price ou current_price <= 0)
                 for symbol in list(bot.positions_binance.keys()):
-                    if safe_float(bot.positions_binance[symbol].get("amount", 0)) <= 0:
+                    pos = bot.positions_binance[symbol]
+                    if (
+                        safe_float(pos.get("amount"), 0) <= 0
+                        or safe_float(pos.get("entry_price"), 0) <= 0
+                        or safe_float(pos.get("current_price"), 0) <= 0
+                    ):
+                        print(
+                            f"[CLEANUP] Suppression position zombie {symbol} (amount={pos.get('amount')}, entry={pos.get('entry_price')}, price={pos.get('current_price')})"
+                        )
                         del bot.positions_binance[symbol]
 
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
@@ -8573,7 +8607,6 @@ async def run_clean_bot():
                             if isinstance(news_sentiment, dict)
                             else []
                         )
-                        # Sécurisation (si le fichier contient autre chose qu'une liste de dicts)
                         news_list = [n for n in raw_scores if isinstance(n, dict)]
                     except Exception:
                         shared_data = {}
@@ -8641,18 +8674,26 @@ async def run_clean_bot():
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
+                        entry_price = safe_float(pos.get("entry_price"), 0)
+                        current_price = safe_float(pos.get("current_price"), 0)
+                        amount = safe_float(pos.get("amount"), 0)
+                        if entry_price <= 0 or current_price <= 0 or amount <= 0:
+                            print(
+                                f"[SKIP ZOMBIE] {symbol} ignoré: entry_price={entry_price}, current_price={current_price}, amount={amount}"
+                            )
+                            continue
                         try:
                             # Récupère le prix live Binance
                             try:
+                                symbol_binance = (
+                                    symbol.replace("/", "") if "/" in symbol else symbol
+                                )
                                 ticker = bot.binance_client.get_symbol_ticker(
-                                    symbol=symbol.replace("/", "")
+                                    symbol=symbol_binance
                                 )
                                 last_price = float(ticker.get("price", 0))
                             except Exception:
-                                last_price = safe_float(pos.get("current_price"), 0)
-
-                            entry_price = safe_float(pos.get("entry_price"), 0)
-                            amount = safe_float(pos.get("amount"), 0)
+                                last_price = current_price
 
                             if str(
                                 pos.get("side", "")
@@ -8668,158 +8709,25 @@ async def run_clean_bot():
                                 getattr(bot, "positions_binance", {}).pop(symbol, None)
                                 continue
                         except Exception as _e:
-                            # On ne casse pas la boucle principale pour un symbole
                             print(f"[STOPLOSS][WARN] {symbol}: {_e}")
                             continue
 
                     # =========================
-                    # Gestion TP partiels & Trailing (longs) - CORRECTION DÉFINITIVE
+                    # Gestion TP partiels & Trailing (longs)
                     # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
-                        print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
-
-                        # Conversion sécurisée de tous les champs
-                        try:
-                            # Conversion des champs numériques
-                            numeric_fields = [
-                                "amount",
-                                "entry_price",
-                                "current_price",
-                                "max_price",
-                                "pnl_usd",
-                                "value_usd",
-                            ]
-
-                            for field in numeric_fields:
-                                if field in pos:
-                                    if isinstance(pos[field], str):
-                                        cleaned = "".join(
-                                            c
-                                            for c in str(pos[field])
-                                            if c.isdigit()
-                                            or c in [".", "-", "e", "E", "+"]
-                                        )
-                                        pos[field] = (
-                                            float(cleaned)
-                                            if cleaned and cleaned != "-"
-                                            else 0.0
-                                        )
-                                    elif pos[field] is None:
-                                        pos[field] = 0.0
-                                    else:
-                                        pos[field] = float(pos[field])
-
-                            # Traitement spécial pour pnl_pct
-                            if "pnl_pct" in pos:
-                                if isinstance(pos["pnl_pct"], tuple):
-                                    new_pnl = []
-                                    for item in pos["pnl_pct"]:
-                                        if item is None:
-                                            new_pnl.append(0.0)
-                                        elif isinstance(item, str):
-                                            cleaned = "".join(
-                                                c
-                                                for c in str(item)
-                                                if c.isdigit()
-                                                or c in [".", "-", "e", "E", "+"]
-                                            )
-                                            new_pnl.append(
-                                                float(cleaned)
-                                                if cleaned and cleaned != "-"
-                                                else 0.0
-                                            )
-                                        else:
-                                            new_pnl.append(float(item))
-                                    pos["pnl_pct"] = tuple(new_pnl)
-                                elif isinstance(pos["pnl_pct"], str):
-                                    cleaned = "".join(
-                                        c
-                                        for c in str(pos["pnl_pct"])
-                                        if c.isdigit() or c in [".", "-", "e", "E", "+"]
-                                    )
-                                    pos["pnl_pct"] = (
-                                        (float(cleaned),)
-                                        if cleaned and cleaned != "-"
-                                        else (0.0,)
-                                    )
-                                elif pos["pnl_pct"] is None:
-                                    pos["pnl_pct"] = (0.0, 0.0)
-
-                            # Conversion CRITIQUE de price_history pour le trailing
-                            if "price_history" in pos:
-                                if isinstance(pos["price_history"], list):
-                                    new_history = []
-                                    for price in pos["price_history"]:
-                                        if isinstance(price, str):
-                                            cleaned = "".join(
-                                                c
-                                                for c in str(price)
-                                                if c.isdigit()
-                                                or c in [".", "-", "e", "E", "+"]
-                                            )
-                                            new_history.append(
-                                                float(cleaned)
-                                                if cleaned and cleaned != "-"
-                                                else 0.0
-                                            )
-                                        elif price is None:
-                                            new_history.append(0.0)
-                                        else:
-                                            new_history.append(float(price))
-                                    pos["price_history"] = new_history
-                                else:
-                                    entry = safe_float(pos.get("entry_price"), 0)
-                                    pos["price_history"] = (
-                                        [entry] if entry > 0 else [0.0]
-                                    )
-
-                            # Conversion de filled_tp_targets
-                            if "filled_tp_targets" in pos:
-                                if isinstance(pos["filled_tp_targets"], list):
-                                    new_filled = []
-                                    for item in pos["filled_tp_targets"]:
-                                        if isinstance(item, str):
-                                            if item.lower() in [
-                                                "true",
-                                                "1",
-                                                "yes",
-                                                "vrai",
-                                                "oui",
-                                            ]:
-                                                new_filled.append(True)
-                                            elif item.lower() in [
-                                                "false",
-                                                "0",
-                                                "no",
-                                                "faux",
-                                                "non",
-                                            ]:
-                                                new_filled.append(False)
-                                            else:
-                                                new_filled.append(bool(item))
-                                        else:
-                                            new_filled.append(bool(item))
-                                    pos["filled_tp_targets"] = new_filled
-                                else:
-                                    pos["filled_tp_targets"] = [False, False]
-
-                            # Initialisation des champs manquants
-                            if "filled_tp_targets" not in pos:
-                                pos["filled_tp_targets"] = [False, False]
-                            if "price_history" not in pos:
-                                entry = safe_float(pos.get("entry_price"), 0)
-                                pos["price_history"] = [entry] if entry > 0 else [0.0]
-                            if "max_price" not in pos:
-                                entry = safe_float(pos.get("entry_price"), 0)
-                                pos["max_price"] = entry if entry > 0 else 0.0
-
-                        except Exception as conv_error:
+                        entry_price = safe_float(pos.get("entry_price"), 0)
+                        current_price = safe_float(pos.get("current_price"), 0)
+                        amount = safe_float(pos.get("amount"), 0)
+                        if entry_price <= 0 or current_price <= 0 or amount <= 0:
                             print(
-                                f"[ERROR] Échec conversion données position {symbol}: {conv_error}"
+                                f"[SKIP ZOMBIE] {symbol} ignoré: entry_price={entry_price}, current_price={current_price}, amount={amount}"
                             )
                             continue
+                        print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
+                        # Conversion sécurisée de tous les champs (déjà fait ci-dessus, donc ok)
 
                         if str(pos.get("side", "")).lower() != "long":
                             print(
@@ -8829,20 +8737,20 @@ async def run_clean_bot():
 
                         # Récupération du prix live
                         try:
+                            symbol_binance = (
+                                symbol.replace("/", "") if "/" in symbol else symbol
+                            )
                             ticker = bot.binance_client.get_symbol_ticker(
-                                symbol=symbol.replace("/", "")
+                                symbol=symbol_binance
                             )
                             last_price = float(ticker.get("price", 0))
                         except Exception:
-                            last_price = safe_float(pos.get("current_price"), 0)
+                            last_price = current_price
 
-                        # Ajout du prix actuel à l'historique avec conversion FORCÉE
+                        # Ajout du prix actuel à l'historique
                         try:
-                            # Conversion FORCÉE du last_price pour s'assurer que c'est un float
                             last_price_float = float(last_price)
                             pos["price_history"].append(last_price_float)
-
-                            # Limiter la taille de l'historique
                             if len(pos["price_history"]) > 100:
                                 pos["price_history"] = pos["price_history"][-50:]
                         except Exception as hist_error:
@@ -8851,16 +8759,12 @@ async def run_clean_bot():
                             )
                             continue
 
-                        entry_price = safe_float(pos.get("entry_price"), 0)
-                        amount = safe_float(pos.get("amount"), 0)
-
                         # TP partiel
                         try:
                             to_exit, new_filled = bot.exit_manager.check_tp_partial(
                                 entry_price, last_price, pos["filled_tp_targets"]
                             )
                             to_exit = safe_float(to_exit, 0)
-
                             if to_exit > 0 and amount > 0:
                                 amount_to_sell = amount * to_exit
                                 if amount_to_sell > 0:
@@ -8874,7 +8778,6 @@ async def run_clean_bot():
                                     print(
                                         f"[TP PARTIEL] {symbol}: Vente {amount_to_sell}, nouveau amount={pos['amount']}"
                                     )
-
                                     if safe_float(pos.get("amount"), 0) <= 0:
                                         getattr(bot, "positions_binance", {}).pop(
                                             symbol, None
@@ -8884,51 +8787,34 @@ async def run_clean_bot():
                             print(f"[ERROR] Échec TP partiel pour {symbol}: {tp_error}")
                             continue
 
-                        # Trailing stop - VERSION SÉCURISÉE
+                        # Trailing stop
                         try:
-                            # Vérification et conversion finale de l'historique des prix
-                            validated_price_history = []
-                            for price in pos["price_history"]:
-                                try:
-                                    validated_price_history.append(float(price))
-                                except (TypeError, ValueError):
-                                    validated_price_history.append(0.0)
-
-                            # S'assurer qu'on a au moins une valeur dans l'historique
+                            validated_price_history = [
+                                float(price) if price is not None else 0.0
+                                for price in pos["price_history"]
+                            ]
                             if not validated_price_history:
                                 validated_price_history = (
                                     [entry_price] if entry_price > 0 else [0.0]
                                 )
-
-                            # Vérification et conversion du max_price
                             current_max_price = safe_float(
                                 pos.get("max_price", entry_price), entry_price
                             )
-                            try:
-                                current_max_price = float(current_max_price)
-                            except (TypeError, ValueError):
-                                current_max_price = entry_price
-
-                            # Appel sécurisé de check_trailing
                             should_exit, new_max = bot.exit_manager.check_trailing(
                                 float(entry_price),
                                 validated_price_history,
                                 float(current_max_price),
                             )
-
                             pos["max_price"] = safe_float(new_max, 0)
-
                             if should_exit and safe_float(pos.get("amount"), 0) > 0:
                                 await bot.execute_trade(
                                     symbol, "SELL", safe_float(pos.get("amount"), 0)
                                 )
                                 getattr(bot, "positions_binance", {}).pop(symbol, None)
-
                         except Exception as trailing_error:
                             print(
                                 f"[ERROR] Échec trailing stop pour {symbol}: {trailing_error}"
                             )
-                            # En cas d'erreur, on réinitialise l'historique des prix
                             pos["price_history"] = [last_price]
                             pos["max_price"] = last_price
 
@@ -8945,7 +8831,6 @@ async def run_clean_bot():
                                     symbol_bingx
                                 )
                                 price = safe_float(ticker.get("last", 0), 0)
-
                                 if bot.check_short_stop(
                                     symbol, price=price, trailing_pct=0.03
                                 ):
@@ -8986,7 +8871,6 @@ async def run_clean_bot():
                                 f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
-
                         await bot.telegram.send_message(
                             f"🚀 Pump détecté sur {pair}: +{safe_float(c.get('price_pct'),0)*100:.1f}%, "
                             f"volume x{safe_float(c.get('vol_ratio'),0):.1f}"
@@ -9035,7 +8919,6 @@ async def run_clean_bot():
                                 f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
-
                         await bot.telegram.send_message(
                             f"💥 Breakout sur {pair}: close={safe_float(c.get('close'),0):.2f} > "
                             f"{safe_float(c.get('breakout_level'),0):.2f}"
@@ -9091,7 +8974,6 @@ async def run_clean_bot():
                                 f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
-
                         await bot.telegram.send_message(
                             f"📰 News positive sur {pair}: sentiment={safe_float(c.get('sentiment'),0):.2f}\n"
                             f"{str(c.get('title', ''))}"
@@ -9140,7 +9022,6 @@ async def run_clean_bot():
                                 f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
                             )
                             continue
-
                         await bot.telegram.send_message(
                             f"💹 Arbitrage possible sur {pair}: "
                             f"Binance={safe_float(c.get('binance_price'),0)} "
@@ -9200,7 +9081,6 @@ async def run_clean_bot():
                             ):
                                 market_data = bot.market_data[pair_key][tf]
                                 df = bot.ws_collector.get_dataframe(pair_key, tf)
-
                                 trend = safe_float(bot.calculate_trend(market_data), 0)
                                 volatility = safe_float(
                                     bot.calculate_volatility(market_data), 0
@@ -9209,13 +9089,11 @@ async def run_clean_bot():
                                     market_data
                                 )
                                 dominant_signal = bot.get_dominant_signal(pair, tf)
-
                                 indicators = (
                                     bot.add_indicators(df)
                                     if (df is not None and not df.empty)
                                     else {}
                                 )
-
                                 tf_key = f"{tf} | {pair}"
                                 bot.indicators[tf_key] = {
                                     "trend": {"trend_strength": trend},
@@ -9234,7 +9112,6 @@ async def run_clean_bot():
                         tech_score = 0.5
                         ai_score = 0.5
                         sentiment_score = 0.5
-
                         if pair_key in bot.market_data:
                             if "1h" in bot.market_data[pair_key]:
                                 tf_data = bot.market_data[pair_key]["1h"]
@@ -9255,7 +9132,6 @@ async def run_clean_bot():
                             sentiment_score = safe_float(
                                 bot.market_data[pair_key].get("sentiment", 0.5), 0.5
                             )
-
                         td_dict[pair] = {
                             "confidence": 0.5,
                             "action": "neutral",
@@ -9263,7 +9139,6 @@ async def run_clean_bot():
                             "ai": ai_score,
                             "sentiment": sentiment_score,
                         }
-
                     for td in trade_decisions:
                         if td and isinstance(td, dict):
                             pair = td.get("pair")
@@ -9298,7 +9173,6 @@ async def run_clean_bot():
                                     ),
                                 }
                             )
-
                     cycle_metrics = {
                         "cycle": int(cycle),
                         "regime": str(regime),
@@ -9306,8 +9180,6 @@ async def run_clean_bot():
                             bot.get_performance_metrics().get("balance", 0.0), 0.0
                         ),
                     }
-
-                    # Sauvegarde dans le fichier partagé
                     bot.safe_update_shared_data(
                         {
                             "trade_decisions": td_dict,
@@ -9318,13 +9190,10 @@ async def run_clean_bot():
                         },
                         bot.data_file,
                     )
-
                     bot.trade_decisions = td_dict
-
                     print("[DEBUG DASHBOARD EXPORT]")
                     print("Trade Decisions:", json.dumps(td_dict, indent=2))
                     print("Cycle Metrics:", json.dumps(cycle_metrics, indent=2))
-
                     bot.safe_update_shared_data(
                         {
                             "active_pauses": active_pauses,
@@ -9335,7 +9204,6 @@ async def run_clean_bot():
                         },
                         bot.data_file,
                     )
-
                     bot.save_shared_data()
                     bot.safe_update_shared_data(
                         {
@@ -9344,7 +9212,6 @@ async def run_clean_bot():
                                 "cycle": bot.current_cycle,
                                 "last_update": get_current_time(),
                                 "performance": {
-                                    # Sécurisation des métriques numériques
                                     k: (
                                         safe_float(v, 0.0)
                                         if isinstance(v, (int, float, str))
@@ -9381,7 +9248,6 @@ async def run_clean_bot():
                     # =========================
                     duration = (datetime.utcnow() - start).total_seconds()
                     print(f"✅ Cycle terminé en {duration:.1f}s")
-
                     performance = bot.get_performance_metrics()
                     await send_telegram_if_needed(
                         bot,
@@ -9410,7 +9276,6 @@ async def run_clean_bot():
                         ),
                         safe_float(performance.get("max_drawdown", 0.0), 0.0),
                     )
-
                     await send_cycle_reports(
                         bot,
                         trade_decisions,
