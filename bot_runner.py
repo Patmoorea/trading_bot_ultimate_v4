@@ -2432,6 +2432,7 @@ class TradingBotM4:
     def get_last_fifo_pnl(self, symbol):
         """
         Récupère la plus-value FIFO de la dernière vente spot pour une paire donnée.
+        Retourne un tuple (pnl_pct, pnl_pct) pour la compatibilité avec le code existant.
         """
         try:
             buys, sells = self.fetch_trades_fifo(
@@ -2439,13 +2440,15 @@ class TradingBotM4:
             )
             fifo_results = self.fifo_pnl(buys, sells)
             last_result = fifo_results[-1] if fifo_results else None
-            return (
-                last_result["pnl_pct"]
-                if last_result and last_result["pnl_pct"] is not None
-                else None
-            )
+
+            if last_result and last_result["pnl_pct"] is not None:
+                pnl_value = last_result["pnl_pct"]
+                return (pnl_value, pnl_value)  # Tuple avec la même valeur deux fois
+            else:
+                return (None, None)  # Tuple de None
+
         except Exception:
-            return None
+            return (None, None)  # ← Toujours retourner un tuple
 
     def fetch_trades_fifo(self, binance_client, symbol):
         if not self.is_live_trading:
@@ -4500,10 +4503,12 @@ class TradingBotM4:
                     amount = safe_float(pos.get("amount"), 0)
 
                     # Calcul PnL (FIFO ou classique)
-                    fifo_pnl_value, _ = self.get_last_fifo_pnl(symbol)
+                    fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(
+                        symbol
+                    )  # ← CORRECTION ICI
                     pnl_pct = (
-                        fifo_pnl_value
-                        if fifo_pnl_value is not None
+                        fifo_pnl_pct  # ← Utilisez la bonne variable
+                        if fifo_pnl_pct is not None
                         else (
                             (current_price - entry_price) / entry_price * 100
                             if entry_price and current_price
@@ -4704,7 +4709,9 @@ class TradingBotM4:
                     else:
                         entry_price = None
 
-                    fifo_pnl_pct = self.get_last_fifo_pnl(symbol)
+                    # CORRECTION ICI : récupérez les deux valeurs du tuple
+                    fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(symbol)
+
                     prev_pos = self.positions_binance.get(symbol, {})
 
                     # PATCH: cast strict sur tous les champs
@@ -4713,7 +4720,7 @@ class TradingBotM4:
                         "amount": safe_float(free, 0),
                         "entry_price": safe_float(entry_price, 0),
                         "current_price": safe_float(current_price, 0),
-                        "pnl_pct": fifo_pnl_pct,
+                        "pnl_pct": fifo_pnl_pct,  # Utilisation correcte
                         "pnl_usd": (
                             (safe_float(current_price, 0) - safe_float(entry_price, 0))
                             * safe_float(free, 0)
