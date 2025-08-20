@@ -8673,6 +8673,36 @@ async def run_clean_bot():
                     ):
                         print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
 
+                        # --- PATCH ANTI int+str ---
+                        # Cast tous les scalaires importants
+                        for k in [
+                            "amount",
+                            "entry_price",
+                            "current_price",
+                            "max_price",
+                        ]:
+                            if k in pos:
+                                try:
+                                    pos[k] = float(pos[k])
+                                except Exception:
+                                    pos[k] = 0.0
+                        # Cast la liste price_history
+                        if "price_history" in pos and isinstance(
+                            pos["price_history"], list
+                        ):
+                            pos["price_history"] = [
+                                float(x) if isinstance(x, (str, int, float)) else 0.0
+                                for x in pos["price_history"]
+                            ]
+                        # Cast la liste filled_tp_targets
+                        if "filled_tp_targets" in pos and isinstance(
+                            pos["filled_tp_targets"], list
+                        ):
+                            pos["filled_tp_targets"] = [
+                                bool(x) for x in pos["filled_tp_targets"]
+                            ]
+                        # --- FIN PATCH ---
+
                         if str(pos.get("side", "")).lower() != "long":
                             print(
                                 f"[DEBUG SKIP] {symbol}: side={pos.get('side')} (not long)"
