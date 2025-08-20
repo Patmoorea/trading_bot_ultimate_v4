@@ -5805,6 +5805,9 @@ class TradingBotM4:
                 f"[ORDER] Tentative d'exécution: {side} {amount} {symbol} (iceberg: {iceberg})"
             )
 
+            # PATCH: Définit symbol_binance AVANT tout usage
+            symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
+
             # ----- ACHAT SPOT -----
             if side.upper() == "BUY" and symbol.endswith("USDC"):
                 if self.is_long(symbol):

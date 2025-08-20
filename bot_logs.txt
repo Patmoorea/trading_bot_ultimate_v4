@@ -232,3 +232,28 @@
 2025-08-20T22:50:10.770877 | Démarrage cycle trading
 2025-08-20T22:50:11.381011 | 🚫 Cycle bloqué - Pause news active
 2025-08-20T22:50:15.866050 | [ORDER] Tentative d'exécution: BUY 15.0 BTC/USDC (iceberg: False)
+2025-08-20T23:33:02.921433 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-20T23:33:02.922328 | Initialisation des modèles d'IA...
+2025-08-20T23:33:03.111282 | ✅ Modèles d'IA initialisés avec succès
+2025-08-20T23:33:04.687354 | ✅ PPO Strategy initialized successfully
+2025-08-20T23:33:10.484641 | ✅ Bot initialisé avec Telegram: True
+2025-08-20T23:33:10.484817 | ✅ Trading en direct: True
+2025-08-20T23:33:10.484861 | ✅ IA activée: True
+2025-08-20T23:33:10.484898 | ✅ Analyse de news activée: True
+2025-08-20T23:36:00.756819 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-20T23:36:38.738731 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-20T23:48:29.486703 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0607 | Tendance: 0.0019
+2025-08-20T23:48:29.487174 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-20T23:50:36.955106 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T23:50:40.358874 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T23:50:41.489224 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T23:50:42.041178 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T23:50:43.036735 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T23:50:44.731326 | [ORDER] Tentative d'exécution: SELL 0.00198 ETH/USDC (iceberg: False)
+2025-08-20T23:50:45.306967 | [ORDER] Tentative d'exécution: SELL 0.014882363999999999 BNB/USDC (iceberg: False)
+2025-08-20T23:50:45.875047 | [ORDER] Tentative d'exécution: SELL 22.32 TRX/USDC (iceberg: False)
+2025-08-20T23:50:46.439167 | [ORDER] Tentative d'exécution: SELL 0.39 LINK/USDC (iceberg: False)
+2025-08-20T23:50:46.998789 | [ORDER] Tentative d'exécution: SELL 4.26 ADA/USDC (iceberg: False)
+2025-08-20T23:50:47.567193 | [ORDER] Tentative d'exécution: SELL 1116.15 NOT/USDC (iceberg: False)
+2025-08-20T23:50:47.568392 | Démarrage cycle trading
+2025-08-20T23:50:48.213158 | 🚫 Cycle bloqué - Pause news active
