@@ -43,3 +43,40 @@
 2025-08-20T16:48:56.784269 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
 2025-08-20T16:48:57.862466 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
 2025-08-20T16:49:03.416327 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T17:20:00.197557 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-20T17:20:00.198649 | Initialisation des modèles d'IA...
+2025-08-20T17:20:00.405285 | ✅ Modèles d'IA initialisés avec succès
+2025-08-20T17:20:02.088478 | ✅ PPO Strategy initialized successfully
+2025-08-20T17:20:09.663811 | ✅ Bot initialisé avec Telegram: True
+2025-08-20T17:20:09.663954 | ✅ Trading en direct: True
+2025-08-20T17:20:09.663991 | ✅ IA activée: True
+2025-08-20T17:20:09.664037 | ✅ Analyse de news activée: True
+2025-08-20T17:23:22.776499 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-20T17:24:04.862568 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-20T17:32:44.430941 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0522 | Tendance: 0.0010
+2025-08-20T17:32:44.431383 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-20T17:36:14.813216 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T17:36:18.439312 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T17:36:20.627844 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T17:36:21.854857 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T17:36:27.894449 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T17:47:02.877464 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T17:47:07.043385 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T17:47:10.452058 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T17:47:11.773127 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T17:47:18.587244 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T17:52:20.856978 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T17:52:24.316986 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T17:52:26.275871 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T17:52:27.395916 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T17:52:34.082314 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T17:57:32.594147 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T17:57:36.812453 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T17:57:38.540745 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T17:57:39.641865 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T17:57:45.064699 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-20T18:07:49.956907 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-20T18:07:53.469422 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-20T18:07:55.198157 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-20T18:07:56.357733 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-20T18:08:02.027213 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)

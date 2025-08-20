@@ -4500,10 +4500,10 @@ class TradingBotM4:
                     amount = safe_float(pos.get("amount"), 0)
 
                     # Calcul PnL (FIFO ou classique)
-                    fifo_pnl_pct, _ = self.get_last_fifo_pnl(symbol)
+                    fifo_pnl_value, _ = self.get_last_fifo_pnl(symbol)
                     pnl_pct = (
-                        fifo_pnl_pct
-                        if fifo_pnl_pct is not None
+                        fifo_pnl_value
+                        if fifo_pnl_value is not None
                         else (
                             (current_price - entry_price) / entry_price * 100
                             if entry_price and current_price
@@ -8666,26 +8666,48 @@ async def run_clean_bot():
                             continue
 
                     # =========================
-                    # Gestion TP partiels & Trailing (longs)
+                    # Gestion TP partiels & Trailing (longs) - CORRIGÉ
                     # =========================
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
                         print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
 
-                        # --- PATCH ANTI int+str ---
-                        # Cast tous les scalaires importants
+                        # --- PATCH ANTI int+str CORRIGÉ ---
+                        # Cast tous les scalaires importants SAUF pnl_pct (qui est un tuple)
                         for k in [
                             "amount",
                             "entry_price",
                             "current_price",
                             "max_price",
+                            "pnl_usd",
+                            "value_usd",
                         ]:
-                            if k in pos:
+                            if (
+                                k in pos and k != "pnl_pct"
+                            ):  # Exclure pnl_pct qui est un tuple
                                 try:
                                     pos[k] = float(pos[k])
-                                except Exception:
+                                except (TypeError, ValueError):
                                     pos[k] = 0.0
+
+                        # Traitement spécial pour pnl_pct (tuple)
+                        if "pnl_pct" in pos and isinstance(pos["pnl_pct"], tuple):
+                            try:
+                                # Convertit chaque élément du tuple en float si possible
+                                new_pnl = []
+                                for item in pos["pnl_pct"]:
+                                    if item is None:
+                                        new_pnl.append(None)
+                                    else:
+                                        try:
+                                            new_pnl.append(float(item))
+                                        except (TypeError, ValueError):
+                                            new_pnl.append(0.0)
+                                pos["pnl_pct"] = tuple(new_pnl)
+                            except Exception:
+                                pos["pnl_pct"] = (0.0, 0.0)  # Fallback
+
                         # Cast la liste price_history
                         if "price_history" in pos and isinstance(
                             pos["price_history"], list
@@ -8694,6 +8716,7 @@ async def run_clean_bot():
                                 float(x) if isinstance(x, (str, int, float)) else 0.0
                                 for x in pos["price_history"]
                             ]
+
                         # Cast la liste filled_tp_targets
                         if "filled_tp_targets" in pos and isinstance(
                             pos["filled_tp_targets"], list
@@ -8701,7 +8724,7 @@ async def run_clean_bot():
                             pos["filled_tp_targets"] = [
                                 bool(x) for x in pos["filled_tp_targets"]
                             ]
-                        # --- FIN PATCH ---
+                        # --- FIN PATCH CORRIGÉ ---
 
                         if str(pos.get("side", "")).lower() != "long":
                             print(
