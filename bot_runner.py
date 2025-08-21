@@ -5694,6 +5694,10 @@ class TradingBotM4:
     async def execute_trade(
         self, symbol, side, amount, price=None, iceberg=False, iceberg_visible_size=0.1
     ):
+        """
+        Execute a trade on Binance/BingX with safe float and proper quantity formatting.
+        Ensures the quantity is always a decimal string (no scientific notation) as required by Binance.
+        """
         # Conversion des valeurs en float de manière sécurisée
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
@@ -5861,11 +5865,17 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
+                # Formate la quantité en string décimal pour Binance (jamais scientifique)
+                amount_str = (
+                    "{:.8f}".format(amount).rstrip("0").rstrip(".")
+                    if amount > 0
+                    else "0"
+                )
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    amount=amount if side.upper() == "SELL" else None,
-                    quoteOrderQty=amount if side.upper() == "BUY" else None,
+                    amount=amount_str if side.upper() == "SELL" else None,
+                    quoteOrderQty=amount_str if side.upper() == "BUY" else None,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -5898,7 +5908,6 @@ class TradingBotM4:
                         features={},
                         status="executed",
                     )
-                    # Actualise le portefeuille après achat
                     self.sync_positions_with_binance()
 
             # ----- VENTE SPOT -----
@@ -5911,14 +5920,12 @@ class TradingBotM4:
                 if current_position and current_position["side"] == "long":
                     current_amount = safe_float(current_position["amount"])
                     use_amount = min(amount, current_amount)
-
                     if use_amount <= 0:
                         error_msg = (
                             f"[ORDER] Quantité invalide pour vente: {use_amount}"
                         )
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": "invalid amount"}
-
                 else:
                     asset = symbol_binance.replace("USDC", "").replace("USDT", "")
                     try:
@@ -5942,10 +5949,12 @@ class TradingBotM4:
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": str(e)}
 
+                # PATCH: Ajoute formatage string décimal (jamais scientifique)
                 use_amount = self.adjust_amount_to_lot_size(symbol_binance, use_amount)
-                use_amount = float(use_amount)
-                use_amount_str = "{:.8f}".format(use_amount).rstrip("0").rstrip(".")
-                use_amount = float(use_amount_str)
+                use_amount_str = (
+                    "{:.8f}".format(float(use_amount)).rstrip("0").rstrip(".")
+                )
+                # Ne repasse jamais en float, garde le string !
 
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
@@ -5966,20 +5975,22 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
+                # PATCH: Passe le string décimal à l'executor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    amount=use_amount if side.upper() == "SELL" else None,
-                    quoteOrderQty=use_amount if side.upper() == "BUY" else None,
+                    amount=use_amount_str if side.upper() == "SELL" else None,
+                    quoteOrderQty=use_amount_str if side.upper() == "BUY" else None,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
                     iceberg_visible_size=iceberg_visible_size,
                 )
 
-                # PATCH : suppression/MAJ position SEULEMENT si vente OK
                 if result.get("status") == "completed" and current_position:
-                    filled_amount = safe_float(result.get("filled_amount", use_amount))
+                    filled_amount = safe_float(
+                        result.get("filled_amount", float(use_amount_str))
+                    )
                     remaining_amount = current_position["amount"] - filled_amount
 
                     if remaining_amount > 0.000001:
@@ -6004,14 +6015,11 @@ class TradingBotM4:
                         )
                         self.positions.pop(symbol_binance, None)
                         log_dashboard(f"[ORDER] Position fermée: {symbol_binance}")
-                    # Actualise le portefeuille après vente
                     self.sync_positions_with_binance()
                 else:
                     print(
                         f"[ERROR] Vente refusée ou échouée pour {symbol_binance}, position conservée"
                     )
-                    # NE PAS décrémenter amount ni supprimer la position
-                    # Actualise le portefeuille pour être certain
                     self.sync_positions_with_binance()
 
             # ----- OUVERTURE SHORT BINGX -----
@@ -6036,20 +6044,22 @@ class TradingBotM4:
 
                     qty = safe_float(amount) / price_bingx if price_bingx > 0 else 0
 
-                    if qty <= 0:
-                        error_msg = f"[ORDER] Quantité invalide pour short: {qty}"
+                    # PATCH: string format for qty (BingX usually accepts floats, but can be safe)
+                    qty_str = "{:.8f}".format(qty).rstrip("0").rstrip(".")
+                    if safe_float(qty_str) <= 0:
+                        error_msg = f"[ORDER] Quantité invalide pour short: {qty_str}"
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": "invalid quantity"}
 
                     result = await self.bingx_executor.short_order(
-                        symbol_bingx, qty, leverage=3
+                        symbol_bingx, qty_str, leverage=3
                     )
 
                     if result.get("status") == "completed":
                         self.positions[symbol_binance] = {
                             "side": "short",
                             "entry_price": price_bingx,
-                            "amount": qty,
+                            "amount": safe_float(qty_str),
                             "min_price": price_bingx,
                             "source": "trade",
                             "timestamp": datetime.now().isoformat(),
@@ -6074,12 +6084,17 @@ class TradingBotM4:
                 pos = self.positions[symbol_binance]
                 qty = safe_float(pos["amount"])
 
-                if qty <= 0:
-                    error_msg = f"[ORDER] Quantité invalide pour fermeture short: {qty}"
+                qty_str = "{:.8f}".format(qty).rstrip("0").rstrip(".")
+                if safe_float(qty_str) <= 0:
+                    error_msg = (
+                        f"[ORDER] Quantité invalide pour fermeture short: {qty_str}"
+                    )
                     log_dashboard(error_msg)
                     return {"status": "error", "reason": "invalid quantity"}
 
-                result = await self.bingx_executor.close_short_order(symbol_bingx, qty)
+                result = await self.bingx_executor.close_short_order(
+                    symbol_bingx, qty_str
+                )
 
                 if result.get("status") == "completed":
                     self.log_closed_position(
@@ -6132,14 +6147,12 @@ class TradingBotM4:
                     f"{iceberg_info}"
                 )
 
-                # Actualisation du portefeuille après exécution
                 self.sync_positions_with_binance()
 
             else:
                 error_msg = f"[ORDER] Échec d'exécution: {side} {amount} {symbol_binance} - {result.get('reason', 'unknown')}"
                 print(error_msg)
                 log_dashboard(error_msg)
-                # On actualise quand même pour refléter l'état réel si refus
                 self.sync_positions_with_binance()
 
             return result
@@ -6156,16 +6169,17 @@ class TradingBotM4:
 
                 try:
                     print("🔄 Tentative 1: Order MARKET")
+                    # PATCH: toujours format string décimal
+                    amount_str = "{:.8f}".format(amount).rstrip("0").rstrip(".")
                     if side.upper() == "SELL":
                         order = self.binance_client.order_market_sell(
-                            symbol=symbol_binance, quantity=amount
+                            symbol=symbol_binance, quantity=amount_str
                         )
                     else:
                         order = self.binance_client.order_market_buy(
-                            symbol=symbol_binance, quantity=amount
+                            symbol=symbol_binance, quantity=amount_str
                         )
                     print(f"✅ Correction réussie: {order}")
-                    # Actualise après correction
                     self.sync_positions_with_binance()
                     return {
                         "status": "completed",
@@ -6177,7 +6191,6 @@ class TradingBotM4:
                     print(f"❌ Échec MARKET order: {market_error}")
                     pass
 
-            # Actualise en cas d'erreur API
             self.sync_positions_with_binance()
             return {"status": "error", "reason": str(e)}
 
