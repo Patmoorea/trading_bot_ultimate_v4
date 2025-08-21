@@ -1988,15 +1988,9 @@ class TradingBotM4:
             self._preserve_and_update_dashboard({"news_bilan": [bilan]})
 
     def auto_update_pairs_from_binance(self):
-        if not self.is_live_trading:
-            return (
-                [],
-                [],
-            )  # skip API call in backtest, retourne la valeur factice attendue
         """
-        Met à jour self.pairs_valid en ajoutant automatiquement les paires USDC
-        disponibles sur Binance (où les achats sont possibles).
-        À appeler à l'initialisation du bot ou quand tu veux rafraîchir la liste.
+        Met à jour self.pairs_valid avec les paires USDC disponibles sur Binance,
+        au format natif Binance (ex: BTCUSDC).
         """
         available_pairs = []
         assets = [
@@ -2011,18 +2005,13 @@ class TradingBotM4:
             "TRX",
             "SUI",
             "LINK",
-            # Ajoute ici d'autres assets à tester si besoin
         ]
         for asset in assets:
-            symbol = f"{asset}/USDC"
+            pair_binance = f"{asset}USDC"
             try:
-                if "/" in symbol:
-                    symbol_binance = symbol.replace("/", "")
-                else:
-                    symbol_binance = symbol
-                ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
+                ticker = self.binance_client.get_symbol_ticker(symbol=pair_binance)
                 if ticker and float(ticker.get("price", 0)) > 0:
-                    available_pairs.append(symbol)
+                    available_pairs.append(pair_binance)
             except Exception:
                 continue
         self.pairs_valid = available_pairs
@@ -2051,7 +2040,7 @@ class TradingBotM4:
                     and symbol_info["isSpotTradingAllowed"]
                 ):
                     base = symbol_info["baseAsset"]
-                    pair = f"{base}/USDC"
+                    pair = f"{base}USDC"
                     all_pairs.append(pair)
         except Exception as e:
             print(f"[PUMP] Erreur récupération exchange info: {e}")
@@ -2135,7 +2124,7 @@ class TradingBotM4:
                     and symbol_info["isSpotTradingAllowed"]
                 ):
                     base = symbol_info["baseAsset"]
-                    pair = f"{base}/USDC"
+                    pair = f"{base}USDC"
                     all_pairs.append(pair)
         except Exception as e:
             print(f"[BREAKOUT] Erreur récupération exchange info: {e}")
