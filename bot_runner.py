@@ -1858,20 +1858,17 @@ class TradingBotM4:
             return  # Rien à faire
 
         for symbol in symbol_list:
-            pair = f"{symbol}/USDC"
-            pair_key = pair.replace("/", "").upper()
+            pair = f"{normalize_pair(symbol)}/USDC"
+            pair_key = normalize_pair(pair)
+            symbol_binance = normalize_pair(pair)
+
             # 2. Vérifie si la paire existe sur Binance (spot USDC)
             try:
-                if "/" in symbol:
-                    symbol_binance = symbol.replace("/", "")
-                else:
-                    symbol_binance = symbol
                 ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
                 price_binance = float(ticker.get("price", 0))
                 if price_binance == 0:
                     reason.append("Paire indisponible sur Binance USDC")
                     bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
-                    # PATCH: Ajoute à la liste de refus, NE PAS envoyer Telegram
                     self.refused_trades_cycle.append(bilan)
                     self._preserve_and_update_dashboard({"news_bilan": [bilan]})
                     continue
@@ -1885,7 +1882,7 @@ class TradingBotM4:
             # 3. Récupère dynamiquement les données OHLCV (1h) pour la paire
             try:
                 klines = self.binance_client.get_klines(
-                    symbol=pair.replace("/", ""), interval="1h", limit=50
+                    symbol=symbol_binance, interval="1h", limit=50
                 )
                 if not klines or len(klines) == 0:
                     reason.append("Pas de données OHLCV")
@@ -1924,17 +1921,13 @@ class TradingBotM4:
 
             # 4. Calcule tous les indicateurs du bot (technique, IA, momentum, orderflow, sentiment)
             try:
-                # Technique
                 indics = self.add_indicators(df)
                 tech_score = float(indics.get("technical_score", 0.5))
-                # Momentum
                 momentum_score = (
                     float(indics.get("momentum", 0.5)) if "momentum" in indics else 0.5
                 )
-                # Orderflow
                 of = self.analyze_order_flow(df)
                 orderflow_score = float(of.get("imbalance", 0.5))
-                # IA : si dispo, calcule sur les features du df
                 ai_score = 0.5
                 if hasattr(self, "dl_model") and self.dl_model is not None:
                     features = await self._prepare_features_for_ai(pair_key)
@@ -1943,10 +1936,8 @@ class TradingBotM4:
                             ai_score = float(self.dl_model.predict(features))
                     except Exception:
                         ai_score = 0.5
-                # Sentiment (celui de la news)
                 sentiment_score = sentiment
 
-                # Confirmation : tous les scores doivent dépasser le seuil
                 confirm = all(
                     [
                         tech_score > confirmation_threshold,
@@ -1970,7 +1961,7 @@ class TradingBotM4:
                 amount = 15  # montant fixe ou à calculer selon ta logique
                 try:
                     result = await self.execute_trade(
-                        pair, "BUY", amount, price_binance
+                        symbol_binance, "BUY", amount, price_binance
                     )
                     bilan = f"Achat EFFECTUÉ sur {pair}: " + ", ".join(reason)
                     await self.telegram.send_message(bilan)
@@ -1984,13 +1975,11 @@ class TradingBotM4:
                 bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                 self.refused_trades_cycle.append(bilan)
 
-            # 6. Dashboard uniquement (PATCH CORRECTIF)
             self._preserve_and_update_dashboard({"news_bilan": [bilan]})
 
     def auto_update_pairs_from_binance(self):
         """
-        Met à jour self.pairs_valid avec les paires USDC disponibles sur Binance,
-        au format natif Binance (ex: BTCUSDC).
+        Met à jour self.pairs_valid avec les paires USDC disponibles sur Binance, au format natif Binance (ex: BTCUSDC).
         """
         available_pairs = []
         assets = [
@@ -2019,17 +2008,8 @@ class TradingBotM4:
 
     def detect_pump_candidates(self, min_pct=0.05, min_volume_ratio=2, tf="1h"):
         if not self.is_live_trading:
-            return (
-                [],
-                [],
-            )  # skip API call in backtest, retourne la valeur factice attendue
-        """
-        Détecte les cryptos en pump (hausse brutale prix et volume) sur TOUTES les paires USDC spot Binance,
-        même hors self.pairs_valid.
-        Confirmation possible via indicateurs avant achat.
-        """
+            return [], []
         candidates = []
-        # --- PATCH: Récupère TOUTES les paires USDC existantes sur Binance ---
         try:
             all_pairs = []
             exchange_info = self.binance_client.get_exchange_info()
@@ -2047,8 +2027,7 @@ class TradingBotM4:
             all_pairs = self.pairs_valid
 
         for pair in all_pairs:
-            pair_key = pair.replace("/", "").upper()
-            # PATCH: Ajout sécurité si market_data ne contient pas cette paire
+            pair_key = normalize_pair(pair)
             if pair_key in self.market_data and tf in self.market_data[pair_key]:
                 data = self.market_data[pair_key][tf]
                 closes = data.get("close", [])
@@ -2057,10 +2036,8 @@ class TradingBotM4:
                     price_pct = (closes[-1] - closes[-10]) / closes[-10]
                     avg_vol = np.mean(volumes[-24:-1])
                     vol_ratio = volumes[-1] / avg_vol if avg_vol > 0 else 1
-                    # Confirmation par indicateurs avant ajout
                     confirm = False
                     reason = []
-                    # PATCH: Confirmation par indicateurs
                     tech_score = (
                         data.get("signals", {}).get("technical", {}).get("score", 0.5)
                     )
@@ -2087,7 +2064,6 @@ class TradingBotM4:
                             "confirm": confirm,
                         }
                         candidates.append(candidate)
-                        # PATCH: Dashboard/Telegram bilan
                         self.safe_update_shared_data(
                             {"pump_bilan": candidate}, self.data_file
                         )
@@ -2103,17 +2079,8 @@ class TradingBotM4:
 
     def detect_breakout_candidates(self, tf="1h"):
         if not self.is_live_trading:
-            return (
-                [],
-                [],
-            )  # skip API call in backtest, retourne la valeur factice attendue
-        """
-        Détection des cassures de résistance sur TOUTES les paires USDC spot Binance,
-        même hors self.pairs_valid.
-        Confirmation possible via indicateurs avant achat.
-        """
+            return [], []
         candidates = []
-        # --- PATCH: Récupère TOUTES les paires USDC spot Binance ---
         try:
             all_pairs = []
             exchange_info = self.binance_client.get_exchange_info()
@@ -2131,7 +2098,7 @@ class TradingBotM4:
             all_pairs = self.pairs_valid
 
         for pair in all_pairs:
-            pair_key = pair.replace("/", "").upper()
+            pair_key = normalize_pair(pair)
             if pair_key in self.market_data and tf in self.market_data[pair_key]:
                 data = self.market_data[pair_key][tf]
                 highs = data.get("high", [])
@@ -2181,31 +2148,23 @@ class TradingBotM4:
 
     def detect_news_candidates(self, news_list, min_sentiment=0.7):
         if not self.is_live_trading:
-            return (
-                [],
-                [],
-            )  # skip API call in backtest, retourne la valeur factice attendue
+            return [], []
         candidates = []
-        bilan_list = []  # Pour historiser les bilans dans le dashboard
+        bilan_list = []
         for news in news_list:
-            sentiment = safe_float(news.get("sentiment", 0))
+            sentiment = float(news.get("sentiment", 0))
             if sentiment > min_sentiment:
                 for symbol in news.get("symbols", []):
-                    pair = f"{symbol}/USDC"
+                    pair = f"{normalize_pair(symbol)}/USDC"
+                    symbol_binance = normalize_pair(pair)
                     confirm = False
                     reason = []
                     try:
-                        # Vérifie que la paire existe sur Binance
-                        if "/" in symbol:
-                            symbol_binance = symbol.replace("/", "")
-                        else:
-                            symbol_binance = symbol
                         ticker = self.binance_client.get_symbol_ticker(
                             symbol=symbol_binance
                         )
                         if ticker and float(ticker.get("price", 0)) > 0:
-                            # Confirmation par autres indicateurs
-                            pair_key = pair.replace("/", "").upper()
+                            pair_key = normalize_pair(pair)
                             market_data = self.market_data.get(pair_key, {}).get(
                                 "1h", {}
                             )
@@ -2215,7 +2174,6 @@ class TradingBotM4:
                                 .get("score", 0.5)
                             )
                             ai_score = market_data.get("ai_prediction", 0.5)
-                            # Ajoute la logique de confirmation
                             if tech_score > 0.5 and ai_score > 0.5:
                                 confirm = True
                                 reason.append(f"Technique OK ({tech_score:.2f})")
@@ -2232,7 +2190,7 @@ class TradingBotM4:
                             reason.append("Paire non disponible sur Binance en USDC")
                     except Exception as e:
                         reason.append(f"Erreur accès Binance: {e}")
-                    # Bilan et action
+
                     if confirm:
                         candidates.append(
                             {
@@ -2246,10 +2204,11 @@ class TradingBotM4:
                     else:
                         bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
                     bilan_list.append(bilan)
-                    # Telegram et dashboard
                     self.safe_update_shared_data(
                         {"news_bilan": bilan_list}, self.data_file
                     )
+                    import asyncio
+
                     asyncio.create_task(self.telegram.send_message(bilan))
         return candidates
 
