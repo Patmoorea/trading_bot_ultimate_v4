@@ -1,18 +1,8 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [
-    {
-      "asset": "GLOBAL",
-      "action": "ALL",
-      "cycles_left": 11.0,
-      "type": "GLOBAL",
-      "reason": "\u00abWTF se passe? Faux Kanye West Coins Crash apr\u00e8s le vrai lancement de jetons yzy",
-      "max_cycles": 11.0,
-      "total_remaining": 11.0
-    }
-  ],
-  "sentiment": 0.69569360435009,
+  "pauses": [],
+  "sentiment": 0,
   "risky_positions": [],
-  "timestamp": 1755798614.898848
+  "timestamp": 1755801610.253008
 }

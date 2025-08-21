@@ -5767,7 +5767,6 @@ class TradingBotM4:
                     "amount": safe_float(amount),
                     "source": "trade",
                 }
-                # Log dataset
                 self.dataset_logger.log_cycle(
                     pair=symbol_binance,
                     equity=self.get_performance_metrics().get("balance", 0),
@@ -5788,7 +5787,6 @@ class TradingBotM4:
                     exit_price=safe_float(price or 0),
                     reason="Vente simulée",
                 )
-                # Log dataset
                 self.dataset_logger.log_cycle(
                     pair=symbol_binance,
                     equity=self.get_performance_metrics().get("balance", 0),
@@ -5811,7 +5809,6 @@ class TradingBotM4:
                     "min_price": safe_float(price or 0),
                     "source": "trade",
                 }
-                # Log dataset
                 self.dataset_logger.log_cycle(
                     pair=symbol_binance,
                     equity=self.get_performance_metrics().get("balance", 0),
@@ -5832,7 +5829,6 @@ class TradingBotM4:
                     exit_price=safe_float(price or 0),
                     reason="Rachat short simulé",
                 )
-                # Log dataset
                 self.dataset_logger.log_cycle(
                     pair=symbol_binance,
                     equity=self.get_performance_metrics().get("balance", 0),
@@ -5861,25 +5857,20 @@ class TradingBotM4:
             if side.upper() in ["BUY", "SELL"]:
                 try:
                     print(f"🔍 [CHECK] Vérification paire: {symbol_binance}")
-
                     ticker = self.binance_client.get_symbol_ticker(
                         symbol=symbol_binance
                     )
                     current_price = float(ticker.get("price", 0))
-
                     if current_price <= 0:
                         error_msg = f"[ORDER] {symbol_binance} indisponible (prix: {current_price})"
                         print(error_msg)
                         log_dashboard(error_msg)
-                        # CONTINUER QUAND MÊME
                     else:
                         print(f"✅ {symbol_binance} disponible - Prix: {current_price}")
-
                 except Exception as e:
                     error_msg = f"[ORDER] Erreur vérification {symbol_binance}: {e}"
                     print(error_msg)
                     log_dashboard(error_msg)
-                    print(f"⚠️  Continue malgré l'erreur de vérification")
 
             # ----- ACHAT SPOT -----
             if side.upper() == "BUY" and (
@@ -5940,7 +5931,6 @@ class TradingBotM4:
                         "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
-                    # Log dataset
                     self.dataset_logger.log_cycle(
                         pair=symbol_binance,
                         equity=self.get_performance_metrics().get("balance", 0),
@@ -5949,6 +5939,8 @@ class TradingBotM4:
                         features={},
                         status="executed",
                     )
+                    # Actualise le portefeuille après achat
+                    self.sync_positions_with_binance()
 
             # ----- VENTE SPOT -----
             elif side.upper() == "SELL" and (
@@ -6026,6 +6018,7 @@ class TradingBotM4:
                     iceberg_visible_size=iceberg_visible_size,
                 )
 
+                # PATCH : suppression/MAJ position SEULEMENT si vente OK
                 if result.get("status") == "completed" and current_position:
                     filled_amount = safe_float(result.get("filled_amount", use_amount))
                     remaining_amount = current_position["amount"] - filled_amount
@@ -6052,6 +6045,15 @@ class TradingBotM4:
                         )
                         self.positions.pop(symbol_binance, None)
                         log_dashboard(f"[ORDER] Position fermée: {symbol_binance}")
+                    # Actualise le portefeuille après vente
+                    self.sync_positions_with_binance()
+                else:
+                    print(
+                        f"[ERROR] Vente refusée ou échouée pour {symbol_binance}, position conservée"
+                    )
+                    # NE PAS décrémenter amount ni supprimer la position
+                    # Actualise le portefeuille pour être certain
+                    self.sync_positions_with_binance()
 
             # ----- OUVERTURE SHORT BINGX -----
             elif side.upper() == "SHORT":
@@ -6093,7 +6095,6 @@ class TradingBotM4:
                             "source": "trade",
                             "timestamp": datetime.now().isoformat(),
                         }
-                        # Log dataset
                         self.dataset_logger.log_cycle(
                             pair=symbol_binance,
                             equity=self.get_performance_metrics().get("balance", 0),
@@ -6102,7 +6103,7 @@ class TradingBotM4:
                             features={},
                             status="executed",
                         )
-
+                        self.sync_positions_with_binance()
                 except Exception as e:
                     error_msg = f"[ORDER] Erreur ouverture short {symbol_binance}: {e}"
                     log_dashboard(error_msg)
@@ -6137,6 +6138,7 @@ class TradingBotM4:
                         status="executed",
                     )
                     self.positions.pop(symbol_binance, None)
+                    self.sync_positions_with_binance()
 
             else:
                 error_msg = f"[ORDER] Type d'ordre non supporté: {side}"
@@ -6171,10 +6173,15 @@ class TradingBotM4:
                     f"{iceberg_info}"
                 )
 
+                # Actualisation du portefeuille après exécution
+                self.sync_positions_with_binance()
+
             else:
                 error_msg = f"[ORDER] Échec d'exécution: {side} {amount} {symbol_binance} - {result.get('reason', 'unknown')}"
                 print(error_msg)
                 log_dashboard(error_msg)
+                # On actualise quand même pour refléter l'état réel si refus
+                self.sync_positions_with_binance()
 
             return result
 
@@ -6199,6 +6206,8 @@ class TradingBotM4:
                             symbol=symbol_binance, quantity=amount
                         )
                     print(f"✅ Correction réussie: {order}")
+                    # Actualise après correction
+                    self.sync_positions_with_binance()
                     return {
                         "status": "completed",
                         "filled_amount": amount,
@@ -6209,12 +6218,15 @@ class TradingBotM4:
                     print(f"❌ Échec MARKET order: {market_error}")
                     pass
 
+            # Actualise en cas d'erreur API
+            self.sync_positions_with_binance()
             return {"status": "error", "reason": str(e)}
 
         except Exception as e:
             error_msg = f"[ORDER] Erreur inattendue: {e}"
             print(error_msg)
             self.logger.error(error_msg)
+            self.sync_positions_with_binance()
             return {"status": "error", "reason": str(e)}
 
     def adjust_amount_to_lot_size(self, symbol, amount):
@@ -9063,21 +9075,30 @@ async def run_clean_bot():
                                 if amount_to_sell > 0:
                                     # VÉRIFICATION CRITIQUE
                                     if is_symbol_tradable(symbol):
-                                        await bot.execute_trade(
+                                        result = await bot.execute_trade(
                                             symbol, "SELL", amount_to_sell
                                         )
-                                        pos["amount"] = safe_float(
-                                            amount - amount_to_sell, 0
-                                        )
-                                        pos["filled_tp_targets"] = new_filled
-                                        print(
-                                            f"[TP PARTIEL] {symbol}: Vente {amount_to_sell}, nouveau amount={pos['amount']}"
-                                        )
-                                        if safe_float(pos.get("amount"), 0) <= 0:
-                                            getattr(bot, "positions_binance", {}).pop(
-                                                symbol, None
+                                        if (
+                                            result
+                                            and result.get("status") == "completed"
+                                        ):
+                                            pos["amount"] = safe_float(
+                                                amount - amount_to_sell, 0
                                             )
-                                            continue
+                                            pos["filled_tp_targets"] = new_filled
+                                            print(
+                                                f"[TP PARTIEL] {symbol}: Vente {amount_to_sell}, nouveau amount={pos['amount']}"
+                                            )
+                                            if safe_float(pos.get("amount"), 0) <= 0:
+                                                getattr(
+                                                    bot, "positions_binance", {}
+                                                ).pop(symbol, None)
+                                                continue
+                                        else:
+                                            print(
+                                                f"[ERROR] Vente partielle échouée pour {symbol}, position conservée"
+                                            )
+                                            # NE PAS modifier pos["amount"], ni supprimer la position
                                     else:
                                         print(
                                             f"[BLOCKED] TP PARTIEL {symbol} - SELL non autorisé"
