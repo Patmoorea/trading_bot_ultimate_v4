@@ -294,3 +294,20 @@
 2025-08-21T19:05:13.475355 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
 2025-08-21T19:05:14.599024 | [ORDER] Vente depuis solde BTC: 9e-05
 2025-08-21T19:07:05.292144 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-21T22:33:16.122551 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-21T22:33:16.124920 | Initialisation des modèles d'IA...
+2025-08-21T22:33:16.309724 | ✅ Modèles d'IA initialisés avec succès
+2025-08-21T22:33:17.931416 | ✅ PPO Strategy initialized successfully
+2025-08-21T22:33:23.264903 | ✅ Bot initialisé avec Telegram: True
+2025-08-21T22:33:23.265092 | ✅ Trading en direct: True
+2025-08-21T22:33:23.265129 | ✅ IA activée: True
+2025-08-21T22:33:23.265162 | ✅ Analyse de news activée: True
+2025-08-21T22:36:06.149445 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-21T22:36:44.771652 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-21T22:45:38.224520 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0340 | Tendance: -0.0042
+2025-08-21T22:45:38.225058 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-21T22:47:28.877093 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T22:47:29.958809 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T22:49:18.051285 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-21T22:51:06.725801 | [ORDER] Tentative d'exécution: SELL 4.26 ADAUSDC (iceberg: False)
+2025-08-21T22:51:07.899368 | [ORDER] Vente depuis solde ADA: 14.2

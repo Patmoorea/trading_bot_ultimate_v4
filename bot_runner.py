@@ -4432,10 +4432,11 @@ class TradingBotM4:
 
     def get_pending_sales(self):
         """
-        Affiche TOUTES les positions spot Binance avec leur état actuel.
-        Seule la position concernée par une pause (asset ou globale) sera marquée pause_blocage = Oui et note = Trading suspendu.
-        Les autres champs sont calculés intelligemment.
-        PATCH: Corrige l'affichage : pause_blocage = Oui uniquement si pauses != [] et is_paused(symbol) == True
+        Affiche TOUTES les positions spot Binance avec leur état actuel dans le dashboard.
+        Liste absolument toutes les cryptos présentes dans ton portefeuille réel Binance,
+        même celles acquises par airdrop, learn ou autres, même sans prix d'achat connu !
+        Si le prix d'achat n'est pas disponible, affiche "N/A" et calcule le PnL par rapport à 0.
+        Ne montre QUE les positions réellement présentes sur Binance (pas de positions simulées ou hors portefeuille).
         """
         try:
             pending = []
@@ -4448,7 +4449,6 @@ class TradingBotM4:
             print("[DEBUG PATCH] pauses:", pauses)
 
             def is_paused(symbol):
-                # Retourne True uniquement si une pause existe pour la paire ou globale
                 if not pauses:
                     return False, ""
                 for p in pauses:
@@ -4457,16 +4457,18 @@ class TradingBotM4:
                         return True, p.get("reason", "Indéterminée")
                 return False, ""
 
-            # Pour chaque position SPOT Binance
+            # Pour chaque position SPOT Binance réelle (toutes cryptos, même sans entry_price)
             if hasattr(self, "positions_binance") and self.positions_binance:
                 for symbol, pos in self.positions_binance.items():
+                    # Force le format du symbole (ex: ADAUSDC, BTCUSDC...)
+                    symbol_binance = (
+                        symbol.replace("/", "") if "/" in symbol else symbol
+                    )
+
+                    # Prix d'achat (entry_price) - peut être None ou 0 si airdrop/learn
                     entry_price = safe_float(pos.get("entry_price"), 0)
-                    # PATCH: récupère le prix live Binance à chaque tick/cycle
+                    # Prix courant live (Binance)
                     try:
-                        if "/" in symbol:
-                            symbol_binance = symbol.replace("/", "")
-                        else:
-                            symbol_binance = symbol
                         ticker = self.binance_client.get_symbol_ticker(
                             symbol=symbol_binance
                         )
@@ -4476,26 +4478,27 @@ class TradingBotM4:
                         current_price = safe_float(pos.get("current_price"), 0)
                     amount = safe_float(pos.get("amount"), 0)
 
-                    # Calcul PnL (FIFO ou classique)
-                    fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(
-                        symbol
-                    )  # ← CORRECTION ICI
-                    pnl_pct = (
-                        fifo_pnl_pct  # ← Utilisez la bonne variable
-                        if fifo_pnl_pct is not None
-                        else (
-                            (current_price - entry_price) / entry_price * 100
-                            if entry_price and current_price
-                            else 0
+                    # PnL (FIFO si possible, sinon classique, sinon N/A)
+                    fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(symbol)
+                    if entry_price > 0:
+                        pnl_pct = (
+                            fifo_pnl_pct
+                            if fifo_pnl_pct is not None
+                            else (
+                                (current_price - entry_price) / entry_price * 100
+                                if current_price and entry_price
+                                else 0
+                            )
                         )
-                    )
+                    else:
+                        # Pas de prix d'achat disponible (ex: learn, airdrop)
+                        pnl_pct = "N/A"
 
-                    td = self.trade_decisions.get(symbol.replace("/", "").upper(), {})
+                    td = self.trade_decisions.get(symbol_binance, {})
                     action = td.get("action", "neutral")
                     confidence = td.get("confidence", 0.5)
 
                     pause_for_pos, pause_reason = is_paused(symbol)
-                    # PATCH: pause_blocage = "Oui" UNIQUEMENT si une pause est active
                     if pauses and pause_for_pos:
                         pause_blocage = "Oui"
                         note = f"Trading suspendu ({pause_reason})"
@@ -4506,12 +4509,12 @@ class TradingBotM4:
                         note = ""
                         reason = "Signal SELL détecté"
                         decision = "Vente prévue au prochain cycle"
-                    elif pnl_pct < -5:
+                    elif isinstance(pnl_pct, (float, int)) and pnl_pct < -5:
                         pause_blocage = "Non"
                         note = "Risque de stop-loss"
                         reason = f"Perte latente {pnl_pct:.1f}%"
                         decision = "Surveillance stop-loss"
-                    elif pnl_pct > 7:
+                    elif isinstance(pnl_pct, (float, int)) and pnl_pct > 7:
                         pause_blocage = "Non"
                         note = "En zone de profit, TP possible"
                         reason = f"Gain latent {pnl_pct:.1f}%"
@@ -4527,22 +4530,25 @@ class TradingBotM4:
                             "symbol": symbol,
                             "reason": reason,
                             "decision": decision,
-                            "entry_price": safe_float(entry_price),
+                            "entry_price": entry_price if entry_price > 0 else "N/A",
                             "current_price": safe_float(current_price),
                             "amount": amount,
                             "pnl_pct": pnl_pct,
-                            "% Gain/Perte": f"{pnl_pct:.2f}%",
+                            "% Gain/Perte": (
+                                f"{pnl_pct:.2f}%"
+                                if isinstance(pnl_pct, (float, int))
+                                else "N/A"
+                            ),
                             "pause_blocage": pause_blocage,
                             "note": note,
                             "confidence": confidence,
                         }
                     )
 
-            # Ajoute ici les autres positions (futures/simu) si besoin, selon ta logique
+            # PATCH : NE PAS AJOUTER DE POSITION SIMULÉE OU HORS PORTEFEUILLE ICI !
+            # Les alertes externes (NOT, MATIC, etc.) doivent être affichées dans une autre section.
 
-            # PATCH: DEBUG pour vérifier le résultat
-            # print("[DEBUG] get_pending_sales generated:", pending)
-            # Sauvegarde dans shared_data.json
+            # Sauvegarde dans shared_data.json pour le dashboard
             self.safe_update_shared_data({"pending_sales": pending}, self.data_file)
             return pending
 
@@ -5865,12 +5871,10 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # Formate la quantité en string décimal pour Binance (jamais scientifique)
-                amount_str = (
-                    "{:.8f}".format(amount).rstrip("0").rstrip(".")
-                    if amount > 0
-                    else "0"
-                )
+                # PATCH: quantité float → string décimal pour API
+                amount_float = self.adjust_amount_to_lot_size(symbol_binance, amount)
+                amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
@@ -5896,7 +5900,7 @@ class TradingBotM4:
                     self.positions[symbol_binance] = {
                         "side": "long",
                         "entry_price": avg_price,
-                        "amount": safe_float(result.get("filled_amount", amount)),
+                        "amount": safe_float(result.get("filled_amount", amount_float)),
                         "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
@@ -5949,12 +5953,13 @@ class TradingBotM4:
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": str(e)}
 
-                # PATCH: Ajoute formatage string décimal (jamais scientifique)
-                use_amount = self.adjust_amount_to_lot_size(symbol_binance, use_amount)
-                use_amount_str = (
-                    "{:.8f}".format(float(use_amount)).rstrip("0").rstrip(".")
+                # PATCH: quantité float → string décimal (jamais scientifique)
+                use_amount_float = self.adjust_amount_to_lot_size(
+                    symbol_binance, use_amount
                 )
-                # Ne repasse jamais en float, garde le string !
+                use_amount_str = (
+                    "{:.8f}".format(use_amount_float).rstrip("0").rstrip(".")
+                )
 
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
@@ -5989,7 +5994,7 @@ class TradingBotM4:
 
                 if result.get("status") == "completed" and current_position:
                     filled_amount = safe_float(
-                        result.get("filled_amount", float(use_amount_str))
+                        result.get("filled_amount", use_amount_float)
                     )
                     remaining_amount = current_position["amount"] - filled_amount
 
@@ -6169,8 +6174,10 @@ class TradingBotM4:
 
                 try:
                     print("🔄 Tentative 1: Order MARKET")
-                    # PATCH: toujours format string décimal
-                    amount_str = "{:.8f}".format(amount).rstrip("0").rstrip(".")
+                    amount_float = self.adjust_amount_to_lot_size(
+                        symbol_binance, amount
+                    )
+                    amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
                     if side.upper() == "SELL":
                         order = self.binance_client.order_market_sell(
                             symbol=symbol_binance, quantity=amount_str
@@ -6227,7 +6234,7 @@ class TradingBotM4:
                     print(
                         f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted_str} (stepSize={step_size}, precision={precision})"
                     )
-                    return float(adjusted_str)
+                    return float(adjusted_str)  # <-- PATCH: Toujours float ici
         except Exception as e:
             print(f"❌ Erreur ajustement LOT_SIZE: {e}")
         return float(amount)  # Fallback
