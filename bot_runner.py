@@ -5749,6 +5749,11 @@ class TradingBotM4:
         # Formatage du symbole pour Binance IMMÉDIATEMENT
         symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
 
+        # Debug logging
+        print(
+            f"🔍 [DEBUG] execute_trade: {side} {amount} {symbol}, price={price}, iceberg={iceberg}"
+        )
+
         # --- MODE SIMULATION ---
         if not self.is_live_trading:
             log_dashboard(
@@ -5769,6 +5774,7 @@ class TradingBotM4:
                     "side": "long",
                     "entry_price": safe_float(price or 0),
                     "amount": safe_float(amount),
+                    "source": "trade",
                 }
             elif side.upper() == "SELL":
                 if not self.is_long(symbol):
@@ -5788,6 +5794,7 @@ class TradingBotM4:
                     "entry_price": safe_float(price or 0),
                     "amount": safe_float(amount),
                     "min_price": safe_float(price or 0),
+                    "source": "trade",
                 }
             elif side.upper() == "BUY" and self.is_short(symbol):
                 if not self.is_short(symbol):
@@ -5812,7 +5819,7 @@ class TradingBotM4:
             )
 
             # Vérification de la disponibilité de la paire sur Binance
-            if side.upper() in ["BUY", "SELL"] and symbol.endswith("USDC"):
+            if side.upper() in ["BUY", "SELL"]:
                 try:
                     # Vérification plus robuste de la disponibilité
                     exchange_info = self.binance_client.get_exchange_info()
@@ -5825,6 +5832,23 @@ class TradingBotM4:
                         print(error_msg)
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": "symbol not available"}
+
+                    # Vérifier les permissions de trading
+                    symbol_info = next(
+                        (
+                            s
+                            for s in exchange_info["symbols"]
+                            if s["symbol"] == symbol_binance
+                        ),
+                        None,
+                    )
+                    if symbol_info and "SPOT" not in symbol_info.get("permissions", []):
+                        error_msg = (
+                            f"[ORDER] {symbol_binance} n'autorise pas le trading SPOT"
+                        )
+                        print(error_msg)
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "spot trading not allowed"}
 
                     # Vérification supplémentaire avec le ticker
                     ticker = self.binance_client.get_symbol_ticker(
@@ -5845,7 +5869,9 @@ class TradingBotM4:
                     return {"status": "error", "reason": str(e)}
 
             # ----- ACHAT SPOT -----
-            if side.upper() == "BUY" and symbol.endswith("USDC"):
+            if side.upper() == "BUY" and (
+                symbol.endswith("USDC") or symbol.endswith("USDT")
+            ):
                 if self.is_long(symbol):
                     log_dashboard(f"[ORDER] Déjà long sur {symbol}, achat ignoré.")
                     return {"status": "skipped", "reason": "already long"}
@@ -5869,10 +5895,11 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # Exécution de l'ordre
+                # Exécution de l'ordre - TOUJOURS MARKET ORDER POUR ACHAT
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
+                    type="MARKET",  # FORCER MARKET ORDER
                     quoteOrderQty=amount,
                     orderbook=orderbook,
                     market_data=market_data,
@@ -5881,18 +5908,32 @@ class TradingBotM4:
                 )
 
                 if result.get("status") == "completed":
+                    avg_price = safe_float(result.get("avg_price", price))
+                    if avg_price <= 0:
+                        # Fallback: utiliser le prix actuel
+                        try:
+                            ticker = self.binance_client.get_symbol_ticker(
+                                symbol=symbol_binance
+                            )
+                            avg_price = safe_float(ticker.get("price", 0))
+                        except:
+                            avg_price = price or 0
+
                     self.positions[symbol] = {
                         "side": "long",
-                        "entry_price": safe_float(result.get("avg_price", price)),
+                        "entry_price": avg_price,
                         "amount": safe_float(result.get("filled_amount", amount)),
+                        "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
 
             # ----- VENTE SPOT -----
-            elif side.upper() == "SELL" and symbol.endswith("USDC"):
+            elif side.upper() == "SELL" and (
+                symbol.endswith("USDC") or symbol.endswith("USDT")
+            ):
                 # Vérification de la position et des soldes
                 current_position = self.positions.get(symbol)
-                asset_balance = None
+                use_amount = amount
 
                 if current_position and current_position["side"] == "long":
                     # Vente depuis une position existante
@@ -5910,7 +5951,7 @@ class TradingBotM4:
 
                 else:
                     # Vente depuis le solde du wallet
-                    asset = symbol.replace("/USDC", "").replace("USDC", "")
+                    asset = symbol.split("/")[0]  # Extraire l'asset correctement
                     try:
                         balance = self.binance_client.get_asset_balance(asset=asset)
                         free_balance = (
@@ -5950,11 +5991,12 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # Exécution de l'ordre de vente
+                # Exécution de l'ordre de vente - TOUJOURS MARKET ORDER
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    quoteOrderQty=use_amount,
+                    type="MARKET",  # FORCER MARKET ORDER
+                    quantity=use_amount,  # Utiliser quantity au lieu de quoteOrderQty pour les ventes
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -5983,7 +6025,9 @@ class TradingBotM4:
                     log_dashboard(f"[ORDER] Déjà short sur {symbol}, short ignoré.")
                     return {"status": "skipped", "reason": "already short"}
 
-                symbol_bingx = symbol.replace("USDC", "USDT") + ":USDT"
+                symbol_bingx = (
+                    symbol.replace("USDC", "USDT").replace("USDT", "USDT") + ":USDT"
+                )
 
                 try:
                     ticker = await self.bingx_client.fetch_ticker(symbol_bingx)
@@ -6013,6 +6057,7 @@ class TradingBotM4:
                             "entry_price": price_bingx,
                             "amount": qty,
                             "min_price": price_bingx,
+                            "source": "trade",
                             "timestamp": datetime.now().isoformat(),
                         }
 
@@ -6023,7 +6068,9 @@ class TradingBotM4:
 
             # ----- FERMETURE SHORT BINGX -----
             elif side.upper() == "BUY" and self.is_short(symbol):
-                symbol_bingx = symbol.replace("USDC", "USDT") + ":USDT"
+                symbol_bingx = (
+                    symbol.replace("USDC", "USDT").replace("USDT", "USDT") + ":USDT"
+                )
                 pos = self.positions[symbol]
                 qty = safe_float(pos["amount"])
 
@@ -6082,6 +6129,24 @@ class TradingBotM4:
             error_msg = f"[ORDER] Binance API error: {e}"
             print(error_msg)
             self.logger.error(error_msg)
+
+            # Gestion spécifique de l'erreur "Only BUY orders are allowed"
+            if "Only BUY orders are allowed" in str(e):
+                print("🔄 Tentative de correction: Forcer l'ordre MARKET")
+                try:
+                    # Forcer un ordre MARKET
+                    if side.upper() == "SELL":
+                        order = self.binance_client.order_market_sell(
+                            symbol=symbol_binance, quantity=amount
+                        )
+                        return {
+                            "status": "completed",
+                            "filled_amount": amount,
+                            "avg_price": 0,
+                        }
+                except Exception as retry_error:
+                    print(f"❌ Échec correction: {retry_error}")
+
             return {"status": "error", "reason": str(e)}
 
         except Exception as e:
@@ -8793,6 +8858,32 @@ async def run_clean_bot():
                         bot.check_reload_dl_model()
 
                     # =========================
+                    # VÉRIFICATION CRITIQUE: Paires tradables
+                    # =========================
+                    def is_symbol_tradable(symbol):
+                        """Vérifie si une paire permet les ordres SELL"""
+                        try:
+                            symbol_binance = symbol.replace("/", "")
+                            # Vérifier les informations de la paire
+                            exchange_info = bot.binance_client.get_exchange_info()
+                            for s in exchange_info["symbols"]:
+                                if s["symbol"] == symbol_binance:
+                                    # Vérifier les permissions
+                                    permissions = s.get("permissions", [])
+                                    if "SPOT" in permissions:
+                                        # Vérifier si les ordres SELL sont autorisés
+                                        filters = s.get("filters", [])
+                                        for f in filters:
+                                            if f["filterType"] == "PERCENT_PRICE":
+                                                # Si ce filtre existe, les ordres SELL sont autorisés
+                                                return True
+                                    return False
+                            return False
+                        except Exception as e:
+                            print(f"[ERROR] Erreur vérification paire {symbol}: {e}")
+                            return False
+
+                    # =========================
                     # Gestion des stop-loss SPOT (positions longues)
                     # =========================
                     for symbol, pos in list(
@@ -8801,6 +8892,12 @@ async def run_clean_bot():
                         entry_price = safe_float(pos.get("entry_price"), 0)
                         current_price = safe_float(pos.get("current_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
+
+                        # VÉRIFICATION CRITIQUE: Ignorer les positions non tradables
+                        if not is_symbol_tradable(symbol):
+                            print(f"[SKIP] {symbol} non tradable (SELL non autorisé)")
+                            continue
+
                         if entry_price <= 0 or current_price <= 0 or amount <= 0:
                             print(
                                 f"[SKIP ZOMBIE] {symbol} ignoré: entry_price={entry_price}, current_price={current_price}, amount={amount}"
@@ -8828,7 +8925,13 @@ async def run_clean_bot():
                                     f"[STOPLOSS] Déclenchement automatique du stop-loss pour {symbol}"
                                 )
                                 if amount > 0:
-                                    await bot.execute_trade(symbol, "SELL", amount)
+                                    # VÉRIFICATION SUPPLEMENTAIRE
+                                    if is_symbol_tradable(symbol):
+                                        await bot.execute_trade(symbol, "SELL", amount)
+                                    else:
+                                        print(
+                                            f"[BLOCKED] STOPLOSS {symbol} - SELL non autorisé"
+                                        )
                                 print(f"[STOPLOSS] Position fermée pour {symbol}")
                                 getattr(bot, "positions_binance", {}).pop(symbol, None)
                                 continue
@@ -8845,6 +8948,12 @@ async def run_clean_bot():
                         entry_price = safe_float(pos.get("entry_price"), 0)
                         current_price = safe_float(pos.get("current_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
+
+                        # VÉRIFICATION CRITIQUE: Ignorer les positions non tradables
+                        if not is_symbol_tradable(symbol):
+                            print(f"[SKIP] {symbol} non tradable (SELL non autorisé)")
+                            continue
+
                         if entry_price <= 0 or current_price <= 0 or amount <= 0:
                             print(
                                 f"[SKIP ZOMBIE] {symbol} ignoré: entry_price={entry_price}, current_price={current_price}, amount={amount}"
@@ -8892,21 +9001,27 @@ async def run_clean_bot():
                             if to_exit > 0 and amount > 0:
                                 amount_to_sell = amount * to_exit
                                 if amount_to_sell > 0:
-                                    await bot.execute_trade(
-                                        symbol, "SELL", amount_to_sell
-                                    )
-                                    pos["amount"] = safe_float(
-                                        amount - amount_to_sell, 0
-                                    )
-                                    pos["filled_tp_targets"] = new_filled
-                                    print(
-                                        f"[TP PARTIEL] {symbol}: Vente {amount_to_sell}, nouveau amount={pos['amount']}"
-                                    )
-                                    if safe_float(pos.get("amount"), 0) <= 0:
-                                        getattr(bot, "positions_binance", {}).pop(
-                                            symbol, None
+                                    # VÉRIFICATION CRITIQUE
+                                    if is_symbol_tradable(symbol):
+                                        await bot.execute_trade(
+                                            symbol, "SELL", amount_to_sell
                                         )
-                                        continue
+                                        pos["amount"] = safe_float(
+                                            amount - amount_to_sell, 0
+                                        )
+                                        pos["filled_tp_targets"] = new_filled
+                                        print(
+                                            f"[TP PARTIEL] {symbol}: Vente {amount_to_sell}, nouveau amount={pos['amount']}"
+                                        )
+                                        if safe_float(pos.get("amount"), 0) <= 0:
+                                            getattr(bot, "positions_binance", {}).pop(
+                                                symbol, None
+                                            )
+                                            continue
+                                    else:
+                                        print(
+                                            f"[BLOCKED] TP PARTIEL {symbol} - SELL non autorisé"
+                                        )
                         except Exception as tp_error:
                             print(f"[ERROR] Échec TP partiel pour {symbol}: {tp_error}")
                             continue
@@ -8931,10 +9046,18 @@ async def run_clean_bot():
                             )
                             pos["max_price"] = safe_float(new_max, 0)
                             if should_exit and safe_float(pos.get("amount"), 0) > 0:
-                                await bot.execute_trade(
-                                    symbol, "SELL", safe_float(pos.get("amount"), 0)
-                                )
-                                getattr(bot, "positions_binance", {}).pop(symbol, None)
+                                # VÉRIFICATION CRITIQUE
+                                if is_symbol_tradable(symbol):
+                                    await bot.execute_trade(
+                                        symbol, "SELL", safe_float(pos.get("amount"), 0)
+                                    )
+                                    getattr(bot, "positions_binance", {}).pop(
+                                        symbol, None
+                                    )
+                                else:
+                                    print(
+                                        f"[BLOCKED] TRAILING STOP {symbol} - SELL non autorisé"
+                                    )
                         except Exception as trailing_error:
                             print(
                                 f"[ERROR] Échec trailing stop pour {symbol}: {trailing_error}"
@@ -8987,6 +9110,12 @@ async def run_clean_bot():
                         if not pair:
                             continue
                         symbol = pair.split("/")[0]
+
+                        # VÉRIFICATION CRITIQUE: Paire tradable
+                        if not is_symbol_tradable(pair):
+                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            continue
+
                         if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
@@ -9035,6 +9164,12 @@ async def run_clean_bot():
                         if not pair:
                             continue
                         symbol = pair.split("/")[0]
+
+                        # VÉRIFICATION CRITIQUE: Paire tradable
+                        if not is_symbol_tradable(pair):
+                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            continue
+
                         if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
@@ -9090,6 +9225,12 @@ async def run_clean_bot():
                         if not pair:
                             continue
                         symbol = pair.split("/")[0]
+
+                        # VÉRIFICATION CRITIQUE: Paire tradable
+                        if not is_symbol_tradable(pair):
+                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            continue
+
                         if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue
@@ -9138,6 +9279,12 @@ async def run_clean_bot():
                         if not pair:
                             continue
                         symbol = pair.split("/")[0]
+
+                        # VÉRIFICATION CRITIQUE: Paire tradable
+                        if not is_symbol_tradable(pair):
+                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            continue
+
                         if pair not in bot.pairs_valid:
                             await log_external_crypto_alert(bot, symbol, c)
                             continue

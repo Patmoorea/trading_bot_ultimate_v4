@@ -290,3 +290,70 @@
 2025-08-21T00:35:27.785000 | [ORDER] Tentative d'exécution: SELL 1116.15 NOT/USDC (iceberg: False)
 2025-08-21T00:35:28.344398 | Démarrage cycle trading
 2025-08-21T00:35:28.980207 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T00:47:06.808907 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-21T00:47:06.809850 | Initialisation des modèles d'IA...
+2025-08-21T00:47:07.013923 | ✅ Modèles d'IA initialisés avec succès
+2025-08-21T00:47:08.510755 | ✅ PPO Strategy initialized successfully
+2025-08-21T00:47:12.685899 | ✅ Bot initialisé avec Telegram: True
+2025-08-21T00:47:12.686046 | ✅ Trading en direct: True
+2025-08-21T00:47:12.686086 | ✅ IA activée: True
+2025-08-21T00:47:12.686121 | ✅ Analyse de news activée: True
+2025-08-21T00:50:03.664567 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-21T00:50:42.327506 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-21T01:00:07.385456 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0607 | Tendance: 0.0023
+2025-08-21T01:00:07.386891 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-21T01:02:10.047108 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-21T01:02:12.767864 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T01:02:14.904567 | [ORDER] Échec d'exécution: SELL 9e-05 BTC/USDC - Only BUY orders are allowed
+2025-08-21T01:02:18.249966 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-21T01:02:20.299864 | [ORDER] Vente depuis solde XRP: 3.4
+2025-08-21T01:02:22.088924 | [ORDER] Échec d'exécution: SELL 3.4 XRP/USDC - Only BUY orders are allowed
+2025-08-21T01:02:23.230498 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-21T01:02:25.966527 | [ORDER] Vente depuis solde DOGE: 23.0
+2025-08-21T01:02:27.792462 | [ORDER] Échec d'exécution: SELL 23.0 DOGE/USDC - Only BUY orders are allowed
+2025-08-21T01:02:28.379889 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-21T01:02:30.419355 | [ORDER] Vente depuis solde SOL: 0.058
+2025-08-21T01:02:32.255095 | [ORDER] Échec d'exécution: SELL 0.058 SOL/USDC - Only BUY orders are allowed
+2025-08-21T01:02:32.842906 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-21T01:02:34.996536 | [ORDER] Vente depuis solde SUI: 5.2
+2025-08-21T01:02:36.809782 | [ORDER] Échec d'exécution: SELL 5.2 SUI/USDC - Only BUY orders are allowed
+2025-08-21T01:02:38.532888 | [ORDER] Tentative d'exécution: SELL 0.00198 ETH/USDC (iceberg: False)
+2025-08-21T01:02:40.837774 | [ORDER] Vente depuis solde ETH: 0.0033
+2025-08-21T01:02:42.728100 | [ORDER] Échec d'exécution: SELL 0.00198 ETH/USDC - Only BUY orders are allowed
+2025-08-21T01:02:43.327621 | [ORDER] Tentative d'exécution: SELL 0.014882363999999999 BNB/USDC (iceberg: False)
+2025-08-21T01:02:45.589672 | [ORDER] Vente depuis solde BNB: 0.02480394
+2025-08-21T01:02:47.485231 | [ORDER] Échec d'exécution: SELL 0.014882363999999999 BNB/USDC - Only BUY orders are allowed
+2025-08-21T01:02:48.087609 | [ORDER] Tentative d'exécution: SELL 22.32 TRX/USDC (iceberg: False)
+2025-08-21T01:02:50.166586 | [ORDER] Vente depuis solde TRX: 37.2
+2025-08-21T01:02:52.078274 | [ORDER] Échec d'exécution: SELL 22.32 TRX/USDC - Only BUY orders are allowed
+2025-08-21T01:02:52.694050 | [ORDER] Tentative d'exécution: SELL 0.39 LINK/USDC (iceberg: False)
+2025-08-21T01:02:54.781496 | [ORDER] Vente depuis solde LINK: 0.65
+2025-08-21T01:02:57.704866 | [ORDER] Échec d'exécution: SELL 0.39 LINK/USDC - Only BUY orders are allowed
+2025-08-21T01:02:58.275181 | [ORDER] Tentative d'exécution: SELL 4.26 ADA/USDC (iceberg: False)
+2025-08-21T01:03:00.330614 | [ORDER] Vente depuis solde ADA: 14.2
+2025-08-21T01:03:02.052327 | [ORDER] Échec d'exécution: SELL 4.26 ADA/USDC - Only BUY orders are allowed
+2025-08-21T01:03:02.618744 | [ORDER] Tentative d'exécution: SELL 1116.15 NOT/USDC (iceberg: False)
+2025-08-21T01:03:04.680855 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T01:03:06.384001 | [ORDER] Échec d'exécution: SELL 1116.15 NOT/USDC - Only BUY orders are allowed
+2025-08-21T01:03:06.413133 | Démarrage cycle trading
+2025-08-21T01:03:07.032478 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T01:14:32.314415 | [ORDER] Tentative d'exécution: SELL 9e-05 BTC/USDC (iceberg: False)
+2025-08-21T01:14:35.259586 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T01:14:37.423297 | [ORDER] Échec d'exécution: SELL 9e-05 BTC/USDC - Only BUY orders are allowed
+2025-08-21T01:14:40.845533 | [ORDER] Tentative d'exécution: SELL 3.4 XRP/USDC (iceberg: False)
+2025-08-21T01:14:42.990559 | [ORDER] Vente depuis solde XRP: 3.4
+2025-08-21T01:14:44.916250 | [ORDER] Échec d'exécution: SELL 3.4 XRP/USDC - Only BUY orders are allowed
+2025-08-21T01:14:46.137958 | [ORDER] Tentative d'exécution: SELL 23.0 DOGE/USDC (iceberg: False)
+2025-08-21T01:14:48.262729 | [ORDER] Vente depuis solde DOGE: 23.0
+2025-08-21T01:14:50.186531 | [ORDER] Échec d'exécution: SELL 23.0 DOGE/USDC - Only BUY orders are allowed
+2025-08-21T01:14:50.802859 | [ORDER] Tentative d'exécution: SELL 0.058 SOL/USDC (iceberg: False)
+2025-08-21T01:14:52.928733 | [ORDER] Vente depuis solde SOL: 0.058
+2025-08-21T01:14:54.844137 | [ORDER] Échec d'exécution: SELL 0.058 SOL/USDC - Only BUY orders are allowed
+2025-08-21T01:14:55.459976 | [ORDER] Tentative d'exécution: SELL 5.2 SUI/USDC (iceberg: False)
+2025-08-21T01:14:57.734369 | [ORDER] Vente depuis solde SUI: 5.2
+2025-08-21T01:14:59.492810 | [ORDER] Échec d'exécution: SELL 5.2 SUI/USDC - Only BUY orders are allowed
+2025-08-21T01:15:03.914465 | [ORDER] Tentative d'exécution: SELL 1116.15 NOT/USDC (iceberg: False)
+2025-08-21T01:15:05.866139 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T01:15:07.624247 | [ORDER] Échec d'exécution: SELL 1116.15 NOT/USDC - Only BUY orders are allowed
+2025-08-21T01:15:07.654528 | Démarrage cycle trading
+2025-08-21T01:15:08.265699 | 🚫 Cycle bloqué - Pause news active
