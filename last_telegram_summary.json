@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 2,
+      "cycles_left": 11,
       "type": "GLOBAL",
-      "reason": "",
-      "max_cycles": 2,
-      "total_remaining": 2
+      "reason": "Pump.fun r\u00e9cup\u00e9re la premi\u00e8re place de Solana alors que Memecoins rebondit en ao\u00fbt",
+      "max_cycles": 11,
+      "total_remaining": 11
     }
   ],
-  "sentiment": 0.5683705342597649,
+  "sentiment": 0.8019214897620969,
   "risky_positions": [],
-  "timestamp": 1755734073.498606
+  "timestamp": 1755736709.993933
 }

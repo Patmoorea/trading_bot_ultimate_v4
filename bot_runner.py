@@ -5742,12 +5742,14 @@ class TradingBotM4:
     async def execute_trade(
         self, symbol, side, amount, price=None, iceberg=False, iceberg_visible_size=0.1
     ):
-        # --- PATCH: skip API if not live trading ---
-        if not self.is_live_trading:
-            return 10000.0  # skip API call in backtest, valeur factice
+        # Conversion des valeurs en float de manière sécurisée
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
 
+        # Formatage du symbole pour Binance IMMÉDIATEMENT
+        symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
+
+        # --- MODE SIMULATION ---
         if not self.is_live_trading:
             log_dashboard(
                 f"[ORDER] SIMULATION: {side} {amount} {symbol} @ {price} (iceberg={iceberg})"
@@ -5755,6 +5757,7 @@ class TradingBotM4:
             self.logger.info(
                 f"SIMULATION: {side} {amount} {symbol} @ {price} (iceberg={iceberg})"
             )
+
             # Gestion état simulée
             if side.upper() == "BUY":
                 if self.is_long(symbol):
@@ -5793,6 +5796,7 @@ class TradingBotM4:
                     )
                     return {"status": "skipped", "reason": "not in short"}
                 self.positions.pop(symbol, None)
+
             return {
                 "status": "simulated",
                 "symbol": symbol,
@@ -5801,36 +5805,43 @@ class TradingBotM4:
                 "iceberg": iceberg,
             }
 
+        # --- MODE LIVE TRADING ---
         try:
             log_dashboard(
                 f"[ORDER] Tentative d'exécution: {side} {amount} {symbol} (iceberg: {iceberg})"
             )
 
-            # PATCH: Définit symbol_binance AVANT tout usage
-            symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
-
-            # PATCH: Vérifie la dispo de la paire sur Binance AVANT tout ordre SPOT
+            # Vérification de la disponibilité de la paire sur Binance
             if side.upper() in ["BUY", "SELL"] and symbol.endswith("USDC"):
                 try:
+                    # Vérification plus robuste de la disponibilité
+                    exchange_info = self.binance_client.get_exchange_info()
+                    valid_symbols = [s["symbol"] for s in exchange_info["symbols"]]
+
+                    if symbol_binance not in valid_symbols:
+                        error_msg = (
+                            f"[ORDER] {symbol_binance} non disponible sur Binance"
+                        )
+                        print(error_msg)
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "symbol not available"}
+
+                    # Vérification supplémentaire avec le ticker
                     ticker = self.binance_client.get_symbol_ticker(
                         symbol=symbol_binance
                     )
                     if not ticker or float(ticker.get("price", 0)) <= 0:
-                        print(
-                            f"[ORDER] {symbol_binance} indisponible sur Binance, ordre ignoré."
+                        error_msg = (
+                            f"[ORDER] {symbol_binance} indisponible (pas de prix)"
                         )
-                        log_dashboard(
-                            f"[ORDER] {symbol_binance} indisponible sur Binance, ordre ignoré."
-                        )
-                        return {
-                            "status": "error",
-                            "reason": f"{symbol_binance} not tradable",
-                        }
+                        print(error_msg)
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "no price available"}
+
                 except Exception as e:
-                    print(f"[ORDER] Erreur accès Binance pour {symbol_binance}: {e}")
-                    log_dashboard(
-                        f"[ORDER] Erreur accès Binance pour {symbol_binance}: {e}"
-                    )
+                    error_msg = f"[ORDER] Erreur vérification {symbol_binance}: {e}"
+                    print(error_msg)
+                    log_dashboard(error_msg)
                     return {"status": "error", "reason": str(e)}
 
             # ----- ACHAT SPOT -----
@@ -5838,14 +5849,17 @@ class TradingBotM4:
                 if self.is_long(symbol):
                     log_dashboard(f"[ORDER] Déjà long sur {symbol}, achat ignoré.")
                     return {"status": "skipped", "reason": "already long"}
+
+                # Récupération de l'orderbook
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
-                    log_dashboard(
-                        f"[ORDER] Orderbook WS non dispo pour {symbol}, annulation de l'ordre."
-                    )
-                    return {"status": "error", "reason": "Orderbook WS not available"}
+                    error_msg = f"[ORDER] Orderbook non disponible pour {symbol}"
+                    log_dashboard(error_msg)
+                    return {"status": "error", "reason": "Orderbook not available"}
+
                 orderbook = {"bids": [[bid, 1.0]], "asks": [[ask, 1.0]]}
                 recent_trades = []
+
                 market_data = {
                     "recent_trades": recent_trades,
                     "volatility": self.calculate_volatility(
@@ -5854,6 +5868,8 @@ class TradingBotM4:
                     "regime": self.regime,
                     "binance_client": self.binance_client,
                 }
+
+                # Exécution de l'ordre
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
@@ -5863,51 +5879,68 @@ class TradingBotM4:
                     iceberg=iceberg,
                     iceberg_visible_size=iceberg_visible_size,
                 )
+
                 if result.get("status") == "completed":
                     self.positions[symbol] = {
                         "side": "long",
                         "entry_price": safe_float(result.get("avg_price", price)),
                         "amount": safe_float(result.get("filled_amount", amount)),
+                        "timestamp": datetime.now().isoformat(),
                     }
 
             # ----- VENTE SPOT -----
             elif side.upper() == "SELL" and symbol.endswith("USDC"):
-                allow_sell = False
-                use_amount = None
-                if self.is_long(symbol):
-                    allow_sell = True
-                    use_amount = safe_float(self.positions[symbol]["amount"])
+                # Vérification de la position et des soldes
+                current_position = self.positions.get(symbol)
+                asset_balance = None
+
+                if current_position and current_position["side"] == "long":
+                    # Vente depuis une position existante
+                    current_amount = safe_float(current_position["amount"])
+                    use_amount = min(
+                        amount, current_amount
+                    )  # Ne pas vendre plus que détenu
+
+                    if use_amount <= 0:
+                        error_msg = (
+                            f"[ORDER] Quantité invalide pour vente: {use_amount}"
+                        )
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "invalid amount"}
+
                 else:
-                    asset = symbol.replace("USDC", "")
-                    balance = None
+                    # Vente depuis le solde du wallet
+                    asset = symbol.replace("/USDC", "").replace("USDC", "")
                     try:
                         balance = self.binance_client.get_asset_balance(asset=asset)
-                    except Exception as e:
-                        log_dashboard(
-                            f"[ORDER] Erreur récupération balance {asset}: {e}"
+                        free_balance = (
+                            safe_float(balance.get("free", 0)) if balance else 0
                         )
-                    if balance and safe_float(balance.get("free", 0)) >= amount:
-                        allow_sell = True
-                        use_amount = safe_float(amount)
-                        log_dashboard(
-                            f"[ORDER] Vente autorisée sur solde réel {asset}: {balance['free']}"
-                        )
-                    else:
-                        log_dashboard(
-                            f"[ORDER] Pas en position long ni de solde suffisant sur {symbol}, vente ignorée."
-                        )
-                        return {
-                            "status": "skipped",
-                            "reason": "not in position or insufficient balance",
-                        }
 
+                        if free_balance >= amount:
+                            use_amount = amount
+                            log_dashboard(
+                                f"[ORDER] Vente depuis solde {asset}: {free_balance}"
+                            )
+                        else:
+                            error_msg = f"[ORDER] Solde insuffisant {asset}: {free_balance} < {amount}"
+                            log_dashboard(error_msg)
+                            return {"status": "error", "reason": "insufficient balance"}
+
+                    except Exception as e:
+                        error_msg = f"[ORDER] Erreur récupération balance {asset}: {e}"
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": str(e)}
+
+                # Récupération de l'orderbook
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
-                    log_dashboard(
-                        f"[ORDER] Orderbook WS non dispo pour {symbol}, annulation de l'ordre."
-                    )
-                    return {"status": "error", "reason": "Orderbook WS not available"}
+                    error_msg = f"[ORDER] Orderbook non disponible pour {symbol}"
+                    log_dashboard(error_msg)
+                    return {"status": "error", "reason": "Orderbook not available"}
+
                 orderbook = {"bids": [[bid, 1.0]], "asks": [[ask, 1.0]]}
+
                 market_data = {
                     "recent_trades": [],
                     "volatility": self.calculate_volatility(
@@ -5916,6 +5949,8 @@ class TradingBotM4:
                     "regime": self.regime,
                     "binance_client": self.binance_client,
                 }
+
+                # Exécution de l'ordre de vente
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
@@ -5925,73 +5960,134 @@ class TradingBotM4:
                     iceberg=iceberg,
                     iceberg_visible_size=iceberg_visible_size,
                 )
-                if result.get("status") == "completed" and self.is_long(symbol):
-                    self.positions.pop(symbol, None)
+
+                # Mise à jour de la position après vente
+                if result.get("status") == "completed" and current_position:
+                    filled_amount = safe_float(result.get("filled_amount", use_amount))
+                    remaining_amount = current_position["amount"] - filled_amount
+
+                    if remaining_amount > 0.000001:  # Seuil minimal
+                        # Vente partielle
+                        current_position["amount"] = remaining_amount
+                        log_dashboard(
+                            f"[TP PARTIEL] {symbol}: Vente {filled_amount}, reste {remaining_amount}"
+                        )
+                    else:
+                        # Fermeture complète
+                        self.positions.pop(symbol, None)
+                        log_dashboard(f"[ORDER] Position fermée: {symbol}")
 
             # ----- OUVERTURE SHORT BINGX -----
             elif side.upper() == "SHORT":
                 if self.is_short(symbol):
                     log_dashboard(f"[ORDER] Déjà short sur {symbol}, short ignoré.")
                     return {"status": "skipped", "reason": "already short"}
+
                 symbol_bingx = symbol.replace("USDC", "USDT") + ":USDT"
-                ticker = await self.bingx_client.fetch_ticker(symbol_bingx)
-                price_bingx = safe_float(ticker["last"])
-                qty = safe_float(amount) / price_bingx if price_bingx > 0 else 0
-                result = await self.bingx_executor.short_order(
-                    symbol_bingx, qty, leverage=3
-                )
-                if result.get("status") == "completed":
-                    self.positions[symbol] = {
-                        "side": "short",
-                        "entry_price": price_bingx,
-                        "amount": qty,
-                        "min_price": price_bingx,
-                    }
+
+                try:
+                    ticker = await self.bingx_client.fetch_ticker(symbol_bingx)
+                    price_bingx = safe_float(ticker["last"])
+
+                    if price_bingx <= 0:
+                        error_msg = (
+                            f"[ORDER] Prix invalide pour {symbol_bingx}: {price_bingx}"
+                        )
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "invalid price"}
+
+                    qty = safe_float(amount) / price_bingx if price_bingx > 0 else 0
+
+                    if qty <= 0:
+                        error_msg = f"[ORDER] Quantité invalide pour short: {qty}"
+                        log_dashboard(error_msg)
+                        return {"status": "error", "reason": "invalid quantity"}
+
+                    result = await self.bingx_executor.short_order(
+                        symbol_bingx, qty, leverage=3
+                    )
+
+                    if result.get("status") == "completed":
+                        self.positions[symbol] = {
+                            "side": "short",
+                            "entry_price": price_bingx,
+                            "amount": qty,
+                            "min_price": price_bingx,
+                            "timestamp": datetime.now().isoformat(),
+                        }
+
+                except Exception as e:
+                    error_msg = f"[ORDER] Erreur ouverture short {symbol}: {e}"
+                    log_dashboard(error_msg)
+                    return {"status": "error", "reason": str(e)}
 
             # ----- FERMETURE SHORT BINGX -----
             elif side.upper() == "BUY" and self.is_short(symbol):
                 symbol_bingx = symbol.replace("USDC", "USDT") + ":USDT"
                 pos = self.positions[symbol]
                 qty = safe_float(pos["amount"])
+
+                if qty <= 0:
+                    error_msg = f"[ORDER] Quantité invalide pour fermeture short: {qty}"
+                    log_dashboard(error_msg)
+                    return {"status": "error", "reason": "invalid quantity"}
+
                 result = await self.bingx_executor.close_short_order(symbol_bingx, qty)
+
                 if result.get("status") == "completed":
                     self.positions.pop(symbol, None)
 
             else:
+                error_msg = f"[ORDER] Type d'ordre non supporté: {side}"
+                log_dashboard(error_msg)
                 return {"status": "rejected", "reason": "unsupported side"}
 
+            # Gestion du résultat de l'ordre
             if result.get("status") == "completed":
-                log_dashboard(
-                    f"[ORDER] Exécuté avec succès: {side} {result.get('filled_amount', amount)} {symbol} @ {result.get('avg_price', price)}"
+                success_msg = (
+                    f"[ORDER] Exécuté avec succès: {side} {result.get('filled_amount', amount)} "
+                    f"{symbol} @ {result.get('avg_price', price)}"
                 )
-                self.logger.info(
-                    f"Order executed: {side} {result.get('filled_amount', amount)} {symbol} @ {result.get('avg_price', price)}"
-                )
+                log_dashboard(success_msg)
+                self.logger.info(success_msg)
+
                 self._update_performance_metrics(result)
+
+                # Notification Telegram
+                filled_amount = safe_float(result.get("filled_amount", amount))
+                avg_price = safe_float(result.get("avg_price", price) or 0)
+                total_value = filled_amount * avg_price
+
                 iceberg_info = (
                     f"\n🧊 <b>Ordre Iceberg</b> ({result.get('n_suborders', '')} sous-ordres)"
                     if result.get("iceberg")
                     else ""
                 )
+
                 await self.telegram.send_message(
                     f"💰 <b>Ordre exécuté</b>\n"
-                    f"📊 {side} {result.get('filled_amount', amount)} {symbol} @ {result.get('avg_price', price)}\n"
-                    f"💵 Total: ${safe_float(result.get('filled_amount', amount)) * safe_float(result.get('avg_price', price) or 0):.2f}"
+                    f"📊 {side} {filled_amount} {symbol} @ {avg_price:.6f}\n"
+                    f"💵 Total: ${total_value:.2f}"
                     f"{iceberg_info}"
                 )
+
             else:
-                print(f"[ORDER] Echec d'exécution: {side} {amount} {symbol}")
+                error_msg = f"[ORDER] Échec d'exécution: {side} {amount} {symbol} - {result.get('reason', 'unknown')}"
+                print(error_msg)
+                log_dashboard(error_msg)
 
             return result
 
         except BinanceAPIException as e:
-            print(f"[ORDER] Binance API error: {e}")
-            self.logger.error(f"Binance API error: {e}")
-            await self.telegram.send_message(f"⚠️ Erreur API Binance: {e}")
+            error_msg = f"[ORDER] Binance API error: {e}"
+            print(error_msg)
+            self.logger.error(error_msg)
             return {"status": "error", "reason": str(e)}
+
         except Exception as e:
-            print(f"[ORDER] Execution error: {e}")
-            self.logger.error(f"Execution error: {e}")
+            error_msg = f"[ORDER] Erreur inattendue: {e}"
+            print(error_msg)
+            self.logger.error(error_msg)
             return {"status": "error", "reason": str(e)}
 
     async def plan_auto_sell(
