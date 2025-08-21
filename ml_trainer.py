@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
 
 # === 1. Charger le dataset ===
-df = pd.read_csv("../data/trading_data.csv")
+df = pd.read_csv("training_data.csv")
 
 print(f"Dataset chargé: {len(df)} lignes")
 

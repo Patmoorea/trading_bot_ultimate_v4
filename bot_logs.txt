@@ -187,3 +187,56 @@
 2025-08-21T16:57:51.681842 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: LOT_SIZE
 2025-08-21T16:57:51.682654 | Démarrage cycle trading
 2025-08-21T16:57:52.290702 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T17:01:19.557140 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-21T17:01:19.558128 | Initialisation des modèles d'IA...
+2025-08-21T17:01:19.781790 | ✅ Modèles d'IA initialisés avec succès
+2025-08-21T17:01:21.351820 | ✅ PPO Strategy initialized successfully
+2025-08-21T17:01:30.253337 | ✅ Bot initialisé avec Telegram: True
+2025-08-21T17:01:30.253641 | ✅ Trading en direct: True
+2025-08-21T17:01:30.253681 | ✅ IA activée: True
+2025-08-21T17:01:30.253718 | ✅ Analyse de news activée: True
+2025-08-21T17:04:19.917647 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-21T17:04:57.988393 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-21T17:13:46.969180 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0378 | Tendance: -0.0048
+2025-08-21T17:13:46.969530 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-21T17:15:37.572221 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T17:15:38.688228 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T17:15:43.153256 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-21T17:15:46.739283 | [ORDER] Tentative d'exécution: SELL 0.00198 ETHUSDC (iceberg: False)
+2025-08-21T17:15:47.940298 | [ORDER] Vente depuis solde ETH: 0.0033
+2025-08-21T17:15:51.484296 | [ORDER] Exécuté avec succès: SELL 0.00190000 ETHUSDC @ 4219.99
+2025-08-21T17:15:54.378505 | [ORDER] Tentative d'exécution: SELL 0.014849933999999999 BNBUSDC (iceberg: False)
+2025-08-21T17:15:55.557129 | [ORDER] Vente depuis solde BNB: 0.0247431
+2025-08-21T17:15:58.901929 | [ORDER] Exécuté avec succès: SELL 0.01400000 BNBUSDC @ 839.79
+2025-08-21T17:21:20.878788 | [ORDER] Tentative d'exécution: SELL 22.32 TRXUSDC (iceberg: False)
+2025-08-21T17:21:21.987075 | [ORDER] Vente depuis solde TRX: 37.2
+2025-08-21T17:21:25.927776 | [ORDER] Exécuté avec succès: SELL 22.30000000 TRXUSDC @ 0.3531
+2025-08-21T17:21:28.890178 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-21T17:21:30.024431 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T17:21:33.331255 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-21T17:21:33.331743 | Démarrage cycle trading
+2025-08-21T17:21:33.952566 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T17:26:01.864936 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T17:26:02.963197 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T17:26:06.494704 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-21T17:26:09.821541 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-21T17:26:10.947736 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T17:26:14.238353 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-21T17:26:14.239325 | Démarrage cycle trading
+2025-08-21T17:26:14.883295 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T17:46:53.934192 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T17:46:55.079658 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T17:46:59.927395 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-21T17:47:02.187845 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-21T17:47:03.334992 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T17:47:07.275599 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-21T17:47:07.276224 | Démarrage cycle trading
+2025-08-21T17:47:07.906474 | 🚫 Cycle bloqué - Pause news active
+2025-08-21T18:07:06.749649 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T18:07:07.915212 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T18:07:12.642694 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-21T18:07:15.098329 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-21T18:07:16.285666 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T18:07:19.846159 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-21T18:07:19.846674 | Démarrage cycle trading
+2025-08-21T18:07:20.485111 | 🚫 Cycle bloqué - Pause news active

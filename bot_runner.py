@@ -5767,18 +5767,35 @@ class TradingBotM4:
                     "amount": safe_float(amount),
                     "source": "trade",
                 }
+                # Log dataset
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
             elif side.upper() == "SELL":
                 if not self.is_long(symbol_binance):
                     log_dashboard(
                         f"[ORDER] Pas en position long sur {symbol_binance}, vente ignorée (simu)"
                     )
                     return {"status": "skipped", "reason": "not in position"}
-                # PATCH: log position fermée en simulation
                 self.log_closed_position(
                     symbol=symbol_binance,
                     pos=self.positions[symbol_binance],
                     exit_price=safe_float(price or 0),
                     reason="Vente simulée",
+                )
+                # Log dataset
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
                 )
                 self.positions.pop(symbol_binance, None)
             elif side.upper() == "SHORT":
@@ -5794,18 +5811,35 @@ class TradingBotM4:
                     "min_price": safe_float(price or 0),
                     "source": "trade",
                 }
+                # Log dataset
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
             elif side.upper() == "BUY" and self.is_short(symbol_binance):
                 if not self.is_short(symbol_binance):
                     log_dashboard(
                         f"[ORDER] Pas en position short sur {symbol_binance}, rachat ignoré (simu)"
                     )
                     return {"status": "skipped", "reason": "not in short"}
-                # PATCH: log position fermée en simulation
                 self.log_closed_position(
                     symbol=symbol_binance,
                     pos=self.positions[symbol_binance],
                     exit_price=safe_float(price or 0),
                     reason="Rachat short simulé",
+                )
+                # Log dataset
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
                 )
                 self.positions.pop(symbol_binance, None)
 
@@ -5906,6 +5940,15 @@ class TradingBotM4:
                         "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
+                    # Log dataset
+                    self.dataset_logger.log_cycle(
+                        pair=symbol_binance,
+                        equity=self.get_performance_metrics().get("balance", 0),
+                        decision={"action": side, "confidence": 1.0},
+                        price=avg_price,
+                        features={},
+                        status="executed",
+                    )
 
             # ----- VENTE SPOT -----
             elif side.upper() == "SELL" and (
@@ -5948,7 +5991,6 @@ class TradingBotM4:
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": str(e)}
 
-                # PATCH : Ajuste la quantité au LOT_SIZE et au format décimal
                 use_amount = self.adjust_amount_to_lot_size(symbol_binance, use_amount)
                 use_amount = float(use_amount)
                 use_amount_str = "{:.8f}".format(use_amount).rstrip("0").rstrip(".")
@@ -5994,12 +6036,19 @@ class TradingBotM4:
                             f"[TP PARTIEL] {symbol_binance}: Vente {filled_amount}, reste {remaining_amount}"
                         )
                     else:
-                        # PATCH: log la position fermée
                         self.log_closed_position(
                             symbol=symbol_binance,
                             pos=current_position,
                             exit_price=safe_float(result.get("avg_price", 0)),
                             reason="Vente spot (TP/SL/fermeture)",
+                        )
+                        self.dataset_logger.log_cycle(
+                            pair=symbol_binance,
+                            equity=self.get_performance_metrics().get("balance", 0),
+                            decision={"action": side, "confidence": 1.0},
+                            price=safe_float(result.get("avg_price", 0)),
+                            features={},
+                            status="executed",
                         )
                         self.positions.pop(symbol_binance, None)
                         log_dashboard(f"[ORDER] Position fermée: {symbol_binance}")
@@ -6044,6 +6093,15 @@ class TradingBotM4:
                             "source": "trade",
                             "timestamp": datetime.now().isoformat(),
                         }
+                        # Log dataset
+                        self.dataset_logger.log_cycle(
+                            pair=symbol_binance,
+                            equity=self.get_performance_metrics().get("balance", 0),
+                            decision={"action": side, "confidence": 1.0},
+                            price=safe_float(price_bingx),
+                            features={},
+                            status="executed",
+                        )
 
                 except Exception as e:
                     error_msg = f"[ORDER] Erreur ouverture short {symbol_binance}: {e}"
@@ -6064,12 +6122,19 @@ class TradingBotM4:
                 result = await self.bingx_executor.close_short_order(symbol_bingx, qty)
 
                 if result.get("status") == "completed":
-                    # PATCH: log la position short fermée
                     self.log_closed_position(
                         symbol=symbol_binance,
                         pos=pos,
                         exit_price=safe_float(result.get("avg_price", 0)),
                         reason="Fermeture short",
+                    )
+                    self.dataset_logger.log_cycle(
+                        pair=symbol_binance,
+                        equity=self.get_performance_metrics().get("balance", 0),
+                        decision={"action": side, "confidence": 1.0},
+                        price=safe_float(result.get("avg_price", 0)),
+                        features={},
+                        status="executed",
                     )
                     self.positions.pop(symbol_binance, None)
 
@@ -6089,7 +6154,6 @@ class TradingBotM4:
 
                 self._update_performance_metrics(result)
 
-                # Notification Telegram
                 filled_amount = safe_float(result.get("filled_amount", amount))
                 avg_price = safe_float(result.get("avg_price", price) or 0)
                 total_value = filled_amount * avg_price
