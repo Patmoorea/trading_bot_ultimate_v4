@@ -5742,8 +5742,9 @@ class TradingBotM4:
     async def execute_trade(
         self, symbol, side, amount, price=None, iceberg=False, iceberg_visible_size=0.1
     ):
+        # --- PATCH: skip API if not live trading ---
         if not self.is_live_trading:
-            return 10000.0  # skip API call in backtest, retourne la valeur factice attendue
+            return 10000.0  # skip API call in backtest, valeur factice
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
 
@@ -5808,12 +5809,36 @@ class TradingBotM4:
             # PATCH: Définit symbol_binance AVANT tout usage
             symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
 
+            # PATCH: Vérifie la dispo de la paire sur Binance AVANT tout ordre SPOT
+            if side.upper() in ["BUY", "SELL"] and symbol.endswith("USDC"):
+                try:
+                    ticker = self.binance_client.get_symbol_ticker(
+                        symbol=symbol_binance
+                    )
+                    if not ticker or float(ticker.get("price", 0)) <= 0:
+                        print(
+                            f"[ORDER] {symbol_binance} indisponible sur Binance, ordre ignoré."
+                        )
+                        log_dashboard(
+                            f"[ORDER] {symbol_binance} indisponible sur Binance, ordre ignoré."
+                        )
+                        return {
+                            "status": "error",
+                            "reason": f"{symbol_binance} not tradable",
+                        }
+                except Exception as e:
+                    print(f"[ORDER] Erreur accès Binance pour {symbol_binance}: {e}")
+                    log_dashboard(
+                        f"[ORDER] Erreur accès Binance pour {symbol_binance}: {e}"
+                    )
+                    return {"status": "error", "reason": str(e)}
+
             # ----- ACHAT SPOT -----
             if side.upper() == "BUY" and symbol.endswith("USDC"):
                 if self.is_long(symbol):
                     log_dashboard(f"[ORDER] Déjà long sur {symbol}, achat ignoré.")
                     return {"status": "skipped", "reason": "already long"}
-                bid, ask = self.get_ws_orderbook(symbol)
+                bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
                     log_dashboard(
                         f"[ORDER] Orderbook WS non dispo pour {symbol}, annulation de l'ordre."
@@ -5824,7 +5849,7 @@ class TradingBotM4:
                 market_data = {
                     "recent_trades": recent_trades,
                     "volatility": self.calculate_volatility(
-                        self.market_data.get(symbol, {}).get("1h", {})
+                        self.market_data.get(symbol_binance, {}).get("1h", {})
                     ),
                     "regime": self.regime,
                     "binance_client": self.binance_client,
@@ -5876,7 +5901,7 @@ class TradingBotM4:
                             "reason": "not in position or insufficient balance",
                         }
 
-                bid, ask = self.get_ws_orderbook(symbol)
+                bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
                     log_dashboard(
                         f"[ORDER] Orderbook WS non dispo pour {symbol}, annulation de l'ordre."
@@ -5886,7 +5911,7 @@ class TradingBotM4:
                 market_data = {
                     "recent_trades": [],
                     "volatility": self.calculate_volatility(
-                        self.market_data.get(symbol, {}).get("1h", {})
+                        self.market_data.get(symbol_binance, {}).get("1h", {})
                     ),
                     "regime": self.regime,
                     "binance_client": self.binance_client,

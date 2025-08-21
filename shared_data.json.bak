@@ -84,7 +84,7 @@
             "tech": 0.5,
             "ai": 0.1500038865919123,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "ETH/USDC": {
             "action": "neutral",
@@ -92,7 +92,7 @@
             "tech": 0.5,
             "ai": 0.15000388022576772,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "LTC/USDC": {
             "action": "neutral",
@@ -100,7 +100,7 @@
             "tech": 0.5,
             "ai": 0.15000386209535463,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "XRP/USDC": {
             "action": "neutral",
@@ -108,7 +108,7 @@
             "tech": 0.5,
             "ai": 0.150003859083381,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "DOGE/USDC": {
             "action": "neutral",
@@ -116,7 +116,7 @@
             "tech": 0.5,
             "ai": 0.15000386117826564,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "BNB/USDC": {
             "action": "neutral",
@@ -124,7 +124,7 @@
             "tech": 0.5,
             "ai": 0.15000387580234928,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "ADA/USDC": {
             "action": "neutral",
@@ -132,7 +132,7 @@
             "tech": 0.5,
             "ai": 0.15000381619793188,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "SOL/USDC": {
             "action": "neutral",
@@ -140,7 +140,7 @@
             "tech": 0.5,
             "ai": 0.15000383908918594,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "TRX/USDC": {
             "action": "neutral",
@@ -148,7 +148,7 @@
             "tech": 0.5,
             "ai": 0.1500038653820411,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "SUI/USDC": {
             "action": "neutral",
@@ -156,7 +156,7 @@
             "tech": 0.5,
             "ai": 0.15000385563307644,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         },
         "LINK/USDC": {
             "action": "neutral",
@@ -164,7 +164,7 @@
             "tech": 0.5,
             "ai": 0.15000385629869015,
             "sentiment": 0.5,
-            "timestamp": "2025-08-20 23:54:32"
+            "timestamp": "2025-08-21 00:02:14"
         }
     },
     "market_data": {
@@ -3859,8 +3859,8 @@
                 "momentum": 0.07500194329595615,
                 "volatility": 0.07500194329595615
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772015,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.383976,
             "last_decision": {
                 "pair": "BTC/USDC",
                 "action": "neutral",
@@ -7570,8 +7570,8 @@
                 "momentum": 0.07500194011288386,
                 "volatility": 0.07500194011288386
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772081,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384044,
             "last_decision": {
                 "pair": "ETH/USDC",
                 "action": "neutral",
@@ -11281,8 +11281,8 @@
                 "momentum": 0.07500193104767731,
                 "volatility": 0.07500193104767731
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772111,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384085,
             "last_decision": {
                 "pair": "LTC/USDC",
                 "action": "neutral",
@@ -14992,8 +14992,8 @@
                 "momentum": 0.0750019295416905,
                 "volatility": 0.0750019295416905
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772137,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384124,
             "last_decision": {
                 "pair": "XRP/USDC",
                 "action": "neutral",
@@ -18703,8 +18703,8 @@
                 "momentum": 0.07500193058913282,
                 "volatility": 0.07500193058913282
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772158,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.38416,
             "last_decision": {
                 "pair": "DOGE/USDC",
                 "action": "neutral",
@@ -22414,8 +22414,8 @@
                 "momentum": 0.07500193790117464,
                 "volatility": 0.07500193790117464
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772183,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384198,
             "last_decision": {
                 "pair": "BNB/USDC",
                 "action": "neutral",
@@ -26125,8 +26125,8 @@
                 "momentum": 0.07500190809896594,
                 "volatility": 0.07500190809896594
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772205,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384233,
             "last_decision": {
                 "pair": "ADA/USDC",
                 "action": "neutral",
@@ -29836,8 +29836,8 @@
                 "momentum": 0.07500191954459297,
                 "volatility": 0.07500191954459297
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772226,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384268,
             "last_decision": {
                 "pair": "SOL/USDC",
                 "action": "neutral",
@@ -33547,8 +33547,8 @@
                 "momentum": 0.07500193269102055,
                 "volatility": 0.07500193269102055
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772247,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384303,
             "last_decision": {
                 "pair": "TRX/USDC",
                 "action": "neutral",
@@ -37258,8 +37258,8 @@
                 "momentum": 0.07500192781653822,
                 "volatility": 0.07500192781653822
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772269,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384341,
             "last_decision": {
                 "pair": "SUI/USDC",
                 "action": "neutral",
@@ -40969,8 +40969,8 @@
                 "momentum": 0.07500192814934507,
                 "volatility": 0.07500192814934507
             },
-            "sentiment": 0.5602223455905915,
-            "sentiment_timestamp": 1755749000.772292,
+            "sentiment": 0.7531690774140535,
+            "sentiment_timestamp": 1755770505.384379,
             "last_decision": {
                 "pair": "LINK/USDC",
                 "action": "neutral",
@@ -41031,7 +41031,7 @@
             "side": "long",
             "amount": 0.102,
             "entry_price": 115.33924812030075,
-            "current_price": 116.08,
+            "current_price": 115.98,
             "pnl_pct": null,
             "pnl_usd": 0.08779669172932358,
             "value_usd": 11.8524,
@@ -41049,7 +41049,7 @@
             "side": "long",
             "amount": 0.00132,
             "entry_price": 3654.1087878787876,
-            "current_price": 4332.5,
+            "current_price": 4332.89,
             "pnl_pct": null,
             "pnl_usd": 2.2551249999999996,
             "value_usd": 14.313683999999999,
@@ -41067,7 +41067,7 @@
             "side": "long",
             "amount": 0.009921576000000001,
             "entry_price": 769.0520512820513,
-            "current_price": 869.18,
+            "current_price": 868.53,
             "pnl_pct": -8.392411273838906,
             "pnl_usd": 2.5071313753230777,
             "value_usd": 21.5826523122,
@@ -41085,7 +41085,7 @@
             "side": "long",
             "amount": 14.880000000000003,
             "entry_price": 0.309744424778761,
-            "current_price": 0.3542,
+            "current_price": 0.3544,
             "pnl_pct": null,
             "pnl_usd": 1.66118739823009,
             "value_usd": 13.18368,
@@ -41103,7 +41103,7 @@
             "side": "long",
             "amount": 0.26,
             "entry_price": 22.82,
-            "current_price": 26.4,
+            "current_price": 26.46,
             "pnl_pct": 1.1235955056179951,
             "pnl_usd": 2.405,
             "value_usd": 17.238,
@@ -41121,7 +41121,7 @@
             "side": "long",
             "amount": 9.94,
             "entry_price": 0.83298,
-            "current_price": 0.8822,
+            "current_price": 0.8805,
             "pnl_pct": null,
             "pnl_usd": 0.7088639999999995,
             "value_usd": 12.53718,
@@ -42236,12 +42236,12 @@
             "max_price": 0.0
         }
     },
-    "timestamp": "2025-08-20 13:54:31",
+    "timestamp": "2025-08-20 14:02:14",
     "user": "Patmoorea",
     "bot_status": {
         "regime": "Range/Scalping",
         "cycle": 1,
-        "last_update": "2025-08-20 13:54:31",
+        "last_update": "2025-08-20 14:02:14",
         "performance": {
             "balance": 46.69139068
         }
@@ -44692,27 +44692,14 @@
     },
     "pending_sales": [
         {
-            "symbol": "BTC/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 117917.08589743589,
-            "current_price": 114262.01,
-            "amount": 9e-05,
-            "pnl_pct": 22.935844089167883,
-            "% Gain/Perte": "22.94%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
             "symbol": "LTC/USDC",
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 115.33924812030075,
-            "current_price": 116.08,
+            "current_price": 115.98,
             "amount": 0.102,
-            "pnl_pct": 0.642237479237449,
-            "% Gain/Perte": "0.64%",
+            "pnl_pct": 0.5555367233111639,
+            "% Gain/Perte": "0.56%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -44722,10 +44709,10 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 3654.1087878787876,
-            "current_price": 4332.5,
-            "amount": 0.0033,
-            "pnl_pct": 18.56516189040499,
-            "% Gain/Perte": "18.57%",
+            "current_price": 4332.89,
+            "amount": 0.00132,
+            "pnl_pct": 18.575834807459184,
+            "% Gain/Perte": "18.58%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -44735,8 +44722,8 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 769.0520512820513,
-            "current_price": 869.18,
-            "amount": 0.02480394,
+            "current_price": 868.53,
+            "amount": 0.009921576000000001,
             "pnl_pct": -8.392411273838906,
             "% Gain/Perte": "-8.39%",
             "pause_blocage": "Oui",
@@ -44748,10 +44735,10 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 0.309744424778761,
-            "current_price": 0.3542,
-            "amount": 37.2,
-            "pnl_pct": 14.352340725096818,
-            "% Gain/Perte": "14.35%",
+            "current_price": 0.3544,
+            "amount": 14.880000000000003,
+            "pnl_pct": 14.416910087448645,
+            "% Gain/Perte": "14.42%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -44761,23 +44748,10 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 22.82,
-            "current_price": 26.4,
-            "amount": 0.65,
+            "current_price": 26.46,
+            "amount": 0.26,
             "pnl_pct": 1.1235955056179951,
             "% Gain/Perte": "1.12%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
-            "symbol": "XRP/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 3.29422,
-            "current_price": 2.9535,
-            "amount": 3.4,
-            "pnl_pct": -10.342964343607898,
-            "% Gain/Perte": "-10.34%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -44787,62 +44761,10 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 0.83298,
-            "current_price": 0.8822,
-            "amount": 14.2,
-            "pnl_pct": 5.908905375879364,
-            "% Gain/Perte": "5.91%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
-            "symbol": "DOGE/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 0.252465,
-            "current_price": 0.22155,
-            "amount": 23.0,
-            "pnl_pct": -12.24526171944626,
-            "% Gain/Perte": "-12.25%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
-            "symbol": "SOL/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 194.96943548387094,
-            "current_price": 187.35,
-            "amount": 0.058,
-            "pnl_pct": -3.908015358900329,
-            "% Gain/Perte": "-3.91%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
-            "symbol": "SUI/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 3.9549924242424246,
-            "current_price": 3.5563,
-            "amount": 5.2,
-            "pnl_pct": -10.080738000877307,
-            "% Gain/Perte": "-10.08%",
-            "pause_blocage": "Oui",
-            "note": "Trading suspendu ()",
-            "confidence": 0.5
-        },
-        {
-            "symbol": "NOT/USDC",
-            "reason": "Pause active",
-            "decision": "Vente bloqu\u00e9e",
-            "entry_price": 0.01052,
-            "current_price": 0.00188,
-            "amount": 1116.15,
-            "pnl_pct": -82.12927756653993,
-            "% Gain/Perte": "-82.13%",
+            "current_price": 0.8805,
+            "amount": 9.94,
+            "pnl_pct": 5.704818843189499,
+            "% Gain/Perte": "5.70%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -44872,8 +44794,644 @@
     },
     "auto_sell_positions": [],
     "sentiment": {
-        "timestamp": "2025-08-20T08:03:20.772602",
+        "timestamp": "2025-08-20T14:01:45.384919",
         "scores": [
+            {
+                "title": "Le juge d\u00e9groue plus de 57 millions de dollars en \u00e9talcoins li\u00e9s au scandale de jetons de Balance",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdevmde5ndgxodytztayos03zmyyltgynjctndjlmjnmntyymtmy.jpg \" ALT = \"Le juge d\u00e9geez plus de 57 millions de dollars en \u00e9tages li\u00e9s au scandale de jetons Balance\"> </p> <p> Le juge a cit\u00e9 la coop\u00e9ration en cours des d\u00e9fendeurs dans l'affaire comme l'une des raisons de la d\u00e9gelation des stablecoins. </p>",
+                "original_title": " Judge unfreezes over $57M in stablecoins linked to Libra token scandal ",
+                "source": "Cointelegraph",
+                "timestamp": 1755727048.0,
+                "url": "https://cointelegraph.com/news/judge-unfreezes-over-57m-stablecoins-libra-token-scandal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8240511417388916,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.21017061173915863
+            },
+            {
+                "title": "Voici ce qui s'est pass\u00e9 dans la crypto aujourd'hui",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdyvmde5nzk0mjmtzwy4zs03yzywlwi5mzctyjlkzgy3nwzlogfk.jpg \" Alt = \"Voici ce qui s'est pass\u00e9 dans Crypto aujourd'hui\"> </p> <p> Besoin de savoir ce qui s'est pass\u00e9 dans Crypto aujourd'hui? Voici les derni\u00e8res nouvelles sur les tendances et les \u00e9v\u00e9nements quotidiens ayant un impact",
+                "original_title": " Here\u2019s what happened in crypto today ",
+                "source": "Cointelegraph",
+                "timestamp": 1755726977.0,
+                "url": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8556803464889526,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.18230320513248444
+            },
+            {
+                "title": "Les donn\u00e9es sur les futures ETH refl\u00e8tent la peur des commer\u00e7ants, tandis que les donn\u00e9es d'Onchain indiquent une reprise des prix",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdevmde5nge1ztqtmjzmmy03zduwlwe4ntmtywfioTUzoDrhzwex.jpg \" Les donn\u00e9es Alt = \"ETH Futures refl\u00e8tent la peur des commer\u00e7ants, tandis que les donn\u00e9es d'Onchain indiquent une reprise des prix\"> </p> <p> Le prix \u00e9ther montre la r\u00e9silience malgr\u00e9 l'incertitude macro\u00e9conomique, avec des d\u00e9riv\u00e9s stables et l'activit\u00e9 d'Onchain renfor\u00e7ant la perspective d'une reprise. </p>",
+                "original_title": " ETH futures data reflects traders\u2019 fear, while onchain data points to a price recovery ",
+                "source": "Cointelegraph",
+                "timestamp": 1755725400.0,
+                "url": "https://cointelegraph.com/news/eth-futures-data-reflects-traders-fear-while-onchain-data-points-to-a-price-recovery?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "ETH"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8348367810249329,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.20933012664318085
+            },
+            {
+                "title": "Kraken, soutenue des actions \u00e0 tokenis\u00e9s \u00e9tendus \u00e0 l'\u00e9cosyst\u00e8me de Tron au milieu de RWA Push",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm5nzqtmthimc03zgjlwe5otctytmxmjfiotaxzgex.jpg \" Alt = \"Kraken, les stocks de tokenis\u00e9s \u00e9tendus soutenus \u00e0 l'\u00e9cosyst\u00e8me de Tron au milieu de RWA Push\"> </p> <p> Selon un rapport de recherche en binance, les stocks tokenis\u00e9s approchent d'un point d'inflexion majeur rappelant les premiers jours de la finance d\u00e9centralis\u00e9e. </p>.",
+                "original_title": " Kraken, Backed expand tokenized stocks to Tron ecosystem amid RWA push ",
+                "source": "Cointelegraph",
+                "timestamp": 1755725200.0,
+                "url": "https://cointelegraph.com/news/kraken-backed-expand-tokenized-stocks-to-tron-ecosystem-amid-rwa-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BNB",
+                    "TRX"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.7983318567276001,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.2166522890329361
+            },
+            {
+                "title": "Kraken acquiert une capitalisation.ai alors que les entreprises cryptographiques ach\u00e8tent des startups AI",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo LMNVBS91CGXVYWRZLZIWMJUTMDGVMDE5OGM5MZQTYJE4MC03ZDQYLTK5OTETNWZKYTU3MZC3NDRJ.JPG \" Alt = \"Kraken acquiert Capitalise.ai car les soci\u00e9t\u00e9s de crypto ach\u00e8tent des startups AI\"> </p> <p> L'acquisition de Kraken ajoutera une automatisation commerciale en langue naturelle \u00e0 sa plate-forme professionnelle, car les \u00e9changes, les mineurs et les soci\u00e9t\u00e9s d'analyse se d\u00e9placent de mani\u00e8re agressive en II. </p>",
+                "original_title": " Kraken acquires Capitalise.ai as crypto companies buy AI startups ",
+                "source": "Cointelegraph",
+                "timestamp": 1755724153.0,
+                "url": "https://cointelegraph.com/news/kraken-buys-capitalise-ai-crypto-companies-race-acquire-ai-startups?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8339641094207764,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.2524922490119934
+            },
+            {
+                "title": "Les jumeaux Winklevoss font un don de 21 millions de dollars en BTC \u00e0 Pro-Trump Pat devant nous \u00e0 mi-parcours",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4zjqty2nhzc03njrmlwi3zDutymi2zjy4yzmzymvj.jpg \" ALT = \"Winklevoss Twins fait un don de 21 millions de dollars en BTC \u00e0 Pro-Trump PAT avant les mi-fonds\"> </p> <p> Les co-fondateurs des G\u00e9meaux, avec une valeur nette combin\u00e9e dans les milliards, ont d\u00e9clar\u00e9 qu'ils apporteraient une autre contribution politique \u00e0 l'appui de l'agenda Crypto du pr\u00e9sident am\u00e9ricain Donald Trump. </p>",
+                "original_title": " Winklevoss twins donate $21M in BTC to pro-Trump PAC ahead of US midterms ",
+                "source": "Cointelegraph",
+                "timestamp": 1755723790.0,
+                "url": "https://cointelegraph.com/news/winklevoss-twins-bitcoin-donald-trump-us-midterms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8120103478431702,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.19687335193157196
+            },
+            {
+                "title": "Les \u00c9tats-Unis doivent adopter des r\u00e9glementations ou risquer la perte de race cryptographique - Symposium du Wyoming",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4zwytogi2mi03nzhkltk5zdetmjg5ymu4njrmywm2.jpg \" Alt = \"US doit adopter des r\u00e9glementations ou risquer la perte de race cryptographique - le Wyoming Symposium\"> </p> <p> Les pan\u00e9listes ont convenu qu'il n'est pas trop tard pour les \u00c9tats-Unis de rattraper d'autres juridictions, mais a exhort\u00e9 la l\u00e9gislation r\u00e9glementaire cryptographique Swift. </p>.",
+                "original_title": " US must pass regulations or risk losing crypto race \u2014 Wyoming Symposium ",
+                "source": "Cointelegraph",
+                "timestamp": 1755722803.0,
+                "url": "https://cointelegraph.com/news/us-pass-regulations-risk-losing-crypto-race?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8637174963951111,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.20503327250480652
+            },
+            {
+                "title": "Les groupes de plaidoyer de crypto doubler la confirmation de Quintenz \u00e0 CFTC au milieu du recul",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjqtmtevmde5mzu1ytytnzg2zs03odnlltkwzdetmzgzmmu3ymu0njdj.jpg \" ALT = \"Les groupes de plaidoyer crypto doubler la confirmation de Quintenz \u00e0 CFTC au milieu de la recul\"> </p> <p> sept organisations affili\u00e9es \u00e0 Crypto ont exhort\u00e9 une confirmation rapide de Brian Quintenz \u00e0 la CFTC, bien que rien n'ait \u00e9t\u00e9 pr\u00e9vu sur le calendrier du S\u00e9nat avant sa r\u00e9cr\u00e9ation. </p>",
+                "original_title": " Crypto advocacy groups double down on Quintenz confirmation at CFTC amid pushback ",
+                "source": "Cointelegraph",
+                "timestamp": 1755717597.0,
+                "url": "https://cointelegraph.com/news/crypto-advocacy-groups-support-brian-quintenz-cftc?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8572049140930176,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.290493369102478
+            },
+            {
+                "title": "Le PDG de Brevan Howard, le PDG de la division Crypto, Gautam Sharma, part apr\u00e8s cinq ans",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdevmde5ndi5yjktm2m3ni03mtg5lwezytqtyjyzzjeynjm3owvj.jpg \" ALT = \"Le PDG de la division crypto de Brevan Howard, Gautam Sharma, part apr\u00e8s cinq ans\"> </p> <p> Brevan Howard aurait r\u00e9ussi 34 milliards de dollars d'actifs en avril 2025, avec la division d'actifs num\u00e9riques de la soci\u00e9t\u00e9, cr\u00e9\u00e9e en 2021, g\u00e9rant 2 milliards de dollars. </p>",
+                "original_title": " Brevan Howard\u2019s crypto division CEO Gautam Sharma departs after five years ",
+                "source": "Cointelegraph",
+                "timestamp": 1755716706.0,
+                "url": "https://cointelegraph.com/news/brevan-howard-crypto-division-ceo-gautam-sharma-departs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8035395741462708,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.21321463584899902
+            },
+            {
+                "title": "La tendance \u00e0 la baisse du prix de XRP pourrait continuer: voici 4 raisons pour lesquelles",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbolmnvbs91cgxvywrzlziwmjqtmtevmde5mzi1mtctnzywyyythiltlatlat ALT = \"La tendance \u00e0 la baisse des prix de XRP pourrait se poursuivre: voici 4 raisons pour lesquelles\"> </p> <p> Les donn\u00e9es XRP mettent en \u00e9vidence la prise de profit des investisseurs et r\u00e9v\u00e8lent les raisons pour lesquelles le prix de l'Altcoin pourrait continuer de chuter. </p>",
+                "original_title": " XRP\u2019s price downtrend could continue: Here\u2019s 4 reasons why ",
+                "source": "Cointelegraph",
+                "timestamp": 1755716400.0,
+                "url": "https://cointelegraph.com/news/xrp-s-price-downtrend-could-continue-here-s-4-reasons-why?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "XRP"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8280329704284668,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.17980173230171204
+            },
+            {
+                "title": "51% d'attaque contre Monero invite la proposition de r\u00e9vision du m\u00e9canisme de consensus",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4njetm2nmzs03odi1lwjhowitzte5zmjjmjflmzez.jpg \" ALT = \"51% d'attaque contre la proposition d'invite de Monero pour r\u00e9viser le m\u00e9canisme de consensus\"> </p> <p> Plusieurs solutions ont \u00e9t\u00e9 propos\u00e9es pour renforcer le m\u00e9canisme du consensus de la preuve de travail de Monero pour emp\u00eacher 51% d'attaques sur le r\u00e9seau. </p>",
+                "original_title": " 51% attack on Monero prompts proposal to overhaul consensus mechanism ",
+                "source": "Cointelegraph",
+                "timestamp": 1755714000.0,
+                "url": "https://cointelegraph.com/news/51-attack-monero-prompts-proposal-overhaul-consensus?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8300501108169556,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.22429026663303375
+            },
+            {
+                "title": "Pr\u00e9dictions de prix 8/20: BTC, ETH, XRP, BNB, SOL, DOGE, ADA, LINK, HYPE, XLM",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4nzetzdm1ni03nmezltlln2ytotm2ndgzyJewnty1.jpg \" Alt = \"Prix Pr\u00e9dictions 8/20: BTC, ETH, XRP, BNB, SOL, DOGE, ADA, LINK, HYPE, XLM\"> </p> <p> Bitcoin et Ether essaient de s'\u00e9lever de leurs bas respectifs, indiquant de forts achats sur les DIP. </p>",
+                "original_title": " Price predictions 8/20: BTC, ETH, XRP, BNB, SOL, DOGE, ADA, LINK, HYPE, XLM ",
+                "source": "Cointelegraph",
+                "timestamp": 1755712983.0,
+                "url": "https://cointelegraph.com/news/price-predictions-8-20-btc-eth-xrp-bnb-sol-doge-ada-link-hype-xlm?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BNB",
+                    "LINK",
+                    "XLM",
+                    "DOGE",
+                    "XRP",
+                    "SOL",
+                    "BTC",
+                    "ADA",
+                    "ETH"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.869749903678894,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.1925826221704483
+            },
+            {
+                "title": "\u00abLes tarifs am\u00e9ricains sur les plates-formes mini\u00e8res augmentent fortement\u00bb comme CleanSpark, Iren rapporte des passifs massifs",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4nzetnjrins03zjzjlThin2etmzc4mjllmte2odhl.jpg \" ALT = \"\" Les tarifs am\u00e9ricains sur les plates-formes mini\u00e8res augmentent fortement \"car CleanSpark, Iren rapporte des passifs massifs\"> </p> <p> Les mineurs de bitcoin am\u00e9ricains sont confront\u00e9s \u00e0 des co\u00fbts de montage et \u00e0 une pression r\u00e9glementaire alors que la guerre commerciale remodeler l'industrie. </p>",
+                "original_title": " \u2018US tariffs on mining rigs are rising sharply\u2019 as CleanSpark, IREN report massive liabilities ",
+                "source": "Cointelegraph",
+                "timestamp": 1755712814.0,
+                "url": "https://cointelegraph.com/news/us-china-trade-war-bitcoin-mining-tariffs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8415390253067017,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.5377581119537354
+            },
+            {
+                "title": "Le s\u00e9nateur am\u00e9ricain Lummis: le projet de loi sur la structure du march\u00e9 de la crypto sera loi d'ici 2026",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4mjctmdywny03otgxlwixn2etztqzzgm5mguxntu2.jpg \" ALT = \"US Senator Lummis: le projet de loi sur la structure du march\u00e9 de la crypto sera loi d'ici 2026\"> </p> <p> Le l\u00e9gislateur du Wyoming est l'un des r\u00e9publicains prenant la t\u00eate de la structure du march\u00e9 am\u00e9ricain au S\u00e9nat am\u00e9ricain. </p>",
+                "original_title": " US Senator Lummis: Crypto market structure bill will be law by 2026 ",
+                "source": "Cointelegraph",
+                "timestamp": 1755711060.0,
+                "url": "https://cointelegraph.com/news/senator-cynthia-lummis-crypto-market-structure-bill-timeline?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8602093458175659,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.2046637386083603
+            },
+            {
+                "title": "40% des utilisateurs de crypto britanniques d\u00e9clarent les paiements bloqu\u00e9s au milieu d'une augmentation des pratiques \u00abanti-consommation\u00bb",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm4nmetngzlnc03mzk4lwe5zdktnmiyyytixzdu5ymq33.jpg \" Alt = \"40% des utilisateurs de crypto britanniques d\u00e9clarent les paiements bloqu\u00e9s dans le cadre de l'augmentation des pratiques\" anti-consommation \"\"> </p> <p> Pr\u00e8s de la moiti\u00e9 des investisseurs cryptographiques au Royaume-Uni sont confront\u00e9s \u00e0 des paiements bloqu\u00e9s ou retard\u00e9s de leurs banques, ce qui soul\u00e8ve que la Grande-Bretagne soit en retard sur les rivaux mondiaux dans les actifs num\u00e9riques. </p>.",
+                "original_title": " 40% of UK crypto users report blocked payments amid rise in \u2018anti-consumer\u2019 practices ",
+                "source": "Cointelegraph",
+                "timestamp": 1755709276.0,
+                "url": "https://cointelegraph.com/news/uk-banks-block-crypto-payments-investors-fall-behind?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "UNI"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8508111834526062,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.26850229501724243
+            },
+            {
+                "title": "Bitcoin Eyes Liquidit\u00e9 \u00e0 110 000 $: Regardez ces niveaux de prix BTC ensuite",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm3ytatnzcxmi03ndfjltg1ztetndaxyzrin2m1zjli.jpg \" ALT = \"Bitcoin Eyes Liquidit\u00e9 \u00e0 110 000 $: Regardez ces niveaux de prix BTC Suivant\"> </p> <p> Bitcoin rebondi d'une baisse rapide \u00e0 112 380 $, mais les donn\u00e9es de liquidation HeatMap sugg\u00e8rent que le pire de la vente n'a pas encore r\u00e9ussi. </p>",
+                "original_title": " Bitcoin eyes liquidity at $110K: Watch these BTC price levels next ",
+                "source": "Cointelegraph",
+                "timestamp": 1755704667.0,
+                "url": "https://cointelegraph.com/news/bitcoin-eyes-liquidity-at-dollar110k-watch-these-btc-price-levels-next?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8280776739120483,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.21183878183364868
+            },
+            {
+                "title": "Les analystes de Bitcoin indiquent que la \u00abmanipulation\u00bb \u00e0 mesure que le prix BTC tombe \u00e0 17 jours bas",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjqtmtevmde5mzu2ogetowq4ny03nte3lthmmdgtmdk4mmnmywjlmguz.jpg \" Les analystes alt = \"Bitcoin indiquent que la\" manipulation \"car le prix BTC tombe \u00e0 17 jours\"> </p> <p> Les analystes disent que l'action des prix de Bitcoin semble de plus en plus orchestr\u00e9e, car BTC exploite ses niveaux les plus bas depuis 3 ao\u00fbt au milieu de la vente am\u00e9ricaine en cours. </p>.",
+                "original_title": " Bitcoin analysts point to \u2018manipulation\u2019 as BTC price falls to 17-day low ",
+                "source": "Cointelegraph",
+                "timestamp": 1755701488.0,
+                "url": "https://cointelegraph.com/news/bitcoin-analysts-point-to-manipulation-as-btc-price-falls-to-17-day-low?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8370561003684998,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.23184449970722198
+            },
+            {
+                "title": "Green Rwas refonte les actifs climatiques comme technologie de pointe rentable",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdcvmde5odjjmmqtyjg1ny03zjexlwezntutotlhowvhzjq1mdm4.jpg \" Alt = \"Green Rwas refonte les actifs climatiques en tant que technologie de pointe rentable\"> </p> <p> La tokenisation bas\u00e9e sur la blockchain des actifs climatiques pourrait d\u00e9bloquer des milliards de billions de verts, car les cadres r\u00e9glementaires stimulent la croissance du commerce du carbone. </p>",
+                "original_title": " Green RWAs recast climate assets as profitable cutting-edge tech ",
+                "source": "Cointelegraph",
+                "timestamp": 1755696600.0,
+                "url": "https://cointelegraph.com/news/green-rwas-climate-assets-as-profitable-cutting-edge-technology?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.821700394153595,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.23974953591823578
+            },
+            {
+                "title": "Les investisseurs se pr\u00e9parent \u00e0 la parole Powell alors que le bitcoin plonge pr\u00e8s de 112 000 $",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm3nmutmdq2zi03mtnmlwiyzgitnmewzme2mtzhmtu1.jpg \" Alt = \"Les investisseurs se pr\u00e9parent \u00e0 la parole Powell alors que Bitcoin plonge pr\u00e8s de 112 000 $\"> </p> <p> Bitcoin est tomb\u00e9 en dessous de 113 000 $ alors que les investisseurs se pr\u00e9paraient pour le discours de Jackson Hole de Jerome Powell qui pourrait d\u00e9finir le chemin de la Fed am\u00e9ricaine sur les r\u00e9ductions de taux d'int\u00e9r\u00eat. </p>",
+                "original_title": " Investors brace for Powell speech as Bitcoin dips near $112K ",
+                "source": "Cointelegraph",
+                "timestamp": 1755694104.0,
+                "url": "https://cointelegraph.com/news/bitcoin-dips-fed-powell-speech?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8303965330123901,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.2150323987007141
+            },
+            {
+                "title": "La Chine p\u00e8se les stablescoins soutenus par le yuan dans le changement de politique majeur: Reuters",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm3ntctngvlns03njixlwfjogytzmzlytczzdqwnjq1.jpg \" ALT = \"La Chine p\u00e8se les stablescoins soutenus en yuan dans le changement de politique majeur: Reuters\"> </p> <p> Le cabinet chinois examinera une feuille de route qui comprend des stablescoins en yuan pour renforcer l'internationalisation de la yuan, ont d\u00e9clar\u00e9 \u00e0 Reuters. </p>",
+                "original_title": " China weighs yuan-backed stablecoins in major policy shift: Reuters ",
+                "source": "Cointelegraph",
+                "timestamp": 1755691919.0,
+                "url": "https://cointelegraph.com/news/china-considering-yuan-backed-stablecoins-global-currency-usage?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8408396244049072,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.21197892725467682
+            },
+            {
+                "title": "Les groupes de l'industrie cryptographique slasent la pouss\u00e9e des banquiers pour r\u00e9\u00e9crire un acte de g\u00e9nie",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogjlogqtyjq1ms03mtezltk5zjgtowy0mgqxodm4mjnj.jpg \" ALT = \"Crypto Industry Group Slam Bankers Push to Rewrite Genius Act\"> </p> <p> Les groupes de plaidoyer de crypto accusent les banquiers de Wall Street d'essayer d'incliner les r\u00e8gles de stable en leur faveur, avertissant le Congr\u00e8s contre les changements \u00e0 la loi sur le g\u00e9nie. </p>",
+                "original_title": " Crypto industry groups slam bankers\u2019 push to rewrite GENIUS Act ",
+                "source": "Cointelegraph",
+                "timestamp": 1755689187.0,
+                "url": "https://cointelegraph.com/news/crypto-groups-reject-bank-lobby-stablecoin-genius-act?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8130123019218445,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.20611301064491272
+            },
+            {
+                "title": "Fondateur Eminifx pour payer 228 millions de dollars en r\u00e8glement du r\u00e9gime de Ponzi",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdcvmde5odfjnjktzgyyzc03ywjmlwjkndutzgq5nwywy2qwyjy1.jpg \" ALT = \"Eminifx Founder pour payer 228 millions de dollars en r\u00e8glement du r\u00e9gime de Ponzi\"> </p> <p> Un juge am\u00e9ricain a gouvern\u00e9 Eminifx et son fondateur, Eddy Alexandre, doit rembourser 228 millions de dollars apr\u00e8s avoir ex\u00e9cut\u00e9 un programme de Ponzi qui a fraud\u00e9 des milliers d'investisseurs. </p>",
+                "original_title": " EminiFX founder to pay $228M in Ponzi scheme ruling ",
+                "source": "Cointelegraph",
+                "timestamp": 1755683146.0,
+                "url": "https://cointelegraph.com/news/court-orders-eminifx-founder-repay-228m-ponzi-scheme?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8215371370315552,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.18343804776668549
+            },
+            {
+                "title": "Pump.fun r\u00e9cup\u00e9re la premi\u00e8re place de Solana alors que Memecoins rebondit en ao\u00fbt",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm2ntgtymi4ys03nje3ltg3ywmtyjyzytayogm1mtli.jpg \" Alt = \"Pump.fun r\u00e9cup\u00e9re la premi\u00e8re place de Solana alors que Memecoins rebondisse en ao\u00fbt\"> </p> <p> Pump.Fun a retrouv\u00e9 sa domination du march\u00e9 dans l'espace Solana Memecoin Launchpad, gagnant plus de 73% en part de march\u00e9 au cours des sept derniers jours. </p>",
+                "original_title": " Pump.fun reclaims Solana top spot as memecoins rebound in August ",
+                "source": "Cointelegraph",
+                "timestamp": 1755682540.0,
+                "url": "https://cointelegraph.com/news/pumpfun-solana-memecoin-revenue-lawsuit-august-2025?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "SOL"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.818204939365387,
+                "impact_score": 1.0,
+                "risk_class": "Pump",
+                "risk_score": 0.8302515745162964
+            },
+            {
+                "title": "Comment utiliser Google Gemini pour le trading crypto plus intelligent",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdcvmde5odu2ndctzjm5zc03ntjllwflzditodniyta0nza3mjy2.jpg \" Alt = \"Comment utiliser Google Gemini pour le trading de crypto plus intelligent\"> </p> <p> Google Gemini Flash 2.5 peut rationaliser la recherche, les mod\u00e8les de spot, analyser le sentiment et affiner vos strat\u00e9gies de trading de crypto. N'oubliez pas: l'IA aide, mais vous \u00eates toujours celui qui passe l'appel. </p>",
+                "original_title": " How to use Google Gemini for smarter crypto trading ",
+                "source": "Cointelegraph",
+                "timestamp": 1755682439.0,
+                "url": "https://cointelegraph.com/news/how-to-use-google-gemini-for-smarter-crypto-trading?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8478044867515564,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.2380838543176651
+            },
+            {
+                "title": "Esp\u00e9vient de crypto pour les nuls: comment les commer\u00e7ants trompent le march\u00e9",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6Ly9zmy5jb2ludgvszwdyyxbolmnv BS9ZDG9YYWDLL3VWBG9HZHMVDMLLY81ZTK3ZMI5ODDINGIZOGQ1MJC4NZA0MGNJOWUZMDBHOS5QCGC = .JPG \" Alt = \"Crypto Spoofing for Dummies: Comment les commer\u00e7ants trompent le march\u00e9\"> </p> <p> Fake Orders, Real Chaos: D\u00e9couvrez comment l'usurpation de la crypto plie le march\u00e9, iffrait les commer\u00e7ants et alimente le c\u00f4t\u00e9 sauvage du trading d'actifs num\u00e9riques.                    </p>",
+                "original_title": " Crypto spoofing for dummies: How traders trick the market ",
+                "source": "Cointelegraph",
+                "timestamp": 1755682200.0,
+                "url": "https://cointelegraph.com/explained/crypto-spoofing-for-dummies-how-traders-trick-the-market?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8347637057304382,
+                "impact_score": 1.0,
+                "risk_class": "Scam",
+                "risk_score": 0.23963820934295654
+            },
+            {
+                "title": "Bitcoin, Ether ETFS publie pr\u00e8s de 1 million de dollars de sorties \u00e0 mesure que les prix glissent",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm2ntqtzdvjmc03mjqxltljzdetnjrhymnjzjcymtzl.jpg \" ALT = \"Bitcoin, Ether ETF publie pr\u00e8s de 1 million de dollars \u00e0 mesure que les d\u00e9bits de prix\"> </p> <p> SPOT Bitcoin ETF Les sorties ont saut\u00e9 plus de 300% \u00e0 533 millions de dollars mardi, tandis que les ETF Ether ont doubl\u00e9 leurs pertes \u00e0 422 millions de dollars, ajoutant \u00e0 une s\u00e9quence de trois jours de retraits. </p>",
+                "original_title": " Bitcoin, Ether ETFs post almost $1B outflows as prices slide ",
+                "source": "Cointelegraph",
+                "timestamp": 1755681944.0,
+                "url": "https://cointelegraph.com/news/crypto-funds-bleed-bitcoin-outflows-surge-5x-ether-outflows-double?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8030655384063721,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.21715916693210602
+            },
+            {
+                "title": "Ether Trader a presque an\u00e9anti apr\u00e8s Epic Run de 125 000 $ \u00e0 43 M $",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogm2owytnmqyns03zmmxlwfimjutowqwnzjlotk4mjiz.jpg \" Alt = \"Ether Trader a presque an\u00e9anti apr\u00e8s que EPIC passe de 125 000 $ \u00e0 43 millions de dollars\"> </p> <p> apr\u00e8s avoir fait pr\u00e8s de 7 millions de dollars en quatre mois, le commer\u00e7ant a perdu presque tous leurs gains en deux jours, illustrant l'impr\u00e9visibilit\u00e9 des march\u00e9s cryptographiques. </p>",
+                "original_title": " Ether trader nearly wiped out after epic run from $125K to $43M ",
+                "source": "Cointelegraph",
+                "timestamp": 1755680041.0,
+                "url": "https://cointelegraph.com/news/ether-trader-loses-6m-epic-run-125k-43m?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.7746836543083191,
+                "impact_score": 1.0,
+                "risk_class": "Security",
+                "risk_score": 0.24787648022174835
+            },
+            {
+                "title": "Les emplois les mieux r\u00e9mun\u00e9r\u00e9s en crypto \u00e0 surveiller en 2025",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdgvmde5ogmyzwutmgfjoc03ywqwlwixmwityzm3otm5mzewzdvk.jpg \" Alt = \"Les travaux les mieux r\u00e9mun\u00e9r\u00e9s en crypto \u00e0 regarder en 2025\"> </p> <p> explorez les meilleurs emplois Web3 en 2025, les gammes de salaires et comment commencer dans les carri\u00e8res de blockchain les mieux r\u00e9mun\u00e9r\u00e9es. </p>",
+                "original_title": " The highest-paying jobs in crypto to watch in 2025 ",
+                "source": "Cointelegraph",
+                "timestamp": 1755675267.0,
+                "url": "https://cointelegraph.com/news/highest-paying-jobs-in-crypto-2025?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8444636464118958,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.18676860630512238
+            },
+            {
+                "title": "Ark Invest ach\u00e8te DIP: Achets 21 millions de dollars haussiers, 16 millions de dollars actions Robinhood",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6ly9zmy5jb2ludgvszwdyyxbo Lmnvbs91cgxvywrzlziwmjutmdmvmde5nwfhmtctzwiyzc03mjc5lwfmyjatnde1owmznjqxmtiy.jpg \" ALT = \"Ark Invest Guys Dip: achats 21 millions de dollars haussiers, 16 millions de dollars d'actions Robinhood\"> </p> <p> ARK Invest a augment\u00e9 de 21 millions de dollars de hausses et 16 millions de dollars d'actions Robinhood, prolongeant sa s\u00e9quence d'achat malgr\u00e9 une vente \u00e0 l'\u00e9chelle du secteur. </p>",
+                "original_title": " ARK Invest buys dip: purchases $21M Bullish, $16M Robinhood shares ",
+                "source": "Cointelegraph",
+                "timestamp": 1755675108.0,
+                "url": "https://cointelegraph.com/news/ark-invest-buys-21m-bullish-16m-robinhood?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8520839810371399,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.2634839117527008
+            },
+            {
+                "title": "Bitcoin vs obligations souverains: pourquoi certains investisseurs font-ils le changement?",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6Ly9zmy5jb2ludgvszwdyyxbolmnv BS9ZDG9YYWDLL3VWBG9HZHMVDMLLY9MOGE2ZJE5YZA4NJM5YJIZZJA1ODNIZWE1YTDINMEYNS5QCGC = .JPG \" alt = \"Bitcoin vs obligations souverains: pourquoi certains investisseurs font-ils le changement?\"> </p> <p> Bitcoin cr\u00e9e un nouveau paradigme en tant qu'actif financier \u00e9mergent; Plusieurs investisseurs envisagent un passage \u00e0 l'adoption de l'actif pour des rendements plus \u00e9lev\u00e9s.                    </p>",
+                "original_title": " Bitcoin vs. sovereign bonds: Why are some investors making the shift? ",
+                "source": "Cointelegraph",
+                "timestamp": 1755673800.0,
+                "url": "https://cointelegraph.com/explained/bitcoin-vs-sovereign-bonds-why-are-some-investors-making-the-shift?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8641423583030701,
+                "impact_score": 1.0,
+                "risk_class": "Hack",
+                "risk_score": 0.19618438184261322
+            },
+            {
+                "title": "Twitter l'utilisateur affirme que TradingView a ignor\u00e9 un bogue de r\u00e9trogradation de Fibonacci pendant 5 ans",
+                "text": "<p style = \"float: \u00e0 droite; marge: 0 0 10px 15px; largeur: 240px;\"> <img src = \"https://images.cointelegraph.com/images/528_ahr0chm6Ly9zmy5jb2ludgvszwdyyxbolmnv BS9ZDG9YYWDLL3VWBG9HZHMVDMLLY9INMQXM2VIMWYYZJDLYMUWMWQZYJZHZGRKMMNIM2M2MS5QCGC = .JPG \" ALT = \"Twitter User Claims TradingView a ignor\u00e9 un bogue de retracement de Fibonacci pendant 5 ans\"> </p> <p> Le service d'analyse de graphique populaire TradingView contient un bogue dans l'outil d'analyse technique de r\u00e9trogradation de Fibonacci. </p>",
+                "original_title": " Twitter User Claims TradingView Has Ignored a Fibonacci Retracement Bug for 5 Years ",
+                "source": "Cointelegraph",
+                "timestamp": 1560859440.0,
+                "url": "https://cointelegraph.com/news/twitter-user-claims-tradingview-has-ignored-a-fibonacci-retracement-bug-for-5-years?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.8363990187644958,
+                "impact_score": 1.0,
+                "risk_class": "Crash",
+                "risk_score": 0.2050049602985382
+            },
+            {
+                "title": "Winklevoss Twins fait un don de 21 millions de dollars en Bitcoin \u00e0 la crypto PAC pro-Trump et anti-d\u00e9mocrate",
+                "text": "Le Digital Freedom Fund se concentrera sur le soutien \u00e0 l\u2019ordre du jour de la cryptographie du pr\u00e9sident Trump - d'abord et avant tout en battant les d\u00e9mocrates \u00e0 mi-parcours de l\u2019ann\u00e9e prochaine.",
+                "original_title": "Winklevoss Twins Donate $21 Million in Bitcoin to Pro-Trump, Anti-Democrat Crypto PAC",
+                "source": "Decrypt",
+                "timestamp": 1755732662.0,
+                "url": "https://decrypt.co/336114/winklevoss-wins-donate-21-million-bitcoin-pro-trump-anti-democrat-crypto-pac",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.05294808745384216,
+                "impact_score": 1.0,
+                "risk_class": "Bullish",
+                "risk_score": 0.2385222166776657
+            },
+            {
+                "title": "Bitcoin Miner Bitdeer vise \u00e0 nous \u00e9largir la fabrication de plates-formes au milieu des vents contraires tarifaires de Trump",
+                "text": "Le mineur class\u00e9 NASDAQ se concentre sur l'expansion.",
+                "original_title": "Bitcoin Miner Bitdeer Aims to Expand US Rig Manufacturing Amid Trump Tariff Headwinds",
+                "source": "Decrypt",
+                "timestamp": 1755730480.0,
+                "url": "https://decrypt.co/336145/bitcoin-miner-bitdeer-aims-to-expand-us-rig-manufacturing-amid-trump-tariff-headwinds",
+                "symbols": [
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.3838373124599457,
+                "impact_score": 1.0,
+                "risk_class": "Bullish",
+                "risk_score": 0.5157216191291809
+            },
+            {
+                "title": "Nvidia, Tesla Stocks sur Tron: Xstocks s'\u00e9tend apr\u00e8s avoir franchi le jalon de n\u00e9gociation",
+                "text": "Les utilisateurs de TRON peuvent d\u00e9sormais n\u00e9gocier des actions en tokenis\u00e9s de soci\u00e9t\u00e9s am\u00e9ricaines populaires alors que XStocks se d\u00e9veloppe apr\u00e8s avoir d\u00e9pass\u00e9 500 millions de dollars en n\u00e9gociation en cha\u00eene.",
+                "original_title": "Nvidia, Tesla Stocks on Tron: xStocks Expand After Hitting Trading Milestone",
+                "source": "Decrypt",
+                "timestamp": 1755722062.0,
+                "url": "https://decrypt.co/336066/nvidia-tesla-stocks-tron-xstocks-expand-trading-milestone",
+                "symbols": [
+                    "TRX"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.03679770231246948,
+                "impact_score": 1.0,
+                "risk_class": "Bullish",
+                "risk_score": 0.15613941848278046
+            },
+            {
+                "title": "Bitcoin, Ethereum Rise apr\u00e8s les minutes nourris, la lumi\u00e8re sur la baisse du taux est la dissidence",
+                "text": "Bitcoin et Ethereum \u00e9taient bien dans un territoire positif un jour fort pour les march\u00e9s cryptographiques.",
+                "original_title": "Bitcoin, Ethereum Rise After Fed Minutes Shed Light on Rate Cut Dissent",
+                "source": "Decrypt",
+                "timestamp": 1755720420.0,
+                "url": "https://decrypt.co/336064/bitcoin-etheruem-sag-fed-minutes-dissent",
+                "symbols": [
+                    "ETH",
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.033450543880462646,
+                "impact_score": 1.0,
+                "risk_class": "Bullish",
+                "risk_score": 0.36517083644866943
+            },
+            {
+                "title": "Bitcoin Giant Strategy and Coinbase Lead Crypto Stock Flump",
+                "text": "Les stocks li\u00e9s \u00e0 la crypto comme Strategy et Coinbase sont en baisse au cours du dernier mois, sous-performant les go\u00fbts de Bitcoin et Ethereum.",
+                "original_title": "Bitcoin Giant Strategy and Coinbase Lead Crypto Stock Slump",
+                "source": "Decrypt",
+                "timestamp": 1755718865.0,
+                "url": "https://decrypt.co/336088/bitcoin-giant-strategy-coinbase-crypto-stock-slump",
+                "symbols": [
+                    "ETH",
+                    "BTC"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.7585880160331726,
+                "impact_score": 1.0,
+                "risk_class": "Pump",
+                "risk_score": 0.46938928961753845
+            },
+            {
+                "title": "March\u00e9 de la cryptographie dans la \u00abpeur\u00bb, mais Ethereum, Solana et ChainLink restent forts: analyse",
+                "text": "Les march\u00e9s cryptographiques sont pass\u00e9s de la \"cupidit\u00e9\" \u00e0 \"peur\". Il y a au moins quelques graphiques, cependant, qui ne semblent pas encore effray\u00e9s.",
+                "original_title": "Crypto Market in 'Fear', But Ethereum, Solana and Chainlink Stay Strong: Analysis",
+                "source": "Decrypt",
+                "timestamp": 1755718162.0,
+                "url": "https://decrypt.co/336067/crypto-market-fear-ethereum-solana-chainlink-price-analysis",
+                "symbols": [
+                    "LINK",
+                    "SOL",
+                    "ETH"
+                ],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.7033067941665649,
+                "impact_score": 1.0,
+                "risk_class": "Neutral",
+                "risk_score": 0.278455913066864
+            },
+            {
+                "title": "Les promoteurs de la Balance retrouvent l'acc\u00e8s \u00e0 57,6 millions de dollars en crypto apr\u00e8s que le juge ait d\u00e9group\u00e9 les actifs",
+                "text": "Hayden Davis et Ben Chow, qui ont aid\u00e9 \u00e0 lancer la Balance Meme Coin promue par le pr\u00e9sident argentin Javier Milei, peuvent \u00e0 nouveau acc\u00e9der \u00e0 leur USDC.",
+                "original_title": "Libra Promoters Regain Access to $57.6 Million in Crypto After Judge Unfreezes Assets",
+                "source": "Decrypt",
+                "timestamp": 1755717584.0,
+                "url": "https://decrypt.co/336060/libra-promoters-regain-access-57-6-million-crypto-judge-unfreezes-assets",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.6014771461486816,
+                "impact_score": 1.0,
+                "risk_class": "Bearish",
+                "risk_score": 0.29881197214126587
+            },
+            {
+                "title": "\u00abRien d'effrayant\u00bb \u00e0 propos de la crypto, dit le gouverneur de la R\u00e9serve f\u00e9d\u00e9rale",
+                "text": "La Fed recherche la tokenisation, a-t-il ajout\u00e9.",
+                "original_title": "\u2018Nothing Scary\u2019 About Crypto, Federal Reserve Governor Says",
+                "source": "Decrypt",
+                "timestamp": 1755716864.0,
+                "url": "https://decrypt.co/336065/nothing-scary-crypto-federal-reserve-governor",
+                "symbols": [],
+                "source_weight": 0.8,
+                "processed": false,
+                "sentiment": 0.7480940222740173,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.6795570254325867
+            },
             {
                 "title": "Le PDG d'Openai, Sam Altman, conc\u00e8de GPT-5 \u00e9tait un rat\u00e9, parie sur GPT-6",
                 "text": "Chatgpt atteint d\u00e9sormais 700 millions d'utilisateurs, mais le PDG d'Openai met en garde contre une bulle de battage m\u00e9diatique de l'IA alors que les p\u00e9nuries GPU progressent lent vers son prochain grand mod\u00e8le.",
@@ -44948,8 +45506,8 @@
                 "timestamp": 1755707824.0,
                 "url": "https://decrypt.co/336040/binance-usdt-yield-farming-plasma-bitcoin-stablecoin-network",
                 "symbols": [
-                    "BTC",
-                    "BNB"
+                    "BNB",
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -44984,8 +45542,8 @@
                 "url": "https://decrypt.co/videos/interviews/0tGFF2Nw/crypto-lower-ai-stocks-wobble-dat-worries-continue",
                 "symbols": [
                     "ETH",
-                    "BTC",
-                    "AVAX"
+                    "AVAX",
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45228,8 +45786,8 @@
                 "timestamp": 1755636695.0,
                 "url": "https://decrypt.co/335885/dogecoin-xrp-price-bleeding-when-bottom-analysis",
                 "symbols": [
-                    "XRP",
-                    "DOGE"
+                    "DOGE",
+                    "XRP"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45290,73 +45848,6 @@
                 "risk_score": 0.25880616903305054
             },
             {
-                "title": "Bullish prend 1,15 milliard de dollars en produit d'introduction en bourse via des stablecoins - principalement sur Solana",
-                "text": "Crypto Exchange Bulnish s'est charg\u00e9 sur des stablescoins via son introduction en bourse, y compris USDC sur Solana, RLUSD sur XRP Ledger, et plus encore.",
-                "original_title": "Bullish Takes $1.15 Billion in IPO Proceeds via Stablecoins\u2014Mostly on Solana",
-                "source": "Decrypt",
-                "timestamp": 1755631221.0,
-                "url": "https://decrypt.co/335864/bullish-takes-1-15-billion-in-ipo-proceeds-via-stablecoins-mostly-on-solana",
-                "symbols": [
-                    "XRP",
-                    "SOL"
-                ],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.20341810584068298,
-                "impact_score": 1.0,
-                "risk_class": "Bullish",
-                "risk_score": 0.9461727738380432
-            },
-            {
-                "title": "Le bitcoin pourrait continuer \u00e0 passer \u00e0 de nouveaux sommets en 2026, explique Bernstein",
-                "text": "Alors que la Maison Blanche continue de pousser Crypto, Bernstein dit qu'il est de plus en plus difficile de voir Bitcoin et le march\u00e9 plus large culminant cette ann\u00e9e.",
-                "original_title": "Bitcoin Could Keep Surging to New Highs Into 2026, Says Bernstein",
-                "source": "Decrypt",
-                "timestamp": 1755630197.0,
-                "url": "https://decrypt.co/335803/bitcoin-keep-surging-new-highs-into-2026-bernstein",
-                "symbols": [
-                    "BTC"
-                ],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.24311143159866333,
-                "impact_score": 1.0,
-                "risk_class": "Bullish",
-                "risk_score": 0.28692808747291565
-            },
-            {
-                "title": "Le pr\u00e9sident de la SEC, Atkins, double sur Project Crypto: \u00abNous voulons adopter l'innovation\u00bb",
-                "text": "La SEC a \u00e9tabli des plans pour une initiative ambitieuse qui verrait la plupart des offres de cryptographie sculpt\u00e9es du championnat du r\u00e9gulateur financier.",
-                "original_title": "SEC Chair Atkins Doubles Down on Project Crypto: 'We Want to Embrace Innovation'",
-                "source": "Decrypt",
-                "timestamp": 1755628930.0,
-                "url": "https://decrypt.co/335848/sec-chair-atkins-doubles-down-project-crypto-embrace-innovation",
-                "symbols": [],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.22064822912216187,
-                "impact_score": 1.0,
-                "risk_class": "Regulatory",
-                "risk_score": 0.6302594542503357
-            },
-            {
-                "title": "Bitcoin Treasury aimlymd Stock Dives apr\u00e8s 679 millions de dollars BTC Acheter",
-                "text": "La soci\u00e9t\u00e9 de soins de sant\u00e9 KnilyMD a d\u00e9clar\u00e9 mardi qu'elle avait d\u00e9pens\u00e9 679 millions de dollars en achetant du bitcoin, et son stock \u00e9tait en baisse de plus de 13% depuis.",
-                "original_title": "Bitcoin Treasury KindlyMD Stock Dives Following $679 Million BTC Buy",
-                "source": "Decrypt",
-                "timestamp": 1755624643.0,
-                "url": "https://decrypt.co/335795/bitcoin-treasury-kindlymd-stock-dives-679-million-btc-buy",
-                "symbols": [
-                    "BTC"
-                ],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.750211775302887,
-                "impact_score": 1.0,
-                "risk_class": "Crash",
-                "risk_score": 0.35564133524894714
-            },
-            {
                 "title": "Tom Lee ach\u00e8te 1,7 milliard de dollars d'ETH la semaine derni\u00e8re, $ Light saute 50% \u00e0 New Ath, Crypto Majors in the Green",
                 "text": "Crypto Faible, Etf ETH voit la 2e plus grande sortie de tous les temps. Les actions DAT continuent de tomber sur les craintes de dilution. La strat\u00e9gie ach\u00e8te 51 millions de dollars BTC, assouplit la r\u00e8gle de financement. Chamath annonce Crypto Spac. BMNR retourne Mara pour r\u00e9clamer le 2e plus grand point DAT. 3,9 milliards de dollars ETH coinc\u00e9s dans la file d'attente de sortie de jalonnement. KindlyMD recueille 200 millions de dollars pour acheter BTC. La soci\u00e9t\u00e9 n\u00e9erlandaise AMDAX lancera BTC Treasury. BTCS \u00e9met un \u00abbividen\u00bb unique dans ETH. Le Tr\u00e9sor am\u00e9ricain demande des commentaires du public sur le g\u00e9nie. SEC retarde la d\u00e9cision de d\u00e9cision Social ETF de la crypto. Gemini tape Ripple pour la ligne de cr\u00e9dit avant l'introduction en bourse. La participation de Google dans Terawulf atteint 14%. Le cercle acquiert la malachite de moteur consensuel.",
                 "original_title": "TOM LEE BUYS $1.7B ETH IN PAST WEEK, $LIGHT JUMPS 50% TO NEW ATH, CRYPTO MAJORS IN THE GREEN",
@@ -45364,9 +45855,9 @@
                 "timestamp": 1755623973.0,
                 "url": "https://decrypt.co/videos/interviews/iv03bo9w/tom-lee-buys-17b-eth-in-past-week-light-jumps-50-to-new-ath-crypto-majors-in-the-green",
                 "symbols": [
+                    "XRP",
                     "ETH",
-                    "BTC",
-                    "XRP"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45376,36 +45867,6 @@
                 "risk_score": 0.23871685564517975
             },
             {
-                "title": "Crypto obtiendra-t-il sa facture de structure de march\u00e9 tant attendue? Tim Scott dit que le vote pourrait \u00eatre proche",
-                "text": "Les protestations d'Elizabeth Warren contre le projet de loi pourraient conduire \u00e0 moins de d\u00e9mocrates qui le soutiennent que la loi sur le g\u00e9nie, a d\u00e9clar\u00e9 le pr\u00e9sident de la banque du S\u00e9nat, Tim Scott.",
-                "original_title": "Will Crypto Get Its Long-Awaited Market Structure Bill? Tim Scott Says Vote Could Be Close",
-                "source": "Decrypt",
-                "timestamp": 1755623782.0,
-                "url": "https://decrypt.co/335833/will-crypto-get-long-awaited-market-structure-bill-tim-scott-says-vote-close",
-                "symbols": [],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.7524012923240662,
-                "impact_score": 1.0,
-                "risk_class": "Crash",
-                "risk_score": 0.2585235834121704
-            },
-            {
-                "title": "La Cor\u00e9e du Sud interrompt les pr\u00eats cryptographiques en tant que pr\u00e9occupation r\u00e9glementaire de levier de levier sur le march\u00e9",
-                "text": "La pause de la Cor\u00e9e du Sud sur les pr\u00eats cryptographiques apr\u00e8s qu'un \u00e9v\u00e9nement de liquidation majeur a mis en \u00e9vidence une tendance mondiale de la hausse du levier sur le march\u00e9.",
-                "original_title": "South Korea Halts Crypto Lending as Market Leverage Sparks Regulatory Concern",
-                "source": "Decrypt",
-                "timestamp": 1755620315.0,
-                "url": "https://decrypt.co/335806/south-korea-halts-crypto-lending",
-                "symbols": [],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.6588850021362305,
-                "impact_score": 1.0,
-                "risk_class": "Regulatory",
-                "risk_score": 0.20957544445991516
-            },
-            {
                 "title": "Strat\u00e9gie achetant \u00e0 nouveau BTC, Google investit davantage dans BTC Mining, $ Light s'adresse",
                 "text": "Crypto Faible, Etf ETH voit la 2e plus grande sortie de tous les temps. Les actions DAT continuent de tomber sur les craintes de dilution. La strat\u00e9gie ach\u00e8te 51 millions de dollars BTC, assouplit la r\u00e8gle de financement. Chamath annonce Crypto Spac. BMNR retourne Mara pour r\u00e9clamer le 2e plus grand point DAT. 3,9 milliards de dollars ETH coinc\u00e9s dans la file d'attente de sortie de jalonnement. KindlyMD recueille 200 millions de dollars pour acheter BTC. La soci\u00e9t\u00e9 n\u00e9erlandaise AMDAX lancera BTC Treasury. BTCS \u00e9met un \u00abbividen\u00bb unique dans ETH. Le Tr\u00e9sor am\u00e9ricain demande des commentaires du public sur le g\u00e9nie. SEC retarde la d\u00e9cision de d\u00e9cision Social ETF de la crypto. Gemini tape Ripple pour la ligne de cr\u00e9dit avant l'introduction en bourse. La participation de Google dans Terawulf atteint 14%. Le cercle acquiert la malachite de moteur consensuel.",
                 "original_title": "STRATEGY BUYING BTC AGAIN, GOOGLE INVESTS MORE IN BTC MINING, $LIGHT SOARS",
@@ -45413,9 +45874,9 @@
                 "timestamp": 1755617140.0,
                 "url": "https://decrypt.co/videos/interviews/yWlLjGwx/strategy-buying-btc-again-google-invests-more-in-btc-mining-light-soars",
                 "symbols": [
+                    "XRP",
                     "ETH",
-                    "BTC",
-                    "XRP"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45425,24 +45886,6 @@
                 "risk_score": 0.1948060542345047
             },
             {
-                "title": "Les ETF Ethereum perdent 197 millions de dollars - m\u00eame pire que le bitcoin alors que les institutions reculent",
-                "text": "Les march\u00e9s cryptographiques sont confront\u00e9s \u00e0 la pression car les FNBT des ETH voient 197 millions de dollars de sorties et des tensions g\u00e9opolitiques cr\u00e9er de l'incertitude pour les investisseurs institutionnels.",
-                "original_title": "Ethereum ETFs Lose $197 Million\u2014Even Worse Than Bitcoin as Institutions Pull Back",
-                "source": "Decrypt",
-                "timestamp": 1755617131.0,
-                "url": "https://decrypt.co/335794/ethereum-etfs-197-million-drop-institutions-pull-back",
-                "symbols": [
-                    "ETH",
-                    "BTC"
-                ],
-                "source_weight": 0.8,
-                "processed": true,
-                "sentiment": 0.6442007422447205,
-                "impact_score": 1.0,
-                "risk_class": "Security",
-                "risk_score": 0.23592621088027954
-            },
-            {
                 "title": "Diapositives de crypto, lien m\u00e8ne les alts, Fed se termine la supervision de la cryptographie",
                 "text": "BTC glisse \u00e0 115 000 $ malgr\u00e9 la stabilit\u00e9 des actions. ETH & Sol les plus faibles dans les majors, Link m\u00e8ne les alts. Fed met fin au programme de supervision de la cryptographie. Les \u00c9tats-Unis p\u00e8sent la v\u00e9rification d'identification num\u00e9rique dans Defi. BTC atteint 1,7% du total de la masse mon\u00e9taire mondiale. ETH frappe ATH dans le nombre de transactions, les adresses actives. ETH etfs voient les entr\u00e9es hebdomadaires ATH. Sol frappe 100k TPS dans le test de charge. BMNR ach\u00e8te 600 millions de dollars de plus. Les actions de SharpLink diminuent sur une perte de 130 millions de dollars. Metaplanet ach\u00e8te 93 M $ BTC. DFDV ach\u00e8te 22 M $ Sol. NY propose une taxe de 0,2% sur les ventes de crypto, le transfert. S&P 500, DOW pourrait lancer des index de tokenis\u00e9s. SEC pour nous aider \u00e0 \u00eatre la capitale mondiale de la cryptographie: Atkins. S Cor\u00e9e pour envisager le projet de loi de stable en octobre. Le Japon pour approuver le premier JPY Stablecoin cet automne. Strive s'attend \u00e0 ce que la strat\u00e9gie rejoigne S&P 500",
                 "original_title": "CRYPTO SLIDES, LINK LEADS ALTS, FED ENDS CRYPTO SUPERVISION",
@@ -45450,10 +45893,10 @@
                 "timestamp": 1755531376.0,
                 "url": "https://decrypt.co/videos/interviews/tHkDhiqQ/crypto-slides-link-leads-alts-fed-ends-crypto-supervision",
                 "symbols": [
-                    "ETH",
-                    "BTC",
                     "LINK",
-                    "SOL"
+                    "SOL",
+                    "ETH",
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45470,9 +45913,9 @@
                 "timestamp": 1755271418.0,
                 "url": "https://decrypt.co/videos/interviews/rdwA47yK/crypto-drops-after-ppi-huge-liquidations-trump-putin-to-meet",
                 "symbols": [
+                    "SOL",
                     "ETH",
-                    "BTC",
-                    "SOL"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45524,10 +45967,10 @@
                 "timestamp": 1755097983.0,
                 "url": "https://decrypt.co/videos/interviews/mdGKwXSM/eth-nears-ath-sol-breaks-200-pump-back-to-ico-price",
                 "symbols": [
-                    "ETH",
-                    "BTC",
                     "BNB",
-                    "SOL"
+                    "SOL",
+                    "ETH",
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45544,9 +45987,9 @@
                 "timestamp": 1755019297.0,
                 "url": "https://decrypt.co/videos/interviews/wyfrjQNT/eth-at-4-400-eth-etfs-1b-daily-inflows-tom-lee-acquires-12m-eth",
                 "symbols": [
+                    "LINK",
                     "ETH",
-                    "BTC",
-                    "LINK"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45563,9 +46006,9 @@
                 "timestamp": 1755012469.0,
                 "url": "https://decrypt.co/videos/interviews/XVDWEbcf/eth-etf-inflows-ath-circle-stripe-plan-l1s-cpi-today",
                 "symbols": [
+                    "LINK",
                     "ETH",
-                    "BTC",
-                    "LINK"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45582,11 +46025,11 @@
                 "timestamp": 1754925870.0,
                 "url": "https://decrypt.co/videos/interviews/GDw7fLk1/eth-breaks-through-4k-btc-nears-ath-punks-now-240k",
                 "symbols": [
+                    "BNB",
+                    "XRP",
                     "SOL",
                     "BTC",
-                    "ETH",
-                    "XRP",
-                    "BNB"
+                    "ETH"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45603,12 +46046,12 @@
                 "timestamp": 1754666466.0,
                 "url": "https://decrypt.co/videos/interviews/1JUcP9dr/sec-drops-xrp-case-eth-nears-4k-again-gold-hits-ath",
                 "symbols": [
+                    "BNB",
+                    "LINK",
+                    "XRP",
                     "SOL",
                     "BTC",
-                    "ETH",
-                    "XRP",
-                    "BNB",
-                    "LINK"
+                    "ETH"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45625,9 +46068,9 @@
                 "timestamp": 1754580350.0,
                 "url": "https://decrypt.co/videos/interviews/meyK3vhj/eth-nears-4k-trump-tariffs-begin-rekt-hits-another-ath",
                 "symbols": [
+                    "BNB",
                     "ETH",
-                    "BTC",
-                    "BNB"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45644,10 +46087,10 @@
                 "timestamp": 1754494100.0,
                 "url": "https://decrypt.co/videos/interviews/0AMccQun/pump-rebounds-crypto-edges-lower-china-testing-stablecoins",
                 "symbols": [
-                    "ETH",
-                    "BTC",
                     "BNB",
-                    "LTC"
+                    "ETH",
+                    "LTC",
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45664,9 +46107,9 @@
                 "timestamp": 1754418127.0,
                 "url": "https://decrypt.co/videos/interviews/Q6HuVGk9/rate-cut-odds-soar-project-crypto-trump-tariffs",
                 "symbols": [
-                    "ETH",
                     "LINK",
-                    "SOL"
+                    "SOL",
+                    "ETH"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45700,9 +46143,9 @@
                 "timestamp": 1754407294.0,
                 "url": "https://decrypt.co/videos/interviews/hoTY417a/sol-leads-majors-huge-etf-outflows-pumpfun-promises-changes",
                 "symbols": [
-                    "ETH",
                     "LINK",
-                    "SOL"
+                    "SOL",
+                    "ETH"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45719,11 +46162,11 @@
                 "timestamp": 1754320232.0,
                 "url": "https://decrypt.co/videos/interviews/DnxzisxU/volatile-weekend-xrp-leads-rebound-trump-fires-bls-chief",
                 "symbols": [
+                    "BNB",
                     "DOGE",
-                    "BTC",
-                    "ETH",
                     "XRP",
-                    "BNB"
+                    "BTC",
+                    "ETH"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45740,9 +46183,9 @@
                 "timestamp": 1754063085.0,
                 "url": "https://decrypt.co/videos/interviews/QG5lc45Y/btc-ath-monthly-trump-spooks-markets-altcoins-lead-falls",
                 "symbols": [
+                    "SOL",
                     "ETH",
-                    "BTC",
-                    "SOL"
+                    "BTC"
                 ],
                 "source_weight": 0.8,
                 "processed": true,
@@ -45767,6 +46210,118 @@
                 "impact_score": 1.0,
                 "risk_class": "Regulatory",
                 "risk_score": 0.16742856800556183
+            },
+            {
+                "title": "Plus de douleur pour le bitcoin? Un int\u00e9r\u00eat ouvert d\u00e9passe 40 milliards de dollars que les longs",
+                "text": "Apr\u00e8s avoir atteint un nouveau sommet de tous les temps (ATH) de 124 474 $ sur Binance le 13 ao\u00fbt, Bitcoin (BTC) a chut\u00e9 vers 113 000 $, la prochaine zone de soutien majeure autour de 110 000 $. Les analystes avertissent que davantage \u00e0 la baisse pourrait encore \u00eatre en avance pour la crypto-monnaie sup\u00e9rieure. Bitcoin \u00e0 tomber davantage? Le long \u00e9change de longues donne un indice selon un poste de Quicktake cryptoque par le contributeur Xwin Research Japan, Bitcoin Open Int\u00e9r\u00eat dans tous les \u00e9changes a d\u00e9pass\u00e9 40 milliards de dollars, pr\u00e8s du territoire de l'ATH. Cette augmentation montre que les baleines et les commer\u00e7ants \u00e0 court terme s'accumulent dans des positions \u00e0 effet de levier. Lecture connexe: Bitcoin tombe en dessous de 115 000 $ alors que le ratio de puissance d'achat de Binance effondre le graphique ci-dessous met en \u00e9vidence la r\u00e9cente pointe de la BTC ouverte, oscillant maintenant \u00e0 40,6 milliards de dollars. Par rapport aux niveaux d'ao\u00fbt 2024 de 15 milliards de dollars, les int\u00e9r\u00eats ouverts ont augment\u00e9 de plus de 150%. Le contributeur cryptoque a ajout\u00e9 que malgr\u00e9 cette augmentation, le taux de financement est rest\u00e9 positif, montrant un long biais long. Bien que cela refl\u00e8te l'optimisme du march\u00e9, cela signale \u00e9galement un commerce surpeupl\u00e9, la plupart des participants pariant sur l'appr\u00e9ciation suppl\u00e9mentaire de la BTC. En cons\u00e9quence, le risque d'une longue pression & # 8211; Liquidations forc\u00e9es de positions longues dues \u00e0 un effet de levier agressif & # 8211; a lev\u00e9. Xwin Research Japan a expliqu\u00e9 dans leur analyse: une baisse soudaine de prix peut d\u00e9clencher une cascade de vente forc\u00e9e, amplifier la volatilit\u00e9. En d'autres termes, les mouvements \u00e0 court terme de Bitcoin restent \u00e0 la merci des flux sp\u00e9culatifs. Le BTC Fund Holding par les institutions augmente malgr\u00e9 la mousse sp\u00e9culative de l'effet de levier excessif sur le march\u00e9, les fonds BTC par des fonds n\u00e9goci\u00e9s en bitcoin (ETF) et les investisseurs institutionnels continuent de monter, d\u00e9passant 1,3 million selon les derni\u00e8res donn\u00e9es. Les FNB SPOT et les bons du Tr\u00e9sor d'entreprise absorbant le BTC fournit \u00e0 l'atout num\u00e9rique une offre structurelle qui r\u00e9duit r\u00e9guli\u00e8rement son approvisionnement disponible. Selon les donn\u00e9es de Sosovalue, les ETF Bitcoin SPOT bas\u00e9s aux \u00c9tats-Unis d\u00e9tiennent actuellement 146 milliards de dollars d'actifs nets & # 8211; repr\u00e9sentant 6,47% de la capitalisation boursi\u00e8re de BTC. LECTURE CONNEXE: Le march\u00e9 se d\u00e9veloppait alors que le bitcoin tire en arri\u00e8re - est-il toujours possible de 135 000 $? Cela dit, cette semaine \u00e0 elle seule a vu plus de 645 millions de dollars de sorties \u00e0 partir de FNB Bitcoin SPOT, apr\u00e8s deux semaines cons\u00e9cutives d'intrigue totalisant pr\u00e8s de 800 millions de dollars. Parmi les ETF, Ibit de BlackRock m\u00e8ne avec 84,78 milliards de dollars d'actifs nets au 19 ao\u00fbt. Pourtant, tous les signaux ne sont pas bais\u00e9s. Par exemple, alors que la BTC a gliss\u00e9 en dessous de 115 000 $, son volume de trading au point a d\u00e9pass\u00e9 6 milliards de dollars, donnant aux taureaux de l'espoir d'un rebond potentiel. De m\u00eame, l'analyste technique AO a r\u00e9cemment sugg\u00e9r\u00e9 que BTC pourrait refl\u00e9ter la trajectoire de Gold, avec un objectif ambitieux de 600 000 $ au d\u00e9but de 2026. Au moment de la presse, BTC se n\u00e9gocie \u00e0 113 845 $, en baisse de 1,5% au cours des derni\u00e8res 24 heures. Image en vedette de Unplash, graphiques de Cryptoant et TradingView.com",
+                "original_title": "More Pain For Bitcoin? Open Interest Surpasses $40 Billion As Longs Crowd In",
+                "source": "NewsBTC",
+                "timestamp": 1755730827.0,
+                "url": "https://www.newsbtc.com/bitcoin-news/bitcoin-open-interest-40-billion-longs/",
+                "symbols": [
+                    "BNB",
+                    "BTC"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.6310644745826721,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.16219748556613922
+            },
+            {
+                "title": "Ethereum se rapproche de 4 000 $ alors que 4 milliards de dollars d'approvisionnement se profilent: les analystes craignent des pertes plus profondes",
+                "text": "Ethereum (ETH) a du mal \u00e0 maintenir plus de 4 200 $ apr\u00e8s qu'une vente nette a d\u00e9clench\u00e9 des liquidations r\u00e9pandues sur le march\u00e9 de la crypto. Il a chut\u00e9 de pr\u00e8s de 9% au cours de la semaine derni\u00e8re, les commer\u00e7ants se pr\u00e9parant pour un retein potentiel du niveau de 4 100 $. Lecture connexe: Shiba INU fait une \u00e9tape majeure avec le mod\u00e8le de gouvernance communautaire - les donn\u00e9es des donn\u00e9es de Coinglass montrent que plus de 178 millions de dollars de postes ont \u00e9t\u00e9 liquid\u00e9s au cours des derni\u00e8res 24 heures, les traders de l'ETH Long subissant le plus grand coup, plus de 127 millions de dollars. Un cas notable a vu un trader hyperliquide perdre pr\u00e8s de 6,2 millions de dollars apr\u00e8s que la rentr\u00e9e entre les ETH s'est longtemps agressive, transformant des mois de gains en pertes lourdes en seulement deux jours. Cette volatilit\u00e9 intervient alors que la file d'attente de sortie d'Ethereum pour les retraits de jalon est pass\u00e9 \u00e0 910 461 ETH, d'une valeur d'environ 3,91 milliards de dollars, signalant une prochaine vague d'offre qui pourrait faire pression sur les prix. Le prix de l'ETH perd de l'\u00e9lan sur le graphique quotidien. Source: Ethusd sur les investisseurs institutionnels de TradingView intervient malgr\u00e9 les agressions du march\u00e9 malgr\u00e9 la douleur au d\u00e9tail, les grands acteurs institutionnels semblent acheter la baisse. Bitmin Immersion, le plus grand titulaire de l'ETH cot\u00e9 en bourse, a r\u00e9cemment ajout\u00e9 52 475 ETH, portant ses avoirs \u00e0 pr\u00e8s de 6,6 milliards de dollars. SharpLink a embo\u00eet\u00e9 le pas, achetant 143 593 ETH \u00e0 4 648 $, bien que sa position soit d\u00e9sormais sous l'eau. Les trackers de blockchain ont \u00e9galement signal\u00e9 de nouvelles entr\u00e9es de portefeuilles li\u00e9s \u00e0 Falconx d'une valeur de plus de 38 millions de dollars. Cela sugg\u00e8re que m\u00eame si le sentiment \u00e0 court terme reste tremblant, les investisseurs \u00e0 gros argent continuent d'accumuler des ETH, paris sur sa valeur \u00e0 long terme. Les analystes d'Ethereum (ETH) mettent en garde contre les pertes plus profondes avant que les experts du march\u00e9 de la r\u00e9cup\u00e9ration ne prudent qu'Ethereum peut rester sous pression alors que l'incertitude macro\u00e9conomique se profile avant la r\u00e9union de Jackson Hole de la R\u00e9serve f\u00e9d\u00e9rale am\u00e9ricaine. Le ton pessimiste de la chaise de la Fed, Jerome Powell, pourrait d\u00e9clencher davantage le sentiment de risque \u00e0 travers la crypto et les actions. L'activit\u00e9 en cha\u00eene s'est \u00e9galement affaiblie. Les adresses d'Ethereum actives ont chut\u00e9 de pr\u00e8s de 28% en ao\u00fbt, signalant la d\u00e9clin de la participation au d\u00e9tail. La croissance du r\u00e9seau a \u00e9galement ralenti, ce qui soul\u00e8ve des questions sur la demande \u00e0 court terme. Pourtant, les analystes voient une hausse \u00e0 long terme une fois que le march\u00e9 absorbe le d\u00e9verrouillage de 4 milliards de dollars. Certaines pr\u00e9visions restent optimistes, Ethereum pr\u00e9voyait entre 6 000 $ et 8 000 $ d'ici la fin de l'ann\u00e9e si les flux institutionnels persistent. Lire connexe: Ripple entre en accord avec Gemini avant l'introduction en bourse - voici ce que nous savons pour l'instant, cependant, la question critique demeure: ETH peut-il d\u00e9fendre 4 000 $, ou la pression de l'offre le fera-t-elle dans une correction plus profonde? Couvrir l'image de Chatgpt, Ethusd Chart de TradingView",
+                "original_title": "Ethereum Nears $4K as $4B Supply Overhang Looms: Analysts Fear Deeper Losses",
+                "source": "NewsBTC",
+                "timestamp": 1755727207.0,
+                "url": "https://www.newsbtc.com/news/ethereum/ethereum-nears-4k-as-4b-supply-overhang-looms-analysts-fear-deeper-losses/",
+                "symbols": [
+                    "SHIB",
+                    "XRP",
+                    "ETH"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.6908015012741089,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.14622081816196442
+            },
+            {
+                "title": "Nouveau groupe de crypto-actifs soutenu par Trump obtient un feu vert",
+                "text": "La Securities and Exchange Commission \u00e9volue dans une direction diff\u00e9rente sur la crypto. Lire connexe: Cardano grimpe au 8e, poussant Dogecoin et Tron dans le pr\u00e9sident des rangs Paul Atkins a confirm\u00e9 que l'agence lancera le groupe num\u00e9rique des actifs du pr\u00e9sident, une \u00e9tape qui, selon lui, ouvrira un nouveau chapitre de la r\u00e9glementation am\u00e9ricaine. La feuille de route de la Maison Blanche selon Atkins, le premier objectif du nouveau groupe sera de faire des recommandations du groupe de travail sur les march\u00e9s num\u00e9riques du pr\u00e9sident. Ses remarques sont survenues lors du Wyoming Blockchain Symposium, o\u00f9 il a pr\u00e9sent\u00e9 ce qu'il a appel\u00e9 \u00abProject Crypto\u00bb et a promis de s'\u00e9loigner de la r\u00e9glementation par l'application. J'ai eu une excellente conversation avec @Tteresagoody au Symposium de la blockchain Wyoming de @ SaltConference aujourd'hui sur mes priorit\u00e9s en tant que pr\u00e9sident de @secgov, y compris Project Crypto et rendant \u00e0 nouveau des introductions en bourse. C\u2019est une nouvelle journ\u00e9e \u00e0 la SEC. Thread \ud83e\uddf5\u2b07\ufe0f pic.twitter.com/i7uirjqfpt - Paul Atkins (@secpaulsatkins) 19 ao\u00fbt 2025 Atkins a d\u00e9clar\u00e9 que la SEC ne s'appuiera pas sur les anciennes m\u00e9thodes. Au lieu de cela, la Commission a l'intention de cr\u00e9er des r\u00e8gles qui emp\u00eachent les abus mais restent suffisamment flexibles pour le d\u00e9veloppement rapide de la technologie. Atkins a d\u00e9clar\u00e9 que l'effort faisait partie des efforts du pr\u00e9sident am\u00e9ricain Donald Trump pour une politique plus transparente sur les actifs num\u00e9riques. Protection et innovation des investisseurs, Atkins a salu\u00e9 l'administration pour soutenir un plan qui, selon lui, \u00e9quilibre la protection des investisseurs avec l'espace pour l'innovation. Il a ajout\u00e9 que la coop\u00e9ration avec le Congr\u00e8s, la Maison Blanche et d'autres agences aideront \u00e0 maintenir la politique am\u00e9ricaine coh\u00e9rente et align\u00e9e sur les normes internationales. Cela contraste clairement avec l'approche de son pr\u00e9d\u00e9cesseur, Gary Gensler, qui a fr\u00e9quemment d\u00e9clar\u00e9 que la plupart des jetons \u00e9taient des titres en vertu des r\u00e8gles existantes. Les critiques de la position de Gensler ont fait valoir qu\u2019elle a conduit l\u2019innovation \u00e0 l\u2019\u00e9tranger et a cr\u00e9\u00e9 un climat d\u2019incertitude. Atkins a rejet\u00e9 cet argument, disant que tr\u00e8s peu de jetons r\u00e9pondent \u00e0 la d\u00e9finition des titres. La fa\u00e7on dont les jetons sont emball\u00e9s, commercialis\u00e9s et vendaient des choses de plus, a-t-il expliqu\u00e9. R\u00e8gles flexibles pour les d\u00e9veloppeurs Le changement pourrait permettre aux projets cryptographiques d'op\u00e9rer plus facilement aux \u00c9tats-Unis sans \u00eatre imm\u00e9diatement trait\u00e9 comme des titres. Les rapports montrent que le DAWG du pr\u00e9sident a publi\u00e9 une feuille de route en juillet exhortant les r\u00e9gulateurs \u00e0 introduire des r\u00e8gles qui encouragent les entreprises tout en conservant des garanties des investisseurs. Atkins a d\u00e9clar\u00e9 que la SEC s'en tiendra \u00e9troitement \u00e0 cette feuille de route. Lecture connexe: L'analyste indique que le support de 0,000010 de Shiba INU pourrait d\u00e9clencher des exemptions de rebond majeures & # 38; Transparence Il a expliqu\u00e9 que la Commission fournira des exemptions, des ports s\u00fbrs et de nouvelles normes de divulgation adapt\u00e9es aux soci\u00e9t\u00e9s cryptographiques. Cela remplacerait le & # 8220; une taille unique & # 8221; syst\u00e8me qui frustre l'industrie depuis des ann\u00e9es. Des activit\u00e9s telles que les ICO, les parachutistes, les r\u00e9compenses de r\u00e9seau et la construction d'applications d\u00e9centralis\u00e9es peuvent \u00eatre trait\u00e9es de mani\u00e8re plus flexible dans le cadre de ce plan. Atkins a pr\u00e9cis\u00e9 que la nouvelle approche ne signifie pas un libre pour tous, mais plut\u00f4t une structure con\u00e7ue pour soutenir la croissance responsable. Image en vedette de Meta, graphique de TradingView",
+                "original_title": "New Crypto Assets Group Backed By Trump Gets Green Light",
+                "source": "NewsBTC",
+                "timestamp": 1755723618.0,
+                "url": "https://www.newsbtc.com/news/new-crypto-assets-group-backed-by-trump-gets-green-light/",
+                "symbols": [
+                    "DOGE",
+                    "ADA",
+                    "SHIB",
+                    "TRX"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.7574368715286255,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.17990875244140625
+            },
+            {
+                "title": "Ethereum Price a \u00e9t\u00e9 press\u00e9 dans False Channel - Bulls Eye rebondis",
+                "text": "Ethereum est actuellement sous pression \u00e0 l'int\u00e9rieur d'un canal en chute, se consolidant apr\u00e8s son r\u00e9cent rassemblement. Avec 4 150 $ agissant comme un support cl\u00e9, ETH semble se pr\u00e9parer \u00e0 un rebond vers la r\u00e9sistance de 4 788 $ et la zone haute de tous les temps. Eth est stable pr\u00e8s de 4 190 $ alors que 4 150 $ de support Faces Face Ash Crypto, dans sa r\u00e9cente analyse du graphique Ethereum 4H partag\u00e9e sur X, a soulign\u00e9 que ETH se n\u00e9gocie actuellement environ 4190 $, d\u00e9tenant juste au-dessus de la zone de soutien cl\u00e9 de 4150 $. Ce niveau a agi comme un coussin important pour l'action des prix. Lecture connexe: Ethereum se d\u00e9passe au-dessus du niveau cl\u00e9 contre le bitcoin, d\u00e9clenchant un discours de cycle haussier. Cela vient apr\u00e8s le fort rallye vers le haut vu plus t\u00f4t ce mois-ci, sugg\u00e9rant que le march\u00e9 s'arr\u00eate actuellement et consolide les gains avant de d\u00e9cider de sa prochaine direction majeure. Selon l'analyste, si les acheteurs peuvent d\u00e9fendre le soutien de 4 150 $, l'ETH peut acqu\u00e9rir suffisamment de force pour tenter une rupture du canal. Une telle d\u00e9cision pourrait ouvrir la voie \u00e0 un retein du niveau de r\u00e9sistance de 4 788 $ ou de la zone haute de tous les temps. Une pouss\u00e9e r\u00e9ussie au-dessus de cette zone allacerait probablement un \u00e9lan haussier renouvel\u00e9 et \u00e9ventuellement \u00e9tendre la plus grande tendance \u00e0 la hausse. D'un autre c\u00f4t\u00e9, si le niveau de 4 150 $ c\u00e8de la place sous une pression de vente soutenue, Ethereum pourrait faire face \u00e0 un retracement plus profond. Le prochain soutien solide se situe autour de 3 900 $, un niveau qui s'aligne sur les zones de support \u00e0 temps sup\u00e9rieur. Cela en fait un domaine crucial pour les taureaux \u00e0 d\u00e9fendre, car un \u00e9chec \u00e0 y tenir pourrait changer le sentiment du march\u00e9 et signaler le d\u00e9but d'une correction plus \u00e9tendue. Le prochain mouvement d'Ethereum d\u00e9pend des niveaux de prix cl\u00e9s dans son analyse d'Ethereum, Ash Crypto a soulign\u00e9 l'importance de l'\u00e9lan et des niveaux cl\u00e9s \u00e0 surveiller de pr\u00e8s. Il a soulign\u00e9 que ETH se n\u00e9gocie actuellement dans une structure baissi\u00e8re \u00e0 court terme, caract\u00e9ris\u00e9e par une s\u00e9rie de hauts inf\u00e9rieurs et de bas inf\u00e9rieurs sur le graphique.\u00a0 Lecture connexe: Ethereum approche 5 000 $ apr\u00e8s un rallye mensuel de 45%, une augmentation du carburant de la clart\u00e9 des baleines et de la clart\u00e9 r\u00e9glementaire Malgr\u00e9 cette faiblesse temporaire, Ash a soulign\u00e9 qu'une \u00e9vasion au-dessus de la cha\u00eene qui tombe serait un changement majeur de l'\u00e9lan. Une telle d\u00e9cision renverserait les perspectives baissi\u00e8res actuelles dans une perspective de hausse, signalant la possibilit\u00e9 d'une pression \u00e0 la hausse renouvel\u00e9e et d'une continuation potentielle de la tendance \u00e0 la hausse plus large. \u00c0 la baisse, le soutien le plus critique demeure \u00e0 4 150 $. Si ce niveau ne tient pas, le prochain soutien solide peut \u00eatre trouv\u00e9 \u00e0 3 900 $. Quant \u00e0 la hausse, la r\u00e9sistance \u00e0 regarder est de 4 788 $. Un retest et une \u00e9vasion r\u00e9ussis au-dessus de ce niveau confirmeraient probablement un fort renversement haussier, ouvrant la porte \u00e0 ETH pour passer dans un territoire inexplor\u00e9. Image en vedette de Getty Images, graphique de TradingView.com",
+                "original_title": "Ethereum Price Squeezed In Falling Channel \u2013 Bulls Eye Rebound To $4,788 If This Support Holds",
+                "source": "NewsBTC",
+                "timestamp": 1755720004.0,
+                "url": "https://www.newsbtc.com/news/ethereum/ethereum-in-falling-channel/",
+                "symbols": [
+                    "ETH",
+                    "BTC"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.6017917990684509,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.15654423832893372
+            },
+            {
+                "title": "Solana n'est pas mort? Ce retest de la limite sup\u00e9rieure pourrait pr\u00e9parer le terrain pour 268 $",
+                "text": "Solana (Sol) est de nouveau entr\u00e9 sous les projecteurs alors que les analystes p\u00e8sent sur sa trajectoire de prix potentiel. Malgr\u00e9 la volatilit\u00e9 et les baisses r\u00e9cents, une nouvelle analyse technique sugg\u00e8re que l'Altcoin pourrait se pr\u00e9parer pour une d\u00e9cision majeure qui pourrait voir son prix monter en fl\u00e8che \u00e0 environ 268 $. Le triangle ascendant r\u00e9v\u00e8le que Solana cible les prochains cibles depuis des mois, le prix de Solana s'est n\u00e9goci\u00e9 sur le c\u00f4t\u00e9 malgr\u00e9 un sommet de 293 $ en janvier 2025. En raison de la volatilit\u00e9 prolong\u00e9e et des fluctuations des prix, beaucoup avaient pr\u00e9sum\u00e9 les morts altcoin populaires. Mais les graphiques sugg\u00e8rent le contraire.\u00a0 Lecture connexe: Ethereum m\u00e8ne des entr\u00e9es de crypto de 3,75 milliards de dollars, XRP et Solana rejoignent le parti Jonathan Carter, un technicien du march\u00e9 cryptographique sur les m\u00e9dias sociaux X, a mis en \u00e9vidence une structure convaincante sur le graphique quotidien Solana, soulignant que le prix de l'Altcoin est actuellement en train de redireter la limite sup\u00e9rieure d'un triangle ascendant \u00e0 long terme. Selon Carter, ce retest survient apr\u00e8s une fausse \u00e9vasion pr\u00e9c\u00e9dente, qui a initialement pi\u00e9g\u00e9 les taureaux et a renvoy\u00e9 Solana dans la consolidation. Cette fois, cependant, la configuration semble plus prometteuse, avec SOL trouvant un soutien coh\u00e9rent le long de sa ligne de tendance ascendante tout en s'installant progressivement contre la r\u00e9sistance.\u00a0 Carter a not\u00e9 que la structure quotidienne de Solana montre des zones de r\u00e9sistance claires autour des 180 $ & # 8211; Les niveaux de 185 $, qui ont plafonn\u00e9 les progr\u00e8s des prix plusieurs fois tout au long de l'ann\u00e9e. Un rebond confirm\u00e9 de la r\u00e9gion pourrait ouvrir la porte \u00e0 SOL pour r\u00e9cup\u00e9rer des objectifs plus \u00e9lev\u00e9s \u00e0 205 $ et 225 $, une \u00e9ventuelle \u00e9vasion \u00e9tablissant une course vers 268 $. L'Altcoin est actuellement assis \u00e0 181 $, une augmentation de ces cibles sup\u00e9rieures repr\u00e9senterait une augmentation solide de 13,26%, 24,31% et 48,07%, respectivement.\u00a0 Sur la base du graphique de l'analyste, la pr\u00e9sence de la moyenne mobile (MA) de 100 jours juste en dessous des niveaux actuels fournit une confirmation suppl\u00e9mentaire pour une inversion optimiste potentielle. Dans le m\u00eame temps, les mod\u00e8les de volume sugg\u00e8rent un int\u00e9r\u00eat croissant pour l'accumulation. Pour l'instant, Carter souligne que la gamme de prix de Solana reste & # 8211; li\u00e9e entre 165 $ et 190 $. Cependant, la structure de resserrement du triangle ascendante signale qu'une cassure peut \u00eatre proche.\u00a0 Si les acheteurs parviennent \u00e0 d\u00e9fendre la zone actuelle, la reprise de Solana pourrait devenir potentiellement plus forte, en particulier compte tenu de ses ant\u00e9c\u00e9dents de rassemblements nets une fois que les conditions du march\u00e9 s'am\u00e9liorent et que les niveaux de r\u00e9sistance sont \u00e9limin\u00e9s.\u00a0 Poll \u00e0 court terme avant le rallye?\u00a0 Dans d'autres nouvelles, l'analyste de Crypto Ali Martinez a \u00e9galement partag\u00e9 des informations sur l'action des prix de Solana, pr\u00e9disant que l'Altcoin peut vivre un recul temporaire avant de mettre en sc\u00e8ne son prochain rassemblement. Son tableau de 8 heures, affich\u00e9 sur X, sugg\u00e8re que Sol, se n\u00e9gociant actuellement au-dessus de 181 $, pourrait faire face \u00e0 une pression \u00e0 la baisse qui rapproche le prix de 160 $.\u00a0 Lecture connexe: Les multiples opportunit\u00e9s de Solana au milieu de la pouss\u00e9e pour briser 200 $ Cette correction projet\u00e9e n'invaliderait pas n\u00e9cessairement la th\u00e8se haussi\u00e8re de Solana; Au lieu de cela, Martinez affirme qu'il pourrait pr\u00e9senter une opportunit\u00e9 pour les acheteurs strat\u00e9giques de s'accumuler avant la prochaine jambe ascendante. L'analyste identifie la r\u00e9gion de 160 $ comme une zone de soutien cl\u00e9 o\u00f9 les acheteurs emp\u00eacheront probablement de nouvelles baisses de prix. Dans ce contexte, la faiblesse projet\u00e9e de Solana pourrait agir comme un tremplin pour un rebond plus fort.\u00a0 Image en vedette d'Adobe Stock, graphique de TradingView.com",
+                "original_title": "Solana Is Not Dead? This Upper Boundary Retest Could Set The Stage For $268",
+                "source": "NewsBTC",
+                "timestamp": 1755716402.0,
+                "url": "https://www.newsbtc.com/news/solana/solana-is-not-dead/",
+                "symbols": [
+                    "XRP",
+                    "SOL",
+                    "ETH"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.7003829479217529,
+                "impact_score": 1.0,
+                "risk_class": "Pump",
+                "risk_score": 0.17018288373947144
+            },
+            {
+                "title": "Le boom du Tr\u00e9sor Ethereum stimule la demande: le march\u00e9 peut-il g\u00e9rer les risques?",
+                "text": "Ethereum subit une correction apr\u00e8s des semaines de dynamique forte, mais l'adoption institutionnelle remod\u00e8le tranquillement la dynamique \u00e0 long terme du march\u00e9. Selon Cryptquant, la populaire \u00abstrat\u00e9gie de tr\u00e9sorerie cryptographique\u00bb, depuis longtemps associ\u00e9e au bitcoin, est maintenant entr\u00e9e dans l'\u00e9cosyst\u00e8me Ethereum. Plus de 16 entreprises ont d\u00e9j\u00e0 adopt\u00e9 cette approche, d\u00e9tenant collectivement 2 455 943 ETH d'une valeur de pr\u00e8s de 11,0 milliards de dollars. Cette allocation significative a effectivement verrouill\u00e9 une partie importante de l'ETH, r\u00e9duisant l'offre disponible sur le march\u00e9 libre. Lire connexe: Ethereum fait face \u00e0 un court int\u00e9r\u00eat historique: le rallye pourrait d\u00e9clencher des liquidations massives Le mouvement du Tr\u00e9sor refl\u00e8te le livre de jeu de Bitcoin, o\u00f9 les soci\u00e9t\u00e9s ont strat\u00e9giquement accumul\u00e9 BTC comme un actif de r\u00e9serve. Cependant, Ethereum pr\u00e9sente des diff\u00e9rences importantes. Contrairement \u00e0 l'offre durs de 21 millions de Bitcoin, ETH n'a pas de maximum fixe. Au lieu de cela, sa dynamique d'approvisionnement est fa\u00e7onn\u00e9e par l'activit\u00e9 du r\u00e9seau et le m\u00e9canisme de br\u00fblure introduit avec EIP-1559. Bien que ces m\u00e9canismes puissent cr\u00e9er des p\u00e9riodes d\u00e9flationnaires, l\u2019offre totale d\u2019Ethereum a encore augment\u00e9 d\u2019environ 1 million d\u2019ETH (~ 0,9%) au cours de la derni\u00e8re ann\u00e9e. Cette dualit\u00e9 pr\u00e9sente \u00e0 la fois l'opportunit\u00e9 et le risque. D'une part, les avoirs institutionnels r\u00e9duisent l'approvisionnement en liquide et renforcent le r\u00f4le d'Ethereum en tant qu'actif strat\u00e9gique. D'un autre c\u00f4t\u00e9, l'\u00e9mission variable signifie que pendant les p\u00e9riodes de faible activit\u00e9 de r\u00e9seau, la croissance de l'approvisionnement pourrait acc\u00e9l\u00e9rer, diluant les effets de raret\u00e9. Comme Ethereum teste les niveaux de demande cl\u00e9s, la strat\u00e9gie du Tr\u00e9sor peut s'av\u00e9rer essentielle pour fa\u00e7onner sa prochaine tendance majeure. Ethereum: les risques de concentration et de levier du Tr\u00e9sor Selon l'analyse de Cryptquant, la r\u00e9cente tendance d'adoption du Tr\u00e9sor d'Ethereum comporte \u00e0 la fois des opportunit\u00e9s et des risques. D'une part, les bons du Tr\u00e9sor institutionnel ont verrouill\u00e9 des milliards d'ETH, ce qui r\u00e9duit l'offre disponible sur le march\u00e9. Cependant, la structure de ces exploitations pr\u00e9sente \u00e9galement des risques de concentration. Par exemple, Bitmin Immersion Technologies, qui a ouvertement d\u00e9clar\u00e9 son objectif de contr\u00f4ler 5% de tous les ETH, ne d\u00e9tient actuellement que 0,7%. Le plus grand d\u00e9tenteur, SharpLink Gaming, ne g\u00e8re que 0,6%. Cela signifie que l'adoption du Tr\u00e9sor est toujours concentr\u00e9e parmi quelques joueurs. Si un ou deux grands d\u00e9tenteurs devaient d\u00e9charger leurs r\u00e9serves, le march\u00e9 pourrait faire face \u00e0 de fortes chocs de prix. Au-del\u00e0 de l'accumulation ponctuelle, l'effet de levier est un autre facteur croissant. Cryptotique souligne que les int\u00e9r\u00eats ouverts \u00e0 terme de l'ETH ont grimp\u00e9 \u00e0 environ 38 milliards de dollars. Ce niveau d'effet de levier signifie que de grandes oscillations de prix peuvent d\u00e9clencher des liquidations en cascade. Sur les march\u00e9s cryptographiques, l'effet de levier est synonyme de volatilit\u00e9. La fragilit\u00e9 de cette configuration \u00e9tait \u00e9vidente le 14 ao\u00fbt, lorsqu'un effacement de seulement 2 milliards de dollars en int\u00e9r\u00eats ouverts a entra\u00een\u00e9 290 millions de dollars de liquidations forc\u00e9es et une baisse de 7% du prix de l'ETH. Cet \u00e9v\u00e9nement souligne \u00e0 quelle vitesse les choses peuvent en spirale lorsque la liquidit\u00e9 est mince et que l'effet de levier est \u00e9lev\u00e9. La vente au comptant seule ne stimule pas la volatilit\u00e9 - les positions lanc\u00e9es magnifient chaque mouvement. Dans ce contexte, l'adoption du Tr\u00e9sor d'Ethereum peut obtenir une demande \u00e0 long terme, mais les avoirs concentr\u00e9s et l'effet de levier croissant restent des vuln\u00e9rabilit\u00e9s cl\u00e9s. Lecture connexe: les d\u00e9tenteurs de Bitcoin \u00e0 court terme se retournent aux pertes pour la premi\u00e8re fois depuis janvier, l'ETH teste les niveaux de liquidit\u00e9 critiques que l'action des prix d'Ethereum sur le graphique de 3 jours montre qu'apr\u00e8s s'inscrire \u00e0 un niveau local pr\u00e8s de 4 790 $, ETH est entr\u00e9 dans une phase de correction mais reste bien au-dessus des moyennes mobiles cl\u00e9s. \u00c9changeant actuellement environ 4 227 $, le prix s'est retir\u00e9 de son apog\u00e9e mais d\u00e9tient toujours la structure haussi\u00e8re plus large. Le SMA de 50 jours (2 687 $), le SMA 100 jours (2 838 $) et le SMA de 200 jours (2 912 $) sont tous \u00e0 la hausse, refl\u00e9tant une forte \u00e9lan sous-jacente. Surtout, ETH se n\u00e9gocie consid\u00e9rablement au-dessus de ces moyennes \u00e0 long terme, confirmant que la tendance haussi\u00e8re reste intacte malgr\u00e9 le recul. Le fort rebond de moins de 3 000 $ plus t\u00f4t en \u00e9t\u00e9 a marqu\u00e9 un renversement d\u00e9cisif apr\u00e8s des mois de consolidation, \u00e9tablissant les bases de la derni\u00e8re \u00e9vasion. Lecture connexe: Ethereum atteint 4 350 $ Pool de liquidit\u00e9: peut-on demander? Si les Bulls parviennent \u00e0 d\u00e9tenir la zone de soutien de 4 200 $ \u00e0 4 100 $, l'ETH pourrait rel\u00e2cher la r\u00e9sistance pr\u00e8s de 4 790 $ et potentiellement passer \u00e0 la d\u00e9couverte des prix. \u00c0 l'inverse, le non-respect de ce niveau pourrait voir un retest de la fourchette de 3 800 $ \u00e0 3 600 $. Les s\u00e9ances \u00e0 venir seront essentielles pour confirmer si Ethereum reprend sa tendance \u00e0 la hausse ou entre une correction plus profonde. Image en vedette de Dall-E, graphique de TradingView",
+                "original_title": "Ethereum Treasury Boom Drives Demand: Can The Market Handle The Risks?",
+                "source": "NewsBTC",
+                "timestamp": 1755712850.0,
+                "url": "https://www.newsbtc.com/news/ethereum/ethereum-treasury-boom-drives-demand-can-the-market-handle-the-risks/",
+                "symbols": [
+                    "ETH",
+                    "BTC"
+                ],
+                "source_weight": 0.7,
+                "processed": false,
+                "sentiment": 0.7559799551963806,
+                "impact_score": 1.0,
+                "risk_class": "Regulatory",
+                "risk_score": 0.18534503877162933
             },
             {
                 "title": "La d\u00e9centralisation du bitcoin sous menace? Hashrate est maintenant concentr\u00e9 dans ces deux piscines",
@@ -45822,160 +46377,43 @@
             },
             {
                 "title": "Shiba INU fait une \u00e9tape majeure avec le mod\u00e8le de gouvernance communautaire - D\u00e9tails",
-                "text": "Shiba INU a introduit un changement majeur dans son syst\u00e8me de prise de d\u00e9cision communautaire gr\u00e2ce \u00e0 Shib Doggy Dao, apportant de nouvelles options de vote qui d\u00e9passent l'ancienne d\u00e9pendance \u00e0 l'\u00e9gard de la jalonnement des jetons. D\u00e9sormais, les membres de la communaut\u00e9 peuvent utiliser les soldes de jetons ERC-20 pour participer \u00e0 la gouvernance, ou choisir le vote quadratique pour emp\u00eacher les grands d\u00e9tenteurs de dominer le processus.\u00a0 Avec 12 millions de dollars en soutien des principaux acteurs de l'industrie et des plans pour une nouvelle cha\u00eene de couche 3, le r\u00e9seau Shiba INU se pr\u00e9pare \u00e0 une adoption plus large et \u00e0 un r\u00f4le plus fort dans l'espace Web3. Dogy Doggy remani\u00e9: vote plus fort et gouvernance plus \u00e9quitable L'organisme de gouvernance de l'\u00e9cosyst\u00e8me de Shiba INU, le Doggy Dao, a d\u00e9ploy\u00e9 un cadre de vote redessin\u00e9 qui rend la participation plus inclusive et s\u00e9curis\u00e9e. Jusqu'\u00e0 pr\u00e9sent, les propositions de gouvernance se sont fortement appuy\u00e9es sur le jalonnement de shibaswap osseux (os), ce qui a limit\u00e9 la flexibilit\u00e9 et a cr\u00e9\u00e9 des risques d'attaques majoritaires. Lecture connexe: Quelle est la prochaine \u00e9tape pour XRP apr\u00e8s s'\u00eatre \u00e9cras\u00e9 en dessous de 3 $? Analyste r\u00e9pond \u00e0 la mise \u00e0 jour, les membres de la communaut\u00e9 peuvent d\u00e9sormais voter directement avec leurs soldes de jeton ERC-20. Les d\u00e9tenteurs de jetons n'ont plus besoin de mettre les actifs pour avoir leur mot \u00e0 dire dans la gouvernance, ce qui facilite la prise de d\u00e9cision de la prise de d\u00e9cision. Dans le m\u00eame temps, le vote quadratique ajoute une autre couche de protection. Dans ce syst\u00e8me, le co\u00fbt d'obtention du pouvoir de vote suppl\u00e9mentaire augmente fortement, ce qui rend presque impossible pour les riches d\u00e9tenteurs de contr\u00f4ler les r\u00e9sultats. Au lieu d'\u00eatre limit\u00e9s \u00e0 un mod\u00e8le fixe, ils peuvent d\u00e9sormais choisir la m\u00e9thode de gouvernance qui convient le mieux \u00e0 leur proposition. Qu'il s'agisse de jalonner, de voter en jetons directs ou de vote quadratique, la flexibilit\u00e9 permet un meilleur alignement entre la nature de la d\u00e9cision et le nombre de votes.\u00a0 La vision plus grande de Shibarium: l'identit\u00e9, la couche 3 et le gain de traitement tout en am\u00e9liorant la gouvernance est une r\u00e9alisation importante, les d\u00e9veloppeurs de Shiba INU ont des plans encore plus importants pour l'avenir du r\u00e9seau. Des travaux sont d\u00e9j\u00e0 en cours sur un syst\u00e8me de vote bas\u00e9 sur l'identit\u00e9 qui ne donnera \u00e0 chaque personne un seul vote, quel que soit le nombre de jetons qu'il d\u00e9tient. Le syst\u00e8me de vote r\u00e9duit l'\u00e9cart entre les baleines et les petits d\u00e9tenteurs, garantissant que tout le monde a une voix \u00e9gale. LECTURE CONNEXE: DOGECOIN EYES 1 000% Augmentation pour atteindre 2,55 $ AHT Ce cycle L'\u00e9quipe souhaite lancer une nouvelle cha\u00eene de couche 3 l'ann\u00e9e prochaine et a lev\u00e9 12 millions de dollars aupr\u00e8s de bailleurs de fonds comme Polygon Labs et AnimoCA. La prochaine cha\u00eene se d\u00e9roulera sur le plus r\u00e9cent jeton de Shiba INU, Treat (Treat), qui r\u00e9compense les activit\u00e9s Web3. Treat est d\u00e9j\u00e0 r\u00e9pertori\u00e9 sur des \u00e9changes majeurs comme MEXC, Bitget et Gate, signalant un int\u00e9r\u00eat croissant et l'adoption.\u00a0 Au-del\u00e0 de Treat, les autres jetons de l'\u00e9cosyst\u00e8me Shiba INU joueront \u00e9galement des r\u00f4les distincts. Shibaswap osseux (os) et Dogekiller (en laisse) serviront diff\u00e9rentes fonctions sur la cha\u00eene, aidant \u00e0 alimenter le syst\u00e8me multi-token qui prend en charge le shibarium.\u00a0 Le nouveau mod\u00e8le de gouvernance se connecte \u00e0 la plus grande tendance Web3 de l'identit\u00e9 num\u00e9rique. Shibarium a un syst\u00e8me de points karma qui mesure la r\u00e9putation et la confiance dans toute la communaut\u00e9. En liant le vote sur l'identit\u00e9 et la r\u00e9putation, Shiba INU passe \u00e0 un syst\u00e8me plus s\u00fbr et plus fiable qui l'aide \u00e0 atteindre un milliard d'utilisateurs. Image en vedette de Dall.E, graphique de TradingView.com",
+                "text": "Shiba INU a introduit un changement majeur dans son syst\u00e8me de prise de d\u00e9cision communautaire gr\u00e2ce \u00e0 Shib Doggy Dao, apportant de nouvelles options de vote qui d\u00e9passent l'ancienne d\u00e9pendance \u00e0 l'\u00e9gard de la jalonnement des jetons. D\u00e9sormais, les membres de la communaut\u00e9 peuvent utiliser les soldes de jetons ERC-20 pour participer \u00e0 la gouvernance, ou choisir le vote quadratique pour emp\u00eacher les grands d\u00e9tenteurs de dominer le processus.\u00a0 Avec 12 millions de dollars en soutien des principaux acteurs de l'industrie et des plans pour une nouvelle cha\u00eene de couche 3, le r\u00e9seau Shiba INU se pr\u00e9pare \u00e0 une adoption plus large et \u00e0 un r\u00f4le plus fort dans l'espace Web3. Dogy Doggy remani\u00e9: vote plus fort et gouvernance plus \u00e9quitable L'organisme de gouvernance de l'\u00e9cosyst\u00e8me de Shiba INU, le Doggy Dao, a d\u00e9ploy\u00e9 un cadre de vote redessin\u00e9 qui rend la participation plus inclusive et s\u00e9curis\u00e9e. Jusqu'\u00e0 pr\u00e9sent, les propositions de gouvernance se sont fortement appuy\u00e9es sur le jalonnement de shibaswap osseux (os), ce qui a limit\u00e9 la flexibilit\u00e9 et a cr\u00e9\u00e9 des risques d'attaques majoritaires. Lecture connexe: Quelle est la prochaine \u00e9tape pour XRP apr\u00e8s s'\u00eatre \u00e9cras\u00e9 en dessous de 3 $? Analyste r\u00e9pond \u00e0 la mise \u00e0 jour, les membres de la communaut\u00e9 peuvent d\u00e9sormais voter directement avec leurs soldes de jeton ERC-20. Les d\u00e9tenteurs de jetons n'ont plus besoin de mettre des actifs pour avoir leur mot \u00e0 dire dans la gouvernance, ce qui facilite la prise de d\u00e9cision pour plus de la prise de d\u00e9cision. Dans le m\u00eame temps, le vote quadratique ajoute une autre couche de protection. Dans ce syst\u00e8me, le co\u00fbt d'obtention du pouvoir de vote suppl\u00e9mentaire augmente fortement, ce qui rend presque impossible pour les riches d\u00e9tenteurs de contr\u00f4ler les r\u00e9sultats. Au lieu d'\u00eatre limit\u00e9s \u00e0 un mod\u00e8le fixe, ils peuvent d\u00e9sormais choisir la m\u00e9thode de gouvernance qui convient le mieux \u00e0 leur proposition. Qu'il s'agisse de jalonner, de voter en jetons directs ou de vote quadratique, la flexibilit\u00e9 permet un meilleur alignement entre la nature de la d\u00e9cision et le nombre de votes.\u00a0 La vision plus grande de Shibarium: l'identit\u00e9, la couche 3 et le gain de traitement tout en am\u00e9liorant la gouvernance est une r\u00e9alisation importante, les d\u00e9veloppeurs de Shiba INU ont des plans encore plus importants pour l'avenir du r\u00e9seau. Des travaux sont d\u00e9j\u00e0 en cours sur un syst\u00e8me de vote bas\u00e9 sur l'identit\u00e9 qui ne donnera \u00e0 chaque personne un seul vote, quel que soit le nombre de jetons qu'il d\u00e9tient. Le syst\u00e8me de vote r\u00e9duit l'\u00e9cart entre les baleines et les petits d\u00e9tenteurs, garantissant que tout le monde a une voix \u00e9gale. LECTURE CONNEXE: DOGECOIN EYES 1 000% Augmentation pour atteindre 2,55 $ AHT Ce cycle L'\u00e9quipe souhaite lancer une nouvelle cha\u00eene de couche 3 l'ann\u00e9e prochaine et a lev\u00e9 12 millions de dollars aupr\u00e8s de bailleurs de fonds comme Polygon Labs et AnimoCA. La prochaine cha\u00eene se d\u00e9roulera sur le plus r\u00e9cent jeton de Shiba INU, Treat (Treat), qui r\u00e9compense les activit\u00e9s Web3. Treat est d\u00e9j\u00e0 r\u00e9pertori\u00e9 sur des \u00e9changes majeurs comme MEXC, Bitget et Gate, signalant un int\u00e9r\u00eat croissant et l'adoption.\u00a0 Au-del\u00e0 de Treat, les autres jetons de l'\u00e9cosyst\u00e8me Shiba INU joueront \u00e9galement des r\u00f4les distincts. Shibaswap osseux (os) et Dogekiller (en laisse) serviront diff\u00e9rentes fonctions sur la cha\u00eene, aidant \u00e0 alimenter le syst\u00e8me multi-token qui prend en charge le shibarium.\u00a0 Le nouveau mod\u00e8le de gouvernance se connecte \u00e0 la plus grande tendance Web3 de l'identit\u00e9 num\u00e9rique. Shibarium a un syst\u00e8me de points karma qui mesure la r\u00e9putation et la confiance dans toute la communaut\u00e9. En liant le vote sur l'identit\u00e9 et la r\u00e9putation, Shiba INU passe \u00e0 un syst\u00e8me plus s\u00fbr et plus fiable qui l'aide \u00e0 atteindre un milliard d'utilisateurs. Image en vedette de Dall.E, graphique de TradingView.com",
                 "original_title": "Shiba Inu Takes Major Step With Community Governance Model \u2014 Details",
                 "source": "NewsBTC",
                 "timestamp": 1755698448.0,
                 "url": "https://www.newsbtc.com/shiba-inu/shiba-inu-governance-model/",
                 "symbols": [
-                    "XRP",
                     "SHIB",
+                    "DOGE",
                     "MATIC",
-                    "DOGE"
+                    "XRP"
                 ],
                 "source_weight": 0.7,
                 "processed": true,
                 "sentiment": 0.7739334106445312,
                 "impact_score": 1.0,
                 "risk_class": "Regulatory",
-                "risk_score": 0.17653927206993103
-            },
-            {
-                "title": "Little Pepe recueille 22,1 millions de dollars pour EVM Layer-2 alors que Memecoins sur le th\u00e8me des grenouilles d\u00e9tient un cr\u00e9neau de 5,6 milliards de dollars",
-                "text": "Little Pepe ($ lilpepe) a lanc\u00e9 une solution de couche 2 sur la machine virtuelle Ethereum et est pr\u00eat \u00e0 accueillir une nouvelle g\u00e9n\u00e9ration de pi\u00e8ces de m\u00e8mes de grenouille. Les transactions \u00e0 faible co\u00fbt et \u00e0 la foudre sur Little Pepe r\u00e9solvent les probl\u00e8mes de congestion et de gaz bien connus d'Ethereum. Et comme l'h\u00e9ritier apparent \u00e0 la domination du march\u00e9 de Pepe, Little Pepe pourrait accueillir un monde en constante expansion de pi\u00e8ces MEME. Tout cela arrive \u00e0 un moment o\u00f9 le march\u00e9 des pi\u00e8ces meme est en augmentation, et les jetons li\u00e9s aux grenouilles ont construit leur propre cr\u00e9neau d'une valeur de 5,65 milliards de dollars. $ Lilpepe Pr\u00e9vente devient la meilleure pi\u00e8ce de monnaie pour acheter maintenant la pr\u00e9vente de Lilpepe a cl\u00f4tur\u00e9 sa sc\u00e8ne 10 t\u00f4t alors que les investisseurs se d\u00e9versaient dans le projet, augmentant le total de la pr\u00e9vente \u00e0 plus de 22 millions de dollars. Le projet $ lilpepe vante des taxes commerciales, des protections anti-bot et un cadeau de 777 000 $. Il arrive tout comme $ Pepe, $ Brett et d'autres pi\u00e8ces de grenouille maintiennent une part de march\u00e9 importante. Pepe ($ pepe) est parmi les pi\u00e8ces de m\u00e8mes les plus liquides, avec une capitalisation de plusieurs milliards de dollars et des rafales de volume fr\u00e9quentes; C'est en baisse de plus d'un quart en ao\u00fbt. Brett (bas\u00e9) ($ Brett) a \u00e9clat\u00e9 en 2024, un acteur majeur de la cha\u00eene de base de Coinbase. Il a atteint son sommet de 0,23 $ d\u00e9but d\u00e9cembre 2024. $ Brett est toujours phare pour les pi\u00e8ces MEME de base. Turbo ($ turbo) d\u00e9tient une capitalisation boursi\u00e8re de 280 millions de dollars, significative m\u00eame pour une pi\u00e8ce de m\u00e8mes, avec une pr\u00e9sence persistante dans le sous-ensemble de Frog. Un secteur de grenouilles avec des pi\u00e8ces de m\u00e8mes sur le th\u00e8me de la grenouille de poids r\u00e9elle reste une tranche importante du march\u00e9: la cat\u00e9gorie montre une capitalisation boursi\u00e8re agr\u00e9g\u00e9e d'environ 5,65 milliards de dollars. Dans cette cohorte, $ Pepe d\u00e9tient environ 4,36 milliards de dollars, tandis que $ Brett (base) se n\u00e9gocie pr\u00e8s de 0,05 $ avec une capitalisation boursi\u00e8re d'environ 490 millions de dollars. Un jeton du top 50 et plusieurs au milieu de rang avant que le secteur ne c\u00e8de la place \u00e0 des pi\u00e8ces de petite capitalisation au bas de la liste. Pourtant, la capitalisation boursi\u00e8re globale du secteur est assez impressionnante. Et les performances de nombreux jetons individuels, tandis que r\u00e9cemment, ont n\u00e9anmoins augment\u00e9 en 2025. Cela suit les tendances plus larges du march\u00e9 - l'int\u00e9r\u00eat m\u00eame pour les meilleures pi\u00e8ces de monnaie a reflu\u00e9 et a circul\u00e9 tout au long de 2025 avec des rotations p\u00e9riodiques dans le segment et des pointes ax\u00e9es sur le sentiment. C'est un niche de march\u00e9 m\u00fbr pour un concurrent pour d\u00e9fier $ pepe pour sa couronne. Entrez Little Pepe ($ lilpepe), un jeton offrant plus que Pepe ne pourrait jamais. Le peu de Pepe construit contrairement \u00e0 la plupart des jetons meme qui se lancent sur les cha\u00eenes existantes et absorbent les co\u00fbts de gaz, le petit Pepe d\u00e9ploie une couche 2 compatible EVM. La cha\u00eene Little Pepe poss\u00e8de z\u00e9ro acheter / vendre des taxes sur le jeton $ lilpepe. Le livre blanc du projet d\u00e9crit une offre totale de 100B avec 26,5% allou\u00e9e \u00e0 la pr\u00e9vente, 30% aux r\u00e9serves de cha\u00eene, 13,5% \u00e0 la mise en place & # 38; r\u00e9compenses et 10% chacune \u00e0 la liquidit\u00e9, \u00e0 l'allocation dex et \u00e0 la commercialisation. Ultra-rapide, s\u00e9curis\u00e9 et bon march\u00e9 - Little Pepe est la cha\u00eene parfaite pour construire un empire de pi\u00e8ce de m\u00e8mes. Le projet pr\u00e9sente m\u00eame des protections anti-sniper (anti-bot) et un pav\u00e9 natif destin\u00e9 \u00e0 donner \u00e0 de nouveaux jetons un d\u00e9marrage plus \u00e9quitable. La liquidit\u00e9 est verrouill\u00e9e lorsque les jetons se lancent, emp\u00eachant une arnaque commune o\u00f9 les d\u00e9veloppeurs accrochent tous les jetons pendant la nuit. Un audit de contrat intelligent certik et une page pr\u00e9liminaire CoinmarketCap aident \u00e0 faire avancer la vente. Il y a aussi le cadeau significatif de 777 000 $. Les termes sont simples - une entr\u00e9e de pr\u00e9vente minimale de 100 $ plus les t\u00e2ches sociales - et les gagnants sont annonc\u00e9s sur le site du projet. 10 Les gagnants chanceux de la communaut\u00e9 recevront chacun 77 000 $ en $ Lilpepe. Le petit pas Pepe Little Pepe\u2019s Pitch est que l'infrastructure (un L2), pas seulement une mascotte sympathique, peut aider le jeton \u00e0 rivaliser lorsque les volumes de monnaie de m\u00e8mes. Des frais de baisse, des \u00e9changes en franchise d'imp\u00f4t et des rails anti-bot peuvent plaire aux commer\u00e7ants de d\u00e9tail qui ont \u00e9t\u00e9 \u00e9valu\u00e9s par gaz ou br\u00fbl\u00e9s par des tireurs d'\u00e9lite de lancement dans des cycles ant\u00e9rieurs. $ Lilpepe a de la place pour grandir, de grandes chaussures \u00e0 remplir et l'ambition de le faire. Faites vos propres recherches; Cependant, ce n'est pas un conseil financier.",
-                "original_title": "Little Pepe Raises $22.1M for EVM Layer-2 as Frog-Themed Memecoins Hold a $5.6B Niche",
-                "source": "NewsBTC",
-                "timestamp": 1755696328.0,
-                "url": "https://www.newsbtc.com/news/little-pepe-raises-22m-frog-memecoins-hold-5-6b-niche/",
-                "symbols": [
-                    "ETH"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": 0.6905716061592102,
-                "impact_score": 1.0,
-                "risk_class": "Regulatory",
-                "risk_score": 0.21020515263080597
-            },
-            {
-                "title": "Panique ou profit? L'analyste dit que XRP en dessous de 3 $ est une \u00abb\u00e9n\u00e9diction massive\u00bb",
-                "text": "Apr\u00e8s la br\u00e8ve augmentation qui a suivi la conclusion de la poursuite Ripple, les commer\u00e7ants disent que l'\u00e9lan est rapidement disparu. Bitcoin a gliss\u00e9 \u00e0 environ 114 000 $, et avec lui, XRP a touch\u00e9 2,94 $. Cette baisse a entra\u00een\u00e9 le jeton de moins de 3 $ une fois de plus, d\u00e9clenchant de nouveaux arguments entre ceux qui voient une chance d'achat et ceux qui restent sceptiques. Lecture connexe: Cardano grimpe au 8e, poussant Dogecoin et Tron dans les cadres de l'analyste des rangs plongeant comme l'opportunit\u00e9 selon les commentaires de Coach JV, un avocat XRP bien connu, le retour aux niveaux de sous-3 $ devrait \u00eatre consid\u00e9r\u00e9 comme une chance d'acheter. & # 160; Il a appel\u00e9 XRP moins de 3 $ \u00abune b\u00e9n\u00e9diction massive\u00bb. Il a dit aux abonn\u00e9s que la plupart des gens paniquent lorsque les prix baissent, tandis que les investisseurs patients ach\u00e8tent lentement au fil du temps. Il a utilis\u00e9 une image agricole pour faire valoir: les gens ont tendance \u00e0 acheter \u00e0 la r\u00e9colte, a-t-il dit, mais l'argent intelligent ach\u00e8te lorsque le champ semble vide. Ce message se situe aux c\u00f4t\u00e9s de donn\u00e9es montrant que XRP a \u00e9t\u00e9 plus baissier depuis la pointe de la combinaison de la loi. & # 160; XRP moins de 3 $ est une b\u00e9n\u00e9diction massive. La plupart des gens paniquent lorsque les prix sont bas, mais c'est l\u00e0 que la richesse est construite. Vous connaissez d\u00e9j\u00e0 le jeu, l'accumulation sur les march\u00e9s lat\u00e9raux est ce qui met en place une richesse g\u00e9n\u00e9rationnelle lorsque le cycle tourne. Pensez-y comme des terres agricoles. Tout le monde veut acheter\u2026 - Coach, JV (@coachjv_) 18 ao\u00fbt 2025 Une scission au sein de la communaut\u00e9, tout le monde n'est pas d'accord avec ce point de vue. Un commentateur a fait valoir que XRP \u00e0 500 $ - pas 3 $ - serait la v\u00e9ritable b\u00e9n\u00e9diction. L'entra\u00eeneur JV a repouss\u00e9, disant que si un rallye extr\u00eame arrive, le gain ira \u00e0 ceux qui ont tenu les jours de baisse et ont continu\u00e9 \u00e0 ajouter \u00e0 leurs positions. Il a \u00e9galement utilis\u00e9 l'expression \u00abrichesse inimaginable\u00bb pour d\u00e9crire ce que les d\u00e9tenteurs \u00e0 long terme pourraient voir. Les rapports notent que la plupart des titulaires de XRP poss\u00e8dent moins de 500 jetons, ce qui aide \u00e0 expliquer pourquoi de nombreux investisseurs de d\u00e9tail se concentrent sur l'id\u00e9e de rendements transformateurs. Les indicateurs techniques brossent un tableau de mise en garde Selon les pr\u00e9visions actuelles des prix XRP, le jeton devrait baisser de 0,75% \u00e0 environ 2,87 $ avant le 19 septembre 2025. Sur la base de lectures techniques, le sentiment du march\u00e9 est r\u00e9pertori\u00e9 comme neutre et la peur & # 38; L'indice de cupidit\u00e9 enregistre 44 (peur). Au cours des 30 derniers jours, XRP a enregistr\u00e9 12/30 jours verts - soit 40% - avec une volatilit\u00e9 des prix \u00e0 4,80%. Ces chiffres sugg\u00e8rent un mouvement, mais pas de l'\u00e9lan en fulgage, et ils aident \u00e0 expliquer le ton mixte parmi les commer\u00e7ants. Lecture connexe: L'analyste indique que le support de 0,000010 de Shiba INU pourrait d\u00e9clencher la ligne de 3 $ de Bounce \u00e0 3 $: Opportunit\u00e9 d'achat ou d'avertissement? Pendant ce temps, les commer\u00e7ants \u00e0 court terme surveilleront l'action des prix autour de 3 $ pour des signes de suivi, tandis que les bailleurs de fonds \u00e0 plus long terme indiquent l'accumulation comme strat\u00e9gie. Selon les voix cit\u00e9es sur le march\u00e9, la patience et les achats r\u00e9guliers sont le chemin que certains choisissent. D'autres acteurs du march\u00e9 disent que la temp\u00e9rature des attentes avec des math\u00e9matiques claires est sage. Quoi qu'il en soit, le d\u00e9bat sur la question de savoir si une baisse est une b\u00e9n\u00e9diction ou un avertissement devrait se poursuivre car XRP trouve sa semelle apr\u00e8s la volatilit\u00e9 r\u00e9cente. Image en vedette de Meta, graphique de TradingView",
-                "original_title": "Panic Or Profit? Analyst Says XRP Below $3 Is A \u2018Massive Blessing\u2019",
-                "source": "NewsBTC",
-                "timestamp": 1755694804.0,
-                "url": "https://www.newsbtc.com/altcoin/panic-or-profit-analyst-says-xrp-below-3-is-a-massive-blessing/",
-                "symbols": [
-                    "DOGE",
-                    "ADA",
-                    "BTC",
-                    "TRX",
-                    "SHIB",
-                    "XRP"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": 0.7102698087692261,
-                "impact_score": 1.0,
-                "risk_class": "Neutral",
-                "risk_score": 0.18967661261558533
-            },
-            {
-                "title": "Ripple entre en accord avec Gemini avant l'introduction en bourse - voici ce que nous savons",
-                "text": "Crypto Soci\u00e9t\u00e9 a conclu un accord de cr\u00e9dit avec Crypto Exchange Gemini avant l'Offre publique initiale (IPO) de ce dernier. Le Crypto Exchange a r\u00e9v\u00e9l\u00e9 les d\u00e9tails de cet accord dans son dossier d'introduction en bourse, le montant qui devrait \u00eatre utilis\u00e9 pour financer certains co\u00fbts qui peuvent survenir lors de l'offre publique.\u00a0\u00a0 Les d\u00e9tails de l'accord de Ripple avec Gemini dans son dossier d'introduction en bourse aupr\u00e8s de la SEC, Gemini a r\u00e9v\u00e9l\u00e9 qu'il avait conclu un accord de cr\u00e9dit avec Ripple en juillet. En vertu de l'accord, la Crypto Exchange peut faire des demandes de pr\u00eat d'au moins 5 millions de dollars chacune et jusqu'\u00e0 un montant d'engagement global de 75 millions de dollars. En outre, l'engagement initial de 75 millions de dollars peut \u00eatre augment\u00e9 ou diminu\u00e9 de temps \u00e0 autre, sous r\u00e9serve de la r\u00e9alisation de certaines mesures sur lesquelles les deux parties ont convenu.\u00a0 Lecture connexe: Ripple CTO dit que le prochain projet est \u00abpr\u00eat \u00e0 la production\u00bb, qu'est-ce que c'est? Cependant, l'engagement global de l'accord de cr\u00e9dit entre G\u00e9meaux et Ripple ne peut d\u00e9passer 150 millions de dollars, ce qui signifie que c'est le cr\u00e9dit maximal que l'\u00e9change de crypto peut demander \u00e0 la soci\u00e9t\u00e9 cryptographique. Une fois que Gemini a d\u00e9pass\u00e9 l'engagement initial de 75 millions de dollars, il devra faire des demandes de pr\u00eat sous la forme de RLUSD Stablecoin de Ripple, \u00e0 laquelle la soci\u00e9t\u00e9 de crypto doit consentir.\u00a0 Les G\u00e9meaux ont r\u00e9v\u00e9l\u00e9 que toutes ses demandes de pr\u00eat en vertu de l'accord de cr\u00e9dit Ripple devaient \u00eatre garanties par collat\u00e9ral. Il doit \u00e9galement supporter un taux d'int\u00e9r\u00eat par an de 6,50% ou 8,50% et doit \u00eatre rembours\u00e9 en USD. Bien que certains d\u00e9tails aient \u00e9t\u00e9 expurg\u00e9s, le Crypto Exchange a indiqu\u00e9 qu'il avait \u00e9galement re\u00e7u un certain montant de Ripple en vertu de l'accord.\u00a0 Avec cela, Ripple est devenu un bailleur de fonds majeur pour l'introduction en bourse de Gemini, qui devrait avoir lieu bient\u00f4t. Notamment, les finances de Crypto Exchange dans l'introduction en bourse montrent qu'elle a affich\u00e9 des pertes nettes au cours des trimestres qui reviennent \u00e0 mars 2023. Au cours du premier semestre de cette ann\u00e9e seulement, Gemini a enregistr\u00e9 une perte nette de 282 millions de dollars.\u00a0 D\u00e9tails de l'introduction en bourse Gemini avec le soutien de Ripple, Gemini pr\u00e9voit d'offrir des actions ordinaires de classe A, bien qu'elle n'ait pas encore r\u00e9v\u00e9l\u00e9 combien d'actions seront disponibles dans l'introduction en bourse. L'\u00e9change de crypto n'a pas encore fourni de d\u00e9tails sur le montant de ces actions IPO susceptibles de vendre pour chacun. Cependant, il a r\u00e9v\u00e9l\u00e9 qu'il avait appliqu\u00e9 \u00e0 inscrire ces actions ordinaires de classe A sur le march\u00e9 boursier du NASDAQ sous le symbole \u00abGEMI\u00bb. LECTURE CONNEXE: Ripple CTO dit que XRP Ledger a \u00e9t\u00e9 test\u00e9 au combat dans le syst\u00e8me financier de Power World, en outre, les souscripteurs principaux de l'introduction en bourse des G\u00e9meaux sont Goldman Sachs et Citigroup, avec le soutien d'autres entreprises telles que Morgan Stanley et Cantor. Les plans d'introduction en bourse de Gemini suivent l'ex\u00e9cution r\u00e9ussie de l'introduction en bourse de l'\u00e9change de crypto, dans laquelle l'\u00e9change a lev\u00e9 1,15 milliard de dollars apr\u00e8s avoir vendu ses actions pour 37 $ chacune. Gemini cherchera \u00e0 enregistrer un succ\u00e8s similaire, compte tenu de la demande de crypto massive parmi les investisseurs traditionnels de la finance (TRADFI). Image en vedette de Getty Images, graphique de TradingView.com",
-                "original_title": "Ripple Enters Agreement With Gemini Ahead Of IPO \u2014 Here\u2019s What We Know",
-                "source": "NewsBTC",
-                "timestamp": 1755691226.0,
-                "url": "https://www.newsbtc.com/ripple-2/ripple-agreement-with-gemini/",
-                "symbols": [
-                    "XRP"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": 0.6889686584472656,
-                "impact_score": 1.0,
-                "risk_class": "Security",
-                "risk_score": 0.14801524579524994
-            },
-            {
-                "title": "Dogecoin Bull Rourning? Ne pariez pas contre ce graphique, dit l'analyste",
-                "text": "La consolidation de Dogecoin n'a pas rompu sa tendance \u00e0 la hausse du temps sup\u00e9rieur, selon l'analyste de Crypto Cantonais Cat (@Cantonmeow), qui, dans un livestream en ao\u00fbt, a fait valoir que Doge continue de respecter les structures de soutien cl\u00e9s malgr\u00e9 l'action des prix quotidiens saccad\u00e9s. \"Beaucoup de gens sont tr\u00e8s tr\u00e8s amers \u00e0 propos de Doge, bien s\u00fbr\", a-t-il dit, parce que le meme-Coin \"a [form\u00e9] des hauts plus \u00e9lev\u00e9s et des bas plus \u00e9lev\u00e9s\". \u00c0 son avis, le contexte technique reste constructif: \u00abIl s'agit d'une tendance taureau jusqu'\u00e0 prouv\u00e9 le contraire.\u00bb Dogecoin d\u00e9fie le chat cantonais des Bears a ancr\u00e9 son appel dans des signaux multi-temps plut\u00f4t que des oscillations \u00e0 court terme. Dans les graphiques hebdomadaires et mensuels, il a d\u00e9clar\u00e9 que Dogecoin a d\u00e9tenu les moyennes mobiles de 20 semaines et 20 mois, une combinaison qu'il caract\u00e9rise comme coh\u00e9rente avec une tendance \u00e0 la hausse primaire intacte. \"Je n'op\u00e9rrai pas au quotidien ... J'op\u00e9rrai sur un d\u00e9lai beaucoup plus \u00e9lev\u00e9\", a-t-il expliqu\u00e9, soulignant que la structure plus large l'emporte sur la volatilit\u00e9 \u00e0 court terme. Lecture connexe: 500% parabolique Dogecoin Run pourrait \u00eatre plus proche que vous ne le pensez: Analyste sur le graphique quotidien, il a reconnu la faiblesse par rapport aux moyennes mobiles plus courtes et \u00e0 la r\u00e9sistance aux nuages, notant que Doge est \u00abconsol [i] datant lat\u00e9ralement\u00bb et a \u00abd\u00e9compos\u00e9 en dessous des 20 jours\u00bb. Il a con\u00e7u que comme r\u00e9initialisation de routine dans la tendance plut\u00f4t que comme une panne, pointant vers Ichimoku Dynamics: apr\u00e8s avoir \u00e9t\u00e9 \u00abrejet\u00e9 ici par le nuage d'Ichimoku il y a quelques semaines\u00bb, Price \u00abessaie de retenir la zone de Tenkan / Kijun en arri\u00e8re [pour] trouver de l'\u00e9nergie ici pour rompre ci-dessus\u00bb. Dans le cadre de cette tentative de reconstruction de l'\u00e9lan, a-t-il dit, Dogecoin \"venait d'un double fond ici\", un mod\u00e8le qu'il lit comme preuve de demande \u00e0 la soutien. Via X, il a ajout\u00e9: \"Doge Weekly: Back-test sans fin de l'Ichimoku Tenkan, mais formant plus bas ici apr\u00e8s sa r\u00e9cente formation \u00e0 double fond.\" R\u00e9pondant aux pr\u00e9occupations selon lesquelles l'action des prix de la plage implique l'\u00e9puisement, il a soulign\u00e9 le \u00abbiais du calendrier\u00bb - que les commer\u00e7ants en surpoichent la c\u00f4telette r\u00e9cente et sous-pond\u00e9 la s\u00e9rie de bas plus \u00e9lev\u00e9s qui ont d\u00e9fini la structure de Doge depuis sa base de cycle. Bien qu'il ait conc\u00e9d\u00e9 que \u00abil est toujours possible\u00bb d'\u00e9chouer les soutiens, il n'a trouv\u00e9 aucune preuve d\u00e9cisive sur des d\u00e9lais plus \u00e9lev\u00e9s que la phase taureau de Dogecoin a mis fin. Au lieu de cela, il a lanc\u00e9 la bande actuelle comme une pause sous la r\u00e9sistance au-dessus de la t\u00eate, avec le nuage, la moyenne de 20 jours et les zones de rejet ant\u00e9rieures agissant comme les obstacles \u00e0 court terme \u00e0 effacer pour la continuation. LECTURE CONNEXE: DOGECOIN sous le feu comme Qubic cible Doge apr\u00e8s Monero Attack: Bulls peut-il emp\u00eacher une chute libre? Surtout, il a situ\u00e9 sa vue Doge dans des structures plus larges de capitalisation du march\u00e9 - ce que de nombreux commer\u00e7ants suivent le total et ses variantes. Sur d'autres (capitalisation boursi\u00e8re de crypto hors top 10), il a observ\u00e9 que le composite \"a juste bris\u00e9 de 0.5 ici et ... ne pouvait pas percer 0,618\", d\u00e9crivant un march\u00e9 qui se consolide toujours dans une plage d\u00e9finie par les fibonacci. Plus visiblement, il a soulign\u00e9 Total3 - la capitalisation boursi\u00e8re totale de la cryptographie excluant Bitcoin et Ethereum - comme toile de fond constructive pour les altcoins: \u00abLe total trois semble en fait assez d\u00e9cent ici. Si vous regardez le\u2026 graphique, comme cela ressemble \u00e0 une belle tasse et \u00e0 la poign\u00e9e\u2026 [elle a] cass\u00e9 le 0,86 [et est] de se pr\u00e9parer pour des trucs \u00e9lev\u00e9s de tous les temps ici.\u00bb Sur cette base, il a rejet\u00e9 l'id\u00e9e qu'un sommet cyclique est d\u00e9j\u00e0 pour Altcoins: \u00abJe ne peux pas \u00eatre baissier sur tout le march\u00e9 des crypto-monnaies\u2026 Je ne peux pas quand Ethereum a juste eu [sa] rupture au-dessus du 0,86.\u00bb Cette configuration de macro-alt, a-t-il soutenu, explique pourquoi les supports de Doge \u00e0 temps sup\u00e9rieur continuent d'attirer les acheteurs alors que les mouvements intradays deviennent bruyants. Le r\u00e9sultat est un commerce de patience: les moyennes mobiles de 20 semaines et 20 mois de Doge restent sa \u00abprincipale ligne de d\u00e9fense\u00bb pour la tendance \u00e0 la hausse; Le graphique quotidien reste le champ de bataille o\u00f9 la r\u00e9sistance aux nuages et les retirs Tenkan / Kijun d\u00e9termineront quand Momentum peut se r\u00e9affirmer. Jusqu'\u00e0 ce que ces ancres \u00e0 dur\u00e9e plus \u00e9lev\u00e9e c\u00e8dent, le verdict de Cantonais Cat sur Dogecoin est inchang\u00e9: \"C'est toujours un tableau haussier jusqu'\u00e0 prouv\u00e9 le contraire.\" Au moment de la presse, Doge s'est \u00e9chang\u00e9 \u00e0 0,21466 $. Image en vedette cr\u00e9\u00e9e avec Dall.E, graphique de TradingView.com",
-                "original_title": "Dogecoin Bull Run Over? Don\u2019t Bet Against This Chart, Says Analyst",
-                "source": "NewsBTC",
-                "timestamp": 1755687611.0,
-                "url": "https://www.newsbtc.com/news/dogecoin/dogecoin-bull-run-over-dont-bet-against-this-chart/",
-                "symbols": [
-                    "ETH",
-                    "BTC",
-                    "DOGE"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": 0.7195492386817932,
-                "impact_score": 1.0,
-                "risk_class": "Bullish",
-                "risk_score": 0.18695826828479767
-            },
-            {
-                "title": "Cardano grimpe au 8e, poussant Dogecoin et Tron dans les rangs",
-                "text": "Une nouvelle vague d'achat a pouss\u00e9 Cardano dans les rangs cette semaine, d\u00e9pla\u00e7ant Ada \u00e0 la huiti\u00e8me place parmi les grandes crypto-monnaies et le coup de pouce Dogecoin et Tron vers le bas. Lecture connexe: L'analyste indique que le soutien de 0,00000010 de Shiba INU pourrait d\u00e9clencher des rapports de rebond majeurs montrent que la capitalisation boursi\u00e8re de Cardano est grimp\u00e9e \u00e0 33 milliards de dollars, devan\u00e7ant Tron \u00e0 pr\u00e8s de 33 milliards de dollars et Dogecoin \u00e0 32 milliards de dollars. ADA se n\u00e9gociait \u00e0 0,9225 $, augmentant de 0,35% le jour et affichant un gain de 16% au cours de la derni\u00e8re semaine lorsque ce rapport a \u00e9t\u00e9 r\u00e9alis\u00e9. Cardano grimpe devant Dogecoin et Tron, le quart de travail est survenu au milieu d'un plus large acc\u00e8s de volatilit\u00e9 sur le march\u00e9 de la cryptographie. Sur la base des rapports, la capitalisation boursi\u00e8re mondiale a bri\u00e8vement culmin\u00e9 \u00e0 4,17 billions de dollars le 14 ao\u00fbt, lorsque Bitcoin a atteint un sommet intrajournali\u00e8re de 124 388 $. March\u00e9: Cardano $ ADA a renvers\u00e9 Doge et Tron dans la capitalisation boursi\u00e8re, actuellement la plus grande crypto-monnaie au monde. Route vers # 3. \ud83c\udfc6 pic.twitter.com/5fgeljypir - Cardanians (CRDN) (@cardanians_io) 19 ao\u00fbt 2025 Cette force n'a pas dur\u00e9 longtemps; Le march\u00e9 a corrig\u00e9 et, au moment de la presse, la capitalisation totale a connu environ 3,88 billions de dollars tandis que Bitcoin s'est \u00e9chang\u00e9 pr\u00e8s de 115 259 $, en baisse de 5,5% par rapport au sommet. Ces balan\u00e7oires ont aid\u00e9 \u00e0 r\u00e9organiser le top 10 alors que les investisseurs ont chass\u00e9 des mouvements \u00e0 court terme. La r\u00e9action de la communaut\u00e9 et les d\u00e9placements de prix Cardano ont de nouveau touch\u00e9 la barre de 1 $ le 14 ao\u00fbt et les canaux sociaux se sont allum\u00e9s. Le fondateur Charles Hoskinson a affich\u00e9 un GIF l\u00e9ger pour marquer le moment, et les commer\u00e7ants ont signal\u00e9 la reprise comme signe que les acheteurs \u00e9taient de retour en vigueur pendant au moins une partie du rassemblement. L'attention renouvel\u00e9e est survenue apr\u00e8s de longues \u00e9tirements o\u00f9 les jalons de d\u00e9veloppement ne se sont pas toujours traduits par des prix des prix, et le saut d'ao\u00fbt a montr\u00e9 \u00e0 quelle vitesse le sentiment peut changer. Les analystes soulignent des cibles plus \u00e9lev\u00e9es. Javon Marks a d\u00e9clar\u00e9 qu'Ada n'avait pas encore atteint son \u00abobjectif minimum\u00bb, fixant un objectif \u00e0 court terme de 1,20 $ et un niveau \u00e0 plus long terme de 2,91 $ - une d\u00e9cision qui serait une augmentation de 210% par rapport au prix indiqu\u00e9 ci-dessus. D'autres voix du march\u00e9 ont not\u00e9 une croix dor\u00e9e sur le graphique quotidien d'ADA et ont fait valoir que les techniques soutiennent d'autres gains. Certains analystes ont m\u00eame lanc\u00e9 l'id\u00e9e qu'Ada pourrait se d\u00e9placer vers 3 $ si l'\u00e9lan reste. Lire connexe: Bitcoin pr\u00eat pour une surtension 10x? L'analyste souligne les pr\u00e9visions et les techniques \u00e0 court terme de Goldbook de Gold Selon les pr\u00e9visions actuelles des prix Cardano cit\u00e9es dans les rapports, ADA pourrait augmenter de 27% et atteindre 1,195464 $ avant le 18 septembre 2025. Le sentiment du march\u00e9 est r\u00e9pertori\u00e9 comme optimiste et la peur & # 38; Index de cupidit\u00e9 Lire 56 (cupidit\u00e9). Au cours des 30 derniers jours, Cardano a enregistr\u00e9 17/30 jours verts (57%) et a montr\u00e9 une volatilit\u00e9 de 8,57%. Ces chiffres sugg\u00e8rent des s\u00e9ances positives r\u00e9guli\u00e8res m\u00e9lang\u00e9es \u00e0 des oscillations significatives - un mod\u00e8le qui peut r\u00e9compenser les commer\u00e7ants actifs mais qui apporte \u00e9galement des risques. Image en vedette de Unplash, graphique de TradingView",
-                "original_title": "Cardano Climbs To 8th, Pushing Dogecoin And TRON Down The Ranks",
-                "source": "NewsBTC",
-                "timestamp": 1755684047.0,
-                "url": "https://www.newsbtc.com/altcoin/cardano-climbs-to-8th-pushing-dogecoin-and-tron-down-the-ranks/",
-                "symbols": [
-                    "DOGE",
-                    "ADA",
-                    "BTC",
-                    "TRX",
-                    "SHIB"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": 0.8319801092147827,
-                "impact_score": 1.0,
-                "risk_class": "Regulatory",
-                "risk_score": 0.20655903220176697
-            },
-            {
-                "title": "Crypto Analyst r\u00e9v\u00e8le des altcoins cl\u00e9s \u00e0 regarder maintenant",
-                "text": "In a march\u00e9 mise \u00e0 jour on August 19 titled \u201cKey Altjetons To Watch Right Now,\u201d crypto analyst Cryptoinsightuk argues that conditions are improving for a fresh leg higher in altjetons as Bitjeton dominance shows signs of easing. \u201cThe last few days and in the newsletter I\u2019ve discussed my long-term thesis around Bitjeton dominance dropping [and] that altjetons are going to take the next leg up,\u201d he said, adding that, at current levels across majors, \u201crisk\u2013reward for long positions is very good here.\u201d He anchors the view in a recurring intraday structure he says is visible across Bitjeton and multiple large caps: a range forms, the lows are swept, the highs are swept, prix returns to the range lows, and momentum begins to base. On Bitjeton specifically, he notes that \u201cRSI on [the] 4-hourly looks like it could turn up,\u201d while acknowledging that short-term direction could still be shaped by the US equity open and broader macro headlines. Top Altjetons To Watch In Crypto Right Now Avalanche (AVAX) tops his tactical list. He outlined a limit-bid plan at $22.75, citing a local liquidity pocket down to roughly $22.70, while emphasizing that the more material liquidity sits overhead: \u201cThere\u2019s more dense liquidity above us all the way up to $27\u2026 on the daily\u2026 up to about $28.4, even towards $30 for AVAX.\u201d He framed the trade as asymmetrical because \u201cif we don\u2019t get [the fill] then that\u2019s fine,\u201d whereas a push into the upper liquidity bands could accelerate. Dogejeton (DOGE) is his highest-conviction swing. He disclosed two concurrent longs\u2014one in a DOGE perpetual and one versus USDT\u2014with an average entry around $0.225\u2013$0.227 and modest leverage on the larger position. The technical map, he argued, has already progressed through the stop-sweep and retest phase: \u201cWe had this range\u2026 we swept the lows and\u2026 back-tested this\u2026 little cluster here, bounced off it as support so far.\u201d Related Reading: Crypto Braces For Impact As JPow\u2019s Jackson Hole Speech Looms In the near term, the crypto analyst is watching the reclaimed range floor as r\u00e9sistance that must flip; beyond that, he sees \u201cmuch more dense\u201d resting liquidity above current prix \u201call the way up to about 30 cent,\u201d with a broader discussion zone in the mid-$0.40s: \u201cWe\u2019ve got red liquidity all the way up to 47 cent, and when we\u2019re up to that level, I\u2019ll start to consider maybe deleveraging.\u201d His longer-term target framework references Fibonacci extensions: \u201cMy take profits [are] at the 1.618 fib\u2026 all the way at like $1.19,\u201d while stressing he would adjust sizing \u201cdepending on what the march\u00e9 looks like at some of these different levels.\u201d Cryptoinsightuk also flagged what he called a sentiment-sensitive Fartjeton long carried with higher leverage. The stake is intentionally small given volatility\u2014\u201cwe\u2019re 10x on Fartjeton, so we could get liquidated if we come down to like 86 cent\u2026 81 cent I think is a liquidation\u201d\u2014and intended only for a move back to range highs. On XRP, the crypto analyst describes a similar range-construction to DOGE and AVAX with an initial target at the top of the band. \u201cPrimary target would be like this top of the range\u2026 structure is similar,\u201d he said, noting that his focus there remains on reactions as prior highs and visible liquidity are approached. Cardano also made the list with visible liquidity around prior swing highs \u201cup here at this $1\u2013$1.10,\u201d implying a first checkpoint near the $1.10 area, with continuation risk skewed to the upside \u201conce you get to that swing high.\u201d Related Reading: Biggest Crypto Bull Run In History Is About To Ignite: Top Analyst He devoted more structural nuance to Flare (FLR), calling out a potentially completed or developing corrective sequence that could seed a stronger impulse. \u201cThis could be the start of an impulsive move. This could be one, two, three, four, five. This could be like an ABC correction or W-X-Y-Z\u2026 triangle\u2026 in wave twos\u2026 which could then obviously lead to a wave three which would be quite aggressive,\u201d he said, framing FLR as an \u201cinteresting structure\u201d rather than a call for immediate participation. Ethereum, he argued, is trying to repair short-term trend signals even as a nearby liquidity pocket lurks below. \u201cETH is trying to break this short-term downtrend\u2026 challenging this key cluster\u2026 You can see\u2026 bullish divergences on the hourly time frame,\u201d he said, citing a sequence of lower lows in prix against higher lows on RSI. That constructive micro-setup underpins his broader positioning stance: if Bitjeton rotates to the top of its range and retests all-time highs, \u201cyou\u2019re probably going to see the most aggressive part of the cycle move when you enter prix discovery.\u201d He rounded out the watchlist with Mantle (MNT), noting he holds a spot allocation and would consider taking profits near $2 if a clean range break materializes. \u201cMNT is at the top of a range\u2026 if we do get that range break, it could be quite an aggressive move to the upside. I will be taking profits maybe around the $2 mark,\u201d he said. At press time, ETH traded at $4,175. Featured image created with DALL.E, chart from TradingView.com",
-                "original_title": "Crypto Analyst Reveals Key Altcoins To Watch Right Now",
-                "source": "NewsBTC",
-                "timestamp": 1755680456.0,
-                "url": "https://www.newsbtc.com/news/crypto-analyst-key-altcoins-to-watch-right-now/",
-                "symbols": [
-                    "DOGE",
-                    "ADA",
-                    "ETH",
-                    "XRP",
-                    "AVAX"
-                ],
-                "source_weight": 0.7,
-                "processed": true,
-                "sentiment": -0.8125373125076294,
-                "impact_score": 1.0,
-                "risk_class": "Security",
-                "risk_score": 0.18045967817306519
+                "risk_score": 0.16161751747131348
             }
         ],
         "latest_news": [
-            "CFTC remporte un jugement sommaire dans un cas de crypto de 228 millions de dollars",
-            "Cardano grimpe au 8e, poussant Dogecoin et Tron dans les rangs",
-            "La crypto tombe apr\u00e8s PPI, d'\u00e9normes liquidations, Trump-Putin \u00e0 rencontrer",
-            "BTC New Ath, les recherches altcoin sont de retour, inutile obtient Coinbase",
-            "Crypto Analyst r\u00e9v\u00e8le des altcoins cl\u00e9s \u00e0 regarder maintenant"
+            "Pr\u00e9dictions de prix 8/20: BTC, ETH, XRP, BNB, SOL, DOGE, ADA, LINK, HYPE, XLM",
+            "Bitcoin vs obligations souverains: pourquoi certains investisseurs font-ils le changement?",
+            "Les \u00c9tats-Unis doivent adopter des r\u00e9glementations ou risquer la perte de race cryptographique - Symposium du Wyoming",
+            "Le s\u00e9nateur am\u00e9ricain Lummis: le projet de loi sur la structure du march\u00e9 de la crypto sera loi d'ici 2026",
+            "Les groupes de plaidoyer de crypto doubler la confirmation de Quintenz \u00e0 CFTC au milieu du recul"
         ],
-        "overall_sentiment": 0.5683705342597649,
-        "impact_score": 0.6015897495824782,
-        "major_events": "CFTC remporte un jugement sommaire dans un cas de crypto de 228 millions de dollars; Cardano grimpe au 8e, poussant Dogecoin et Tron dans les rangs; La crypto tombe apr\u00e8s PPI, d'\u00e9normes liquidations, Trump-Putin \u00e0 rencontrer",
+        "overall_sentiment": 0.6629767879363029,
+        "impact_score": 0.6672918149220046,
+        "major_events": "Pr\u00e9dictions de prix 8/20: BTC, ETH, XRP, BNB, SOL, DOGE, ADA, LINK, HYPE, XLM; Bitcoin vs obligations souverains: pourquoi certains investisseurs font-ils le changement?; Les \u00c9tats-Unis doivent adopter des r\u00e9glementations ou risquer la perte de race cryptographique - Symposium du Wyoming",
         "top_symbols": [
+            "XLM",
+            "UNI",
+            "ADA",
             "LTC",
-            "MATIC",
-            "SHIB",
-            "TRX",
-            "LINK"
+            "MATIC"
         ],
-        "n_news": 61.0
+        "n_news": 93.0
     },
     "pause_status": {
         "global_remaining": 1.0,
