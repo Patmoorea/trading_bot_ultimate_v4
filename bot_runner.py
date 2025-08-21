@@ -5773,6 +5773,13 @@ class TradingBotM4:
                         f"[ORDER] Pas en position long sur {symbol_binance}, vente ignorée (simu)"
                     )
                     return {"status": "skipped", "reason": "not in position"}
+                # PATCH: log position fermée en simulation
+                self.log_closed_position(
+                    symbol=symbol_binance,
+                    pos=self.positions[symbol_binance],
+                    exit_price=safe_float(price or 0),
+                    reason="Vente simulée",
+                )
                 self.positions.pop(symbol_binance, None)
             elif side.upper() == "SHORT":
                 if self.is_short(symbol_binance):
@@ -5793,6 +5800,13 @@ class TradingBotM4:
                         f"[ORDER] Pas en position short sur {symbol_binance}, rachat ignoré (simu)"
                     )
                     return {"status": "skipped", "reason": "not in short"}
+                # PATCH: log position fermée en simulation
+                self.log_closed_position(
+                    symbol=symbol_binance,
+                    pos=self.positions[symbol_binance],
+                    exit_price=safe_float(price or 0),
+                    reason="Rachat short simulé",
+                )
                 self.positions.pop(symbol_binance, None)
 
             return {
@@ -5863,7 +5877,6 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH : Appel correct de SmartOrderExecutor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
@@ -5935,6 +5948,12 @@ class TradingBotM4:
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": str(e)}
 
+                # PATCH : Ajuste la quantité au LOT_SIZE et au format décimal
+                use_amount = self.adjust_amount_to_lot_size(symbol_binance, use_amount)
+                use_amount = float(use_amount)
+                use_amount_str = "{:.8f}".format(use_amount).rstrip("0").rstrip(".")
+                use_amount = float(use_amount_str)
+
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
                     error_msg = (
@@ -5954,12 +5973,11 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH : Appel correct de SmartOrderExecutor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    amount=amount if side.upper() == "SELL" else None,
-                    quoteOrderQty=amount if side.upper() == "BUY" else None,
+                    amount=use_amount if side.upper() == "SELL" else None,
+                    quoteOrderQty=use_amount if side.upper() == "BUY" else None,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -5976,6 +5994,13 @@ class TradingBotM4:
                             f"[TP PARTIEL] {symbol_binance}: Vente {filled_amount}, reste {remaining_amount}"
                         )
                     else:
+                        # PATCH: log la position fermée
+                        self.log_closed_position(
+                            symbol=symbol_binance,
+                            pos=current_position,
+                            exit_price=safe_float(result.get("avg_price", 0)),
+                            reason="Vente spot (TP/SL/fermeture)",
+                        )
                         self.positions.pop(symbol_binance, None)
                         log_dashboard(f"[ORDER] Position fermée: {symbol_binance}")
 
@@ -6039,6 +6064,13 @@ class TradingBotM4:
                 result = await self.bingx_executor.close_short_order(symbol_bingx, qty)
 
                 if result.get("status") == "completed":
+                    # PATCH: log la position short fermée
+                    self.log_closed_position(
+                        symbol=symbol_binance,
+                        pos=pos,
+                        exit_price=safe_float(result.get("avg_price", 0)),
+                        reason="Fermeture short",
+                    )
                     self.positions.pop(symbol_binance, None)
 
             else:
@@ -6111,7 +6143,6 @@ class TradingBotM4:
 
                 except Exception as market_error:
                     print(f"❌ Échec MARKET order: {market_error}")
-                    # PATCH INDENTATION : on ne laisse jamais except vide
                     pass
 
             return {"status": "error", "reason": str(e)}
@@ -6129,50 +6160,29 @@ class TradingBotM4:
             symbol_info = next(
                 s for s in exchange_info["symbols"] if s["symbol"] == symbol
             )
-
             for f in symbol_info["filters"]:
                 if f["filterType"] == "LOT_SIZE":
                     min_qty = float(f["minQty"])
                     max_qty = float(f["maxQty"])
                     step_size = float(f["stepSize"])
 
-                    # Ajuster au step size
-                    adjusted = round(amount / step_size) * step_size
-                    adjusted = max(min(adjusted, max_qty), min_qty)
-
-                    print(f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted}")
-                    return adjusted
-
+                    # Calcul du nombre de décimales autorisé
+                    precision = abs(Decimal(str(step_size)).as_tuple().exponent)
+                    # Arrondi au stepSize (toujours vers le bas)
+                    adjusted = (
+                        Decimal(str(amount)) // Decimal(str(step_size))
+                    ) * Decimal(str(step_size))
+                    # Correction min/max
+                    adjusted = max(min(float(adjusted), max_qty), min_qty)
+                    # Formatage EXACT de la quantité
+                    adjusted_str = f"{adjusted:.{precision}f}"
+                    print(
+                        f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted_str} (stepSize={step_size}, precision={precision})"
+                    )
+                    return float(adjusted_str)
         except Exception as e:
             print(f"❌ Erreur ajustement LOT_SIZE: {e}")
-
-        return amount  # Fallback
-
-    def adjust_amount_to_lot_size(self, symbol, amount):
-        """Ajuste le montant selon les filtres LOT_SIZE de Binance"""
-        try:
-            exchange_info = self.binance_client.get_exchange_info()
-            symbol_info = next(
-                s for s in exchange_info["symbols"] if s["symbol"] == symbol
-            )
-
-            for f in symbol_info["filters"]:
-                if f["filterType"] == "LOT_SIZE":
-                    min_qty = float(f["minQty"])
-                    max_qty = float(f["maxQty"])
-                    step_size = float(f["stepSize"])
-
-                    # Ajuster au step size
-                    adjusted = round(amount / step_size) * step_size
-                    adjusted = max(min(adjusted, max_qty), min_qty)
-
-                    print(f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted}")
-                    return adjusted
-
-        except Exception as e:
-            print(f"❌ Erreur ajustement LOT_SIZE: {e}")
-
-        return amount  # Fallback
+        return float(amount)  # Fallback
 
     async def plan_auto_sell(
         self,

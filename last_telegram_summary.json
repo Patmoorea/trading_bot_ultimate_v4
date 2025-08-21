@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 9,
+      "cycles_left": 5,
       "type": "GLOBAL",
-      "reason": "Memecoins : Pump.fun reprend sa place de leader, avec 80 % des parts de march\u00e9",
-      "max_cycles": 9,
-      "total_remaining": 9
+      "reason": "",
+      "max_cycles": 5,
+      "total_remaining": 5
     }
   ],
-  "sentiment": 0.7306189662218094,
+  "sentiment": 0.7289496034383773,
   "risky_positions": [],
-  "timestamp": 1755753686.7092638
+  "timestamp": 1755795318.780263
 }
