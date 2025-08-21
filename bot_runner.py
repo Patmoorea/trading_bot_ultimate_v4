@@ -5708,6 +5708,22 @@ class TradingBotM4:
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
 
+        # PATCH ANTI-BUG : force amount en float avant tout calcul/comparaison
+        if not isinstance(amount, float):
+            try:
+                amount = float(amount)
+            except Exception as e:
+                print(f"[CRITICAL] Impossible de caster amount en float : {e}")
+                amount = 0.0  # fallback safe
+
+        # PATCH ANTI-BUG : force price en float aussi
+        if price is not None and not isinstance(price, float):
+            try:
+                price = float(price)
+            except Exception as e:
+                print(f"[CRITICAL] Impossible de caster price en float : {e}")
+                price = 0.0
+
         # Formatage correct du symbole
         symbol_binance = normalize_pair(symbol)
 

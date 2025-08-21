@@ -311,3 +311,21 @@
 2025-08-21T22:49:18.051285 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - '<=' not supported between instances of 'str' and 'int'
 2025-08-21T22:51:06.725801 | [ORDER] Tentative d'exécution: SELL 4.26 ADAUSDC (iceberg: False)
 2025-08-21T22:51:07.899368 | [ORDER] Vente depuis solde ADA: 14.2
+2025-08-21T23:03:08.424621 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-21T23:03:08.425291 | Initialisation des modèles d'IA...
+2025-08-21T23:03:08.602090 | ✅ Modèles d'IA initialisés avec succès
+2025-08-21T23:03:10.144599 | ✅ PPO Strategy initialized successfully
+2025-08-21T23:03:16.457380 | ✅ Bot initialisé avec Telegram: True
+2025-08-21T23:03:16.457537 | ✅ Trading en direct: True
+2025-08-21T23:03:16.457568 | ✅ IA activée: True
+2025-08-21T23:03:16.457600 | ✅ Analyse de news activée: True
+2025-08-21T23:05:57.222890 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-21T23:06:34.569399 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-21T23:16:47.707494 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0337 | Tendance: -0.0044
+2025-08-21T23:16:47.707966 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-21T23:18:31.681436 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-21T23:18:32.769118 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-21T23:20:20.039873 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-21T23:22:06.287914 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-21T23:22:07.388345 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-21T23:23:52.182509 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - '<=' not supported between instances of 'str' and 'int'
