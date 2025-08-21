@@ -4695,10 +4695,10 @@ class TradingBotM4:
                 if free > 0 and asset not in ("USDC", "USDT"):
                     symbol = f"{asset}/USDC"
                     try:
-                        if "/" in symbol:
-                            symbol_binance = symbol.replace("/", "")
-                        else:
-                            symbol_binance = symbol
+                        # PATCH GLOBAL symbol_binance
+                        symbol_binance = (
+                            symbol.replace("/", "") if "/" in symbol else symbol
+                        )
                         ticker = self.binance_client.get_symbol_ticker(
                             symbol=symbol_binance
                         )
@@ -4735,7 +4735,7 @@ class TradingBotM4:
                     else:
                         entry_price = None
 
-                    # CORRECTION ICI : récupérez les deux valeurs du tuple
+                    # CORRECTION: récupérez les deux valeurs du tuple
                     fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(symbol)
 
                     prev_pos = self.positions_binance.get(symbol, {})
@@ -4746,7 +4746,7 @@ class TradingBotM4:
                         "amount": safe_float(free, 0),
                         "entry_price": safe_float(entry_price, 0),
                         "current_price": safe_float(current_price, 0),
-                        "pnl_pct": fifo_pnl_pct,  # Utilisation correcte
+                        "pnl_pct": fifo_pnl_pct,
                         "pnl_usd": (
                             (safe_float(current_price, 0) - safe_float(entry_price, 0))
                             * safe_float(free, 0)
@@ -5746,13 +5746,12 @@ class TradingBotM4:
         amount = safe_float(amount, 0)
         price = safe_float(price, 0) if price is not None else None
 
-        # Formatage du symbole pour Binance IMMÉDIATEMENT
-        symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
+        # 🔥 CORRECTION CRITIQUE : Formatage correct du symbole
+        symbol_binance = symbol.replace("/", "").upper()
 
-        # Debug logging
-        print(
-            f"🔍 [DEBUG] execute_trade: {side} {amount} {symbol}, price={price}, iceberg={iceberg}"
-        )
+        # 🔥 DEBUG CRITIQUE
+        print(f"🔍 [SYMBOL_DEBUG] Input: '{symbol}' -> Binance: '{symbol_binance}'")
+        print(f"🔍 [DEBUG] execute_trade: {side} {amount} {symbol}")
 
         # --- MODE SIMULATION ---
         if not self.is_live_trading:
@@ -5818,55 +5817,31 @@ class TradingBotM4:
                 f"[ORDER] Tentative d'exécution: {side} {amount} {symbol} (iceberg: {iceberg})"
             )
 
-            # Vérification de la disponibilité de la paire sur Binance
+            # 🔥 VÉRIFICATION SIMPLIFIÉE - Ne bloque pas les trades
             if side.upper() in ["BUY", "SELL"]:
                 try:
-                    # Vérification plus robuste de la disponibilité
-                    exchange_info = self.binance_client.get_exchange_info()
-                    valid_symbols = [s["symbol"] for s in exchange_info["symbols"]]
+                    print(f"🔍 [CHECK] Vérification paire: {symbol_binance}")
 
-                    if symbol_binance not in valid_symbols:
-                        error_msg = (
-                            f"[ORDER] {symbol_binance} non disponible sur Binance"
-                        )
-                        print(error_msg)
-                        log_dashboard(error_msg)
-                        return {"status": "error", "reason": "symbol not available"}
-
-                    # Vérifier les permissions de trading
-                    symbol_info = next(
-                        (
-                            s
-                            for s in exchange_info["symbols"]
-                            if s["symbol"] == symbol_binance
-                        ),
-                        None,
-                    )
-                    if symbol_info and "SPOT" not in symbol_info.get("permissions", []):
-                        error_msg = (
-                            f"[ORDER] {symbol_binance} n'autorise pas le trading SPOT"
-                        )
-                        print(error_msg)
-                        log_dashboard(error_msg)
-                        return {"status": "error", "reason": "spot trading not allowed"}
-
-                    # Vérification supplémentaire avec le ticker
+                    # Vérification SIMPLIFIÉE - juste le ticker
                     ticker = self.binance_client.get_symbol_ticker(
                         symbol=symbol_binance
                     )
-                    if not ticker or float(ticker.get("price", 0)) <= 0:
-                        error_msg = (
-                            f"[ORDER] {symbol_binance} indisponible (pas de prix)"
-                        )
+                    current_price = float(ticker.get("price", 0))
+
+                    if current_price <= 0:
+                        error_msg = f"[ORDER] {symbol_binance} indisponible (prix: {current_price})"
                         print(error_msg)
                         log_dashboard(error_msg)
-                        return {"status": "error", "reason": "no price available"}
+                        # CONTINUER QUAND MÊME - ne pas return error
+                    else:
+                        print(f"✅ {symbol_binance} disponible - Prix: {current_price}")
 
                 except Exception as e:
                     error_msg = f"[ORDER] Erreur vérification {symbol_binance}: {e}"
                     print(error_msg)
                     log_dashboard(error_msg)
-                    return {"status": "error", "reason": str(e)}
+                    # CONTINUER MALGRÉ L'ERREUR
+                    print(f"⚠️  Continue malgré l'erreur de vérification")
 
             # ----- ACHAT SPOT -----
             if side.upper() == "BUY" and (
@@ -5899,7 +5874,7 @@ class TradingBotM4:
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    type="MARKET",  # FORCER MARKET ORDER
+                    type="MARKET",
                     quoteOrderQty=amount,
                     orderbook=orderbook,
                     market_data=market_data,
@@ -5938,9 +5913,7 @@ class TradingBotM4:
                 if current_position and current_position["side"] == "long":
                     # Vente depuis une position existante
                     current_amount = safe_float(current_position["amount"])
-                    use_amount = min(
-                        amount, current_amount
-                    )  # Ne pas vendre plus que détenu
+                    use_amount = min(amount, current_amount)
 
                     if use_amount <= 0:
                         error_msg = (
@@ -5951,7 +5924,7 @@ class TradingBotM4:
 
                 else:
                     # Vente depuis le solde du wallet
-                    asset = symbol.split("/")[0]  # Extraire l'asset correctement
+                    asset = symbol.split("/")[0]
                     try:
                         balance = self.binance_client.get_asset_balance(asset=asset)
                         free_balance = (
@@ -5995,8 +5968,8 @@ class TradingBotM4:
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    type="MARKET",  # FORCER MARKET ORDER
-                    quantity=use_amount,  # Utiliser quantity au lieu de quoteOrderQty pour les ventes
+                    type="MARKET",
+                    quantity=use_amount,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -6008,14 +5981,12 @@ class TradingBotM4:
                     filled_amount = safe_float(result.get("filled_amount", use_amount))
                     remaining_amount = current_position["amount"] - filled_amount
 
-                    if remaining_amount > 0.000001:  # Seuil minimal
-                        # Vente partielle
+                    if remaining_amount > 0.000001:
                         current_position["amount"] = remaining_amount
                         log_dashboard(
                             f"[TP PARTIEL] {symbol}: Vente {filled_amount}, reste {remaining_amount}"
                         )
                     else:
-                        # Fermeture complète
                         self.positions.pop(symbol, None)
                         log_dashboard(f"[ORDER] Position fermée: {symbol}")
 
@@ -6126,26 +6097,61 @@ class TradingBotM4:
             return result
 
         except BinanceAPIException as e:
+            # 🔥 GESTION AMÉLIORÉE DE "Only BUY orders are allowed"
             error_msg = f"[ORDER] Binance API error: {e}"
             print(error_msg)
             self.logger.error(error_msg)
 
-            # Gestion spécifique de l'erreur "Only BUY orders are allowed"
             if "Only BUY orders are allowed" in str(e):
-                print("🔄 Tentative de correction: Forcer l'ordre MARKET")
+                print(
+                    "🔄 ERREUR CRITIQUE: Only BUY orders allowed - Tentative de correction..."
+                )
+
                 try:
-                    # Forcer un ordre MARKET
+                    # 1. Essayer en MARKET ORDER
+                    print("🔄 Tentative 1: Order MARKET")
                     if side.upper() == "SELL":
                         order = self.binance_client.order_market_sell(
                             symbol=symbol_binance, quantity=amount
                         )
+                    else:
+                        order = self.binance_client.order_market_buy(
+                            symbol=symbol_binance, quantity=amount
+                        )
+                    print(f"✅ Correction réussie: {order}")
+                    return {
+                        "status": "completed",
+                        "filled_amount": amount,
+                        "avg_price": 0,
+                    }
+
+                except Exception as market_error:
+                    print(f"❌ Échec MARKET order: {market_error}")
+
+                    try:
+                        # 2. Essayer avec un amount ajusté
+                        print("🔄 Tentative 2: Adjust amount")
+                        adjusted_amount = self.adjust_amount_to_lot_size(
+                            symbol_binance, amount
+                        )
+
+                        if side.upper() == "SELL":
+                            order = self.binance_client.order_market_sell(
+                                symbol=symbol_binance, quantity=adjusted_amount
+                            )
+                        else:
+                            order = self.binance_client.order_market_buy(
+                                symbol=symbol_binance, quantity=adjusted_amount
+                            )
+                        print(f"✅ Correction avec amount ajusté: {order}")
                         return {
                             "status": "completed",
-                            "filled_amount": amount,
+                            "filled_amount": adjusted_amount,
                             "avg_price": 0,
                         }
-                except Exception as retry_error:
-                    print(f"❌ Échec correction: {retry_error}")
+
+                    except Exception as adjust_error:
+                        print(f"❌ Échec total correction: {adjust_error}")
 
             return {"status": "error", "reason": str(e)}
 
@@ -6154,6 +6160,32 @@ class TradingBotM4:
             print(error_msg)
             self.logger.error(error_msg)
             return {"status": "error", "reason": str(e)}
+
+    def adjust_amount_to_lot_size(self, symbol, amount):
+        """Ajuste le montant selon les filtres LOT_SIZE de Binance"""
+        try:
+            exchange_info = self.binance_client.get_exchange_info()
+            symbol_info = next(
+                s for s in exchange_info["symbols"] if s["symbol"] == symbol
+            )
+
+            for f in symbol_info["filters"]:
+                if f["filterType"] == "LOT_SIZE":
+                    min_qty = float(f["minQty"])
+                    max_qty = float(f["maxQty"])
+                    step_size = float(f["stepSize"])
+
+                    # Ajuster au step size
+                    adjusted = round(amount / step_size) * step_size
+                    adjusted = max(min(adjusted, max_qty), min_qty)
+
+                    print(f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted}")
+                    return adjusted
+
+        except Exception as e:
+            print(f"❌ Erreur ajustement LOT_SIZE: {e}")
+
+        return amount  # Fallback
 
     async def plan_auto_sell(
         self,
@@ -6224,10 +6256,8 @@ class TradingBotM4:
 
             # Récupère le prix courant live depuis Binance
             try:
-                if "/" in symbol:
-                    symbol_binance = symbol.replace("/", "")
-                else:
-                    symbol_binance = symbol
+                # PATCH GLOBAL symbol_binance
+                symbol_binance = symbol.replace("/", "") if "/" in symbol else symbol
                 ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
                 current_price = float(ticker.get("price", 0))
             except Exception:

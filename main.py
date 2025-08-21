@@ -108,6 +108,27 @@ def load_json_file(path):
     return {}
 
 
+# --- PATCH: Nettoyage des colonnes avant affichage DataFrame ---
+def fix_column_arrow_dtype(df, col_list):
+    """Corrige les colonnes contenant des listes/objets pour compatibilité Arrow/Streamlit."""
+    for col in col_list:
+        if col in df.columns:
+
+            def extract_scalar(x):
+                if isinstance(x, list):
+                    for v in x:
+                        if v is not None:
+                            return float(v)
+                    return np.nan
+                try:
+                    return float(x)
+                except Exception:
+                    return np.nan
+
+            df[col] = df[col].apply(extract_scalar)
+    return df
+
+
 # --- SIDEBAR ---
 with st.sidebar:
     st.header("🤖 Bot Status")
@@ -156,6 +177,7 @@ with st.sidebar:
     closed = shared_data.get("closed_positions", [])
     if closed:
         df_closed = pd.DataFrame(closed)
+        df_closed = fix_column_arrow_dtype(df_closed, ["pnl_pct", "pnl_usd"])
         st.dataframe(df_closed, use_container_width=True)
     else:
         st.info("Aucune position fermée automatiquement ce cycle.")
@@ -315,6 +337,7 @@ with tab1:
     trades = shared_data.get("trade_history", [])
     if trades:
         df_trades = pd.DataFrame(trades)
+        df_trades = fix_column_arrow_dtype(df_trades, ["pnl_pct", "pnl_usd"])
         if "timestamp" in df_trades.columns:
             df_trades["timestamp"] = (
                 pd.to_datetime(df_trades["timestamp"])
@@ -488,6 +511,8 @@ with tab4:
         )
     df_pos_binance = pd.DataFrame.from_dict(positions_binance, orient="index")
     df_pos_binance.index.name = "Paire"
+    # PATCH: Nettoyage colonne 'pnl_pct' si présente
+    df_pos_binance = fix_column_arrow_dtype(df_pos_binance, ["pnl_pct"])
     df_pos_binance["% Plus-Value"] = [
         (
             f"{fifo_pnl_map.get(pair, None):.2f}%"
@@ -507,6 +532,7 @@ with tab4:
     if pending_sales:
         try:
             df_pending = pd.DataFrame(pending_sales)
+            df_pending = fix_column_arrow_dtype(df_pending, ["pnl_pct"])
 
             def get_signal_source(row):
                 reason = str(row.get("reason", "")).lower()
@@ -550,6 +576,7 @@ with tab4:
     if positions_bingx:
         df_bingx = pd.DataFrame.from_dict(positions_bingx, orient="index")
         df_bingx.index.name = "Paire"
+        df_bingx = fix_column_arrow_dtype(df_bingx, ["pnl_pct"])
         if "pnl_pct" in df_bingx.columns:
             df_bingx["% Plus-Value"] = df_bingx["pnl_pct"].map(
                 lambda x: f"{x:.2f}%" if x is not None else "N/A"
@@ -566,6 +593,7 @@ with tab4:
     closed = shared_data.get("closed_positions", [])
     if closed:
         df_closed = pd.DataFrame(closed)
+        df_closed = fix_column_arrow_dtype(df_closed, ["pnl_pct", "pnl_usd"])
         reasons = df_closed["reason"].unique().tolist()
         reason_selected = st.selectbox(
             "Filtrer par raison de vente", ["Toutes"] + reasons
@@ -580,6 +608,7 @@ with tab4:
     fifo_pnl = shared_data.get("fifo_pnl_LTCUSDC", [])
     if fifo_pnl:
         df_fifo = pd.DataFrame(fifo_pnl)
+        df_fifo = fix_column_arrow_dtype(df_fifo, ["pnl_pct", "pnl_usd"])
         df_fifo["% Plus-Value"] = df_fifo["pnl_pct"].map(
             lambda x: f"{x:.2f}%" if x is not None else "N/A"
         )
