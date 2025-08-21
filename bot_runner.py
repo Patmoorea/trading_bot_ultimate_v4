@@ -2478,7 +2478,7 @@ class TradingBotM4:
             sells = sorted(sells, key=lambda x: x["time"])
             return buys, sells
         except Exception as e:
-            print(f"[DEBUG FIFO] Erreur fetch_trades_fifo pour {symbol}: {e}")
+            # print(f"[DEBUG FIFO] Erreur fetch_trades_fifo pour {symbol}: {e}")
             return [], []
 
     def fifo_pnl(self, buys, sells):
@@ -5863,11 +5863,12 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
+                # PATCH : Appel correct de SmartOrderExecutor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    type="MARKET",
-                    quoteOrderQty=amount,
+                    amount=amount if side.upper() == "SELL" else None,
+                    quoteOrderQty=amount if side.upper() == "BUY" else None,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -5953,11 +5954,12 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
+                # PATCH : Appel correct de SmartOrderExecutor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
-                    type="MARKET",
-                    quantity=use_amount,
+                    amount=amount if side.upper() == "SELL" else None,
+                    quoteOrderQty=amount if side.upper() == "BUY" else None,
                     orderbook=orderbook,
                     market_data=market_data,
                     iceberg=iceberg,
@@ -8758,9 +8760,9 @@ async def run_clean_bot():
                         or safe_float(pos.get("entry_price"), 0) <= 0
                         or safe_float(pos.get("current_price"), 0) <= 0
                     ):
-                        print(
-                            f"[CLEANUP] Suppression position zombie {symbol} (amount={pos.get('amount')}, entry={pos.get('entry_price')}, price={pos.get('current_price')})"
-                        )
+                        # print(
+                        # f"[CLEANUP] Suppression position zombie {symbol} (amount={pos.get('amount')}, entry={pos.get('entry_price')}, price={pos.get('current_price')})"
+                        # )
                         del bot.positions_binance[symbol]
 
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
@@ -8864,27 +8866,8 @@ async def run_clean_bot():
                     # VÉRIFICATION CRITIQUE: Paires tradables
                     # =========================
                     def is_symbol_tradable(symbol):
-                        """Vérifie si une paire permet les ordres SELL"""
-                        try:
-                            symbol_binance = symbol.replace("/", "")
-                            # Vérifier les informations de la paire
-                            exchange_info = bot.binance_client.get_exchange_info()
-                            for s in exchange_info["symbols"]:
-                                if s["symbol"] == symbol_binance:
-                                    # Vérifier les permissions
-                                    permissions = s.get("permissions", [])
-                                    if "SPOT" in permissions:
-                                        # Vérifier si les ordres SELL sont autorisés
-                                        filters = s.get("filters", [])
-                                        for f in filters:
-                                            if f["filterType"] == "PERCENT_PRICE":
-                                                # Si ce filtre existe, les ordres SELL sont autorisés
-                                                return True
-                                    return False
-                            return False
-                        except Exception as e:
-                            print(f"[ERROR] Erreur vérification paire {symbol}: {e}")
-                            return False
+                        # PATCH: Toujours retourner True, laisse Binance décider
+                        return True
 
                     # =========================
                     # Gestion des stop-loss SPOT (positions longues)
@@ -9231,7 +9214,7 @@ async def run_clean_bot():
 
                         # VÉRIFICATION CRITIQUE: Paire tradable
                         if not is_symbol_tradable(pair):
-                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            # print(f"[SKIP] {pair} non tradable (achat ignoré)")
                             continue
 
                         if pair not in bot.pairs_valid:
@@ -9285,7 +9268,7 @@ async def run_clean_bot():
 
                         # VÉRIFICATION CRITIQUE: Paire tradable
                         if not is_symbol_tradable(pair):
-                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                            # print(f"[SKIP] {pair} non tradable (achat ignoré)")
                             continue
 
                         if pair not in bot.pairs_valid:
