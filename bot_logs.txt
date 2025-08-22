@@ -622,3 +622,22 @@
 2025-08-22T19:42:21.434906 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
 2025-08-22T19:42:22.533712 | [ORDER] Vente depuis solde NOT: 1116.15
 2025-08-22T19:44:12.418694 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T19:51:26.789866 | Initialisation des modèles d'IA...
+2025-08-22T19:51:26.944452 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T19:51:28.528451 | ✅ PPO Strategy initialized successfully
+2025-08-22T19:51:36.099099 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T19:51:36.099264 | ✅ Trading en direct: True
+2025-08-22T19:51:36.099301 | ✅ IA activée: True
+2025-08-22T19:51:36.099339 | ✅ Analyse de news activée: True
+2025-08-22T19:52:30.677741 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T19:53:08.207970 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T20:02:25.219789 | 🔈 Régime de marché détecté: unknown
+2025-08-22T20:04:12.556030 | Démarrage cycle trading
+2025-08-22T22:00:56.741419 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T22:00:56.742644 | Initialisation des modèles d'IA...
+2025-08-22T22:00:56.944684 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T22:00:58.668897 | ✅ PPO Strategy initialized successfully
+2025-08-22T22:01:06.160116 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T22:01:06.160284 | ✅ Trading en direct: True
+2025-08-22T22:01:06.160323 | ✅ IA activée: True
+2025-08-22T22:01:06.160356 | ✅ Analyse de news activée: True
