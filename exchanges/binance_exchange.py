@@ -144,6 +144,16 @@ class BinanceExchange:
             logger.error(f"Error fetching trades for {symbol}: {e}")
             raise
 
+    def _format_quantity(self, value: float, precision: int = 8) -> str:
+        """
+        Format a float value as a decimal string, avoiding scientific notation, with the given precision.
+        """
+        fmt = f"{{0:.{precision}f}}"
+        s = fmt.format(value)
+        # Remove trailing zeros and dot if not needed
+        s = s.rstrip("0").rstrip(".") if "." in s else s
+        return s
+
     async def create_order(
         self,
         symbol: str,
@@ -158,18 +168,24 @@ class BinanceExchange:
         if not self._initialized:
             raise RuntimeError("Exchange not initialized")
         try:
+            # Enforce float type for amount and price at the very start
+            amount = float(amount)
+            if price is not None:
+                price = float(price)
             params = {}
-            if float(amount) <= 0:
+            if amount <= 0:
                 raise ValueError("Amount must be positive")
+            # Format amount as decimal string to avoid scientific notation
+            formatted_amount = self._format_quantity(amount, precision=8)
             if order_type == "limit":
-                if not price or float(price) <= 0:
+                if price is None or price <= 0:
                     raise ValueError("Valid price required for limit orders")
                 order = await self._exchange.create_limit_order(
-                    symbol, side, float(amount), float(price), params
+                    symbol, side, formatted_amount, price, params
                 )
             else:
                 order = await self._exchange.create_market_order(
-                    symbol, side, float(amount), None, params
+                    symbol, side, formatted_amount, None, params
                 )
             return order
         except Exception as e:

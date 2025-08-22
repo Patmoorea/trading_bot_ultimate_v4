@@ -5,7 +5,7 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 117917.08589743589,
-            "current_price": 113012.88,
+            "current_price": 116279.83,
             "amount": 9e-05,
             "pnl_pct": 22.935844089167883,
             "% Gain/Perte": "22.94%",
@@ -18,10 +18,10 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 0.83298,
-            "current_price": 0.8564,
+            "current_price": 0.9184,
             "amount": 14.2,
-            "pnl_pct": 2.8115921150567833,
-            "% Gain/Perte": "2.81%",
+            "pnl_pct": 10.25474801315757,
+            "% Gain/Perte": "10.25%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
@@ -31,21 +31,21 @@
             "reason": "Pause active",
             "decision": "Vente bloqu\u00e9e",
             "entry_price": 0.01052,
-            "current_price": 0.001855,
+            "current_price": 0.001941,
             "amount": 1116.15,
-            "pnl_pct": -82.36692015209125,
-            "% Gain/Perte": "-82.37%",
+            "pnl_pct": -81.54942965779468,
+            "% Gain/Perte": "-81.55%",
             "pause_blocage": "Oui",
             "note": "Trading suspendu ()",
             "confidence": 0.5
         }
     ],
-    "timestamp": "2025-08-21 19:16:55",
+    "timestamp": "2025-08-22 06:40:01",
     "user": "Patmoorea",
     "bot_status": {
         "regime": "Range/Scalping",
         "cycle": 0,
-        "last_update": "2025-08-21 19:16:55",
+        "last_update": "2025-08-22 06:40:01",
         "performance": {
             "balance": 138.72347168
         }
@@ -44157,11 +44157,11 @@
         {
             "asset": "GLOBAL",
             "action": "ALL",
-            "cycles_left": 9,
+            "cycles_left": 4,
             "type": "GLOBAL",
             "reason": "",
-            "max_cycles": 9,
-            "total_remaining": 9
+            "max_cycles": 4,
+            "total_remaining": 4
         }
     ],
     "auto_sell_positions": [],
@@ -44171,13 +44171,13 @@
         "top_n": 5.0
     },
     "pause_status": {
-        "global_remaining": 9.0,
+        "global_remaining": 4,
         "pair_pauses": {
             "BNB": 1.0,
             "BTC": 1.0,
             "ETH": 1.0
         },
-        "max_remaining": 9.0
+        "max_remaining": 4
     },
     "trade_decisions": {
         "BTCUSDC": {
@@ -44186,7 +44186,7 @@
             "tech": 0.5,
             "ai": 0.7936004281044006,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "ETHUSDC": {
             "action": "neutral",
@@ -44194,7 +44194,7 @@
             "tech": 0.5,
             "ai": 0.15000385782886952,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "LTCUSDC": {
             "action": "neutral",
@@ -44202,7 +44202,7 @@
             "tech": 0.5,
             "ai": 0.15000386828069168,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "XRPUSDC": {
             "action": "neutral",
@@ -44210,7 +44210,7 @@
             "tech": 0.5,
             "ai": 0.15000387529621548,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "DOGEUSDC": {
             "action": "neutral",
@@ -44218,7 +44218,7 @@
             "tech": 0.5,
             "ai": 0.15000387132131435,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "BNBUSDC": {
             "action": "neutral",
@@ -44226,7 +44226,7 @@
             "tech": 0.5,
             "ai": 0.15000386191836695,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "ADAUSDC": {
             "action": "neutral",
@@ -44234,7 +44234,7 @@
             "tech": 0.5,
             "ai": 0.15000387138434235,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "SOLUSDC": {
             "action": "neutral",
@@ -44242,7 +44242,7 @@
             "tech": 0.5,
             "ai": 0.15000387250674976,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "TRXUSDC": {
             "action": "neutral",
@@ -44250,7 +44250,7 @@
             "tech": 0.5,
             "ai": 0.1500038254280298,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "SUIUSDC": {
             "action": "neutral",
@@ -44258,7 +44258,7 @@
             "tech": 0.5,
             "ai": 0.15000386839847124,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         },
         "LINKUSDC": {
             "action": "neutral",
@@ -44266,7 +44266,7 @@
             "tech": 0.5,
             "ai": 0.15000386035349036,
             "sentiment": 0.5,
-            "timestamp": "2025-08-22 05:16:55"
+            "timestamp": "2025-08-22 16:40:01"
         }
     },
     "cycle_metrics": {

@@ -8,6 +8,17 @@ load_dotenv()
 
 
 class BinanceConnector:
+    def _format_quantity(self, value, precision=8):
+        """
+        Format a float or Decimal value as a decimal string, avoiding scientific notation, with the given precision.
+        """
+        if value is None:
+            return None
+        fmt = f"{{0:.{precision}f}}"
+        s = fmt.format(float(value))
+        s = s.rstrip("0").rstrip(".") if "." in s else s
+        return s
+
     def __init__(self):
         self.exchange = binance(
             {
@@ -53,21 +64,23 @@ class BinanceConnector:
             params = {
                 "type": "market" if not price else "limit",
             }
+            amount = None
             if use_usdc and usdc_amount is not None:
-                params["quoteOrderQty"] = float(usdc_amount)
-                amount = None  # On ne renseigne pas amount
-            else:
-                params["amount"] = float(usdc_amount)
-                amount = float(usdc_amount)
+                params["quoteOrderQty"] = self._format_quantity(
+                    usdc_amount, precision=8
+                )
+            elif usdc_amount is not None:
+                params["amount"] = self._format_quantity(usdc_amount, precision=8)
+                amount = self._format_quantity(usdc_amount, precision=8)
             if price:
-                params["price"] = float(price)
+                params["price"] = self._format_quantity(price, precision=8)
 
             return await self.exchange.create_order(
                 symbol,
                 "market" if not price else "limit",
                 side,
                 amount,
-                float(price) if price else None,
+                float(params["price"]) if price else None,
                 params,
             )
         except Exception as e:

@@ -2493,19 +2493,23 @@ class TradingBotM4:
         results = []
         for sell in sells:
             qty_to_sell = safe_float(sell.get("qty"), 0)
+            qty_to_sell = float(qty_to_sell)
             total_cost = 0.0
             qty_used = 0.0
             buy_used = []
             while qty_to_sell > 0 and buy_queue:
                 buy = buy_queue[0]
                 available_qty = safe_float(buy.get("qty"), 0)
+                available_qty = float(available_qty)
                 take_qty = min(qty_to_sell, available_qty)
+                take_qty = float(take_qty)
                 total_cost += safe_float(take_qty, 0) * safe_float(buy.get("price"), 0)
                 qty_used += safe_float(take_qty, 0)
                 buy_used.append((take_qty, safe_float(buy.get("price"), 0)))
                 qty_to_sell -= take_qty
                 buy["qty"] = safe_float(buy.get("qty"), 0) - take_qty
-                if buy["qty"] <= 0.0000001:
+                # Correction : cast float pour la comparaison
+                if float(buy["qty"]) <= 0.0000001:
                     buy_queue.pop(0)
             if qty_used > 0:
                 entry_price = safe_float(total_cost, 0) / safe_float(qty_used, 1)
@@ -8923,6 +8927,36 @@ async def run_clean_bot():
             print(f"❌ Erreur analyse {pair}-{tf}: {str(e)}")
             return None
 
+    def safe_int(x, default=0):
+        """
+        Convertit en int de manière robuste.
+        Utilisé pour les compteurs, cycles, etc.
+        """
+        try:
+            if x is None:
+                return int(default)
+            if isinstance(x, bool):
+                return int(default)
+            if isinstance(x, (int, float)):
+                return int(x)
+            # Si "9e-05" -> 0
+            fx = safe_float(x, default)
+            return int(fx)
+        except Exception:
+            return int(default)
+
+    def safe_mul(a, b, default=0.0):
+        """
+        Multiplication sûre en float.
+        """
+        return safe_float(a, 0.0) * safe_float(b, 0.0)
+
+    def is_positive_number(x):
+        """
+        True si x est un nombre strictement positif (après casting float sûr).
+        """
+        return safe_float(x, 0.0) > 0.0
+
     async def main():
         try:
             # =========================
@@ -8943,13 +8977,34 @@ async def run_clean_bot():
             if not hasattr(bot, "pairs_valid") or bot.pairs_valid is None:
                 bot.pairs_valid = valid_pairs or []
 
-            await bot.test_news_sentiment()
+            # Anti crash : structures minimales requises par la boucle
+            if not hasattr(bot, "market_data") or bot.market_data is None:
+                bot.market_data = {}
+            if not hasattr(bot, "config") or bot.config is None:
+                bot.config = {"TRADING": {"timeframes": ["1h"]}}
+            if not isinstance(
+                bot.config.get("TRADING", {}).get("timeframes", []), list
+            ):
+                bot.config["TRADING"]["timeframes"] = ["1h"]
+
+            # Test sentiment (non bloquant)
+            try:
+                await bot.test_news_sentiment()
+            except Exception as e:
+                print(f"[WARN] test_news_sentiment: {e}")
 
             # =========================
             # Analyse initiale du marché
             # =========================
-            regime, _, _ = await bot.study_market("7d")
-            log_dashboard(f"🔈 Régime de marché détecté: {regime}")
+            try:
+                regime, _, _ = await bot.study_market("7d")
+            except Exception as e:
+                regime = "unknown"
+                print(f"[WARN] study_market('7d') a échoué: {e}")
+            try:
+                log_dashboard(f"🔈 Régime de marché détecté: {regime}")
+            except Exception:
+                pass
 
             # =========================
             # Boucle principale
@@ -8957,22 +9012,29 @@ async def run_clean_bot():
             cycle = 0
             while True:
                 # -- housekeeping pré-cycle
-                await bot.handle_auto_sell()
-                if hasattr(bot, "sync_positions_with_binance"):
-                    bot.sync_positions_with_binance()
+                try:
+                    await bot.handle_auto_sell()
+                except Exception as e:
+                    print(f"[WARN] handle_auto_sell: {e}")
+
+                try:
+                    if hasattr(bot, "sync_positions_with_binance"):
+                        bot.sync_positions_with_binance()
+                except Exception as e:
+                    print(f"[WARN] sync_positions_with_binance: {e}")
 
                 # PATCH: Purge positions corrompues (amount, entry_price ou current_price <= 0)
-                for symbol in list(bot.positions_binance.keys()):
-                    pos = bot.positions_binance[symbol]
-                    if (
-                        safe_float(pos.get("amount"), 0) <= 0
-                        or safe_float(pos.get("entry_price"), 0) <= 0
-                        or safe_float(pos.get("current_price"), 0) <= 0
-                    ):
-                        # print(
-                        # f"[CLEANUP] Suppression position zombie {symbol} (amount={pos.get('amount')}, entry={pos.get('entry_price')}, price={pos.get('current_price')})"
-                        # )
-                        del bot.positions_binance[symbol]
+                try:
+                    for symbol in list((bot.positions_binance or {}).keys()):
+                        pos = (bot.positions_binance or {}).get(symbol) or {}
+                        if (
+                            safe_float(pos.get("amount"), 0) <= 0
+                            or safe_float(pos.get("entry_price"), 0) <= 0
+                            or safe_float(pos.get("current_price"), 0) <= 0
+                        ):
+                            del bot.positions_binance[symbol]
+                except Exception as e:
+                    print(f"[WARN] purge positions_binance: {e}")
 
                 print(f"=== NOUVEAU CYCLE {cycle} ===")
                 print(f"[DEBUG CYCLE] Positions (avant TP/SL): {bot.positions}")
@@ -8983,14 +9045,17 @@ async def run_clean_bot():
                 print(f"[DEBUG CYCLE] bot.portfolio: {getattr(bot, 'portfolio', {})}")
 
                 try:
-                    cycle += 1
+                    cycle = safe_int(cycle + 1, cycle + 1)
                     start = datetime.utcnow()
 
                     # =========================
                     # MAJ des positions en attente
                     # =========================
-                    if hasattr(bot, "get_pending_sales"):
-                        bot.get_pending_sales()
+                    try:
+                        if hasattr(bot, "get_pending_sales"):
+                            bot.get_pending_sales()
+                    except Exception as e:
+                        print(f"[WARN] get_pending_sales: {e}")
 
                     # =========================
                     # Gestion des news et pauses
@@ -9016,60 +9081,98 @@ async def run_clean_bot():
                         news_list = []
 
                     # Traitement des news non traitées & pause
-                    unprocessed_news = [n for n in news_list if not n.get("processed")]
-                    if unprocessed_news and bot.news_pause_manager.scan_news(
-                        unprocessed_news
-                    ):
-                        print("🚨 Pause trading à cause d'une news critique!")
-                        for n in unprocessed_news:
-                            n["processed"] = True
+                    try:
+                        unprocessed_news = [
+                            n for n in news_list if not n.get("processed")
+                        ]
+                        should_pause = False
+                        if unprocessed_news:
+                            try:
+                                should_pause = bool(
+                                    bot.news_pause_manager.scan_news(unprocessed_news)
+                                )
+                            except Exception as e_scan:
+                                print(f"[WARN] news_pause_manager.scan_news: {e_scan}")
+                                should_pause = False
 
-                        # Fusion des flags processed avant sauvegarde
-                        old_scores = (shared_data.get("sentiment", {}) or {}).get(
-                            "scores", []
-                        )
-                        if not isinstance(old_scores, list):
-                            old_scores = []
-                        news_list = merge_news_processed(old_scores, news_list)
+                        if unprocessed_news and should_pause:
+                            print("🚨 Pause trading à cause d'une news critique!")
+                            for n in unprocessed_news:
+                                if isinstance(n, dict):
+                                    n["processed"] = True
 
-                        bot.safe_update_shared_data(
-                            {
-                                "sentiment": {
-                                    **(shared_data.get("sentiment", {}) or {}),
-                                    "scores": news_list,
-                                }
-                            },
-                            bot.data_file,
-                        )
+                            # Fusion des flags processed avant sauvegarde
+                            old_scores = (shared_data.get("sentiment", {}) or {}).get(
+                                "scores", []
+                            )
+                            if not isinstance(old_scores, list):
+                                old_scores = []
+                            news_list = merge_news_processed(old_scores, news_list)
+
+                            try:
+                                bot.safe_update_shared_data(
+                                    {
+                                        "sentiment": {
+                                            **(shared_data.get("sentiment", {}) or {}),
+                                            "scores": news_list,
+                                        }
+                                    },
+                                    bot.data_file,
+                                )
+                            except Exception as e_upd:
+                                print(
+                                    f"[WARN] safe_update_shared_data(sentiment): {e_upd}"
+                                )
+                    except Exception as e:
+                        print(f"[WARN] traitement news: {e}")
 
                     # Décompte des pauses à chaque tick
-                    bot.news_pause_manager.on_cycle_end()
-                    active_pauses = bot.get_active_pauses()
+                    try:
+                        bot.news_pause_manager.on_cycle_end()
+                    except Exception as e:
+                        print(f"[WARN] news_pause_manager.on_cycle_end: {e}")
+
+                    try:
+                        active_pauses = bot.get_active_pauses()
+                    except Exception as e:
+                        print(f"[WARN] get_active_pauses: {e}")
+                        active_pauses = []
+
                     print("[DEBUG PATCH] Pauses RAM après tick:", active_pauses)
 
                     # Sync pauses -> fichier partagé
-                    bot.safe_update_shared_data(
-                        {"active_pauses": active_pauses}, bot.data_file
-                    )
+                    try:
+                        bot.safe_update_shared_data(
+                            {"active_pauses": active_pauses}, bot.data_file
+                        )
+                    except Exception as e:
+                        print(f"[WARN] safe_update_shared_data(active_pauses): {e}")
 
                     # Vérification pause globale
-                    trading_paused = (
-                        safe_float(
-                            getattr(
-                                bot.news_pause_manager, "global_cycles_remaining", 0
-                            ),
-                            0,
+                    try:
+                        trading_paused = (
+                            safe_float(
+                                getattr(
+                                    bot.news_pause_manager, "global_cycles_remaining", 0
+                                ),
+                                0,
+                            )
+                            > 0
                         )
-                        > 0
-                    )
+                    except Exception:
+                        trading_paused = False
+
                     if trading_paused:
                         print(
                             "Trading en pause: calculs et signaux mis à jour, EXÉCUTION DES TRADES BLOQUÉE."
                         )
 
                     # Hot reload du modèle IA (si disponible)
-                    if hasattr(bot, "check_reload_dl_model"):
-                        bot.check_reload_dl_model()
+                    try:
+                        if hasattr(bot, "check_reload_dl_model"):
+                            bot.check_reload_dl_model()
+                    except Exception as e:
+                        print(f"[WARN] check_reload_dl_model: {e}")
 
                     # =========================
                     # VÉRIFICATION CRITIQUE: Paires tradables
@@ -9088,7 +9191,6 @@ async def run_clean_bot():
                         current_price = safe_float(pos.get("current_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
 
-                        # VÉRIFICATION CRITIQUE: Ignorer les positions non tradables
                         if not is_symbol_tradable(symbol):
                             print(f"[SKIP] {symbol} non tradable (SELL non autorisé)")
                             continue
@@ -9107,7 +9209,9 @@ async def run_clean_bot():
                                 ticker = bot.binance_client.get_symbol_ticker(
                                     symbol=symbol_binance
                                 )
-                                last_price = float(ticker.get("price", 0))
+                                last_price = safe_float(
+                                    ticker.get("price", 0), current_price
+                                )
                             except Exception:
                                 last_price = current_price
 
@@ -9120,9 +9224,10 @@ async def run_clean_bot():
                                     f"[STOPLOSS] Déclenchement automatique du stop-loss pour {symbol}"
                                 )
                                 if amount > 0:
-                                    # VÉRIFICATION SUPPLEMENTAIRE
                                     if is_symbol_tradable(symbol):
-                                        await bot.execute_trade(symbol, "SELL", amount)
+                                        # *** Patch critique: forcer float ***
+                                        amt = safe_float(amount, 0.0)
+                                        await bot.execute_trade(symbol, "SELL", amt)
                                     else:
                                         print(
                                             f"[BLOCKED] STOPLOSS {symbol} - SELL non autorisé"
@@ -9144,7 +9249,6 @@ async def run_clean_bot():
                         current_price = safe_float(pos.get("current_price"), 0)
                         amount = safe_float(pos.get("amount"), 0)
 
-                        # VÉRIFICATION CRITIQUE: Ignorer les positions non tradables
                         if not is_symbol_tradable(symbol):
                             print(f"[SKIP] {symbol} non tradable (SELL non autorisé)")
                             continue
@@ -9154,8 +9258,8 @@ async def run_clean_bot():
                                 f"[SKIP ZOMBIE] {symbol} ignoré: entry_price={entry_price}, current_price={current_price}, amount={amount}"
                             )
                             continue
+
                         print(f"\n[DEBUG CYCLE] Analyse {symbol} | pos={pos}")
-                        # Conversion sécurisée de tous les champs (déjà fait ci-dessus, donc ok)
 
                         if str(pos.get("side", "")).lower() != "long":
                             print(
@@ -9171,13 +9275,19 @@ async def run_clean_bot():
                             ticker = bot.binance_client.get_symbol_ticker(
                                 symbol=symbol_binance
                             )
-                            last_price = float(ticker.get("price", 0))
+                            last_price = safe_float(
+                                ticker.get("price", 0), current_price
+                            )
                         except Exception:
                             last_price = current_price
 
                         # Ajout du prix actuel à l'historique
                         try:
-                            last_price_float = float(last_price)
+                            last_price_float = safe_float(last_price, current_price)
+                            if "price_history" not in pos or not isinstance(
+                                pos["price_history"], list
+                            ):
+                                pos["price_history"] = []
                             pos["price_history"].append(last_price_float)
                             if len(pos["price_history"]) > 100:
                                 pos["price_history"] = pos["price_history"][-50:]
@@ -9189,17 +9299,21 @@ async def run_clean_bot():
 
                         # TP partiel
                         try:
+                            filled_targets = pos.get("filled_tp_targets", [])
+                            if not isinstance(filled_targets, list):
+                                filled_targets = []
                             to_exit, new_filled = bot.exit_manager.check_tp_partial(
-                                entry_price, last_price, pos["filled_tp_targets"]
+                                entry_price, last_price, filled_targets
                             )
                             to_exit = safe_float(to_exit, 0)
                             if to_exit > 0 and amount > 0:
-                                amount_to_sell = amount * to_exit
+                                amount_to_sell = safe_mul(amount, to_exit, 0.0)
                                 if amount_to_sell > 0:
-                                    # VÉRIFICATION CRITIQUE
                                     if is_symbol_tradable(symbol):
+                                        # *** Patch critique: forcer float ***
+                                        amt = safe_float(amount_to_sell, 0.0)
                                         result = await bot.execute_trade(
-                                            symbol, "SELL", amount_to_sell
+                                            symbol, "SELL", amt
                                         )
                                         if (
                                             result
@@ -9221,7 +9335,6 @@ async def run_clean_bot():
                                             print(
                                                 f"[ERROR] Vente partielle échouée pour {symbol}, position conservée"
                                             )
-                                            # NE PAS modifier pos["amount"], ni supprimer la position
                                     else:
                                         print(
                                             f"[BLOCKED] TP PARTIEL {symbol} - SELL non autorisé"
@@ -9232,14 +9345,14 @@ async def run_clean_bot():
 
                         # Trailing stop
                         try:
-                            validated_price_history = [
-                                float(price) if price is not None else 0.0
-                                for price in pos["price_history"]
-                            ]
+                            ph = pos.get("price_history", [])
+                            if not isinstance(ph, list):
+                                ph = []
+                            validated_price_history = [safe_float(p, 0.0) for p in ph]
                             if not validated_price_history:
-                                validated_price_history = (
-                                    [entry_price] if entry_price > 0 else [0.0]
-                                )
+                                validated_price_history = [
+                                    entry_price if entry_price > 0 else 0.0
+                                ]
                             current_max_price = safe_float(
                                 pos.get("max_price", entry_price), entry_price
                             )
@@ -9248,13 +9361,12 @@ async def run_clean_bot():
                                 validated_price_history,
                                 float(current_max_price),
                             )
-                            pos["max_price"] = safe_float(new_max, 0)
+                            pos["max_price"] = safe_float(new_max, 0.0)
                             if should_exit and safe_float(pos.get("amount"), 0) > 0:
-                                # VÉRIFICATION CRITIQUE
                                 if is_symbol_tradable(symbol):
-                                    await bot.execute_trade(
-                                        symbol, "SELL", safe_float(pos.get("amount"), 0)
-                                    )
+                                    # *** Patch critique: forcer float ***
+                                    amt = safe_float(pos.get("amount"), 0.0)
+                                    await bot.execute_trade(symbol, "SELL", amt)
                                     getattr(bot, "positions_binance", {}).pop(
                                         symbol, None
                                     )
@@ -9275,8 +9387,8 @@ async def run_clean_bot():
                     for symbol, pos in list(
                         getattr(bot, "positions_binance", {}).items()
                     ):
-                        if bot.is_short(symbol):
-                            try:
+                        try:
+                            if bot.is_short(symbol):
                                 symbol_bingx = symbol.replace("USDC", "USDT") + ":USDT"
                                 ticker = await bot.bingx_client.fetch_ticker(
                                     symbol_bingx
@@ -9288,398 +9400,632 @@ async def run_clean_bot():
                                     print(
                                         f"[SHORT STOP] Fermeture short {symbol} (prix: {price})"
                                     )
-                                    await bot.telegram.send_message(
-                                        f"🔴 <b>STOP SHORT déclenché</b>\n"
-                                        f"Pair: {symbol}\n"
-                                        f"Prix actuel: {price}\n"
-                                        f"Position couverte automatiquement (stop/trailing stop)"
-                                    )
-                                    await bot.execute_trade(
-                                        symbol, "BUY", safe_float(pos.get("amount"), 0)
-                                    )
-                            except Exception:
-                                continue
+                                    try:
+                                        await bot.telegram.send_message(
+                                            f"🔴 <b>STOP SHORT déclenché</b>\n"
+                                            f"Pair: {symbol}\n"
+                                            f"Prix actuel: {price}\n"
+                                            f"Position couverte automatiquement (stop/trailing stop)"
+                                        )
+                                    except Exception:
+                                        pass
+                                    amt = safe_float(pos.get("amount"), 0.0)
+                                    if amt > 0:
+                                        await bot.execute_trade(symbol, "BUY", amt)
+                        except Exception as e:
+                            print(f"[WARN] gestion short {symbol}: {e}")
+                            continue
 
                     # =========================
                     # Analyse de marché et génération des signaux
                     # =========================
-                    trade_decisions, regime = await execute_trading_cycle(
-                        bot, valid_pairs
-                    )
+                    try:
+                        trade_decisions, regime = await execute_trading_cycle(
+                            bot, valid_pairs
+                        )
+                    except Exception as e:
+                        print(f"[WARN] execute_trading_cycle: {e}")
+                        trade_decisions, regime = [], regime
 
                     # ---------- 1. Pump ----------
-                    pump_candidates = bot.detect_pump_candidates()
+                    try:
+                        pump_candidates = bot.detect_pump_candidates()
+                    except Exception as e:
+                        print(f"[WARN] detect_pump_candidates: {e}")
+                        pump_candidates = []
+
                     for c in pump_candidates:
-                        pair = c.get("pair")
-                        if not pair:
-                            continue
-                        symbol = pair.split("/")[0]
+                        try:
+                            pair = c.get("pair")
+                            if not pair:
+                                continue
+                            symbol = str(pair).split("/")[0]
 
-                        # VÉRIFICATION CRITIQUE: Paire tradable
-                        if not is_symbol_tradable(pair):
-                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
-                            continue
+                            if not is_symbol_tradable(pair):
+                                print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                                continue
 
-                        if pair not in bot.pairs_valid:
-                            await log_external_crypto_alert(bot, symbol, c)
-                            continue
-                        if bot.is_long(pair):
-                            print(
-                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
-                            )
-                            continue
-                        await bot.telegram.send_message(
-                            f"🚀 Pump détecté sur {pair}: +{safe_float(c.get('price_pct'),0)*100:.1f}%, "
-                            f"volume x{safe_float(c.get('vol_ratio'),0):.1f}"
-                        )
-                        base_amount = safe_float(15, 15)
-                        result = await bot.execute_trade(pair, "BUY", base_amount)
-                        bot.safe_update_shared_data(
-                            {
-                                "pump_opportunities": [
+                            if pair not in bot.pairs_valid:
+                                try:
+                                    await log_external_crypto_alert(bot, symbol, c)
+                                except Exception:
+                                    pass
+                                continue
+                            if bot.is_long(pair):
+                                print(
+                                    f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
+                                )
+                                continue
+                            try:
+                                await bot.telegram.send_message(
+                                    f"🚀 Pump détecté sur {pair}: +{safe_float(c.get('price_pct'),0)*100:.1f}%, "
+                                    f"volume x{safe_float(c.get('vol_ratio'),0):.1f}"
+                                )
+                            except Exception:
+                                pass
+                            base_amount = safe_float(15, 15)
+                            result = await bot.execute_trade(pair, "BUY", base_amount)
+                            try:
+                                bot.safe_update_shared_data(
                                     {
-                                        "timestamp": get_current_time_tahiti(),
-                                        "pair": pair,
-                                        "type": "pump",
-                                        "price_pct": safe_float(c.get("price_pct"), 0),
-                                        "vol_ratio": safe_float(c.get("vol_ratio"), 0),
-                                        "result": result,
-                                    }
-                                ]
-                            },
-                            bot.data_file,
-                        )
-                        if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price", 0))
-                            await bot.plan_auto_sell(
-                                pair,
-                                entry_price,
-                                base_amount,
-                                tp_pct=0.03,
-                                sl_pct=0.03,
-                                max_cycles=2,
-                                reason="pump: trailing_stop",
-                            )
+                                        "pump_opportunities": [
+                                            {
+                                                "timestamp": get_current_time_tahiti(),
+                                                "pair": pair,
+                                                "type": "pump",
+                                                "price_pct": safe_float(
+                                                    c.get("price_pct"), 0
+                                                ),
+                                                "vol_ratio": safe_float(
+                                                    c.get("vol_ratio"), 0
+                                                ),
+                                                "result": result,
+                                            }
+                                        ]
+                                    },
+                                    bot.data_file,
+                                )
+                            except Exception:
+                                pass
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price", 0))
+                                await bot.plan_auto_sell(
+                                    pair,
+                                    entry_price,
+                                    base_amount,
+                                    tp_pct=0.03,
+                                    sl_pct=0.03,
+                                    max_cycles=2,
+                                    reason="pump: trailing_stop",
+                                )
+                        except Exception as e:
+                            print(f"[WARN] pipeline pump pour {c}: {e}")
 
                     # ---------- 2. Breakout ----------
-                    breakout_candidates = bot.detect_breakout_candidates()
+                    try:
+                        breakout_candidates = bot.detect_breakout_candidates()
+                    except Exception as e:
+                        print(f"[WARN] detect_breakout_candidates: {e}")
+                        breakout_candidates = []
+
                     for c in breakout_candidates:
-                        pair = c.get("pair")
-                        if not pair:
-                            continue
-                        symbol = pair.split("/")[0]
+                        try:
+                            pair = c.get("pair")
+                            if not pair:
+                                continue
+                            symbol = str(pair).split("/")[0]
 
-                        # VÉRIFICATION CRITIQUE: Paire tradable
-                        if not is_symbol_tradable(pair):
-                            print(f"[SKIP] {pair} non tradable (achat ignoré)")
-                            continue
+                            if not is_symbol_tradable(pair):
+                                print(f"[SKIP] {pair} non tradable (achat ignoré)")
+                                continue
 
-                        if pair not in bot.pairs_valid:
-                            await log_external_crypto_alert(bot, symbol, c)
-                            continue
-                        if bot.is_long(pair):
-                            print(
-                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
-                            )
-                            continue
-                        await bot.telegram.send_message(
-                            f"💥 Breakout sur {pair}: close={safe_float(c.get('close'),0):.2f} > "
-                            f"{safe_float(c.get('breakout_level'),0):.2f}"
-                        )
-                        base_amount = safe_float(15, 15)
-                        result = await bot.execute_trade(pair, "BUY", base_amount)
-                        bot.safe_update_shared_data(
-                            {
-                                "breakout_opportunities": [
+                            if pair not in bot.pairs_valid:
+                                try:
+                                    await log_external_crypto_alert(bot, symbol, c)
+                                except Exception:
+                                    pass
+                                continue
+                            if bot.is_long(pair):
+                                print(
+                                    f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
+                                )
+                                continue
+                            try:
+                                await bot.telegram.send_message(
+                                    f"💥 Breakout sur {pair}: close={safe_float(c.get('close'),0):.2f} > "
+                                    f"{safe_float(c.get('breakout_level'),0):.2f}"
+                                )
+                            except Exception:
+                                pass
+                            base_amount = safe_float(15, 15)
+                            result = await bot.execute_trade(pair, "BUY", base_amount)
+                            try:
+                                bot.safe_update_shared_data(
                                     {
-                                        "timestamp": get_current_time_tahiti(),
-                                        "pair": pair,
-                                        "type": "breakout",
-                                        "close": safe_float(c.get("close"), 0),
-                                        "breakout_level": safe_float(
-                                            c.get("breakout_level"), 0
-                                        ),
-                                        "result": result,
-                                    }
-                                ]
-                            },
-                            bot.data_file,
-                        )
-                        if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price"), 0)
-                            await bot.plan_auto_sell(
-                                pair,
-                                entry_price,
-                                base_amount,
-                                tp_pct=0.03,
-                                sl_pct=0.03,
-                                max_cycles=2,
-                                reason="breakout: trailing_stop",
-                            )
+                                        "breakout_opportunities": [
+                                            {
+                                                "timestamp": get_current_time_tahiti(),
+                                                "pair": pair,
+                                                "type": "breakout",
+                                                "close": safe_float(c.get("close"), 0),
+                                                "breakout_level": safe_float(
+                                                    c.get("breakout_level"), 0
+                                                ),
+                                                "result": result,
+                                            }
+                                        ]
+                                    },
+                                    bot.data_file,
+                                )
+                            except Exception:
+                                pass
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price"), 0)
+                                await bot.plan_auto_sell(
+                                    pair,
+                                    entry_price,
+                                    base_amount,
+                                    tp_pct=0.03,
+                                    sl_pct=0.03,
+                                    max_cycles=2,
+                                    reason="breakout: trailing_stop",
+                                )
+                        except Exception as e:
+                            print(f"[WARN] pipeline breakout pour {c}: {e}")
 
                     # Appel impulsif sur news très positives (même hors pairs_valid)
-                    for news in news_list:
-                        if safe_float(news.get("sentiment"), 0) > 0.7:
-                            await bot.detect_and_buy_news_impulsif(news)
+                    try:
+                        for news in news_list:
+                            if safe_float(news.get("sentiment"), 0) > 0.7:
+                                try:
+                                    await bot.detect_and_buy_news_impulsif(news)
+                                except Exception as _e:
+                                    print(f"[WARN] detect_and_buy_news_impulsif: {_e}")
+                    except Exception:
+                        pass
 
                     # ---------- 3. News ----------
-                    news_candidates = bot.detect_news_candidates(news_list)
+                    try:
+                        news_candidates = bot.detect_news_candidates(news_list)
+                    except Exception as e:
+                        print(f"[WARN] detect_news_candidates: {e}")
+                        news_candidates = []
+
                     for c in news_candidates:
-                        pair = c.get("pair")
-                        if not pair:
-                            continue
-                        symbol = pair.split("/")[0]
+                        try:
+                            pair = c.get("pair")
+                            if not pair:
+                                continue
+                            symbol = str(pair).split("/")[0]
 
-                        # VÉRIFICATION CRITIQUE: Paire tradable
-                        if not is_symbol_tradable(pair):
-                            # print(f"[SKIP] {pair} non tradable (achat ignoré)")
-                            continue
+                            if not is_symbol_tradable(pair):
+                                continue
 
-                        if pair not in bot.pairs_valid:
-                            await log_external_crypto_alert(bot, symbol, c)
-                            continue
-                        if bot.is_long(pair):
-                            print(
-                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
-                            )
-                            continue
-                        await bot.telegram.send_message(
-                            f"📰 News positive sur {pair}: sentiment={safe_float(c.get('sentiment'),0):.2f}\n"
-                            f"{str(c.get('title', ''))}"
-                        )
-                        base_amount = safe_float(15, 15)
-                        result = await bot.execute_trade(pair, "BUY", base_amount)
-                        bot.safe_update_shared_data(
-                            {
-                                "news_opportunities": [
+                            if pair not in bot.pairs_valid:
+                                try:
+                                    await log_external_crypto_alert(bot, symbol, c)
+                                except Exception:
+                                    pass
+                                continue
+                            if bot.is_long(pair):
+                                print(
+                                    f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
+                                )
+                                continue
+                            try:
+                                await bot.telegram.send_message(
+                                    f"📰 News positive sur {pair}: sentiment={safe_float(c.get('sentiment'),0):.2f}\n"
+                                    f"{str(c.get('title', ''))}"
+                                )
+                            except Exception:
+                                pass
+                            base_amount = safe_float(15, 15)
+                            result = await bot.execute_trade(pair, "BUY", base_amount)
+                            try:
+                                bot.safe_update_shared_data(
                                     {
-                                        "timestamp": get_current_time_tahiti(),
-                                        "pair": pair,
-                                        "type": "news",
-                                        "sentiment": safe_float(c.get("sentiment"), 0),
-                                        "title": str(c.get("title", "")),
-                                        "result": result,
-                                    }
-                                ]
-                            },
-                            bot.data_file,
-                        )
-                        if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price"), 0)
-                            await bot.plan_auto_sell(
-                                pair,
-                                entry_price,
-                                base_amount,
-                                tp_pct=0.03,
-                                sl_pct=0.03,
-                                max_cycles=2,
-                                reason="news: trailing_stop",
-                            )
+                                        "news_opportunities": [
+                                            {
+                                                "timestamp": get_current_time_tahiti(),
+                                                "pair": pair,
+                                                "type": "news",
+                                                "sentiment": safe_float(
+                                                    c.get("sentiment"), 0
+                                                ),
+                                                "title": str(c.get("title", "")),
+                                                "result": result,
+                                            }
+                                        ]
+                                    },
+                                    bot.data_file,
+                                )
+                            except Exception:
+                                pass
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price"), 0)
+                                await bot.plan_auto_sell(
+                                    pair,
+                                    entry_price,
+                                    base_amount,
+                                    tp_pct=0.03,
+                                    sl_pct=0.03,
+                                    max_cycles=2,
+                                    reason="news: trailing_stop",
+                                )
+                        except Exception as e:
+                            print(f"[WARN] pipeline news pour {c}: {e}")
 
                     # ---------- 4. Arbitrage ----------
-                    arbitrage_candidates = await bot.detect_arbitrage_candidates()
+                    try:
+                        arbitrage_candidates = await bot.detect_arbitrage_candidates()
+                    except Exception as e:
+                        print(f"[WARN] detect_arbitrage_candidates: {e}")
+                        arbitrage_candidates = []
+
                     for c in arbitrage_candidates:
-                        pair = c.get("pair")
-                        if not pair:
-                            continue
-                        symbol = pair.split("/")[0]
+                        try:
+                            pair = c.get("pair")
+                            if not pair:
+                                continue
+                            symbol = str(pair).split("/")[0]
 
-                        # VÉRIFICATION CRITIQUE: Paire tradable
-                        if not is_symbol_tradable(pair):
-                            # print(f"[SKIP] {pair} non tradable (achat ignoré)")
-                            continue
+                            if not is_symbol_tradable(pair):
+                                continue
 
-                        if pair not in bot.pairs_valid:
-                            await log_external_crypto_alert(bot, symbol, c)
-                            continue
-                        if bot.is_long(pair):
-                            print(
-                                f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
-                            )
-                            continue
-                        await bot.telegram.send_message(
-                            f"💹 Arbitrage possible sur {pair}: "
-                            f"Binance={safe_float(c.get('binance_price'),0)} "
-                            f"BingX={safe_float(c.get('bingx_price'),0)} "
-                            f"Diff={safe_float(c.get('diff_pct'),0):.2f}%"
-                        )
-                        base_amount = safe_float(15, 15)
-                        result = await bot.execute_trade(pair, "BUY", base_amount)
-                        bot.safe_update_shared_data(
-                            {
-                                "arbitrage_opportunities": [
+                            if pair not in bot.pairs_valid:
+                                try:
+                                    await log_external_crypto_alert(bot, symbol, c)
+                                except Exception:
+                                    pass
+                                continue
+                            if bot.is_long(pair):
+                                print(
+                                    f"[SKIP] Achat impulsif ignoré sur {pair} — déjà en portefeuille."
+                                )
+                                continue
+                            try:
+                                await bot.telegram.send_message(
+                                    f"💹 Arbitrage possible sur {pair}: "
+                                    f"Binance={safe_float(c.get('binance_price'),0)} "
+                                    f"BingX={safe_float(c.get('bingx_price'),0)} "
+                                    f"Diff={safe_float(c.get('diff_pct'),0):.2f}%"
+                                )
+                            except Exception:
+                                pass
+                            base_amount = safe_float(15, 15)
+                            result = await bot.execute_trade(pair, "BUY", base_amount)
+                            try:
+                                bot.safe_update_shared_data(
                                     {
-                                        "timestamp": get_current_time_tahiti(),
-                                        "pair": pair,
-                                        "type": "arbitrage",
-                                        "binance_price": safe_float(
-                                            c.get("binance_price"), 0
-                                        ),
-                                        "bingx_price": safe_float(
-                                            c.get("bingx_price"), 0
-                                        ),
-                                        "diff_pct": safe_float(c.get("diff_pct"), 0),
-                                        "result": result,
-                                    }
-                                ]
-                            },
-                            bot.data_file,
-                        )
-                        if result and result.get("status") == "completed":
-                            entry_price = safe_float(result.get("avg_price"), 0)
-                            await bot.plan_auto_sell(
-                                pair,
-                                entry_price,
-                                base_amount,
-                                tp_pct=0.03,
-                                sl_pct=0.03,
-                                max_cycles=2,
-                                reason="arbitrage: trailing_stop",
-                            )
+                                        "arbitrage_opportunities": [
+                                            {
+                                                "timestamp": get_current_time_tahiti(),
+                                                "pair": pair,
+                                                "type": "arbitrage",
+                                                "binance_price": safe_float(
+                                                    c.get("binance_price"), 0
+                                                ),
+                                                "bingx_price": safe_float(
+                                                    c.get("bingx_price"), 0
+                                                ),
+                                                "diff_pct": safe_float(
+                                                    c.get("diff_pct"), 0
+                                                ),
+                                                "result": result,
+                                            }
+                                        ]
+                                    },
+                                    bot.data_file,
+                                )
+                            except Exception:
+                                pass
+                            if result and result.get("status") == "completed":
+                                entry_price = safe_float(result.get("avg_price"), 0)
+                                await bot.plan_auto_sell(
+                                    pair,
+                                    entry_price,
+                                    base_amount,
+                                    tp_pct=0.03,
+                                    sl_pct=0.03,
+                                    max_cycles=2,
+                                    reason="arbitrage: trailing_stop",
+                                )
+                        except Exception as e:
+                            print(f"[WARN] pipeline arbitrage pour {c}: {e}")
 
                     # =========================
                     # Mise à jour des données du bot
                     # =========================
-                    bot.current_cycle = cycle
+                    bot.current_cycle = safe_int(cycle, cycle)
                     bot.regime = regime
 
                     # =========================
                     # Calcul des indicateurs techniques
                     # =========================
                     bot.indicators = {}
-                    for pair in bot.pairs_valid:
-                        pair_key = pair.replace("/", "").upper()
-                        for tf in bot.config["TRADING"]["timeframes"]:
-                            if (
-                                pair_key in bot.market_data
-                                and tf in bot.market_data[pair_key]
-                            ):
-                                market_data = bot.market_data[pair_key][tf]
-                                df = bot.ws_collector.get_dataframe(pair_key, tf)
-                                trend = safe_float(bot.calculate_trend(market_data), 0)
-                                volatility = safe_float(
-                                    bot.calculate_volatility(market_data), 0
-                                )
-                                volume_profile = bot.calculate_volume_profile(
-                                    market_data
-                                )
-                                dominant_signal = bot.get_dominant_signal(pair, tf)
-                                indicators = (
-                                    bot.add_indicators(df)
-                                    if (df is not None and not df.empty)
-                                    else {}
-                                )
-                                tf_key = f"{tf} | {pair}"
-                                bot.indicators[tf_key] = {
-                                    "trend": {"trend_strength": trend},
-                                    "volatility": {"current_volatility": volatility},
-                                    "volume": {"volume_profile": volume_profile},
-                                    "dominant_signal": dominant_signal,
-                                    "ta": indicators,
-                                }
+                    try:
+                        for pair in bot.pairs_valid:
+                            pair_key = pair.replace("/", "").upper()
+                            for tf in bot.config["TRADING"]["timeframes"]:
+                                if (
+                                    pair_key in bot.market_data
+                                    and tf in bot.market_data[pair_key]
+                                ):
+                                    market_data = bot.market_data[pair_key][tf]
+                                    df = bot.ws_collector.get_dataframe(pair_key, tf)
+                                    trend = safe_float(
+                                        bot.calculate_trend(market_data), 0
+                                    )
+                                    volatility = safe_float(
+                                        bot.calculate_volatility(market_data), 0
+                                    )
+                                    volume_profile = bot.calculate_volume_profile(
+                                        market_data
+                                    )
+                                    dominant_signal = bot.get_dominant_signal(pair, tf)
+                                    indicators = (
+                                        bot.add_indicators(df)
+                                        if (df is not None and not df.empty)
+                                        else {}
+                                    )
+                                    tf_key = f"{tf} | {pair}"
+                                    bot.indicators[tf_key] = {
+                                        "trend": {"trend_strength": trend},
+                                        "volatility": {
+                                            "current_volatility": volatility
+                                        },
+                                        "volume": {"volume_profile": volume_profile},
+                                        "dominant_signal": dominant_signal,
+                                        "ta": indicators,
+                                    }
+                    except Exception as e:
+                        print(f"[WARN] calcul indicateurs: {e}")
 
                     # =========================
                     # Sauvegarde & dashboard
                     # =========================
                     td_dict = {}
-                    for pair in bot.pairs_valid:
-                        pair_key = pair.replace("/", "").upper()
-                        tech_score = 0.5
-                        ai_score = 0.5
-                        sentiment_score = 0.5
-                        if pair_key in bot.market_data:
-                            if "1h" in bot.market_data[pair_key]:
-                                tf_data = bot.market_data[pair_key]["1h"]
-                                if (
-                                    isinstance(tf_data, dict)
-                                    and "signals" in tf_data
-                                    and "technical" in tf_data["signals"]
-                                ):
-                                    tech_score = safe_float(
-                                        tf_data["signals"]["technical"].get(
-                                            "score", 0.5
-                                        ),
-                                        0.5,
-                                    )
-                            ai_score = safe_float(
-                                bot.market_data[pair_key].get("ai_prediction", 0.5), 0.5
-                            )
-                            sentiment_score = safe_float(
-                                bot.market_data[pair_key].get("sentiment", 0.5), 0.5
-                            )
-                        td_dict[pair] = {
-                            "confidence": 0.5,
-                            "action": "neutral",
-                            "tech": tech_score,
-                            "ai": ai_score,
-                            "sentiment": sentiment_score,
-                        }
-                    for td in trade_decisions:
-                        if td and isinstance(td, dict):
-                            pair = td.get("pair")
-                            if not pair:
-                                continue
-                            signals = (
-                                td.get("signals", {})
-                                if isinstance(td.get("signals", {}), dict)
-                                else {}
-                            )
-                            td_dict[pair].update(
-                                {
-                                    "confidence": safe_float(
-                                        td.get("confidence", 0.5), 0.5
-                                    ),
-                                    "action": str(td.get("action", "neutral")),
-                                    "tech": (
-                                        safe_float(
-                                            signals.get("technical", {}).get(
+                    try:
+                        for pair in bot.pairs_valid:
+                            pair_key = pair.replace("/", "").upper()
+                            tech_score = 0.5
+                            ai_score = 0.5
+                            sentiment_score = 0.5
+                            if pair_key in bot.market_data:
+                                if "1h" in bot.market_data[pair_key]:
+                                    tf_data = bot.market_data[pair_key]["1h"]
+                                    if (
+                                        isinstance(tf_data, dict)
+                                        and "signals" in tf_data
+                                        and "technical" in tf_data["signals"]
+                                    ):
+                                        tech_score = safe_float(
+                                            tf_data["signals"]["technical"].get(
                                                 "score", 0.5
                                             ),
                                             0.5,
                                         )
-                                        if isinstance(
-                                            signals.get("technical", {}), dict
-                                        )
-                                        else 0.5
+                                ai_score = safe_float(
+                                    bot.market_data[pair_key].get("ai_prediction", 0.5),
+                                    0.5,
+                                )
+                                sentiment_score = safe_float(
+                                    bot.market_data[pair_key].get("sentiment", 0.5), 0.5
+                                )
+                            td_dict[pair] = {
+                                "confidence": 0.5,
+                                "action": "neutral",
+                                "tech": tech_score,
+                                "ai": ai_score,
+                                "sentiment": sentiment_score,
+                            }
+                        for td in trade_decisions or []:
+                            if td and isinstance(td, dict):
+                                pair = td.get("pair")
+                                if not pair:
+                                    continue
+                                signals = (
+                                    td.get("signals", {})
+                                    if isinstance(td.get("signals", {}), dict)
+                                    else {}
+                                )
+                                if pair not in td_dict:
+                                    td_dict[pair] = {
+                                        "confidence": 0.5,
+                                        "action": "neutral",
+                                        "tech": 0.5,
+                                        "ai": 0.5,
+                                        "sentiment": 0.5,
+                                    }
+                                td_dict[pair].update(
+                                    {
+                                        "confidence": safe_float(
+                                            td.get("confidence", 0.5), 0.5
+                                        ),
+                                        "action": str(td.get("action", "neutral")),
+                                        "tech": (
+                                            safe_float(
+                                                signals.get("technical", {}).get(
+                                                    "score", 0.5
+                                                ),
+                                                0.5,
+                                            )
+                                            if isinstance(
+                                                signals.get("technical", {}), dict
+                                            )
+                                            else 0.5
+                                        ),
+                                        "ai": safe_float(signals.get("ai", 0.5), 0.5),
+                                        "sentiment": safe_float(
+                                            signals.get("sentiment", 0.5), 0.5
+                                        ),
+                                    }
+                                )
+                        cycle_metrics = {
+                            "cycle": safe_int(cycle, cycle),
+                            "regime": str(regime),
+                            "balance": safe_float(
+                                bot.get_performance_metrics().get("balance", 0.0), 0.0
+                            ),
+                        }
+                        try:
+                            bot.safe_update_shared_data(
+                                {
+                                    "trade_decisions": td_dict,
+                                    "market_data": bot.market_data,
+                                    "cycle_metrics": cycle_metrics,
+                                    "active_pauses": bot.get_active_pauses(),
+                                    "positions_binance": getattr(
+                                        bot, "positions_binance", {}
                                     ),
-                                    "ai": safe_float(signals.get("ai", 0.5), 0.5),
-                                    "sentiment": safe_float(
-                                        signals.get("sentiment", 0.5), 0.5
-                                    ),
-                                }
+                                },
+                                bot.data_file,
                             )
-                    cycle_metrics = {
-                        "cycle": int(cycle),
-                        "regime": str(regime),
-                        "balance": safe_float(
-                            bot.get_performance_metrics().get("balance", 0.0), 0.0
-                        ),
-                    }
-                    bot.safe_update_shared_data(
-                        {
-                            "trade_decisions": td_dict,
-                            "market_data": bot.market_data,
-                            "cycle_metrics": cycle_metrics,
-                            "active_pauses": bot.get_active_pauses(),
-                            "positions_binance": getattr(bot, "positions_binance", {}),
-                        },
-                        bot.data_file,
-                    )
-                    bot.trade_decisions = td_dict
-                    print("[DEBUG DASHBOARD EXPORT]")
-                    print("Trade Decisions:", json.dumps(td_dict, indent=2))
-                    print("Cycle Metrics:", json.dumps(cycle_metrics, indent=2))
-                    bot.safe_update_shared_data(
-                        {
-                            "active_pauses": active_pauses,
-                            "positions_binance": getattr(bot, "positions_binance", {}),
-                            "trade_decisions": td_dict,
-                            "cycle_metrics": cycle_metrics,
-                            "market_data": bot.market_data,
-                        },
-                        bot.data_file,
-                    )
+                        except Exception as e:
+                            print(f"[WARN] safe_update_shared_data(main-1): {e}")
+                        bot.trade_decisions = td_dict
+                        print("[DEBUG DASHBOARD EXPORT]")
+                        try:
+                            print("Trade Decisions:", json.dumps(td_dict, indent=2))
+                            print("Cycle Metrics:", json.dumps(cycle_metrics, indent=2))
+                        except Exception:
+                            pass
+                        try:
+                            bot.safe_update_shared_data(
+                                {
+                                    "active_pauses": active_pauses,
+                                    "positions_binance": getattr(
+                                        bot, "positions_binance", {}
+                                    ),
+                                    "trade_decisions": td_dict,
+                                    "cycle_metrics": cycle_metrics,
+                                    "market_data": bot.market_data,
+                                },
+                                bot.data_file,
+                            )
+                        except Exception as e:
+                            print(f"[WARN] safe_update_shared_data(main-2): {e}")
+                        try:
+                            bot.save_shared_data()
+                        except Exception:
+                            pass
+                        try:
+                            bot.safe_update_shared_data(
+                                {
+                                    "bot_status": {
+                                        "regime": bot.regime,
+                                        "cycle": bot.current_cycle,
+                                        "last_update": get_current_time(),
+                                        "performance": {
+                                            k: (
+                                                safe_float(v, 0.0)
+                                                if isinstance(v, (int, float, str))
+                                                else v
+                                            )
+                                            for k, v in bot.get_performance_metrics().items()
+                                        },
+                                    }
+                                },
+                                bot.data_file,
+                            )
+                        except Exception as e:
+                            print(f"[WARN] safe_update_shared_data(bot_status): {e}")
+                    except Exception as e:
+                        print(f"[WARN] bloc dashboard: {e}")
+
+                    # =========================
+                    # Exécution des trades si pas de pause
+                    # =========================
+                    try:
+                        if not trading_paused:
+                            await execute_trade_decisions(bot, trade_decisions)
+                        else:
+                            print(
+                                "🚫 [PAUSE] Exécution des trades bloquée, signaux et IA à jour."
+                            )
+                    except Exception as e:
+                        print(f"[WARN] execute_trade_decisions: {e}")
+
+                    # =========================
+                    # Entraînement IA périodique
+                    # =========================
+                    try:
+                        if safe_int(cycle, 0) % 10 == 0:
+                            print(
+                                "=== Entraînement automatique IA sur toutes les paires/timeframes ==="
+                            )
+                            bot.train_cnn_lstm_on_all_live()
+                    except Exception as e:
+                        print(f"[WARN] train_cnn_lstm_on_all_live: {e}")
+
+                    # =========================
+                    # Logs fin de cycle + rapports
+                    # =========================
+                    try:
+                        duration = (datetime.utcnow() - start).total_seconds()
+                    except Exception:
+                        duration = 0.0
+                    print(f"✅ Cycle terminé en {safe_float(duration, 0.0):.1f}s")
+                    try:
+                        performance = bot.get_performance_metrics()
+                        await send_telegram_if_needed(
+                            bot,
+                            safe_int(cycle, 0),
+                            regime,
+                            performance,
+                            (
+                                shared_data.get("sentiment", {})
+                                if isinstance(shared_data, dict)
+                                else {}
+                            ),
+                            (
+                                shared_data.get("alerts", [])
+                                if isinstance(shared_data, dict)
+                                else []
+                            ),
+                            (
+                                shared_data.get("pending_sales", [])
+                                if isinstance(shared_data, dict)
+                                else []
+                            ),
+                            (
+                                shared_data.get("active_pauses", [])
+                                if isinstance(shared_data, dict)
+                                else []
+                            ),
+                            safe_float(performance.get("max_drawdown", 0.0), 0.0),
+                        )
+                        await send_cycle_reports(
+                            bot,
+                            trade_decisions,
+                            safe_int(cycle, 0),
+                            regime,
+                            safe_float(duration, 0.0),
+                        )
+                    except Exception as e:
+                        print(f"[WARN] rapports fin de cycle: {e}")
+
+                except Exception as e:
+                    error_msg = f"⚠️ Erreur cycle {cycle}: {e}"
+                    logger.error(error_msg)
+                    try:
+                        await bot.telegram.send_message(error_msg)
+                    except Exception:
+                        pass
+
+                # =========================
+                # Fin de boucle: sync & pause
+                # =========================
+                try:
+                    if hasattr(bot, "get_pending_sales"):
+                        bot.get_pending_sales()
+                except Exception:
+                    pass
+                try:
                     bot.save_shared_data()
+                except Exception:
+                    pass
+                try:
                     bot.safe_update_shared_data(
                         {
                             "bot_status": {
@@ -9698,100 +10044,12 @@ async def run_clean_bot():
                         },
                         bot.data_file,
                     )
-
-                    # =========================
-                    # Exécution des trades si pas de pause
-                    # =========================
-                    if not trading_paused:
-                        await execute_trade_decisions(bot, trade_decisions)
-                    else:
-                        print(
-                            "🚫 [PAUSE] Exécution des trades bloquée, signaux et IA à jour."
-                        )
-
-                    # =========================
-                    # Entraînement IA périodique
-                    # =========================
-                    if cycle % 10 == 0:
-                        print(
-                            "=== Entraînement automatique IA sur toutes les paires/timeframes ==="
-                        )
-                        bot.train_cnn_lstm_on_all_live()
-
-                    # =========================
-                    # Logs fin de cycle + rapports
-                    # =========================
-                    duration = (datetime.utcnow() - start).total_seconds()
-                    print(f"✅ Cycle terminé en {duration:.1f}s")
-                    performance = bot.get_performance_metrics()
-                    await send_telegram_if_needed(
-                        bot,
-                        int(cycle),
-                        regime,
-                        performance,
-                        (
-                            shared_data.get("sentiment", {})
-                            if isinstance(shared_data, dict)
-                            else {}
-                        ),
-                        (
-                            shared_data.get("alerts", [])
-                            if isinstance(shared_data, dict)
-                            else []
-                        ),
-                        (
-                            shared_data.get("pending_sales", [])
-                            if isinstance(shared_data, dict)
-                            else []
-                        ),
-                        (
-                            shared_data.get("active_pauses", [])
-                            if isinstance(shared_data, dict)
-                            else []
-                        ),
-                        safe_float(performance.get("max_drawdown", 0.0), 0.0),
-                    )
-                    await send_cycle_reports(
-                        bot,
-                        trade_decisions,
-                        int(cycle),
-                        regime,
-                        safe_float(duration, 0.0),
-                    )
-
-                except Exception as e:
-                    error_msg = f"⚠️ Erreur cycle {cycle}: {e}"
-                    logger.error(error_msg)
-                    try:
-                        await bot.telegram.send_message(error_msg)
-                    except Exception:
-                        pass
-
-                # =========================
-                # Fin de boucle: sync & pause
-                # =========================
-                if hasattr(bot, "get_pending_sales"):
-                    bot.get_pending_sales()
-                bot.save_shared_data()
-                bot.safe_update_shared_data(
-                    {
-                        "bot_status": {
-                            "regime": bot.regime,
-                            "cycle": bot.current_cycle,
-                            "last_update": get_current_time(),
-                            "performance": {
-                                k: (
-                                    safe_float(v, 0.0)
-                                    if isinstance(v, (int, float, str))
-                                    else v
-                                )
-                                for k, v in bot.get_performance_metrics().items()
-                            },
-                        }
-                    },
-                    bot.data_file,
-                )
-                await bot.handle_auto_sell()
+                except Exception:
+                    pass
+                try:
+                    await bot.handle_auto_sell()
+                except Exception:
+                    pass
 
                 # Attente avant le prochain cycle
                 try:
@@ -9802,9 +10060,15 @@ async def run_clean_bot():
                 await asyncio.sleep(1)
 
         except KeyboardInterrupt:
-            await handle_shutdown(bot, "👋 Bot arrêté proprement")
+            try:
+                await handle_shutdown(bot, "👋 Bot arrêté proprement")
+            except Exception:
+                pass
         except Exception as e:
-            await handle_shutdown(bot, f"💥 Erreur fatale: {e}")
+            try:
+                await handle_shutdown(bot, f"💥 Erreur fatale: {e}")
+            except Exception:
+                print(f"[FATAL] {e}")
 
     # Démarrage de la boucle principale
     await main()
@@ -10102,25 +10366,49 @@ async def send_trade_notification(bot, decision, trade_result, amount):
     """
     try:
         # Détermination de l'emoji selon l'action
-        action = decision.get("action", "").lower()
+        action = str(decision.get("action", "")).lower()
         emoji = "🟢" if action == "buy" else "🔴" if action == "sell" else "⚪️"
+
+        def fmt(val, dec=8):
+            try:
+                v = float(val)
+                return f"{v:.{dec}f}".rstrip("0").rstrip(".") if v != 0 else "0"
+            except Exception:
+                return str(val) if val is not None else "?"
+
+        def fmt_pct(val, dec=2):
+            try:
+                v = float(val)
+                return f"{v*100:.{dec}f}%"
+            except Exception:
+                return "N/A"
+
+        # Formatage des valeurs clés
+        pair = decision.get("pair", "?")
+        avg_price = fmt(trade_result.get("avg_price", "N/A"), 6)
+        amount_fmt = fmt(amount, 8)
+        total = fmt(float(amount) * float(trade_result.get("avg_price", 0)), 2)
+        confidence = fmt_pct(decision.get("confidence", 0), 0)
+        tech = fmt_pct(decision.get("signals", {}).get("technical", 0), 0)
+        ia = fmt(decision.get("signals", {}).get("ai", 0), 2)
+        sentiment = fmt(decision.get("signals", {}).get("sentiment", 0), 2)
 
         # Construction du message
         message = (
             f"{emoji} <b>TRADE EXÉCUTÉ</b>\n\n"
-            f"📊 Paire : {decision.get('pair', '?')}\n"
+            f"📊 Paire : {pair}\n"
             f"Action : <b>{action.upper()}</b>\n"
-            f"Montant : {amount}\n"
-            f"Prix : {trade_result.get('avg_price', 'N/A')}\n"
-            f"Total : {float(amount) * float(trade_result.get('avg_price', 0)):.2f} USDT\n"
-            f"Confiance : {decision.get('confidence', 0):.0%}\n"
-            f"Signaux : Tech {decision.get('signals', {}).get('technical', 0):.0%} | "
-            f"IA {decision.get('signals', {}).get('ai', 0):.2f} | "
-            f"Sentiment {decision.get('signals', {}).get('sentiment', 0):.2f}\n"
+            f"Montant : {amount_fmt}\n"
+            f"Prix : {avg_price}\n"
+            f"Total : {total} USDT\n"
+            f"Confiance : {confidence}\n"
+            f"Signaux : Tech {tech} | IA {ia} | Sentiment {sentiment}\n"
         )
         await bot.telegram.send_message(message)
 
     except Exception as e:
+        import logging
+
         logging.error(f"Erreur envoi notification: {e}")
 
 

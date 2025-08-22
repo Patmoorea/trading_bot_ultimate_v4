@@ -12,6 +12,7 @@ from binance.client import Client
 from src.backtesting.core.backtest_engine import BacktestEngine
 from src.strategies import sma_strategy, breakout_strategy, arbitrage_strategy
 from src.bot_runner import _generate_analysis_report
+from src.bot_runner import fetch_binance_ohlcv
 from src.risk_tools import kelly_criterion, calculate_var, calculate_max_drawdown
 from src.backtesting.backtest_full_bot import backtest_full_bot
 

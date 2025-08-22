@@ -627,7 +627,7 @@ async def setup_streams(bot):
             retry_count = 0
             while retry_count < WEBSOCKET_CONFIG["MAX_RETRIES"]:
                 try:
-                    self.logger.info(
+                    logger.info(
                         f"Setting up {stream_type} stream (attempt {retry_count + 1}/{WEBSOCKET_CONFIG['MAX_RETRIES']})..."
                     )
 
