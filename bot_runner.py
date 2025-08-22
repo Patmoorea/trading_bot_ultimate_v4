@@ -5732,7 +5732,6 @@ class TradingBotM4:
 
         # --- MODE SIMULATION ---
         if not self.is_live_trading:
-            # ... (le code simulation reste inchangé) ...
             return {
                 "status": "simulated",
                 "symbol": symbol_binance,
@@ -5754,7 +5753,7 @@ class TradingBotM4:
                     ticker = self.binance_client.get_symbol_ticker(
                         symbol=symbol_binance
                     )
-                    current_price = float(ticker.get("price", 0))
+                    current_price = safe_float(ticker.get("price", 0))
                     if current_price <= 0:
                         error_msg = f"[ORDER] {symbol_binance} indisponible (prix: {current_price})"
                         print(error_msg)
@@ -5798,7 +5797,7 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH: quantité float → string décimal pour API
+                # PATCH: quantité float → string décimal pour API, mais conserve le float pour calculs !
                 amount_float = self.adjust_amount_to_lot_size(symbol_binance, amount)
                 amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
 
@@ -5824,10 +5823,12 @@ class TradingBotM4:
                         except:
                             avg_price = price or 0
 
+                    # PATCH : On force le cast float ici !
+                    filled_amt = safe_float(result.get("filled_amount", amount_float))
                     self.positions[symbol_binance] = {
                         "side": "long",
                         "entry_price": avg_price,
-                        "amount": safe_float(result.get("filled_amount", amount_float)),
+                        "amount": filled_amt,
                         "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
@@ -5907,7 +5908,6 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH: Passe le string décimal à l'executor
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
@@ -5923,7 +5923,9 @@ class TradingBotM4:
                     filled_amount = safe_float(
                         result.get("filled_amount", use_amount_float)
                     )
-                    remaining_amount = current_position["amount"] - filled_amount
+                    remaining_amount = (
+                        safe_float(current_position["amount"]) - filled_amount
+                    )  # PATCH ICI !
 
                     if remaining_amount > 0.000001:
                         current_position["amount"] = remaining_amount
@@ -5976,7 +5978,6 @@ class TradingBotM4:
 
                     qty = safe_float(amount) / price_bingx if price_bingx > 0 else 0
 
-                    # PATCH: string format for qty (BingX usually accepts floats, but can be safe)
                     qty_str = "{:.8f}".format(qty).rstrip("0").rstrip(".")
                     if safe_float(qty_str) <= 0:
                         error_msg = f"[ORDER] Quantité invalide pour short: {qty_str}"
@@ -6053,15 +6054,6 @@ class TradingBotM4:
 
             # Gestion du résultat de l'ordre
             if result and result.get("status") == "completed":
-                success_msg = (
-                    f"[ORDER] Exécuté avec succès: {side} {result.get('filled_amount', amount)} "
-                    f"{symbol_binance} @ {result.get('avg_price', price)}"
-                )
-                log_dashboard(success_msg)
-                self.logger.info(success_msg)
-
-                self._update_performance_metrics(result)
-
                 filled_amount = safe_float(result.get("filled_amount", amount))
                 avg_price = safe_float(result.get("avg_price", price) or 0)
                 total_value = filled_amount * avg_price
@@ -6071,6 +6063,15 @@ class TradingBotM4:
                     if result.get("iceberg")
                     else ""
                 )
+
+                success_msg = (
+                    f"[ORDER] Exécuté avec succès: {side} {filled_amount} "
+                    f"{symbol_binance} @ {avg_price}"
+                )
+                log_dashboard(success_msg)
+                self.logger.info(success_msg)
+
+                self._update_performance_metrics(result)
 
                 await self.telegram.send_message(
                     f"💰 <b>Ordre exécuté</b>\n"
@@ -6117,7 +6118,7 @@ class TradingBotM4:
                     self.sync_positions_with_binance()
                     return {
                         "status": "completed",
-                        "filled_amount": amount,
+                        "filled_amount": amount_float,
                         "avg_price": 0,
                     }
 

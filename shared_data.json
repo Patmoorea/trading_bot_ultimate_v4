@@ -5,7 +5,7 @@
       "reason": "Pause active",
       "decision": "Vente bloqu\u00e9e",
       "entry_price": 117917.08589743589,
-      "current_price": 112905.29,
+      "current_price": 113240.0,
       "amount": 9e-05,
       "pnl_pct": 22.935844089167883,
       "% Gain/Perte": "22.94%",
@@ -18,10 +18,10 @@
       "reason": "Pause active",
       "decision": "Vente bloqu\u00e9e",
       "entry_price": 0.83298,
-      "current_price": 0.8511,
+      "current_price": 0.8608,
       "amount": 14.2,
-      "pnl_pct": 2.175322336670738,
-      "% Gain/Perte": "2.18%",
+      "pnl_pct": 3.3398160820187703,
+      "% Gain/Perte": "3.34%",
       "pause_blocage": "Oui",
       "note": "Trading suspendu ()",
       "confidence": 0.5
@@ -31,21 +31,21 @@
       "reason": "Pause active",
       "decision": "Vente bloqu\u00e9e",
       "entry_price": 0.01052,
-      "current_price": 0.001855,
+      "current_price": 0.001863,
       "amount": 1116.15,
-      "pnl_pct": -82.36692015209125,
-      "% Gain/Perte": "-82.37%",
+      "pnl_pct": -82.29087452471482,
+      "% Gain/Perte": "-82.29%",
       "pause_blocage": "Oui",
       "note": "Trading suspendu ()",
       "confidence": 0.5
     }
   ],
-  "timestamp": "2025-08-21 18:09:06",
+  "timestamp": "2025-08-21 18:17:25",
   "user": "Patmoorea",
   "bot_status": {
     "regime": "Range/Scalping",
     "cycle": 1,
-    "last_update": "2025-08-21 18:09:07",
+    "last_update": "2025-08-21 18:17:26",
     "performance": {
       "balance": 138.72347168
     }
@@ -3742,8 +3742,8 @@
         "momentum": 0.3970059722661972,
         "volatility": 0.3970059722661972
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675797
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970589
     },
     "ETHUSDC": {
       "1m": {
@@ -7436,8 +7436,8 @@
         "momentum": 0.07500190338460015,
         "volatility": 0.07500190338460015
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675842
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970664
     },
     "LTCUSDC": {
       "1m": {
@@ -11130,8 +11130,8 @@
         "momentum": 0.07500192933573543,
         "volatility": 0.07500192933573543
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675877
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970708
     },
     "XRPUSDC": {
       "1m": {
@@ -14824,8 +14824,8 @@
         "momentum": 0.07500193901976217,
         "volatility": 0.07500193901976217
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675906
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970749
     },
     "DOGEUSDC": {
       "1m": {
@@ -18518,8 +18518,8 @@
         "momentum": 0.07500193643991224,
         "volatility": 0.07500193643991224
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675934
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.97079
     },
     "BNBUSDC": {
       "1m": {
@@ -22212,8 +22212,8 @@
         "momentum": 0.07500192708853319,
         "volatility": 0.07500192708853319
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675959
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.97083
     },
     "ADAUSDC": {
       "1m": {
@@ -25906,8 +25906,8 @@
         "momentum": 0.07500193624605345,
         "volatility": 0.07500193624605345
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.675992
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970874
     },
     "SOLUSDC": {
       "1m": {
@@ -29600,8 +29600,8 @@
         "momentum": 0.07500193536923234,
         "volatility": 0.07500193536923234
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.676021
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970919
     },
     "TRXUSDC": {
       "1m": {
@@ -33294,8 +33294,8 @@
         "momentum": 0.07500191009994524,
         "volatility": 0.07500191009994524
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.676051
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.970964
     },
     "SUIUSDC": {
       "1m": {
@@ -36988,8 +36988,8 @@
         "momentum": 0.0750019349705326,
         "volatility": 0.0750019349705326
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.676079
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.971007
     },
     "LINKUSDC": {
       "1m": {
@@ -40682,8 +40682,8 @@
         "momentum": 0.07500191515061942,
         "volatility": 0.07500191515061942
       },
-      "sentiment": 0.5785496085882187,
-      "sentiment_timestamp": 1755859818.676105
+      "sentiment": 0.45985641791706994,
+      "sentiment_timestamp": 1755872091.971051
     }
   },
   "indicators": {
@@ -43135,7 +43135,7 @@
       "side": "long",
       "amount": 14.2,
       "entry_price": 0.83298,
-      "current_price": 0.8529,
+      "current_price": 0.8574,
       "pnl_pct": null,
       "pnl_usd": 0.2828639999999991,
       "value_usd": 12.11118,
@@ -43153,7 +43153,7 @@
       "side": "long",
       "amount": 9e-05,
       "entry_price": 117917.08589743589,
-      "current_price": 112913.56,
+      "current_price": 113139.11,
       "pnl_pct": 22.935844089167883,
       "pnl_usd": -0.4503173307692299,
       "value_usd": 10.1622204,
@@ -43170,7 +43170,7 @@
       "side": "long",
       "amount": 0.0014,
       "entry_price": 0.0,
-      "current_price": 4277.63,
+      "current_price": 4298.98,
       "pnl_pct": 14.191284384397415,
       "pnl_usd": 0.0,
       "value_usd": 5.988682,
@@ -43187,7 +43187,7 @@
       "side": "long",
       "amount": 0.01072647,
       "entry_price": 0.0,
-      "current_price": 845.64,
+      "current_price": 849.25,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 9.0707320908,
@@ -43204,7 +43204,7 @@
       "side": "long",
       "amount": 14.9,
       "entry_price": 0.0,
-      "current_price": 0.3567,
+      "current_price": 0.3563,
       "pnl_pct": 13.978903973562673,
       "pnl_usd": 0.0,
       "value_usd": 5.314830000000001,
@@ -43221,7 +43221,7 @@
       "side": "long",
       "amount": 0.26,
       "entry_price": 0.0,
-      "current_price": 24.68,
+      "current_price": 24.82,
       "pnl_pct": 9.684487291849258,
       "pnl_usd": 0.0,
       "value_usd": 6.4168,
@@ -43238,7 +43238,7 @@
       "side": "long",
       "amount": 0.03230637,
       "entry_price": 0.0,
-      "current_price": 0.664,
+      "current_price": 0.666,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.021451429680000002,
@@ -43306,7 +43306,7 @@
       "side": "long",
       "amount": 3.85614,
       "entry_price": 0.0,
-      "current_price": 10.302,
+      "current_price": 10.345,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 39.725954279999996,
@@ -43323,7 +43323,7 @@
       "side": "long",
       "amount": 1484.74630755,
       "entry_price": 0.0,
-      "current_price": 0.01618,
+      "current_price": 0.01628,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 24.023195256159,
@@ -43340,7 +43340,7 @@
       "side": "long",
       "amount": 397.59699569,
       "entry_price": 0.0,
-      "current_price": 0.01904,
+      "current_price": 0.01912,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 7.570246797937601,
@@ -43357,7 +43357,7 @@
       "side": "long",
       "amount": 28.28169,
       "entry_price": 0.0,
-      "current_price": 1.2908,
+      "current_price": 1.2976,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 36.506005452,
@@ -43425,7 +43425,7 @@
       "side": "long",
       "amount": 0.087214,
       "entry_price": 0.0,
-      "current_price": 3.295,
+      "current_price": 3.304,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.28737013,
@@ -43459,7 +43459,7 @@
       "side": "long",
       "amount": 0.35478462,
       "entry_price": 0.0,
-      "current_price": 1.08,
+      "current_price": 1.086,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.3831673896,
@@ -43476,7 +43476,7 @@
       "side": "long",
       "amount": 2.85374308,
       "entry_price": 0.0,
-      "current_price": 0.6454,
+      "current_price": 0.6505,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 1.8418057838319999,
@@ -43493,7 +43493,7 @@
       "side": "long",
       "amount": 0.05435377,
       "entry_price": 0.0,
-      "current_price": 0.2492,
+      "current_price": 0.2505,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.013544959484,
@@ -43510,7 +43510,7 @@
       "side": "long",
       "amount": 0.05679375,
       "entry_price": 0.0,
-      "current_price": 3.89,
+      "current_price": 4.0,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.2209276875,
@@ -43527,7 +43527,7 @@
       "side": "long",
       "amount": 4.05396039,
       "entry_price": 0.0,
-      "current_price": 0.01277,
+      "current_price": 0.0129,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.0517690741803,
@@ -43544,7 +43544,7 @@
       "side": "long",
       "amount": 39.51211224,
       "entry_price": 0.0,
-      "current_price": 0.2784,
+      "current_price": 0.2798,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 11.000172047616,
@@ -43561,7 +43561,7 @@
       "side": "long",
       "amount": 0.43377579,
       "entry_price": 0.0,
-      "current_price": 0.611,
+      "current_price": 0.615,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.26503700769,
@@ -43595,7 +43595,7 @@
       "side": "long",
       "amount": 0.01833206,
       "entry_price": 0.0,
-      "current_price": 21.68,
+      "current_price": 21.84,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.3974390608,
@@ -43612,7 +43612,7 @@
       "side": "long",
       "amount": 0.07004223,
       "entry_price": 0.0,
-      "current_price": 0.0864,
+      "current_price": 0.0869,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.006051648672,
@@ -43646,7 +43646,7 @@
       "side": "long",
       "amount": 3.76301349,
       "entry_price": 0.0,
-      "current_price": 0.0654,
+      "current_price": 0.0658,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.246101082246,
@@ -43697,7 +43697,7 @@
       "side": "long",
       "amount": 0.79286793,
       "entry_price": 0.0,
-      "current_price": 0.1868,
+      "current_price": 0.1895,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.148107729324,
@@ -43731,7 +43731,7 @@
       "side": "long",
       "amount": 2.50258947,
       "entry_price": 0.0,
-      "current_price": 0.01638,
+      "current_price": 0.01644,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.0409924155186,
@@ -43748,7 +43748,7 @@
       "side": "long",
       "amount": 0.08577978,
       "entry_price": 0.0,
-      "current_price": 0.5553,
+      "current_price": 0.5572,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.047633511834000004,
@@ -43765,7 +43765,7 @@
       "side": "long",
       "amount": 1.1566659,
       "entry_price": 0.0,
-      "current_price": 0.02484,
+      "current_price": 0.02497,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.028731580955999998,
@@ -43782,7 +43782,7 @@
       "side": "long",
       "amount": 0.13870156,
       "entry_price": 0.0,
-      "current_price": 0.3631,
+      "current_price": 0.3662,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.050362536436,
@@ -43799,7 +43799,7 @@
       "side": "long",
       "amount": 0.18545852,
       "entry_price": 0.0,
-      "current_price": 0.2995,
+      "current_price": 0.3008,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.05554482674,
@@ -43816,7 +43816,7 @@
       "side": "long",
       "amount": 1.28373602,
       "entry_price": 0.0,
-      "current_price": 0.08357,
+      "current_price": 0.084,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.10728181919140001,
@@ -43833,7 +43833,7 @@
       "side": "long",
       "amount": 0.88600535,
       "entry_price": 0.0,
-      "current_price": 0.03259,
+      "current_price": 0.03281,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.0288749143565,
@@ -43850,7 +43850,7 @@
       "side": "long",
       "amount": 0.1179094,
       "entry_price": 0.0,
-      "current_price": 0.3126,
+      "current_price": 0.3156,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.036858478439999995,
@@ -43884,7 +43884,7 @@
       "side": "long",
       "amount": 0.08862893,
       "entry_price": 0.0,
-      "current_price": 0.0888,
+      "current_price": 0.0898,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.007870248984,
@@ -43901,7 +43901,7 @@
       "side": "long",
       "amount": 0.56851639,
       "entry_price": 0.0,
-      "current_price": 0.0746,
+      "current_price": 0.0749,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.042411322694,
@@ -43918,7 +43918,7 @@
       "side": "long",
       "amount": 0.17386141,
       "entry_price": 0.0,
-      "current_price": 0.7591,
+      "current_price": 0.7639,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.131978196331,
@@ -43935,7 +43935,7 @@
       "side": "long",
       "amount": 0.17714676,
       "entry_price": 0.0,
-      "current_price": 0.1241,
+      "current_price": 0.1248,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.021983912916,
@@ -43952,7 +43952,7 @@
       "side": "long",
       "amount": 2.49958419,
       "entry_price": 0.0,
-      "current_price": 0.0299,
+      "current_price": 0.03007,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.074737567281,
@@ -43969,7 +43969,7 @@
       "side": "long",
       "amount": 0.11578375,
       "entry_price": 0.0,
-      "current_price": 0.1501,
+      "current_price": 0.1512,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.017379140875,
@@ -43986,7 +43986,7 @@
       "side": "long",
       "amount": 1.16253643,
       "entry_price": 0.0,
-      "current_price": 0.04053,
+      "current_price": 0.04077,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.0471176015079,
@@ -44003,7 +44003,7 @@
       "side": "long",
       "amount": 1.36076364,
       "entry_price": 0.0,
-      "current_price": 0.070921,
+      "current_price": 0.071313,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.09650671811244001,
@@ -44020,7 +44020,7 @@
       "side": "long",
       "amount": 0.10083373,
       "entry_price": 0.0,
-      "current_price": 0.2908,
+      "current_price": 0.2929,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.029322448684,
@@ -44037,7 +44037,7 @@
       "side": "long",
       "amount": 1.00786376,
       "entry_price": 0.0,
-      "current_price": 0.08552,
+      "current_price": 0.08603,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.0861925087552,
@@ -44054,7 +44054,7 @@
       "side": "long",
       "amount": 0.16214933,
       "entry_price": 0.0,
-      "current_price": 0.3486,
+      "current_price": 0.3483,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.05652525643800001,
@@ -44071,7 +44071,7 @@
       "side": "long",
       "amount": 0.34099158,
       "entry_price": 0.0,
-      "current_price": 0.8414,
+      "current_price": 0.8456,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.286910315412,
@@ -44088,7 +44088,7 @@
       "side": "long",
       "amount": 0.26255203,
       "entry_price": 0.0,
-      "current_price": 0.2026,
+      "current_price": 0.204,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.053193041278,
@@ -44105,7 +44105,7 @@
       "side": "long",
       "amount": 0.10868663,
       "entry_price": 0.0,
-      "current_price": 0.3183,
+      "current_price": 0.319,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.034594954329000005,
@@ -44122,7 +44122,7 @@
       "side": "long",
       "amount": 2.65771927,
       "entry_price": 0.0,
-      "current_price": 0.0253,
+      "current_price": 0.0254,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.067240297531,
@@ -44139,7 +44139,7 @@
       "side": "long",
       "amount": 0.12573876,
       "entry_price": 0.0,
-      "current_price": 1.1224,
+      "current_price": 1.1285,
       "pnl_pct": null,
       "pnl_usd": 0.0,
       "value_usd": 0.141129184224,
@@ -44157,11 +44157,11 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 10,
+      "cycles_left": 11,
       "type": "GLOBAL",
-      "reason": "",
-      "max_cycles": 10,
-      "total_remaining": 10
+      "reason": "JPMorgan d\u00e9crit quatre facteurs derri\u00e8re la surperformance d'Ethereum sur le bitcoin",
+      "max_cycles": 11,
+      "total_remaining": 11
     }
   ],
   "auto_sell_positions": [],
@@ -44171,13 +44171,13 @@
     "top_n": 5
   },
   "pause_status": {
-    "global_remaining": 10.0,
+    "global_remaining": 11,
     "pair_pauses": {
       "BNB": 1.0,
       "BTC": 1.0,
       "ETH": 1.0
     },
-    "max_remaining": 10.0
+    "max_remaining": 11
   },
   "trade_decisions": {
     "BTCUSDC": {
@@ -44186,7 +44186,7 @@
       "tech": 0.5,
       "ai": 0.7940119445323944,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "ETHUSDC": {
       "action": "neutral",
@@ -44194,7 +44194,7 @@
       "tech": 0.5,
       "ai": 0.1500038067692003,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "LTCUSDC": {
       "action": "neutral",
@@ -44202,7 +44202,7 @@
       "tech": 0.5,
       "ai": 0.15000385867147087,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "XRPUSDC": {
       "action": "neutral",
@@ -44210,7 +44210,7 @@
       "tech": 0.5,
       "ai": 0.15000387803952434,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "DOGEUSDC": {
       "action": "neutral",
@@ -44218,7 +44218,7 @@
       "tech": 0.5,
       "ai": 0.15000387287982447,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "BNBUSDC": {
       "action": "neutral",
@@ -44226,7 +44226,7 @@
       "tech": 0.5,
       "ai": 0.15000385417706638,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "ADAUSDC": {
       "action": "neutral",
@@ -44234,7 +44234,7 @@
       "tech": 0.5,
       "ai": 0.1500038724921069,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "SOLUSDC": {
       "action": "neutral",
@@ -44242,7 +44242,7 @@
       "tech": 0.5,
       "ai": 0.1500038707384647,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "TRXUSDC": {
       "action": "neutral",
@@ -44250,7 +44250,7 @@
       "tech": 0.5,
       "ai": 0.15000382019989048,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "SUIUSDC": {
       "action": "neutral",
@@ -44258,7 +44258,7 @@
       "tech": 0.5,
       "ai": 0.1500038699410652,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     },
     "LINKUSDC": {
       "action": "neutral",
@@ -44266,7 +44266,7 @@
       "tech": 0.5,
       "ai": 0.15000383030123884,
       "sentiment": 0.5,
-      "timestamp": "2025-08-22 04:09:07"
+      "timestamp": "2025-08-22 04:17:25"
     }
   },
   "cycle_metrics": {
@@ -44282,11 +44282,11 @@
         "text": "Le CFTC est d\u00e9sormais dans son troisi\u00e8me sprint crypto, \u00e9largissant son examen au-del\u00e0 du trading Spot alors qu'il travaille avec la SEC pour fa\u00e7onner les r\u00e8gles de la cryptographie am\u00e9ricaine.",
         "original_title": "CFTC Opens Next Phase of Crypto Sprint, Seeks Public Input on Broader Rules",
         "source": "Decrypt",
-        "timestamp": 1755828761,
+        "timestamp": 1755828761.0,
         "url": "https://decrypt.co/336357/cftc-opens-next-phase-crypto-sprint-seeks-public-input-broader-rules",
         "symbols": [],
         "source_weight": 0.8,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.13468262553215027,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -44297,11 +44297,11 @@
         "text": "Le chef de l'IA de Microsoft et co-fondateur DeepMind dit que les syst\u00e8mes humains pourraient d\u00e9clencher des demandes de droits de l'IA tout en d\u00e9formant les relations humaines.",
         "original_title": "Microsoft AI Chief Warns Society Isn\u2019t Ready for 'Conscious' Machines",
         "source": "Decrypt",
-        "timestamp": 1755823616,
+        "timestamp": 1755823616.0,
         "url": "https://decrypt.co/336353/microsoft-ai-chief-warns-society-isnt-ready-conscious-machines",
         "symbols": [],
         "source_weight": 0.8,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.507317841053009,
         "impact_score": 1.0,
         "risk_class": "Bullish",
@@ -44312,7 +44312,7 @@
         "text": "Les acheteurs de l'ordinateur de poche SUIPLAY0X1 de jeu sont gifl\u00e9s avec des droits d'importation inattendus, certains pouvant atteindre pr\u00e8s de 350 $ par appareil.",
         "original_title": "Crypto Gaming Handheld Shipments Delayed Over 'Excessive' Import Duties",
         "source": "Decrypt",
-        "timestamp": 1755821795,
+        "timestamp": 1755821795.0,
         "url": "https://decrypt.co/336347/crypto-gaming-handheld-shipments-delayed-excessive-import-duties",
         "symbols": [],
         "source_weight": 0.8,
@@ -44327,7 +44327,7 @@
         "text": "L'ar\u00e8ne proph\u00e8te de l'Universit\u00e9 de Chicago a des mod\u00e8les AI contre les march\u00e9s de pr\u00e9diction en direct. Les premiers r\u00e9sultats sugg\u00e8rent que les machines peuvent correspondre, et parfois battre, la sagesse des foules.",
         "original_title": "AI Now Matches Prediction Markets in Forecasting Real Events, Study Finds",
         "source": "Decrypt",
-        "timestamp": 1755817426,
+        "timestamp": 1755817426.0,
         "url": "https://decrypt.co/336298/ai-now-matches-prediction-markets-in-forecasting-real-events-study-finds",
         "symbols": [],
         "source_weight": 0.8,
@@ -44342,7 +44342,7 @@
         "text": "Anchorage Digital, la premi\u00e8re banque d'actifs num\u00e9riques \u00e0 charte f\u00e9d\u00e9rale, n'est plus sous une ordonnance de consentement de l'OCC apr\u00e8s avoir atteint la \u00abconformit\u00e9\u00bb.",
         "original_title": "OCC Cites 'Safety and Soundness' for Crypto Bank Anchorage in Pulling Consent Order",
         "source": "Decrypt",
-        "timestamp": 1755816043,
+        "timestamp": 1755816043.0,
         "url": "https://decrypt.co/336273/occ-pulls-consent-order-crypto-bank-anchorage",
         "symbols": [],
         "source_weight": 0.8,
@@ -44357,7 +44357,7 @@
         "text": "L'engagement, pris aujourd'hui par un haut responsable du DOJ, a d\u00e9clench\u00e9 des r\u00e9actions mitig\u00e9es des dirigeants cryptographiques.",
         "original_title": "Tornado Cash\u2019s Roman Storm Faces 5 Years for a Crime DOJ Now Says It Won\u2019t Prosecute",
         "source": "Decrypt",
-        "timestamp": 1755813865,
+        "timestamp": 1755813865.0,
         "url": "https://decrypt.co/336327/tornado-cash-roman-storm-doj-crypto-charges",
         "symbols": [
           "SUI",
@@ -44375,7 +44375,7 @@
         "text": "Les escroqueries en g\u00e9nie social se frappent \u00e0 nouveau alors qu'un investisseur de Bitcoin perd 91 millions de dollars. Voici comment cela s'est pass\u00e9, selon un d\u00e9tective en cha\u00eene.",
         "original_title": "Bitcoin Investor Loses $91 Million to Social Engineering Scam: ZachXBT",
         "source": "Decrypt",
-        "timestamp": 1755813140,
+        "timestamp": 1755813140.0,
         "url": "https://decrypt.co/336279/bitcoin-investor-loses-91-million-to-social-engineering-scam-zachxbt",
         "symbols": [
           "BTC"
@@ -44392,7 +44392,7 @@
         "text": "Le sentiment du march\u00e9 sur XRP s'est renvers\u00e9, les ours ouvrent maintenant la voie. XRP peut-il reprendre son soutien, ou est-il revenu \u00e0 2 $?",
         "original_title": "Moon or Doom: XRP Market Flips Bearish\u2014Is It Over?",
         "source": "Decrypt",
-        "timestamp": 1755813129,
+        "timestamp": 1755813129.0,
         "url": "https://decrypt.co/336280/moon-doom-xrp-price-market-bearish-analysis",
         "symbols": [
           "XRP"
@@ -44409,7 +44409,7 @@
         "text": "Coinbase \u00e9num\u00e8re l'USD1 de World Liberty Financial du pr\u00e9sident Trump, permettant aux utilisateurs am\u00e9ricains d'acc\u00e9der \u00e0 une autre stablecoin.",
         "original_title": "Trump-Backed World Liberty Gets Coinbase Approval With USD1 Stablecoin Listing",
         "source": "Decrypt",
-        "timestamp": 1755811661,
+        "timestamp": 1755811661.0,
         "url": "https://decrypt.co/336278/trump-backed-world-liberty-coinbase-usd1-stablecoin-listing",
         "symbols": [],
         "source_weight": 0.8,
@@ -44424,7 +44424,7 @@
         "text": "La banque rejoint une liste de soci\u00e9t\u00e9s de services financiers qui ont fait leurs d\u00e9buts ou qui envisagent des initiatives de stablecoin.",
         "original_title": "Singapore Bank DBS Debuts Tokenized Structured Notes on Ethereum",
         "source": "Decrypt",
-        "timestamp": 1755810094,
+        "timestamp": 1755810094.0,
         "url": "https://decrypt.co/336244/singapore-bank-dbs-debuts-tokenized-structured-notes-ethereum",
         "symbols": [
           "ETH"
@@ -44441,7 +44441,7 @@
         "text": "Vivopower, qui s'est \u00e9loign\u00e9 de sa mise au point de l'\u00e9nergie durable pour construire un tr\u00e9sor XRP, essaie de gagner la propri\u00e9t\u00e9 des actions Ripple.",
         "original_title": "Why VivoPower Wants Ripple Shares at a Discount to Its XRP Holdings",
         "source": "Decrypt",
-        "timestamp": 1755808834,
+        "timestamp": 1755808834.0,
         "url": "https://decrypt.co/336262/why-vivopower-wants-ripple-shares-discount-xrp-holdings",
         "symbols": [
           "XRP"
@@ -44458,7 +44458,7 @@
         "text": "Le discours pourrait \u00eatre suivi par les remarques \u00abprudent\u00bb de Jerome Powell demain, selon Juan Leon de Bitwise.",
         "original_title": "Bitcoin, Ethereum Sink as Fed\u2019s Hammack Makes Case for Holding Interest Rates Steady",
         "source": "Decrypt",
-        "timestamp": 1755808028,
+        "timestamp": 1755808028.0,
         "url": "https://decrypt.co/336271/bitcoin-ethereum-sink-feds-hammack-case-holding-interest-rates",
         "symbols": [
           "BTC",
@@ -44476,7 +44476,7 @@
         "text": "Le sentiment XRP reste optimiste, a not\u00e9 l'analyste, qui a \u00e9galement sugg\u00e9r\u00e9 que l'activit\u00e9 repr\u00e9sentait une redistribution.",
         "original_title": "Why the $470 Million XRP Whale Unwind Is Not Cause for Panic: Analyst",
         "source": "Decrypt",
-        "timestamp": 1755804705,
+        "timestamp": 1755804705.0,
         "url": "https://decrypt.co/336270/why-xrp-whale-unwind-not-cause-panic",
         "symbols": [
           "XRP"
@@ -44493,7 +44493,7 @@
         "text": "Le cabinet de recherche de blockchain Kaiko a donn\u00e9 \u00e0 XRP Ledger un score de s\u00e9curit\u00e9 approximatif dans un classement r\u00e9cent, mais les d\u00e9veloppeurs repoussent l'analyse.",
         "original_title": "XRP Ledger Developers Refute Last-Place Security Ranking Among Blockchains",
         "source": "Decrypt",
-        "timestamp": 1755797528,
+        "timestamp": 1755797528.0,
         "url": "https://decrypt.co/336095/xrp-ledger-developers-refute-last-place-security-ranking",
         "symbols": [
           "XRP"
@@ -44510,7 +44510,7 @@
         "text": "Les principaux march\u00e9s de Myriad Market incluent ceux sur la richesse du cr\u00e9ateur de Bitcoin Satoshi Nakamoto et les prochains mouvements pour Ethereum et Kanye West's Coin.",
         "original_title": "Myriad Moves: How Rich Will Bitcoin Creator Satoshi Get? And What's Next for Kanye West's Crypto?",
         "source": "Decrypt",
-        "timestamp": 1755794519,
+        "timestamp": 1755794519.0,
         "url": "https://decrypt.co/336249/myriad-moves-how-rich-bitcoin-creator-satoshi-kanye-west-crypto",
         "symbols": [
           "BTC",
@@ -44528,7 +44528,7 @@
         "text": "Les partisans de Yeezy Coin et Swasticoin fondent apr\u00e8s avoir r\u00e9alis\u00e9 que leurs pi\u00e8ces de choix n'ont apparemment pas \u00e9t\u00e9 lanc\u00e9es par Kanye West.",
         "original_title": "'WTF Is Going On?' Fake Kanye West Coins Crash After Real YZY Token Launches",
         "source": "Decrypt",
-        "timestamp": 1755792964,
+        "timestamp": 1755792964.0,
         "url": "https://decrypt.co/336212/fake-kanye-west-coins-crash-real-yzy-token-launches",
         "symbols": [],
         "source_weight": 0.8,
@@ -44543,7 +44543,7 @@
         "text": "Myers a d\u00e9velopp\u00e9 le mod\u00e8le d'\u00e9valuation de la BTC qui a inspir\u00e9 Michael Saylor \u00e0 adopter un livre de jeu de Bitcoin Treasury \u00e0 Strategy.",
         "original_title": "Smarter Web Taps Bitcoin Analyst Jesse Myers as Treasury Strategy Chief",
         "source": "Decrypt",
-        "timestamp": 1755791408,
+        "timestamp": 1755791408.0,
         "url": "https://decrypt.co/336246/smarter-web-taps-bitcoin-analyst-jesse-myers-as-treasury-strategy-chief",
         "symbols": [
           "BTC"
@@ -44560,7 +44560,7 @@
         "text": "BNB frappe ATH, Sol Strong mais la plupart des majors tombent. Chine consid\u00e9rant les stablecoins soutenus par le yuan. Crypto trop petit pour mettre la stabilit\u00e9 financi\u00e8re en jeu: Bostic. Crypto partie d'une r\u00e9volution des paiements: Waller de Fed. HTX d\u00e9ploie le stablecoin donne jusqu'\u00e0 20%. La soci\u00e9t\u00e9 de tr\u00e9sorerie BNB Windtree obtient un avis de radiation. DBS pour \u00e9mettre des notes tokenis\u00e9es sur l'ETH Blockchain. Les groupes de crypto veulent une confirmation rapide de Quintenz. CME Group pour collaborer avec FanDuel sur les contrats d'\u00e9v\u00e9nements. Xstocks a atteint un volume de 2 milliards de dollars sur Sol, se d\u00e9veloppe \u00e0 Tron.",
         "original_title": "KANYE LAUNCHES TOKEN, BNB ATH, CHINA CONSIDERING STABLECOINS",
         "source": "Decrypt",
-        "timestamp": 1755789917,
+        "timestamp": 1755789917.0,
         "url": "https://decrypt.co/videos/interviews/MA44oVx2/kanye-launches-token-bnb-ath-china-considering-stablecoins",
         "symbols": [
           "TRX",
@@ -44580,7 +44580,7 @@
         "text": "Une baleine Bitcoin avec des avoirs de 1,67 milliard de dollars a \u00e9chang\u00e9 une partie pour ouvrir des positions longues \u00e0 effet de levier sur Ethereum, mais les experts sugg\u00e8rent qu'il y a plus \u00e0 cette d\u00e9cision.",
         "original_title": "Bitcoin Whale Dumps $75 Million to Go Long on Ethereum",
         "source": "Decrypt",
-        "timestamp": 1755789865,
+        "timestamp": 1755789865.0,
         "url": "https://decrypt.co/336241/bitcoin-whale-dumps-75-million-to-go-long-on-ethereum",
         "symbols": [
           "BTC",
@@ -44598,7 +44598,7 @@
         "text": "La nouvelle plate-forme de contrats d'\u00e9v\u00e9nements permettra aux utilisateurs de tous les jours de parier plus facilement sur des march\u00e9s comme le S & # 038; P 500, l'huile, l'or et m\u00eame la crypto.",
         "original_title": "Morning Minute: CME &#038; Fanduel Bring Prediction Markets to the Masses",
         "source": "Decrypt",
-        "timestamp": 1755779711,
+        "timestamp": 1755779711.0,
         "url": "https://decrypt.co/336204/morning-minute-cme-fanduel-bring-prediction-markets-to-the-masses",
         "symbols": [],
         "source_weight": 0.8,
@@ -44613,7 +44613,7 @@
         "text": "Les discussions couvriraient la distribution et l'utilisation potentielles de stablescoins p\u00eatres et la publication de jetons soutenus.",
         "original_title": "Tether, Circle to Meet South Korea\u2019s Top Banking CEOs as Stablecoin Momentum Mounts",
         "source": "Decrypt",
-        "timestamp": 1755777844,
+        "timestamp": 1755777844.0,
         "url": "https://decrypt.co/336197/tether-circle-to-meet-south-koreas-top-banking-ceos-as-stablecoin-momentum-mounts",
         "symbols": [
           "USDT"
@@ -44630,7 +44630,7 @@
         "text": "Le Musd Stablecoin, soutenu par le dollar de Metamask, sera d'abord lanc\u00e9 sur les blockchains Ethereum et Linea plus tard cette ann\u00e9e.",
         "original_title": "MetaMask Unveils mUSD Stablecoin on Ethereum and Linea, Teases Debit Card Functionality",
         "source": "Decrypt",
-        "timestamp": 1755777663,
+        "timestamp": 1755777663.0,
         "url": "https://decrypt.co/336147/metamask-unveils-musd-stablecoin-ethereum-linea-teases-debit-functionality",
         "symbols": [
           "ETH"
@@ -44647,7 +44647,7 @@
         "text": "La crypto plus bas en avant les minutes nourries. Les sorties ETF ETF atteignent 678 millions de dollars en 3 jours. BTC Fall li\u00e9 \u00e0 un drain de 400 milliards de dollars \u00e0 partir de revers invers\u00e9. Les actions de strat\u00e9gie frappent des creux de 4 mois apr\u00e8s les achats de BTC. DATS Financement VC maintenant Eclipse en 2025. SharpLink ajoute 12k eth. Wyoming First State \u00e0 lancer Stablecoin. Bessente parie sur les stablescoins pour la demande de dette. Trump a \u00e9galis\u00e9 qu'Alt5 Sigma nie les rumeurs de sonde SEC. Bullish r\u00e8gle l'introduction en bourse de 1,15 milliard de dollars \u00e0 l'aide de stablecoins. Sui Trading est en ligne sur Robinhood. Sofi pour int\u00e9grer BTC Lightning pour les paiements. Scaramucci pr\u00e9voit des rwas tokenis\u00e9s sur Avalanche. Bo hines pour rejoindre Tether.",
         "original_title": "ETH ETF OUTFLOWS HIT $678M, SUI TRADING LIVE ON ROBINHOOD, $PUMP SURPASSES $800M IN LIFETIME REVENUE",
         "source": "Decrypt",
-        "timestamp": 1755775972,
+        "timestamp": 1755775972.0,
         "url": "https://decrypt.co/videos/interviews/lF8jfYhA/eth-etf-outflows-hit-678m-sui-trading-live-on-robinhood-pump-surpasses-800m-in-lifetime-revenue",
         "symbols": [
           "BTC",
@@ -44666,7 +44666,7 @@
         "text": "Les sanctions britanniques ont cibl\u00e9 les entit\u00e9s au Luxembourg et au Kirghizistan li\u00e9es \u00e0 la stablecoin \u00e0 pie rouble A7A5.",
         "original_title": "Kyrgyzstan Appeals to US, UK Leaders Over Sanctions on Crypto Networks",
         "source": "Decrypt",
-        "timestamp": 1755773736,
+        "timestamp": 1755773736.0,
         "url": "https://decrypt.co/336194/kyrgyzstan-appeals-to-us-uk-leaders-over-sanctions-on-crypto-networks",
         "symbols": [],
         "source_weight": 0.8,
@@ -44681,7 +44681,7 @@
         "text": "Le jeton Yzy de Kanye West a fait un d\u00e9but volatil sur Solana, en \u00e9volution de 3 milliards de dollars avant de glisser moins de 1 milliard de dollars en heures.",
         "original_title": "Kanye West Launches Token on Solana in Frenzied Debut",
         "source": "Decrypt",
-        "timestamp": 1755753705,
+        "timestamp": 1755753705.0,
         "url": "https://decrypt.co/336179/kanye-west-launches-yzy-token-solana-frenzied-debut",
         "symbols": [
           "SOL"
@@ -44698,7 +44698,7 @@
         "text": "Bitcoin reste confront\u00e9 \u00e0 des donn\u00e9es d'options montrant des paris divergents alors que les commer\u00e7ants visent \u00e0 diviser le ton de Powell avant la r\u00e9union de Jackson Hole de vendredi.",
         "original_title": "Bitcoin Options Traders Split Ahead of Fed's Jackson Hole Meeting",
         "source": "Decrypt",
-        "timestamp": 1755750628,
+        "timestamp": 1755750628.0,
         "url": "https://decrypt.co/336176/bitcoin-options-traders-split-ahead-feds-jackson-hole-meeting",
         "symbols": [
           "BTC"
@@ -44715,7 +44715,7 @@
         "text": "Le d\u00e9veloppeur de drogue devenu la radiation de la soci\u00e9t\u00e9 de tr\u00e9sorerie num\u00e9rique est intervenue alors que les actions li\u00e9es \u00e0 la cryptographie sont confront\u00e9es \u00e0 un ralentissement du march\u00e9 plus large.",
         "original_title": "Nasdaq Boots Windtree a Month After $700M BNB Treasury Pivot Fails to Lift Stock",
         "source": "Decrypt",
-        "timestamp": 1755743588,
+        "timestamp": 1755743588.0,
         "url": "https://decrypt.co/336170/nasdaq-boots-windtree-month-after-700m-bnb-treasury-pivot",
         "symbols": [
           "BNB"
@@ -44732,7 +44732,7 @@
         "text": "L'\u00e9valuation de 500 millions de dollars de la startup montre que la Silicon Valley jettera de l'argent sur tout ce qui est aliment\u00e9 en AI, m\u00eame un matelas de haute technologie.",
         "original_title": "Silicon Valley Throws $100M at AI-Powered Mattress With a Subscription",
         "source": "Decrypt",
-        "timestamp": 1755740733,
+        "timestamp": 1755740733.0,
         "url": "https://decrypt.co/336128/silicon-valley-throws-100m-at-ai-powered-mattress-with-a-subscription",
         "symbols": [],
         "source_weight": 0.8,
@@ -44747,7 +44747,7 @@
         "text": "Les nouveaux appareils de Google, l'exp\u00e9dition ce mois-ci, pr\u00e9tendent faire beaucoup de ce que \u00abApple Intelligence\u00bb a promis de faire l'ann\u00e9e derni\u00e8re, mais jusqu'\u00e0 pr\u00e9sent.",
         "original_title": "Google Unveils Pixel 10 Lineup With AI Features, New Watch and Earbuds",
         "source": "Decrypt",
-        "timestamp": 1755736099,
+        "timestamp": 1755736099.0,
         "url": "https://decrypt.co/336156/google-pixel-10-lineup-ai-features-new-watch-earbuds",
         "symbols": [],
         "source_weight": 0.8,
@@ -44762,7 +44762,7 @@
         "text": "Le Digital Freedom Fund se concentrera sur le soutien \u00e0 l\u2019ordre du jour de la cryptographie du pr\u00e9sident Trump - d'abord et avant tout en battant les d\u00e9mocrates \u00e0 mi-parcours de l\u2019ann\u00e9e prochaine.",
         "original_title": "Winklevoss Twins Donate $21 Million in Bitcoin to Pro-Trump, Anti-Democrat Crypto PAC",
         "source": "Decrypt",
-        "timestamp": 1755732662,
+        "timestamp": 1755732662.0,
         "url": "https://decrypt.co/336114/winklevoss-wins-donate-21-million-bitcoin-pro-trump-anti-democrat-crypto-pac",
         "symbols": [
           "BTC"
@@ -44779,7 +44779,7 @@
         "text": "Le mineur class\u00e9 NASDAQ se concentre sur l'expansion.",
         "original_title": "Bitcoin Miner Bitdeer Aims to Expand US Rig Manufacturing Amid Trump Tariff Headwinds",
         "source": "Decrypt",
-        "timestamp": 1755730480,
+        "timestamp": 1755730480.0,
         "url": "https://decrypt.co/336145/bitcoin-miner-bitdeer-aims-to-expand-us-rig-manufacturing-amid-trump-tariff-headwinds",
         "symbols": [
           "BTC"
@@ -44796,7 +44796,7 @@
         "text": "Les utilisateurs de TRON peuvent d\u00e9sormais n\u00e9gocier des actions en tokenis\u00e9s de soci\u00e9t\u00e9s am\u00e9ricaines populaires alors que XStocks se d\u00e9veloppe apr\u00e8s avoir d\u00e9pass\u00e9 500 millions de dollars en n\u00e9gociation en cha\u00eene.",
         "original_title": "Nvidia, Tesla Stocks on Tron: xStocks Expand After Hitting Trading Milestone",
         "source": "Decrypt",
-        "timestamp": 1755722062,
+        "timestamp": 1755722062.0,
         "url": "https://decrypt.co/336066/nvidia-tesla-stocks-tron-xstocks-expand-trading-milestone",
         "symbols": [
           "TRX"
@@ -44813,7 +44813,7 @@
         "text": "Bitcoin et Ethereum \u00e9taient bien dans un territoire positif un jour fort pour les march\u00e9s cryptographiques.",
         "original_title": "Bitcoin, Ethereum Rise After Fed Minutes Shed Light on Rate Cut Dissent",
         "source": "Decrypt",
-        "timestamp": 1755720420,
+        "timestamp": 1755720420.0,
         "url": "https://decrypt.co/336064/bitcoin-etheruem-sag-fed-minutes-dissent",
         "symbols": [
           "BTC",
@@ -44831,7 +44831,7 @@
         "text": "Les stocks li\u00e9s \u00e0 la crypto comme Strategy et Coinbase sont en baisse au cours du dernier mois, sous-performant les go\u00fbts de Bitcoin et Ethereum.",
         "original_title": "Bitcoin Giant Strategy and Coinbase Lead Crypto Stock Slump",
         "source": "Decrypt",
-        "timestamp": 1755718865,
+        "timestamp": 1755718865.0,
         "url": "https://decrypt.co/336088/bitcoin-giant-strategy-coinbase-crypto-stock-slump",
         "symbols": [
           "BTC",
@@ -44849,7 +44849,7 @@
         "text": "Les march\u00e9s cryptographiques sont pass\u00e9s de la \"cupidit\u00e9\" \u00e0 \"peur\". Il y a au moins quelques graphiques, cependant, qui ne semblent pas encore effray\u00e9s.",
         "original_title": "Crypto Market in 'Fear', But Ethereum, Solana and Chainlink Stay Strong: Analysis",
         "source": "Decrypt",
-        "timestamp": 1755718162,
+        "timestamp": 1755718162.0,
         "url": "https://decrypt.co/336067/crypto-market-fear-ethereum-solana-chainlink-price-analysis",
         "symbols": [
           "SOL",
@@ -44868,7 +44868,7 @@
         "text": "Hayden Davis et Ben Chow, qui ont aid\u00e9 \u00e0 lancer la Balance Meme Coin promue par le pr\u00e9sident argentin Javier Milei, peuvent \u00e0 nouveau acc\u00e9der \u00e0 leur USDC.",
         "original_title": "Libra Promoters Regain Access to $57.6 Million in Crypto After Judge Unfreezes Assets",
         "source": "Decrypt",
-        "timestamp": 1755717584,
+        "timestamp": 1755717584.0,
         "url": "https://decrypt.co/336060/libra-promoters-regain-access-57-6-million-crypto-judge-unfreezes-assets",
         "symbols": [],
         "source_weight": 0.8,
@@ -44883,7 +44883,7 @@
         "text": "La Fed recherche la tokenisation, a-t-il ajout\u00e9.",
         "original_title": "\u2018Nothing Scary\u2019 About Crypto, Federal Reserve Governor Says",
         "source": "Decrypt",
-        "timestamp": 1755716864,
+        "timestamp": 1755716864.0,
         "url": "https://decrypt.co/336065/nothing-scary-crypto-federal-reserve-governor",
         "symbols": [],
         "source_weight": 0.8,
@@ -44898,7 +44898,7 @@
         "text": "Chatgpt atteint d\u00e9sormais 700 millions d'utilisateurs, mais le PDG d'Openai met en garde contre une bulle de battage m\u00e9diatique de l'IA alors que les p\u00e9nuries GPU progressent lent vers son prochain grand mod\u00e8le.",
         "original_title": "OpenAI CEO Sam Altman Concedes GPT-5 Was a Misfire, Bets on GPT-6",
         "source": "Decrypt",
-        "timestamp": 1755710285,
+        "timestamp": 1755710285.0,
         "url": "https://decrypt.co/336053/openai-ceo-sam-altman-concedes-gpt-5-misfire-bets-gpt-6",
         "symbols": [
           "ENA"
@@ -44915,7 +44915,7 @@
         "text": "Le l\u00e9gislateur a d\u00e9crit les crypto-monnaies comme une forme de divertissement.",
         "original_title": "Stablecoins Should Not Be Exempt From New York Crypto Tax, Lawmaker Says",
         "source": "Decrypt",
-        "timestamp": 1755709320,
+        "timestamp": 1755709320.0,
         "url": "https://decrypt.co/336030/stablecoins-not-exempt-new-york-crypto-tax-lawmaker-says",
         "symbols": [
           "USDT"
@@ -44932,7 +44932,7 @@
         "text": "Le Tr\u00e9sor cherche des commentaires sur la technologie innovante de surveillance de la cryptographie alors que l'industrie pousse les solutions de conformit\u00e9 pr\u00e9servant la confidentialit\u00e9, comme ZK Proods.",
         "original_title": "US Treasury Seeking \u2018Innovative Methods\u2019 to Detect Illicit Crypto Activity",
         "source": "Decrypt",
-        "timestamp": 1755709276,
+        "timestamp": 1755709276.0,
         "url": "https://decrypt.co/336032/us-treasury-innovative-methods-detect-illicit-crypto-activity",
         "symbols": [],
         "source_weight": 0.8,
@@ -44947,7 +44947,7 @@
         "text": "La crypto plus bas en avant les minutes nourries. Les sorties ETF ETF atteignent 678 millions de dollars en 3 jours. BTC Fall li\u00e9 \u00e0 un drain de 400 milliards de dollars \u00e0 partir de revers invers\u00e9. Les actions de strat\u00e9gie frappent des creux de 4 mois apr\u00e8s les achats de BTC. DATS Financement VC maintenant Eclipse en 2025. SharpLink ajoute 12k eth. Wyoming First State \u00e0 lancer Stablecoin. Bessente parie sur les stablescoins pour la demande de dette. Trump a \u00e9galis\u00e9 qu'Alt5 Sigma nie les rumeurs de sonde SEC. Bullish r\u00e8gle l'introduction en bourse de 1,15 milliard de dollars \u00e0 l'aide de stablecoins. Sui Trading est en ligne sur Robinhood. Sofi pour int\u00e9grer BTC Lightning pour les paiements. Scaramucci pr\u00e9voit des rwas tokenis\u00e9s sur Avalanche. Bo hines pour rejoindre Tether.",
         "original_title": "CRYPTO LOWER, AI STOCKS WOBBLE, DAT WORRIES CONTINUE",
         "source": "Decrypt",
-        "timestamp": 1755705913,
+        "timestamp": 1755705913.0,
         "url": "https://decrypt.co/videos/interviews/0tGFF2Nw/crypto-lower-ai-stocks-wobble-dat-worries-continue",
         "symbols": [
           "BTC",
@@ -44966,7 +44966,7 @@
         "text": "Crypto Faible, Etf ETH voit la 2e plus grande sortie de tous les temps. Les actions DAT continuent de tomber sur les craintes de dilution. La strat\u00e9gie ach\u00e8te 51 millions de dollars BTC, assouplit la r\u00e8gle de financement. Chamath annonce Crypto Spac. BMNR retourne Mara pour r\u00e9clamer le 2e plus grand point DAT. 3,9 milliards de dollars ETH coinc\u00e9s dans la file d'attente de sortie de jalonnement. KindlyMD recueille 200 millions de dollars pour acheter BTC. La soci\u00e9t\u00e9 n\u00e9erlandaise AMDAX lancera BTC Treasury. BTCS \u00e9met un \u00abbividen\u00bb unique dans ETH. Le Tr\u00e9sor am\u00e9ricain demande des commentaires du public sur le g\u00e9nie. SEC retarde la d\u00e9cision de d\u00e9cision Social ETF de la crypto. Gemini tape Ripple pour la ligne de cr\u00e9dit avant l'introduction en bourse. La participation de Google dans Terawulf atteint 14%. Le cercle acquiert la malachite de moteur consensuel.",
         "original_title": "TOM LEE BUYS $1.7B ETH IN PAST WEEK, $LIGHT JUMPS 50% TO NEW ATH, CRYPTO MAJORS IN THE GREEN",
         "source": "Decrypt",
-        "timestamp": 1755623973,
+        "timestamp": 1755623973.0,
         "url": "https://decrypt.co/videos/interviews/iv03bo9w/tom-lee-buys-17b-eth-in-past-week-light-jumps-50-to-new-ath-crypto-majors-in-the-green",
         "symbols": [
           "BTC",
@@ -44985,7 +44985,7 @@
         "text": "Crypto Faible, Etf ETH voit la 2e plus grande sortie de tous les temps. Les actions DAT continuent de tomber sur les craintes de dilution. La strat\u00e9gie ach\u00e8te 51 millions de dollars BTC, assouplit la r\u00e8gle de financement. Chamath annonce Crypto Spac. BMNR retourne Mara pour r\u00e9clamer le 2e plus grand point DAT. 3,9 milliards de dollars ETH coinc\u00e9s dans la file d'attente de sortie de jalonnement. KindlyMD recueille 200 millions de dollars pour acheter BTC. La soci\u00e9t\u00e9 n\u00e9erlandaise AMDAX lancera BTC Treasury. BTCS \u00e9met un \u00abbividen\u00bb unique dans ETH. Le Tr\u00e9sor am\u00e9ricain demande des commentaires du public sur le g\u00e9nie. SEC retarde la d\u00e9cision de d\u00e9cision Social ETF de la crypto. Gemini tape Ripple pour la ligne de cr\u00e9dit avant l'introduction en bourse. La participation de Google dans Terawulf atteint 14%. Le cercle acquiert la malachite de moteur consensuel.",
         "original_title": "STRATEGY BUYING BTC AGAIN, GOOGLE INVESTS MORE IN BTC MINING, $LIGHT SOARS",
         "source": "Decrypt",
-        "timestamp": 1755617140,
+        "timestamp": 1755617140.0,
         "url": "https://decrypt.co/videos/interviews/yWlLjGwx/strategy-buying-btc-again-google-invests-more-in-btc-mining-light-soars",
         "symbols": [
           "BTC",
@@ -45004,7 +45004,7 @@
         "text": "BTC glisse \u00e0 115 000 $ malgr\u00e9 la stabilit\u00e9 des actions. ETH & Sol les plus faibles dans les majors, Link m\u00e8ne les alts. Fed met fin au programme de supervision de la cryptographie. Les \u00c9tats-Unis p\u00e8sent la v\u00e9rification d'identification num\u00e9rique dans Defi. BTC atteint 1,7% du total de la masse mon\u00e9taire mondiale. ETH frappe ATH dans le nombre de transactions, les adresses actives. ETH etfs voient les entr\u00e9es hebdomadaires ATH. Sol frappe 100k TPS dans le test de charge. BMNR ach\u00e8te 600 millions de dollars de plus. Les actions de SharpLink diminuent sur une perte de 130 millions de dollars. Metaplanet ach\u00e8te 93 M $ BTC. DFDV ach\u00e8te 22 M $ Sol. NY propose une taxe de 0,2% sur les ventes de crypto, le transfert. S&P 500, DOW pourrait lancer des index de tokenis\u00e9s. SEC pour nous aider \u00e0 \u00eatre la capitale mondiale de la cryptographie: Atkins. S Cor\u00e9e pour envisager le projet de loi de stable en octobre. Le Japon pour approuver le premier JPY Stablecoin cet automne. Strive s'attend \u00e0 ce que la strat\u00e9gie rejoigne S&P 500",
         "original_title": "CRYPTO SLIDES, LINK LEADS ALTS, FED ENDS CRYPTO SUPERVISION",
         "source": "Decrypt",
-        "timestamp": 1755531376,
+        "timestamp": 1755531376.0,
         "url": "https://decrypt.co/videos/interviews/tHkDhiqQ/crypto-slides-link-leads-alts-fed-ends-crypto-supervision",
         "symbols": [
           "SOL",
@@ -45024,7 +45024,7 @@
         "text": "La crypto tombe apr\u00e8s un ppi chaud am\u00e9ricain, 1,1 milliard de dollars de liquidations. Les \u00c9tats-Unis ne veulent que l'accumulation de BTC neutre budg\u00e9taire. Le gouvernement am\u00e9ricain poss\u00e8de une crypto de 24 milliards de dollars: Arkham. Lummis fait une pouss\u00e9e renouvel\u00e9e pour Bitcoin Act. Les altcoins continuent de tomber contre ETH. 3,2 milliards de dollars eth en file d'attente pour quitter le jalonnement. Le battage m\u00e9diatique se rapproche de 50 $ alors que le volume frappe Ath. Google ach\u00e8te 8% dans BTC Miner Terawulf. Atkins pour discuter de \u00abProject Crypto\u00bb aujourd'hui. Gentimentmd pour collecter 540 millions de dollars pour acheter du BTC. Abu Dhabi SWF poss\u00e8de 534 millions de dollars BTC ETF. Citi consid\u00e8re la garde de la cryptographie, les services de paiement. SEC retarde le sens du bit et 21 partages SOL ETF. HK resserre les normes de garde pour les \u00e9changes de crypto. Bitcoin am\u00e9ricain \u00e0 la recherche de listes en Asie. Les sanctions am\u00e9ricaines \u00e9changent russe Garantex.",
         "original_title": "CRYPTO DROPS AFTER PPI, HUGE LIQUIDATIONS, TRUMP-PUTIN TO MEET",
         "source": "Decrypt",
-        "timestamp": 1755271418,
+        "timestamp": 1755271418.0,
         "url": "https://decrypt.co/videos/interviews/rdwA47yK/crypto-drops-after-ppi-huge-liquidations-trump-putin-to-meet",
         "symbols": [
           "SOL",
@@ -45043,7 +45043,7 @@
         "text": "L'associ\u00e9 directeur de Vaneck Ventures, Juan C. Lopez, d\u00e9ballait les accords les plus en vogue de cette ann\u00e9e en crypto, o\u00f9 la finance traditionnelle manque le message sur les stablecoins, et comment ses travaux pr\u00e9c\u00e9dents chez Circle Ventures informent son approche pour investir dans les entreprises",
         "original_title": "Inside Wall Street's Stablecoin Boom",
         "source": "Decrypt",
-        "timestamp": 1755188089,
+        "timestamp": 1755188089.0,
         "url": "https://decrypt.co/videos/interviews/SXesH5Pp/inside-wall-streets-stablecoin-boom",
         "symbols": [
           "USDT"
@@ -45060,7 +45060,7 @@
         "text": "BTC frappe New Ath, puis recule. ETH ETF Flows Second Flows de tous les temps. Altcoin Google Recherches a atteint le plus haut depuis 2021. La discrimination bancaire nous a envoy\u00e9s \u00e0 Crypto: Eric Trump. Stargate demande \u00e0 des rachats alternatifs \u00e0 LayerZero. Murano pour acheter 500 millions de dollars BTC. Google annule l'interdiction des portefeuilles crypto non gardiens. Le portefeuille perdu du banquier estonien d\u00e9tient d\u00e9sormais 1 milliard de dollars + eth. Metamask pourrait d\u00e9voiler la stablecoin cette semaine. Le haussier ferme 2x prix d'introduction en bourse. Justin Sun poursuit Bloomberg sur les histoires \u00e0 venir. Coinbase perd 300 000 $ en EXPLOIT MEV. L'Indon\u00e9sie annule le lancement du tracker de paiement num\u00e9rique. Le Vietnam met en place un \u00e9change de crypto de l'\u00c9tat. Matt Huang pour diriger le L1 de Stripe.",
         "original_title": "BTC NEW ATH, ALTCOIN SEARCHES ARE BACK, USELESS GETS COINBASE",
         "source": "Decrypt",
-        "timestamp": 1755185959,
+        "timestamp": 1755185959.0,
         "url": "https://decrypt.co/videos/interviews/YYQu4AVv/btc-new-ath-altcoin-searches-are-back-useless-gets-coinbase",
         "symbols": [
           "BTC",
@@ -45078,7 +45078,7 @@
         "text": "ETH & Sol Soar, BTC Dominance inf\u00e9rieure \u00e0 60%. Les FNB eth voient 2,3 milliards de dollars d'entr\u00e9es en 6 jours. Sol rompt 200 $, Defi TVL \u00e0 trois ans. Bitmine Upsize Offre pour acheter ETH \u00e0 25 milliards de dollars. Le sentiment de crypto saute \u00e0 la \u00abcupidit\u00e9\u00bb en une semaine. Les institutions d\u00e9tiennent d\u00e9sormais 17% de la BTC en circulation. ETH Dats d\u00e9tient d\u00e9sormais environ 2% de l'offre. 1,3 milliard de dollars pourraient \u00eatre liquid\u00e9s si ETH atteint 5 000 $. 75% de cotes d'ETH atteint 5 000 $ le 31 ao\u00fbt sur PolyMarket. Ethzilla partage 3X alors que Peter Thiel prend parti. La fondation ETH d\u00e9charge 13 M $ eth. Do Kwon plaide coupable \u00e0 deux chefs de fraude. Les activit\u00e9s de crypto de Trump ont gagn\u00e9 2,4 milliards de dollars depuis 2022. L'introduction en bourse haussi\u00e8re recueille 1,1 milliard de dollars, 20X sursouscrit. Binance Premier membre de T3 +, l'unit\u00e9 de crime cryptographique. Coinbase ravive le fonds Stablecoin pour stimuler l'USDC.",
         "original_title": "ETH NEARS ATH, SOL BREAKS $200, PUMP BACK TO ICO PRICE",
         "source": "Decrypt",
-        "timestamp": 1755097983,
+        "timestamp": 1755097983.0,
         "url": "https://decrypt.co/videos/interviews/mdGKwXSM/eth-nears-ath-sol-breaks-200-pump-back-to-ico-price",
         "symbols": [
           "BNB",
@@ -45098,7 +45098,7 @@
         "text": "Bitcoin recule apr\u00e8s avoir \u00e9chou\u00e9 \u00e0 Ath. ETH Outperforms, les ETF atteignent des entr\u00e9es d'enregistrement d'enregistrement de 1 milliard de dollars. Blockchain \u00e0 rayures L1 pour les paiements. Le b\u00e9n\u00e9fice du cercle augmente de 53%, construisant \u00e9galement la cha\u00eene L1. La strat\u00e9gie n'a achet\u00e9 que 18 millions de dollars BTC la semaine derni\u00e8re. Metaplanet ach\u00e8te 61 M $ BTC. BMNR d\u00e9sormais les meilleurs titulaires d'ETH, ont achet\u00e9 2 milliards de dollars en une semaine. SharpLink vend 400 millions de dollars pour acheter eth. Global fondamental ach\u00e8te 200 millions de dollars eth. Les clients FTX poursuivent Fenwick. Do Kwon devrait plaider coupable dans une affaire de fraude. Chainlink, Ice Collabor pour apporter FX & Metals sur la cha\u00eene. Thiel soutenue haussier augmente la taille de l'introduction en bourse, l'\u00e9valuation de 4,8 milliards de dollars. Paxos pour poursuivre la charte nationale de fiducie aux \u00c9tats-Unis. Origine bleue pour permettre des paiements cryptographiques pour les voyages dans l'espace.",
         "original_title": "ETH at $4,400, ETH ETFS $1B DAILY INFLOWS, TOM LEE ACQUIRES 1.2M ETH",
         "source": "Decrypt",
-        "timestamp": 1755019297,
+        "timestamp": 1755019297.0,
         "url": "https://decrypt.co/videos/interviews/wyfrjQNT/eth-at-4-400-eth-etfs-1b-daily-inflows-tom-lee-acquires-12m-eth",
         "symbols": [
           "BTC",
@@ -45117,7 +45117,7 @@
         "text": "Bitcoin recule apr\u00e8s avoir \u00e9chou\u00e9 \u00e0 Ath. ETH Outperforms, les ETF atteignent des entr\u00e9es d'enregistrement d'enregistrement de 1 milliard de dollars. Blockchain \u00e0 rayures L1 pour les paiements. Le b\u00e9n\u00e9fice du cercle augmente de 53%, construisant \u00e9galement la cha\u00eene L1. La strat\u00e9gie n'a achet\u00e9 que 18 millions de dollars BTC la semaine derni\u00e8re. Metaplanet ach\u00e8te 61 M $ BTC. BMNR d\u00e9sormais les meilleurs titulaires d'ETH, ont achet\u00e9 2 milliards de dollars en une semaine. SharpLink vend 400 millions de dollars pour acheter eth. Global fondamental ach\u00e8te 200 millions de dollars eth. Les clients FTX poursuivent Fenwick. Do Kwon devrait plaider coupable dans une affaire de fraude. Chainlink, Ice Collabor pour apporter FX & Metals sur la cha\u00eene. Thiel soutenue haussier augmente la taille de l'introduction en bourse, l'\u00e9valuation de 4,8 milliards de dollars. Paxos pour poursuivre la charte nationale de fiducie aux \u00c9tats-Unis. Origine bleue pour permettre des paiements cryptographiques pour les voyages dans l'espace.",
         "original_title": "ETH ETF INFLOWS ATH, CIRCLE & STRIPE PLAN L1S, CPI TODAY",
         "source": "Decrypt",
-        "timestamp": 1755012469,
+        "timestamp": 1755012469.0,
         "url": "https://decrypt.co/videos/interviews/XVDWEbcf/eth-etf-inflows-ath-circle-stripe-plan-l1s-cpi-today",
         "symbols": [
           "BTC",
@@ -45136,7 +45136,7 @@
         "text": "Le bitcoin approche de l'ATH, ETH atteint des sommets depuis 2021. Eth m\u00e8ne des majors, 71% de cotes qui atteignent 5 000 $ en 2025. BlackRock n'a pas de plan pour XRP ou SOL ETF. Harvard a achet\u00e9 117 millions de dollars BTC ETF. Bo hines pour d\u00e9missionner et passer au secteur priv\u00e9. WLFI pr\u00e9voit une collecte de fonds de 1,5 milliard de dollars pour le v\u00e9hicule cryptographique. La Chine demande aux courtiers de cesser de promouvoir les stablecoins. Coinbase intros dex trading sur l'application. Rumble pour acqu\u00e9rir des donn\u00e9es du Nord avec le support d'attache. Layerzero propose un rachat Stargate de 110 millions de dollars. L'\u00e9quipe de Credix dispara\u00eet apr\u00e8s 4,5 millions de dollars exploitant. Top Miner CleanSpark fait face \u00e0 des tarifs de 185 millions de dollars. Les collectes de fonds de crypto conformes aux micro-micro sont en direct en Europe. L'USDE atteint 10 milliards de dollars TVL, ENA m\u00e8ne les alts. Le battage m\u00e9diatique approche \u00e0 nouveau ATH, continue de dominer les frais. CEA Industries ach\u00e8te 160 millions de dollars BNB.",
         "original_title": "ETH BREAKS THROUGH $4K, BTC NEARS ATH, PUNKS NOW $240K",
         "source": "Decrypt",
-        "timestamp": 1754925870,
+        "timestamp": 1754925870.0,
         "url": "https://decrypt.co/videos/interviews/GDw7fLk1/eth-breaks-through-4k-btc-nears-ath-punks-now-240k",
         "symbols": [
           "BNB",
@@ -45157,7 +45157,7 @@
         "text": "Trump signe EO laisser la crypto dans 401K. XRP en hausse de 10% alors que la SEC met officiellement terminer la bataille juridique. ETH continue Overperform BTC, approche une r\u00e9sistance \u00e0 4 000 $. Miran convivial de crypto pour planche Fed. Global fondamental pour collecter 5 milliards de dollars pour acheter ETH. 87% de cotes d'ETH atteint 4 000 $ ce mois-ci. XRP pour acheter un rail de la plate-forme de paiement pour 200 millions de dollars. Les actions mini\u00e8res de la BTC r\u00e9silient comme des craintes tarifaires s'estompent. La Fondation ETH promet 500 000 $ pour la d\u00e9fense de Storm. AnimoCA, provenance lancement du march\u00e9 RWA tokenis\u00e9. AnimoCa JV pour demander une licence de stablecoin. Binance, BBVA pour permettre la garde des actifs hors de l'\u00e9change. Les jumeaux Winklevoss investissent dans le bitcoin am\u00e9ricain de Trump. ChainLink annonce Link Reserve. Tok\u00e9nisation Drive coll\u00e9 \u00e0 25 milliards de dollars: JP Morgan. Les actions pr\u00e9-IPO deviennent n\u00e9gociables sur Sol.",
         "original_title": "SEC DROPS XRP CASE, ETH NEARS $4K AGAIN, GOLD HITS ATH",
         "source": "Decrypt",
-        "timestamp": 1754666466,
+        "timestamp": 1754666466.0,
         "url": "https://decrypt.co/videos/interviews/1JUcP9dr/sec-drops-xrp-case-eth-nears-4k-again-gold-hits-ath",
         "symbols": [
           "BNB",
@@ -45179,7 +45179,7 @@
         "text": "ETH m\u00e8ne les majors, Tom Lee pr\u00e9voit un objectif de cours de 16 000 $. Les \u00c9tats-Unis ont d\u00e9cid\u00e9 de permettre la crypto dans les plans 401k. Transactions quotidiennes eth \u00e0 proximit\u00e9 du record. Vendez de l'or, achetez BTC: Lummis. L'Indon\u00e9sie \u00e9value la r\u00e9serve BTC. Tornado Dev reconnu coupable de 1 des 3 accusations. Les \u00c9tats-Unis ajoutent un tarif de 21,6% sur les machines mini\u00e8res BTC. La parataxie lance 640 millions de dollars de la BTC Treasury Strategy. Bakkt pour configurer la BTC Treasury Company japonaise. Cosmos Health lance 300 millions de dollars d'ETH Treasury. Stanchart favorise les actions du tr\u00e9sor et les ETF. Union Jack Oil pour d\u00e9ployer les installations mini\u00e8res de la BTC. Sheetz offrant des r\u00e9ductions sur les paiements cryptographiques. Aave a frapp\u00e9 par l'attaque de phishing. Nomura pour lancer des options de crypto \u00e0 Duba\u00ef. Ordonnance du tribunal Wazirx \u00e0 divulguer l'accord de binance",
         "original_title": "ETH NEARS $4K, TRUMP TARIFFS BEGIN, REKT HITS ANOTHER ATH",
         "source": "Decrypt",
-        "timestamp": 1754580350,
+        "timestamp": 1754580350.0,
         "url": "https://decrypt.co/videos/interviews/meyK3vhj/eth-nears-4k-trump-tariffs-begin-rekt-hits-another-ath",
         "symbols": [
           "BNB",
@@ -45198,7 +45198,7 @@
         "text": "Crypto volatile au milieu d'une image macro plus faible. Les sorties de BTC ETF se poursuivent, ETH devient positif. Les d\u00e9tenteurs de BTC \u00e0 court terme jettent 18 milliards de dollars \u00e0 mesure que les baleines ach\u00e8tent. Les activit\u00e9s de jalonnement liquide ne sont pas des titres: sec. La Chine teste les stablescoins de yuan. Le Br\u00e9sil consid\u00e8re la r\u00e9serve de la BTC. Les fichiers SBI du Japon pour divers ETF crypto. Michigan Pension Fund Tripple BTC ETF Exposition. SharpLink a achet\u00e9 304 millions de dollars eth la semaine derni\u00e8re. Metamask pr\u00e9voit de lancer Stablecoin. La base tombe bri\u00e8vement en raison de l'\u00e9chec du s\u00e9quenceur. CZ demande un rejet d'un proc\u00e8s FTX de 1,8 milliard de dollars. Hyperliquide a g\u00e9n\u00e9r\u00e9 35% des revenus de la blockchain. Bitbridge pour devenir public en tant que soci\u00e9t\u00e9 de tr\u00e9sorerie BTC. BNB r\u00e9v\u00e8le la nouvelle feuille de route des infrastructures. Le LTC m\u00e8ne Alts, Mei Pharma lance 100 millions de dollars de tr\u00e9sorerie. Pendle pour permettre des sp\u00e9culations sur les taux de financement de la cryptographie.",
         "original_title": "$PUMP REBOUNDS, CRYPTO EDGES LOWER, CHINA TESTING STABLECOINS",
         "source": "Decrypt",
-        "timestamp": 1754494100,
+        "timestamp": 1754494100.0,
         "url": "https://decrypt.co/videos/interviews/0AMccQun/pump-rebounds-crypto-edges-lower-china-testing-stablecoins",
         "symbols": [
           "BNB",
@@ -45218,7 +45218,7 @@
         "text": "La crypto augmente \u00e0 mesure que les paris de pivot nourris se construisent, les m\u00e8ches Sol. ETH voit la sortie de l'ETF ATH. BMNR a achet\u00e9 200k d'ETH la semaine derni\u00e8re. Vitalik propose des frais d'ETH multidimensionnels. Les \u00c9tats-Unis se sont install\u00e9s sur des banques fines pour la discrimination cryptographique. SEC \u00e9met des directives sur la comptabilit\u00e9 des stablescoin. ChainLink lance les flux de donn\u00e9es d'actions am\u00e9ricains. Anti-Crypto Warren est un perdant: Trump. CFTC ouvre la porte aux \u00e9changes \u00e0 terme de crypto. Coinbase, PayPal pour offrir un rendement de stablecoin. Thiel a soutenu les fichiers haussiers pour l'introduction en bourse. Arkham d\u00e9couvre 3,5 milliards de dollars pour crypto",
         "original_title": "RATE CUT ODDS SOAR, PROJECT CRYPTO, TRUMP TARIFFS",
         "source": "Decrypt",
-        "timestamp": 1754418127,
+        "timestamp": 1754418127.0,
         "url": "https://decrypt.co/videos/interviews/Q6HuVGk9/rate-cut-odds-soar-project-crypto-trump-tariffs",
         "symbols": [
           "SOL",
@@ -45237,7 +45237,7 @@
         "text": "Andr\u00e9 Beganski de Decrypt interviewe Ripple en chef David Schwartz sur tout ce qui concerne XRP, Ripple, XRP Ledger et l'histoire du r\u00e9seau.",
         "original_title": "Debunking XRP Myths With Ripple CTO David Schwartz",
         "source": "Decrypt",
-        "timestamp": 1754413863,
+        "timestamp": 1754413863.0,
         "url": "https://decrypt.co/videos/interviews/1T1b4LlF/debunking-xrp-myths-with-ripple-cto-david-schwartz",
         "symbols": [
           "XRP"
@@ -45254,7 +45254,7 @@
         "text": "La crypto augmente \u00e0 mesure que les paris de pivot nourris se construisent, les m\u00e8ches Sol. ETH voit la sortie de l'ETF ATH. BMNR a achet\u00e9 200k d'ETH la semaine derni\u00e8re. Vitalik propose des frais d'ETH multidimensionnels. Les \u00c9tats-Unis se sont install\u00e9s sur des banques fines pour la discrimination cryptographique. SEC \u00e9met des directives sur la comptabilit\u00e9 des stablescoin. ChainLink lance les flux de donn\u00e9es d'actions am\u00e9ricains. Anti-Crypto Warren est un perdant: Trump. CFTC ouvre la porte aux \u00e9changes \u00e0 terme de crypto. Coinbase, PayPal pour offrir un rendement de stablecoin. Thiel a soutenu les fichiers haussiers pour l'introduction en bourse. Arkham d\u00e9couvre 3,5 milliards de dollars pour crypto",
         "original_title": "SOL LEADS MAJORS, HUGE ETF OUTFLOWS, PUMPFUN PROMISES CHANGES",
         "source": "Decrypt",
-        "timestamp": 1754407294,
+        "timestamp": 1754407294.0,
         "url": "https://decrypt.co/videos/interviews/hoTY417a/sol-leads-majors-huge-etf-outflows-pumpfun-promises-changes",
         "symbols": [
           "SOL",
@@ -45273,7 +45273,7 @@
         "text": "XRP, Doge Lead Crypto Rebond apr\u00e8s baisse. Les FNB BTC subissent une deuxi\u00e8me plus grande sortie d'une seule journ\u00e9e. Crypto ETFS a achet\u00e9 ATH 12,8 milliards de dollars en juillet. La Chine r\u00e9tracte \u00e0 nouveau la crypto continentale. SEC pour tenir des tables rondes cryptographiques \u00e0 travers nous. Achetez les trempettes en BTC, ETH: Eric Trump. Metaplanet pr\u00e9voit une augmentation sur les actions de 3,7 milliards de dollars pour acheter BTC. Galaxy num\u00e9rique otc baleine ach\u00e8te 300 millions de dollars eth. Les \u00abm\u00e9ga baleines\u00bb de l'ETH continuent d'acheter par trempette. CFTC lance \u00abCrypto Sprint\u00bb aux c\u00f4t\u00e9s de SEC. Binance ouvre des options BTC \u00e0 tous les utilisateurs. Attendez-vous \u00e0 ce que BTC teste 100 000 $, ETH \u00e0 3 000 $: Hayes. Coinbase a baiss\u00e9 de 19% la semaine derni\u00e8re. UK FCA permettre \u00e0 la vente au d\u00e9tail d'acc\u00e8s aux ETN crypto. Ena m\u00e8ne Altcoin Gains alors que TVL atteint 9 milliards de dollars",
         "original_title": "VOLATILE WEEKEND, XRP LEADS REBOUND, TRUMP FIRES BLS CHIEF",
         "source": "Decrypt",
-        "timestamp": 1754320232,
+        "timestamp": 1754320232.0,
         "url": "https://decrypt.co/videos/interviews/DnxzisxU/volatile-weekend-xrp-leads-rebound-trump-fires-bls-chief",
         "symbols": [
           "BNB",
@@ -45294,14 +45294,14 @@
         "text": "Ethereum Price a commenc\u00e9 une vague de r\u00e9cup\u00e9ration au-dessus de la zone de 4 150 $. ETH est maintenant de retour au-dessus de 4 250 $, mais il fait face \u00e0 de nombreux obstacles pr\u00e8s de 4 300 $. Ethereum a commenc\u00e9 une vague de r\u00e9cup\u00e9ration au-dessus des niveaux de 4 200 $ et de 4 250 $. Le prix se n\u00e9gocie en dessous de 4 320 $ et la moyenne mobile \u00e0 100 heures. Il y a une ligne de tendance baissi\u00e8re se formant avec une r\u00e9sistance \u00e0 4 300 $ sur le graphique horaire d'ETH / USD (flux de donn\u00e9es via Kraken). La paire pourrait continuer \u00e0 descendre si elle s'installe en dessous de la zone de 4 180 $ \u00e0 court terme. Ethereum Price fait face \u00e0 des obstacles, Ethereum Price, les pertes prolong\u00e9es apr\u00e8s une cl\u00f4ture en dessous du niveau de 4 200 $, comme Bitcoin. Le prix de l'ETH a gagn\u00e9 un \u00e9lan baissier et s'est \u00e9chang\u00e9 en dessous de la zone de soutien de 4 110 $. Les Bears ont pu pousser le prix en dessous de la zone de soutien de 4 080 $. Enfin, le prix a test\u00e9 la zone de 4 065 $. Un creux a \u00e9t\u00e9 form\u00e9 \u00e0 4 065 $ et le prix a r\u00e9cemment commenc\u00e9 une vague de r\u00e9cup\u00e9ration au-dessus du niveau de retracement FIB de 23,6% de la r\u00e9cente baisse par rapport \u00e0 la balan\u00e7oire de 4 580 $ au niveau de 4 065 $. Le prix n'a pas r\u00e9ussi \u00e0 effacer la zone de 4 350 $ et le niveau de retracement de FIB de 61,8% de la r\u00e9cente baisse de la balan\u00e7oire de 4 580 $ au niveau de 4 065 $. Il y a aussi une ligne de tendance baissi\u00e8re formant avec une r\u00e9sistance \u00e0 4 300 $ sur le tableau horaire d'ETH / USD. Ethereum Price se n\u00e9gocie d\u00e9sormais en dessous de 4 300 $ et la moyenne mobile \u00e0 100 heures. \u00c0 la hausse, le prix pourrait faire face \u00e0 une r\u00e9sistance pr\u00e8s du niveau de 4 300 $. La prochaine r\u00e9sistance des cl\u00e9s est proche du niveau de 4 350 $. La premi\u00e8re r\u00e9sistance majeure est proche du niveau de 4 385 $. Une d\u00e9cision claire au-dessus de la r\u00e9sistance de 4 385 $ pourrait envoyer le prix vers la r\u00e9sistance de 4 450 $. Une rupture \u00e0 la hausse au-dessus de la r\u00e9sistance de 4 450 $ pourrait demander plus de gains dans les s\u00e9ances \u00e0 venir. Dans le cas indiqu\u00e9, l'\u00e9ther pourrait augmenter vers la zone de r\u00e9sistance de 4 500 $, voire 4 550 $ \u00e0 court terme. Une autre goutte d'ETH? Si Ethereum ne parvient pas \u00e0 effacer la r\u00e9sistance de 4 300 $, elle pourrait continuer \u00e0 descendre. Le support initial de la baisse est proche du niveau de 4 220 $. Le premier support majeur se situe pr\u00e8s de la zone de 4 180 $. Une d\u00e9cision claire en dessous du support de 4 180 $ pourrait pousser le prix vers le support de 4 120 $. D'autres pertes pourraient envoyer le prix vers le niveau de soutien de 4 065 $ \u00e0 court terme. Le support cl\u00e9 suivant se situe \u00e0 4 000 $. Indicateurs techniques MACD horaires - Le MACD pour ETH / USD perd de l'\u00e9lan dans la zone baissi\u00e8re. RSI horaire & # 8211; Le RSI pour ETH / USD est d\u00e9sormais sup\u00e9rieur \u00e0 la zone 50. Niveau de soutien majeur - 4 180 $ Niveau de r\u00e9sistance majeure - 4 385 $",
         "original_title": "Ethereum Price Battles Key Barrier as Bulls Eye a Breakout Attempt",
         "source": "NewsBTC",
-        "timestamp": 1755832709,
+        "timestamp": 1755832709.0,
         "url": "https://www.newsbtc.com/analysis/eth/ethereum-price-battles-barrier-4300/",
         "symbols": [
           "BTC",
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.7020748257637024,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45312,14 +45312,14 @@
         "text": "Le token natif de Binance BNB a atteint une nouvelle \u00e9tape aujourd'hui, fixant un sommet de 881 $ avant de se corriger l\u00e9g\u00e8rement \u00e0 849 $ au moment de la r\u00e9daction. Malgr\u00e9 une consolidation plus large du march\u00e9 ces derniers jours, les performances de BNB ont marqu\u00e9 une augmentation de 2,6% au cours des derni\u00e8res 24 heures. Le d\u00e9veloppement a attir\u00e9 l'attention notable des commer\u00e7ants et des analystes, dont beaucoup \u00e9valuent maintenant si l'\u00e9lan est durable. L'analyste cryptoque, Cryptonchain, a partag\u00e9 des informations sur le rallye, pointant \u00e0 la fois des signaux techniques et des donn\u00e9es sur la cha\u00eene comme facteurs cl\u00e9s derri\u00e8re le dernier mouvement ascendant de l'Altcoin. Selon son analyse, la cassure d\u00e9cisive sup\u00e9rieure \u00e0 la zone de r\u00e9sistance de 800 $ \u00e0 810 $ a transform\u00e9 cette gamme en un niveau de soutien important. Il a not\u00e9 que le maintien de ce seuil pourrait soutenir un sentiment haussier, le niveau de 900 $ \u00e9mergeant comme la prochaine cible psychologique. Lecture connexe: BNB Prix enroulant pour la rupture - la jambe de NEXT plus \u00e9lev\u00e9e en vue technique et analyse en cha\u00eene du BNB du c\u00f4t\u00e9 technique, l'entr\u00e9e de l'altcoin dans le mode \u00abd\u00e9couverte des prix\u00bb a soulev\u00e9 des questions sur la durabilit\u00e9 de son rallye. Cryptonchain a expliqu\u00e9 que la rupture au-dessus des niveaux de r\u00e9sistance historique attire g\u00e9n\u00e9ralement de nouvelles entr\u00e9es et renforce la confiance dans la tenue \u00e0 long terme. Du point de vue de la cha\u00eene, l'analyste a mis en \u00e9vidence les \u00abgains de pourcentage de roulement\u00bb sur plusieurs d\u00e9lais. Les donn\u00e9es sugg\u00e8rent que toutes les principales cohortes des d\u00e9tenteurs, des investisseurs \u00e0 court terme aux investisseurs \u00e0 long terme, sont actuellement en profit. Cela r\u00e9duit la pression de vente potentielle car les investisseurs sont moins motiv\u00e9s pour quitter les postes. Dans le m\u00eame temps, l'acc\u00e9l\u00e9ration des gains \u00e0 court terme refl\u00e8te une nouvelle demande, tandis que les gains roulants d'un an indiquent que le rallye n'est pas simplement sp\u00e9culatif mais soutenu par une accumulation soutenue. Selon Cryptonchain, la combinaison de ces facteurs pr\u00e9sente un cas de force continue tant que l'Altcoin tient au-dessus de la zone de soutien de 800 $. \"La cassure technique est soutenue par des d\u00e9tenteurs confiants et rentables\", a-t-il \u00e9crit. \u00abTant que BNB d\u00e9tient le niveau de soutien crucial de 800 $, les perspectives pour tester des cibles plus \u00e9lev\u00e9es restent tr\u00e8s favorables.\u00bb Les analystes voient le potentiel de 1 000 $ au-del\u00e0 des m\u00e9triques techniques et sur cha\u00eene, les observateurs du march\u00e9 ind\u00e9pendants p\u00e8sent \u00e9galement sur la trajectoire de l'altcoin. Un analyste crypto connu sous le nom de Bitbull sur X a not\u00e9 que le nouveau haut de tous les temps de BNB co\u00efncide avec un changement structurel dans son action de prix. La r\u00e9sistance de longue date du Token a d\u00e9sormais bascul\u00e9 dans le soutien, cr\u00e9ant ce qu'il a d\u00e9crit comme des conditions de croissance plus approfondie. \"$ BNB a frapp\u00e9 un nouvel ATH de 880 $ aujourd'hui. Il a maintenant renvers\u00e9 son niveau de r\u00e9sistance pluriannuelle. Avec des soci\u00e9t\u00e9s publiques ench\u00e9ant BNB, 1k $ BNB n'est qu'une question de temps\", a comment\u00e9 Bitbull. Lecture connexe: BNB suit le livre de jeu de Bitcoin, Eyes Breakout Vers 1 200 $ BNB Rise survient au milieu d'un march\u00e9 en \u00e9volution de jetons d'\u00e9change. Alors que certains ont eu du mal \u00e0 maintenir la pertinence, BNB a constamment grandi dans les services publics, soutenus par l'\u00e9cosyst\u00e8me de Binance, qui comprend des remises sur les frais de n\u00e9gociation, les lancements de jetons et l'infrastructure de blockchain via la cha\u00eene BNB. Cette dynamique a aid\u00e9 \u00e0 positionner le jeton comme l'une des cinq premi\u00e8res crypto-monnaies par capitalisation boursi\u00e8re. Image en vedette cr\u00e9\u00e9e avec Dall-E, graphique de TradingView",
         "original_title": "BNB Sets New All-Time High Above $880: Here\u2019s What Traders Should Watch Next",
         "source": "NewsBTC",
-        "timestamp": 1755831601,
+        "timestamp": 1755831601.0,
         "url": "https://www.newsbtc.com/analysis/bnb/bnb-sets-new-all-time-high-above-880-heres-what-traders-should-watch-next/",
         "symbols": [
           "BNB",
           "BTC"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.4064995050430298,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45330,13 +45330,13 @@
         "text": "Bitcoin Price tente de se remettre de 112 000 $. BTC est de retour au-dessus de 113 200 $, mais fait face \u00e0 de nombreux obstacles sur le chemin de 118 000 $. Bitcoin a commenc\u00e9 une vague de r\u00e9cup\u00e9ration au-dessus de la zone de 112 500 $. Le prix se n\u00e9gocie en dessous de 115 000 $ et la moyenne mobile simple de 100 heures. Il y a une ligne de tendance baissi\u00e8re cl\u00e9 formant avec une r\u00e9sistance \u00e0 113 500 $ sur le graphique horaire de la paire BTC / USD (flux de donn\u00e9es de Kraken). La paire pourrait commencer une autre augmentation si elle efface la zone de r\u00e9sistance de 115 000 $. Bitcoin Price Face Resistance Bitcoin Le prix a commenc\u00e9 une nouvelle baisse apr\u00e8s une cl\u00f4ture en dessous du niveau de 115 000 $. BTC a pris une \u00e9lan baissi\u00e8re et s'est \u00e9chang\u00e9 en dessous de la zone de soutien de 113 200 $. Il y a eu un mouvement en dessous de la zone de soutien de 112 500 $ et de la moyenne mobile simple de 100 heures. La paire a test\u00e9 la zone de 112 000 $. Un creux a \u00e9t\u00e9 form\u00e9 \u00e0 112 100 $ et le prix tente d\u00e9sormais de se remettre au niveau de retracement FIB de 23,6% de la r\u00e9cente baisse par rapport \u00e0 la balan\u00e7oire de 124 420 $ au niveau de 112 100 $. Bitcoin se n\u00e9gocie d\u00e9sormais en dessous de 114 000 $ et la moyenne mobile simple de 100 heures. La r\u00e9sistance imm\u00e9diate \u00e0 la hausse est proche du niveau de 113 500 $. Il existe \u00e9galement une ligne de tendance baissi\u00e8re cl\u00e9 formant avec une r\u00e9sistance \u00e0 113 500 $ sur le tableau horaire de la paire BTC / USD. La premi\u00e8re r\u00e9sistance des cl\u00e9s est proche du niveau de 114 500 $. La prochaine r\u00e9sistance pourrait \u00eatre de 115 000 $. Une cl\u00f4ture sup\u00e9rieure \u00e0 la r\u00e9sistance de 115 000 $ pourrait envoyer le prix plus \u00e9lev\u00e9. Dans le cas indiqu\u00e9, le prix pourrait augmenter et tester le niveau de r\u00e9sistance de 116 500 $. D'autres gains pourraient envoyer le prix au niveau de 118 200 $. Il est proche du niveau de retracement de FIB \u00e0 50% de la r\u00e9cente baisse par rapport au swing de 124 420 $ au niveau du bas de 112 100 $. L'objectif principal pourrait \u00eatre de 120 000 $. Plus d'inconv\u00e9nient en BTC? Si Bitcoin ne d\u00e9passe pas la zone de r\u00e9sistance de 114 500 $, cela pourrait commencer une nouvelle baisse. Le soutien imm\u00e9diat est proche du niveau de 112 500 $. Le premier soutien majeur est proche du niveau de 112 000 $. Le prochain support est d\u00e9sormais proche de la zone de 110 500 $. D'autres pertes pourraient envoyer le prix vers le soutien de 108 250 $ \u00e0 court terme. Le support principal se situe \u00e0 105 500 $, en dessous duquel BTC pourrait prendre un succ\u00e8s majeur. Indicateurs techniques: MACD horaire - Le MACD perd maintenant un rythme dans la zone baissi\u00e8re. RSI horaire (indice de r\u00e9sistance relative) - Le RSI pour BTC / USD est d\u00e9sormais sup\u00e9rieur au niveau 50. Niveaux de soutien majeurs - 112 500 $, suivis de 112 000 $. Niveaux de r\u00e9sistance majeurs - 113 500 $ et 115 000 $.",
         "original_title": "Bitcoin Price Stays in Red, Can Bulls Regain Lost Ground Soon?",
         "source": "NewsBTC",
-        "timestamp": 1755830447,
+        "timestamp": 1755830447.0,
         "url": "https://www.newsbtc.com/analysis/btc/bitcoin-price-stays-in-red-112k/",
         "symbols": [
           "BTC"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.6963443160057068,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45347,7 +45347,7 @@
         "text": "Bitcoin (BTC) a r\u00e9cemment atteint un nouveau sommet de tous les temps, d\u00e9passant 124 000 $, seulement pour subir une baisse ult\u00e9rieure de 9%. Cette volatilit\u00e9 a suscit\u00e9 des sp\u00e9culations g\u00e9n\u00e9ralis\u00e9es sur l'\u00e9tat actuel du march\u00e9 haussier, le potentiel d'une saison en cours & # 8220; Alt, & # 8221; et si Bitcoin a atteint son apog\u00e9e.\u00a0 \u00c0 la lumi\u00e8re de l'action actuelle des prix, l'expert du march\u00e9 Miles Deutscher a partag\u00e9 des informations sur la plate-forme de m\u00e9dias sociaux X (anciennement Twitter), ce qui sugg\u00e8re qu'ao\u00fbt pourrait \u00eatre consid\u00e9r\u00e9 comme un pi\u00e8ge important sur le march\u00e9 de la cryptographie.\u00a0 Deux sc\u00e9narios pour Bitcoin d'abord, Deutscher souligne un changement significatif de la force du march\u00e9. Ethereum (ETH) semble surpasser le bitcoin en termes de prix et de r\u00e9cit. Il affirme que le bitcoin montre des signes de faiblesse structurelle depuis d\u00e9but juillet. Lecture connexe: l'analyste sonne l'alarme - Bitcoin pourrait glisser vers 88 000 $ un facteur cl\u00e9 contribuant \u00e0 ce ralentissement, selon l'analyse de l'expert, est l'influence d\u00e9croissante de la strat\u00e9gie des achats de tr\u00e9sorerie (microstrategique), qui ont pr\u00e9c\u00e9demment aliment\u00e9 le dernier rally de la crypto-monnaie.\u00a0 Deutscher affirme que cette baisse de la demande a entra\u00een\u00e9 un coup de pouce pour la BTC, ce qui l'a conduit \u00e0 sp\u00e9culer qu'il peut rester li\u00e9 \u00e0 la plage jusqu'\u00e0 ce que la clart\u00e9 suppl\u00e9mentaire \u00e9merge des d\u00e9cisions \u00e0 venir des taux d'int\u00e9r\u00eat. Dans son analyse, Deutscher d\u00e9crit deux sc\u00e9narios potentiels pour la trajectoire des prix du bitcoin. La premi\u00e8re possibilit\u00e9 implique une baisse des bas autour de 111 000 $, ce qui pourrait co\u00efncider avec le niveau de soutien critique de 4 000 $.\u00a0 Le deuxi\u00e8me sc\u00e9nario envisage une r\u00e9cup\u00e9ration du prix de milieu de gamme de 115 500 $, ce qui pourrait ouvrir la voie \u00e0 un \u00e9lan vers le haut renouvel\u00e9.\u00a0 \u00c0 l'inverse, le r\u00e9cit entourant Ethereum continue de gagner consid\u00e9rablement le traction, renforc\u00e9 par environ 27 milliards de dollars en capital mis \u00e0 l'\u00e9cart pour l'investissement dans l'\u00e9cosyst\u00e8me de jeton d'actif d\u00e9centralis\u00e9 (DAT). Quelle est la prochaine \u00e9tape pour Ethereum et Crypto Market? Fait int\u00e9ressant, ETH a r\u00e9cemment d\u00e9pass\u00e9 la BTC en termes de volume de n\u00e9gociation pour les soci\u00e9t\u00e9s de tr\u00e9sorerie. Deutscher note que cette tendance sugg\u00e8re qu'Ethereum a toujours une place consid\u00e9rable pour la croissance par rapport au bitcoin, ce qui en fait un commerce moins satur\u00e9.\u00a0 Cette force relative se refl\u00e8te dans les performances des altcoins, qui ont montr\u00e9 une r\u00e9silience contre le bitcoin. Contrairement aux corrections pass\u00e9es, o\u00f9 les Altcoins ont subi des pertes importantes, cette fois, le march\u00e9 d'Altcoin a maintenu le soutien et a montr\u00e9 des signaux haussiers. Lecture connexe: le d\u00e9tenteur de DoGECOIN augmente vers de nouveaux sommets de tous les temps - voici les chiffres au milieu de la r\u00e9action actuelle du march\u00e9, les facteurs macro\u00e9conomiques ont jou\u00e9 un r\u00f4le crucial dans l'action des prix. L'incertitude entourant les politiques de la R\u00e9serve f\u00e9d\u00e9rale (Fed), \u00e0 la lumi\u00e8re du prochain discours de Jackson Hole, a conduit \u00e0 une vague de d\u00e9sactivation parmi les investisseurs.\u00a0 La r\u00e9ponse du march\u00e9 aux donn\u00e9es de l'indice des prix des producteurs (PPI) du march\u00e9 est \u00e9galement mise en \u00e9vidence car elle a modifi\u00e9 les attentes concernant les baisses de taux d'int\u00e9r\u00eat, accro\u00eetre les craintes d'une position belliciste de la R\u00e9serve f\u00e9d\u00e9rale, contribuant \u00e0 la r\u00e9cente vente. Deutscher pr\u00e9voit que ce comportement du march\u00e9 peut conduire \u00e0 A & # 8220; se vendre classique \u00e0 la fin du mois & # 8221; Mod\u00e8le, d'autant plus que septembre pr\u00e9sente historiquement la volatilit\u00e9 du bitcoin.\u00a0 Cependant, l'expert postule qu'une fois que l'incertitude se dissipe, en particulier \u00e0 la suite de l'\u00e9v\u00e9nement Jackson Hole et de la d\u00e9cision de taux ult\u00e9rieure le mois prochain, le march\u00e9 pourrait \u00eatre bien plac\u00e9 pour une autre tentative de nouveaux sommets. Lors de l'\u00e9criture, BTC se n\u00e9gocie \u00e0 113 000 $, tentant de consolider 9% en dessous de son sommet de tous les temps atteint le 14 ao\u00fbt. Image en vedette de Dall-E, graphique de TradingView.com",
         "original_title": "Why August Could Be Remembered As A Major Trap For Bitcoin And Crypto Market",
         "source": "NewsBTC",
-        "timestamp": 1755828041,
+        "timestamp": 1755828041.0,
         "url": "https://www.newsbtc.com/bitcoin-news/why-august-could-be-remembered-as-a-major-trap-for-bitcoin-and-crypto-market/",
         "symbols": [
           "BTC",
@@ -45355,7 +45355,7 @@
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.7942842245101929,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45366,7 +45366,7 @@
         "text": "Bitcoin continue de revenir \u00e0 partir de ses sommets record, les actifs se n\u00e9gociant inf\u00e9rieur \u00e0 115 000 $ au moment de la r\u00e9daction du moment de la r\u00e9daction. Les niveaux de prix actuels placent le bitcoin pr\u00e8s de 113 098 $, une baisse d'environ 6,5% au cours de la semaine derni\u00e8re et pr\u00e8s de 9% en dessous de son pic de tous les temps. Malgr\u00e9 le ralentissement, les analystes surveillant les donn\u00e9es sur la cha\u00eene sugg\u00e8rent que le cycle de march\u00e9 plus large peut encore avoir de la place pour s'\u00e9tendre vers le haut. Un tel point de vue provient du contributeur QuickTake de Cryptobre, Pelinaypa, qui a analys\u00e9 le ratio de la valeur marchande de la valeur de la valeur (MVRV) de Bitcoin. L'analyste a not\u00e9 que si les corrections r\u00e9centes peuvent peser sur un sentiment \u00e0 court terme, les mod\u00e8les historiques dans le MVRV indiquent que le bitcoin n'a pas encore atteint les conditions g\u00e9n\u00e9ralement associ\u00e9es aux hauts du cycle de march\u00e9. LECTURE CONNEXE: La bulle du Tr\u00e9sor Bitcoin est-elle \u00e9clat\u00e9e? L'expert r\u00e9pond au ratio MVRV Bitcoin pointe vers un potentiel neutre mais \u00e0 la hausse Le ratio MVRV est un indicateur en cha\u00eene largement suivi qui compare la capitalisation boursi\u00e8re totale de Bitcoin avec sa capitalisation r\u00e9alis\u00e9e, ce qui refl\u00e8te la valeur agr\u00e9g\u00e9e des pi\u00e8ces au prix qu'ils ont d\u00e9m\u00e9nag\u00e9 sur la cha\u00eene. Historiquement, lorsque le ratio monte dans la plage de 3,5 \u00e0 4, il signale une surchauffe potentielle du march\u00e9. \u00c0 ces niveaux, la plupart des d\u00e9tenteurs sont en profit, les augmentations d'activit\u00e9s de vente et les hauts de prix sont souvent atteints. \u00c0 l'inverse, les niveaux de MVRV inf\u00e9rieurs \u00e0 1 ont historiquement marqu\u00e9 des phases d'accumulation et de forts points d'entr\u00e9e \u00e0 long terme. Actuellement, le rapport MVRV de Bitcoin est d'environ 2,1. Selon Pelinaypa, cette lecture positionne le march\u00e9 dans une zone \u00abneutre \u00e0 haussi\u00e8re\u00bb, ce qui sugg\u00e8re que bien que le bitcoin ne soit plus bon march\u00e9, les conditions d'un rallye prolong\u00e9 restent intactes. L'analyste a not\u00e9 que dans les cycles pr\u00e9c\u00e9dents, le ratio MVRV avait progress\u00e9 de mani\u00e8re significative avant un pic, ce qui implique que le prix de Bitcoin devrait passer \u00e0 une fourchette de 140 000 $ \u00e0 180 000 $ pour que l'indicateur atteigne les niveaux sup\u00e9rieurs historiques. Cependant, les donn\u00e9es sugg\u00e8rent \u00e9galement que les corrections en cours de route sont plausibles. \"\u00c9tant donn\u00e9 que MVRV est d\u00e9j\u00e0 sup\u00e9rieur \u00e0 2, le march\u00e9 n'est plus bon march\u00e9 - des corrections \u00e0 court et \u00e0 mi-parcours peuvent se produire en cours de route\", a expliqu\u00e9 Pelinaypa. L'\u00e9quilibre entre le potentiel \u00e0 la hausse et les pr\u00e9l\u00e8vements intermittents refl\u00e8te une phase de consolidation dans une structure plus large du march\u00e9 haussier. Les flux d'\u00e9change signalent un comportement de march\u00e9 mixte dans une analyse distincte, le contributeur cryptoque Borisd a examin\u00e9 les donn\u00e9es d'\u00e9change NetFlow, se concentrant sur Binance, la plus grande plate-forme de trading cryptographique au monde. Le rapport a mis en \u00e9vidence les tendances notables dans plusieurs altcoins, montrant comment les mouvements en capital peuvent \u00e9clairer les conditions futures du march\u00e9. Selon les donn\u00e9es, des jetons tels que Enjin (enjin) et FET (fetch.ai) ont enregistr\u00e9 des sorties importantes de Binance. Ce mod\u00e8le indique g\u00e9n\u00e9ralement que les investisseurs d\u00e9placent des actifs vers des portefeuilles priv\u00e9s, qui peuvent \u00eatre interpr\u00e9t\u00e9s comme un signe de comportement de maintien \u00e0 plus long terme. En revanche, des actifs comme Ankr et Matic ont connu de fortes entr\u00e9es sur les \u00e9changes, ce qui augmente la possibilit\u00e9 d'une pression de vente \u00e0 venir ou d'un positionnement sp\u00e9culatif avant les quarts de march\u00e9. Lecture connexe: Bitcoin La peur est de retour: les commer\u00e7ants se retournent alors que le prix plonge \u00e0 113 000 $ BORISD a sugg\u00e9r\u00e9 que la surveillance des actifs attire des entr\u00e9es par rapport aux sorties pourrait aider les investisseurs \u00e0 identifier les opportunit\u00e9s potentielles sur le march\u00e9 Altcoin. \"L'identification de laquelle de ces altcoins est actuellement pr\u00e8s des bas potentiels et le positionnement pour leur prochain rallye semble \u00eatre la strat\u00e9gie la plus rationnelle\", a \u00e9crit l'analyste. Image en vedette cr\u00e9\u00e9e avec Dall-E, graphique de TradingView",
         "original_title": "Has Bitcoin\u2019s Bull Run Really Ended? Here\u2019s What MVRV Data Suggests",
         "source": "NewsBTC",
-        "timestamp": 1755824450,
+        "timestamp": 1755824450.0,
         "url": "https://www.newsbtc.com/bitcoin-news/has-bitcoin-bull-run-really-ended-heres-what-mvrv-data-suggests/",
         "symbols": [
           "BNB",
@@ -45374,7 +45374,7 @@
           "MATIC"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.786385178565979,
         "impact_score": 1.0,
         "risk_class": "Neutral",
@@ -45385,7 +45385,7 @@
         "text": "Le chef de la direction de Sol Strategies a une forte conviction dans le potentiel du Bitcoin, malgr\u00e9 les r\u00e9centes revers par le meilleur atout cryptographique. Lire connexe: panique ou profit? L'analyste dit que XRP en dessous de 3 $ est une \u00abb\u00e9n\u00e9diction massive\u00bb que Leah Wald a d\u00e9clar\u00e9 aux membres de la presse qu'elle s'attend \u00e0 ce que Bitcoin fasse un mouvement raide avant la fin de l'ann\u00e9e. Sa ligne de base? La marque vant\u00e9e de 175 000 $ & # 8211; Un prix qu'elle a appel\u00e9 une lecture conservatrice par rapport \u00e0 certaines pr\u00e9visions plus \u00e9lev\u00e9es. Le march\u00e9 a d\u00e9j\u00e0 surpris beaucoup de gens - Bitcoin a atteint environ 124 000 $ r\u00e9cemment - donc de grandes balan\u00e7oires ne sont pas impossibles. L'int\u00e9r\u00eat institutionnel stimule l'\u00e9lan selon Wald, une partie de la pouss\u00e9e provient de l'entr\u00e9e en gros. Ces voix apportent des mod\u00e8les et des plans d'\u00e9quilibre qui ont d\u00e9clar\u00e9 que lors d'une interview CNBC TV18, soutiennent des objectifs de prix beaucoup plus \u00e9lev\u00e9s que les personnes qui s'attendaient. Les cicatrices de l\u2019industrie sont toujours visibles. Apr\u00e8s l'effondrement de la FTX, de nombreuses entreprises ont \u00e9t\u00e9 d\u00e9sactiv\u00e9es et la confiance a pris un coup. Mais Wald soutient que l'image a chang\u00e9: les banques et les gestionnaires d'actifs ouvrent \u00e0 nouveau les portes, ce qui permet aux grands managers de mettre plus facilement des capitaux en crypto. Cela n'\u00e9change pas les risques, mais cela change la fa\u00e7on dont les gros investisseurs abordent le march\u00e9. Les paris \u00e0 long terme restent tr\u00e8s ambitieux en fonction des rapports, certaines pr\u00e9visions s'\u00e9tendent bien au-del\u00e0 de cette ann\u00e9e. Wald a mentionn\u00e9 les projections montrant Bitcoin \u00e0 1 million de dollars d'ici 2030, un niveau qui \u00e9clipserait les prix courants. Ces appels \u00e0 long terme sont tir\u00e9s par des hypoth\u00e8ses sur l'adoption, l'offre limit\u00e9e et le r\u00f4le que Bitcoin pourrait jouer dans des portefeuilles institutionnels. La r\u00e9alit\u00e9 correspond \u00e0 ces mod\u00e8les est une autre question. Les math\u00e9matiques \u00e0 court terme sont \u00e9galement importantes. Si Bitcoin devait atteindre 175 000 $ avant la fin de l'ann\u00e9e, ce serait une mont\u00e9e rapide des niveaux r\u00e9cents autour de 124 000 $. Les commer\u00e7ants et les gestionnaires qui regardent la volatilit\u00e9 savent que de tels mouvements peuvent se produire, mais ils savent \u00e9galement que le chemin est rarement droit. Des attentes, des flux et des nouvelles - tout cela d\u00e9place rapidement les march\u00e9s. Lecture connexe: Ethereum capture la fr\u00e9n\u00e9sie des investisseurs, d\u00e9passe le bitcoin avec pr\u00e8s de 3 $ B de la sp\u00e9culation \u00e0 l'infrastructure que Wald dit que la crypto ne concerne plus les gains rapides. Elle voit un changement plus important: la finance grand public est reconstruite sur les outils de blockchain, a-t-elle d\u00e9clar\u00e9, et ce changement \u00e9loigne la conversation du trading \u00e0 court terme vers la fa\u00e7on dont le syst\u00e8me est construit et ex\u00e9cut\u00e9. Les \u00c9tats-nations pensant \u00e0 l'adoption et aux grands gestionnaires d'actifs de planification des services de garde font partie de cette image, a-t-elle ajout\u00e9, et ces pi\u00e8ces sont importantes pour la fa\u00e7on dont les prix se forment. Image en vedette de Meta, graphique de TradingView",
         "original_title": "Bitcoin\u2019s Next Stop For 2025? $175,000, According To SOL Strategies Boss",
         "source": "NewsBTC",
-        "timestamp": 1755820856,
+        "timestamp": 1755820856.0,
         "url": "https://www.newsbtc.com/news/bitcoin/bitcoins-next-stop-for-2025-175000-according-to-sol-strategies-boss/",
         "symbols": [
           "SOL",
@@ -45405,7 +45405,7 @@
         "text": "La soci\u00e9t\u00e9 d'analyse en cha\u00eene Santiment a r\u00e9v\u00e9l\u00e9 comment les deux plus grandes pointes de volume de n\u00e9gociation ont co\u00efncid\u00e9 avec les r\u00e9centes fen\u00eatres d'achat et de vente pour Bitcoin. Le volume de trading peut signaler les sommets & # 38; Bottoms for Bitcoin dans un nouveau post sur X, Santiment a parl\u00e9 d'un mod\u00e8le associ\u00e9 au volume de trading de Bitcoin. Le Volume de trading & # 8220; & # 8221; Ici, fait r\u00e9f\u00e9rence \u00e0 une m\u00e9trique qui maintient la trace du montant total de la crypto-monnaie qui s'implique dans les activit\u00e9s commerciales sur les divers \u00e9changes centralis\u00e9s. Lorsque la valeur de cette m\u00e9trique est \u00e9lev\u00e9e, cela signifie que les commer\u00e7ants font un grand nombre de mouvements sur le march\u00e9. Une telle tendance sugg\u00e8re que l'int\u00e9r\u00eat pour l'actif est \u00e9lev\u00e9. D'un autre c\u00f4t\u00e9, l'indicateur ayant une valeur faible implique des investisseurs peut ne pas pr\u00eater beaucoup d'attention \u00e0 la crypto-monnaie car ils participent \u00e0 une faible quantit\u00e9 d'activit\u00e9. LECTURE CONNEXE: Bitcoin Fear est de retour: les traders se retournent alors que le prix plonge \u00e0 113 000 $ maintenant, voici un graphique qui montre la tendance du volume de trading pour Bitcoin et d'autres pi\u00e8ces les plus \u00e9lev\u00e9es dans le secteur au cours des derniers mois: dans le graphique ci-dessus, Santiment a mis en \u00e9vidence deux grosses pointes dans le volume de trading de BitCoin. Le premier d'entre eux, impliquant un mouvement de 84,08 milliards de dollars de l'actif, s'est produit d\u00e9but avril. Fait int\u00e9ressant, cette pointe a co\u00efncid\u00e9 avec la trempette \u00e0 tarif de BTC. L'autre pic a eu lieu juste plus t\u00f4t ce mois-ci et a vu l'indicateur atteindre un sommet de 90,90 milliards de dollars. Cette fois, le volume de trading \u00e9lev\u00e9 est venu aux c\u00f4t\u00e9s du nouveau haut de tous les temps (ATH) de BTC au-dessus du niveau de 124 000 $. & # 8220; Notez que les deux plus grands pics de volume de Bitcoin ont signal\u00e9 le temps optimal pour acheter (\u00e0 mesure que les prix en baisse) et la vente (car les prix ont atteint un nouvel ATH), & # 8221; explique la soci\u00e9t\u00e9 d'analyse. Quelle pourrait \u00eatre l'explication derri\u00e8re le mod\u00e8le?\u00a0G\u00e9n\u00e9ralement, plus l'activit\u00e9 commerciale est \u00e9lev\u00e9e, plus la BTC est susceptible d'observer une sorte de volatilit\u00e9.\u00a0En effet, les mouvements effectu\u00e9s par les investisseurs agissent comme du carburant pour les mouvements de prix. Lorsque la volatilit\u00e9 \u00e9mergente peut conduire, il est difficile de dire de l'actif en fonction des donn\u00e9es de volume de trading seule, comme elle ne s\u00e9pare pas les mouvements de l'achat et de la vente. Les pointes qui viennent \u00e0 proximit\u00e9 des bas de prix peuvent \u00eatre des signes d'achat. C'est ce qui s'est pass\u00e9 en avril. De m\u00eame, une hausse particuli\u00e8rement nette d'activit\u00e9 apr\u00e8s des rassemblements, comme celle vue plus t\u00f4t dans le mois, peut \u00eatre un signe de profit. Lecture connexe: DoGECOIN Coils Up: Triangle Break pourrait d\u00e9clencher un mouvement de 40%, dit que l'analyste est actuellement, le volume de trading de Bitcoin reste \u00e9lev\u00e9, mais sa valeur actuelle de 66 milliards de dollars reste clairement un pas en dessous des niveaux observ\u00e9s lors des redressement susmentionn\u00e9s. BTC Price Bitcoin a \u00e9t\u00e9 confront\u00e9 \u00e0 un \u00e9lan baissi\u00e8re soutenu r\u00e9cemment car son prix a progressivement gliss\u00e9, avec sa derni\u00e8re valeur \u00e0 113 000 $. Image en vedette de Dall-E, Santiment.net, graphique de TradingView.com",
         "original_title": "This Bitcoin Volume Signal Nailed The Top & Bottom: Analytics Firm",
         "source": "NewsBTC",
-        "timestamp": 1755817224,
+        "timestamp": 1755817224.0,
         "url": "https://www.newsbtc.com/bitcoin-news/bitcoin-volume-nailed-top-bottom-analytics-firm/",
         "symbols": [
           "BTC",
@@ -45423,7 +45423,7 @@
         "text": "Ethereum se stabilise au-dessus du niveau de 4 200 $ apr\u00e8s des jours de volatilit\u00e9 forte et de pression de vente forte. Le r\u00e9cent ralentissement a vu ETH se retirer des sommets locaux proches de 4 800 $, laissant les taureaux avec la t\u00e2che urgente de d\u00e9fendre les zones de demande critique. Maintenant, les premiers signes sugg\u00e8rent que l'\u00e9lan peut se retirer en faveur des acheteurs, la pression de vente commen\u00e7ant \u00e0 s'estomper \u00e0 travers le march\u00e9. Lecture connexe: Ethereum Treasury Boom stimule la demande: Le march\u00e9 peut-il g\u00e9rer les risques? Cette stabilisation intervient alors que les altcoins se pr\u00e9parent \u00e0 ce qui pourrait \u00eatre une p\u00e9riode d\u00e9cisive dans les prochains mois. Le sentiment du march\u00e9 devient prudemment optimiste, soutenu par l'am\u00e9lioration des signaux techniques et les mod\u00e8les d'accumulation renouvel\u00e9s. Les analystes soulignent que si Ethereum peut contenir des niveaux de soutien actuels, les bases pourraient \u00eatre pos\u00e9es pour une autre pouss\u00e9e vers le retein de la zone de 4 800 $ et, finalement, de nouveaux sommets de tous les temps. Ajoutant au r\u00e9cit haussier, Arkham Intelligence a r\u00e9v\u00e9l\u00e9 qu'un joueur baleine ou institutionnel aspirait \u00e0 environ 300 millions de dollars d'ETH en cha\u00eene. Ce pari \u00e0 effet de levier massif souligne la confiance dans les perspectives \u00e0 moyen terme d'Ethereum, m\u00eame au milieu de la volatilit\u00e9 r\u00e9cente. De tels mouvements des investisseurs \u00e0 grande \u00e9chelle signalent souvent une forte conviction et peuvent agir comme un catalyseur de renouvellement de force du march\u00e9. Ethereum Whale Bet \u00e9timule la sp\u00e9culation selon Arkham Intelligence, une baleine identifi\u00e9e comme l'adresse 0x2ea vient de faire l'un des paris les plus audacieux de l'histoire r\u00e9cente d'Ethereum. L'adresse aspirait \u00e0 un total de 282 millions de dollars d'ETH sur trois comptes distincts sur l'hyperliquide, les prix de liquidation avec 3 699 $, 3 700 $ et 3 732 $. Ce positionnement agressif sugg\u00e8re une forte conviction que la correction r\u00e9cente d'Ethereum peut avoir d\u00e9j\u00e0 un fond. Arkham lui-m\u00eame a pos\u00e9 la question: vient-il de prendre le fond? Les prochains jours devraient \u00eatre tr\u00e8s volatils, car les march\u00e9s \u00e0 terme se r\u00e9chauffent et que les commer\u00e7ants se pr\u00e9parent pour des mouvements nets. Avec ETH se consolidant autour du niveau de soutien de 4 200 $, la position de la baleine pourrait soit d\u00e9clencher des b\u00e9n\u00e9fices massifs si le march\u00e9 se rassemble ou entra\u00eener une essuie rapide devait s'intensifier la pression. Ces paris concentr\u00e9s agissent souvent comme des catalyseurs, alimentant la sp\u00e9culation et la liquidit\u00e9 sur les march\u00e9s des d\u00e9riv\u00e9s. Dans le m\u00eame temps, l'adoption institutionnelle continue de renforcer les perspectives \u00e0 long terme d'Ethereum. Des soci\u00e9t\u00e9s comme SharpLink Gaming et Bitmin ont d\u00e9j\u00e0 pris des mesures vers des strat\u00e9gies de tr\u00e9sorerie qui incluent les allocations d'ETH, rejoignant la liste croissante d'entreprises traitant Ethereum comme un actif de r\u00e9serve strat\u00e9gique. Cette tendance d'accumulation, combin\u00e9e \u00e0 des paris de baleine agressifs, souligne la dynamique de la demande plus large \u00e0 l'appui de l'ETH. Si l'\u00e9lan haussier se renforce, Ethereum pourrait bient\u00f4t tenter un nouveau test de son sommet de tous les temps pr\u00e8s de 4 800 $, potentiellement poussant dans une d\u00e9couverte de prix inexplor\u00e9e. Pour l'instant, le mouvement de la baleine est un signal de confiance audacieux, pr\u00e9parant la voie \u00e0 la prochaine phase de march\u00e9 majeure d'Ethereum. Lecture connexe: la demande d'Ethereum est valable malgr\u00e9 le recul: les nouvelles baleines entrent avec 192 millions de dollars ACHARGEMENT DE PRIX ANALYSE: Consolidation saine et le graphique hebdomadaire d'Ethereum montre une forte augmentation suivie d'un recul car les tests d'action des prix prennent en charge les niveaux de soutien proches de 4 200 $. Apr\u00e8s avoir atteint des sommets proches de 4 800 $, ETH a fait face \u00e0 une forte pression de vente, mais la tendance plus large reste optimiste. Le graphique met en \u00e9vidence un \u00e9lan fort depuis juin, Ethereum se d\u00e9pla\u00e7ant par les zones de r\u00e9sistance cl\u00e9s et les niveaux de r\u00e9cup\u00e9ration non vus depuis le d\u00e9but de 2022. Actuellement, ETH se consolide au-dessus des moyennes mobiles de 50 semaines et de 100 semaines, qui sont en pente vers le haut, renfor\u00e7ant la structure haussi\u00e8re plus large. La moyenne mobile de 200 semaines se trouve bien en dessous, \u00e0 2 443 $, montrant \u00e0 quel point cette d\u00e9cision a \u00e9t\u00e9 \u00e9tendue. Ethereum continue de tenir au-dessus de la zone d'\u00e9vasion, sugg\u00e9rant que les taureaux restent en contr\u00f4le. Lire connexe: Ethereum fait face \u00e0 un court int\u00e9r\u00eat historique: le rallye pourrait d\u00e9clencher des liquidations massives Ce retrait peut servir de p\u00e9riode de refroidissement apr\u00e8s des semaines d'achat agressifs. Si Ethereum parvient \u00e0 se stabiliser au-dessus de 4 200 $, il pourrait tenter un autre mouvement vers la zone de r\u00e9sistance de 4 800 $ \u00e0 5 000 $. Une rupture au-dessus de cette r\u00e9gion ouvrirait la porte \u00e0 de nouveaux sommets de tous les temps et \u00e0 la d\u00e9couverte potentielle des prix. \u00c0 la baisse, perdre 4 000 $ augmenterait le risque d'une correction plus profonde vers 3 600 $. Image en vedette de Dall-E, graphique de TradingView",
         "original_title": "Whale Loads Up $300M Ethereum Onchain: Did He Just Catch The Bottom?",
         "source": "NewsBTC",
-        "timestamp": 1755813633,
+        "timestamp": 1755813633.0,
         "url": "https://www.newsbtc.com/news/ethereum/whale-loads-up-300m-ethereum-onchain-did-he-just-catch-the-bottom/",
         "symbols": [
           "ETH"
@@ -45440,7 +45440,7 @@
         "text": "La question de la Dogecoin de l'\u00e9t\u00e9 - si l'accident est enfin termin\u00e9 - a fait une v\u00e9rification de la r\u00e9alit\u00e9 \u00e0 tranches durs dans l'analyse vid\u00e9o du 20 ao\u00fbt de l'analyste de la cryptographie Vision Pulsed. Se d\u00e9shabiller la \u00abpropagande haussi\u00e8re\u00bb, il a fait valoir que Dogecoin ne tendra pas de tendance de mani\u00e8re significative jusqu'\u00e0 ce que deux marqueurs ext\u00e9rieurs renforcent de mani\u00e8re d\u00e9cisive le risque: Ethereum traversant son sommet de tous les temps et que le Russell 2000 d\u00e9gage son propre pic. \"Nous sommes baissiers jusqu'\u00e0 ce que le Russell brise le haut et que nous sommes baissiers jusqu'\u00e0 ce que ETH casse le haut\", a-t-il d\u00e9clar\u00e9, ajoutant que l'absence de ces \u00e9ruptions explique pourquoi les signaux de cycle familiers n'ont pas r\u00e9ussi \u00e0 allumer les altcoins cette fois. Le Dogecoin est-il termin\u00e9? Visionfulsed s'est ouvert avec une satire d\u00e9lib\u00e9r\u00e9e - \u00abDose quotidienne de baissier parce qu'elle est toujours baissi\u00e8re pour toujours et \u00e0 jamais\u00bb - mais s'est rapidement d\u00e9plac\u00e9e vers les donn\u00e9es. Il a not\u00e9 que Dogecoin a imprim\u00e9 des bas plus \u00e9lev\u00e9s et des hauts plus \u00e9lev\u00e9s depuis octobre 2023, mais la bande est verrouill\u00e9e en d\u00e9rive depuis des mois: \"Le prix de Dogecoin n'a rien fait depuis pr\u00e8s de 7 mois maintenant ... nous sommes \u00e0 175 jours de lat\u00e9ralement.\" Il a encadr\u00e9 cette gamme comme accumulation potentielle par analogie avec des compressions longues ant\u00e9rieures, observant que des stands de plusieurs mois ant\u00e9rieurs ont pr\u00e9c\u00e9d\u00e9 des extensions nettes: \u00abDans l'ensemble, on consid\u00e9rerait que cela est optimiste\u2026 Celui-ci \u00e9tait massif, comme 400 jours de lat\u00e9ralement\u2026 nous pourrions m\u00eame \u00eatre [en] accumulation, si vous le vouliez.\u00bb L\u2019affirmation principale de l\u2019analyste est que les d\u00e9clencheurs historiques qui, une fois synchronis\u00e9s, se sont d\u00e9compos\u00e9s dans ce cycle. Il a revisit\u00e9 deux manuels de jeu d\u00e9sormais frad\u00e9s: les courses chronom\u00e9triques post-r\u00e9pondus et la s\u00e9quence \u00abBTC MAINS ATH \u2192 DOGE Suivre\u00bb. \"Si nous regardons la moiti\u00e9 de la moiti\u00e9 ... Dogecoin [historiquement] est all\u00e9 sur la lune environ 240 \u00e0 260 jours apr\u00e8s le rendement\", a-t-il d\u00e9clar\u00e9. \"En ce moment ... nous sommes presque \u00e0 500 jours apr\u00e8s la recherche et il n'y a toujours pas de coup sur la lune.\" De m\u00eame, Bitcoin Taging Fresh Highs n'a pas transmis \u00e0 DOGE: \u00abBitcoin brise le haut, Doge fait un nouveau sommet de tous les temps\u2026 Bitcoin brise le haut, rien ne se passe. Nous sommes toujours baissi\u00e8res.\u00bb \u00c0 son avis, cela ne laisse que deux conditions non satisfaites et coh\u00e9rentes du cycle - Ethereum et le Russell 2000 \u00e0 des niveaux record - avant de d\u00e9clarer un changement de r\u00e9gime d'altes de saison. Lecture connexe: Dogecoin obtient une augmentation de 153,8 millions de dollars avec ce dernier leadership du march\u00e9 d'acquisition et la dynamique de la \u00abdomination\u00bb fait partie de son diagnostic. Sur ses graphiques, les tentatives pr\u00e9c\u00e9dentes du Russell 2000 pour traverser le sommet ont co\u00efncid\u00e9 avec une baisse de la domination, un mod\u00e8le qui, selon lui, pourrait aider \u00e0 d\u00e9bloquer la largeur d'altcoin. Mais il a averti qu'une \u00e9vasion rat\u00e9e r\u00e9initialiserait probablement le chronom\u00e8tre: \"Tout le monde pense que c'est une saison en Alts-saison, mais la domination va remonter parce que le Russell va baisser? C'est tr\u00e8s possible.\" Jusqu'\u00e0 ce que la jauge \u00e0 petite capitalisation et l'ETH ne soient \u00e0 la fois une r\u00e9sistance claire, il pr\u00e9f\u00e8re \u00aboptimiste\u00bb \u00e0 \u00abexcit\u00e9\u00bb. M\u00eame s'il a d\u00e9mantel\u00e9 des r\u00e9cits trop promotionnels - \u00ables donn\u00e9es ne soutiennent pas r\u00e9ellement [\u00ab la plus grande saison altans de tous les temps \u00bb] - Vision Pulsed a d\u00e9crit le seul sc\u00e9nario qu'il est pr\u00eat \u00e0 appeler\u00ab Hopeium \u00bb. Il a cartographi\u00e9 le Russell 2000 \u00abse rapprochant du sommet de tous les temps\u00bb aux c\u00f4t\u00e9s de l'ETH \u00abse rapprochant \u00e9galement du sommet\u00bb, jumelant cette toile de fond avec la compression de Doge que la m\u00eame configuration qui a pr\u00e9c\u00e9d\u00e9 les jambes impulsives ant\u00e9rieures: \u00abUne fois que le Russell surmonte le haut et une fois qu'Ethereum se terminera, je vais commencer \u00e0 devenir tr\u00e8s excit\u00e9. LECTURE CONNEXE: DOGECOIN BULL RUND? Ne pariez pas contre ce graphique, dit l'analyste que la sobri\u00e9t\u00e9 s'\u00e9tend au-del\u00e0 du prix. Il a soulign\u00e9 que la diminution de l'engagement comme un sentiment Tell: \"Il est tr\u00e8s possible qu'\u00e0 tout moment, les vid\u00e9os commencent \u00e0 descendre en dessous de 2 000 vues\u2026 il n'y a personne ici. Google les tend.\" Dans sa lecture, l'absence de chaleur de vente au d\u00e9tail est conforme \u00e0 une transition de cycle non r\u00e9solue plut\u00f4t qu'\u00e0 un ressort enroul\u00e9 d\u00e9j\u00e0 en mouvement. La conclusion a atterri l\u00e0 o\u00f9 elle a commenc\u00e9: le r\u00e9cit de l'accident de Dogecoin ne peut pas \u00eatre retir\u00e9 sur les signaux crypto-natifs seuls. Sans \u00e9ruptions currentes dans Eth et Russell 2000, soutient-il, Doge reste li\u00e9 \u00e0 la plage et le complexe Altcoin sous-aliment\u00e9 par rapport aux cycles pass\u00e9s. Au moment de la presse, Doge s'est \u00e9chang\u00e9 \u00e0 0,21757 $. Image en vedette cr\u00e9\u00e9e avec Dall.E, graphique de TradingView.com",
         "original_title": "Is The Dogecoin Crash Over? Analyst Says This Is Crucial Now",
         "source": "NewsBTC",
-        "timestamp": 1755810007,
+        "timestamp": 1755810007.0,
         "url": "https://www.newsbtc.com/news/dogecoin/is-the-dogecoin-crash-over-analyst/",
         "symbols": [
           "BTC",
@@ -45459,7 +45459,7 @@
         "text": "Bitcoin navigue dans un stade critique apr\u00e8s avoir atteint un nouveau sommet de 124 500 $ la semaine derni\u00e8re avant de se retirer rapidement. Le prix recherche d\u00e9sormais un soutien, avec l'intensification de la volatilit\u00e9 et les commer\u00e7ants qui d\u00e9battent s'il s'agit du d\u00e9but d'une correction plus profonde ou simplement d'une phase de consolidation saine avant la continuation. Certains analystes restent optimistes, voyant ce recul comme une r\u00e9initialisation naturelle sur un march\u00e9 surchauff\u00e9, tandis que d'autres soutiennent que l'\u00e9lan s'estompe \u00e0 mesure que les signaux baissiers \u00e9mergent. Lecture connexe: Ethereum Treasury Boom stimule la demande: Le march\u00e9 peut-il g\u00e9rer les risques? Ajoutant du poids \u00e0 la discussion, l'analyste cryptoque Axel Adler a mis en \u00e9vidence une tendance cl\u00e9 dans la participation au d\u00e9tail. La part des transferts de vente au d\u00e9tail dans la fourchette de 0 \u00e0 10 000 $ dans le chiffre d'affaires total de Bitcoin USD a diminu\u00e9 r\u00e9guli\u00e8rement tout au long de ce cycle. Depuis un pic de 2,7%, la part est maintenant tomb\u00e9e \u00e0 seulement 0,6%. Historiquement, de telles baisses de participation au d\u00e9tail ont co\u00efncid\u00e9 avec les \u00e9tapes ult\u00e9rieures des cycles de taureau. Cette dynamique soul\u00e8ve la question de savoir si la phase actuelle marque un refroidissement de l'enthousiasme de la vente au d\u00e9tail \u00e0 un moment critique pour le bitcoin, car les d\u00e9tenteurs institutionnels et \u00e0 long terme dominent la structure du march\u00e9. L'activit\u00e9 de vente au d\u00e9tail de Bitcoin diminue \u00e0 mesure que le march\u00e9 se refroidit selon l'analyste cryptoque Axel Adler, tandis que la part de l'activit\u00e9 de vente au d\u00e9tail dans le r\u00e9seau de Bitcoin a fortement baiss\u00e9, en termes absolus, il reste significatif. Les transferts de vente au d\u00e9tail dans la fourchette de 0 \u00e0 10 000 $ s'\u00e9l\u00e8vent \u00e0 plus de 400 millions de dollars par jour, mais cela ne repr\u00e9sente que 0,6% du chiffre d'affaires total du r\u00e9seau. Cette part de r\u00e9tr\u00e9cissement met en \u00e9vidence une tendance claire: alors que les petits investisseurs sont toujours actifs, leur impact relatif sur les flux de march\u00e9 globale diminue. Adler note que ce refroidissement de la demande de d\u00e9tail a \u00e9galement \u00e9t\u00e9 observ\u00e9 \u00e0 l'automne 2021, au sommet du cycle pr\u00e9c\u00e9dent. \u00c0 cette \u00e9poque, la part de d\u00e9tail est tomb\u00e9e \u00e0 un creux historique de seulement 0,19%, co\u00efncidant avec des conditions de march\u00e9 surchauff\u00e9es et marquant les \u00e9tapes finales de ce cycle de taureau. La baisse actuelle de la participation au d\u00e9tail refl\u00e8te ce sch\u00e9ma, ce qui sugg\u00e8re que le march\u00e9 pourrait approcher un environnement similaire en retard. Cette dynamique est importante car les investisseurs de d\u00e9tail ont \u00e9t\u00e9 traditionnellement un fort moteur de l'\u00e9lan pendant les march\u00e9s taureaux. Avec leur influence r\u00e9duite, les flux institutionnels, les d\u00e9tenteurs \u00e0 long terme et les strat\u00e9gies de tr\u00e9sorerie jouent d\u00e9sormais un r\u00f4le encore plus grand dans la formation de l'orientation du march\u00e9. Les semaines \u00e0 venir seront critiques car les Altcoins, dirig\u00e9s par Ethereum, montrent une renouvellement de force. ETH approche de son niveau record en 2021, et de nombreux analystes pensent que ses performances pourraient dicter le prochain mouvement du march\u00e9 de la cryptographie plus large. Si la demande de d\u00e9tail continue de s'estomper tandis que l'accumulation institutionnelle augmente, le bitcoin peut se consolider davantage, tandis que la rotation du capital vers les altcoins prend de l'ampleur. Lecture connexe: la demande d'Ethereum est valable malgr\u00e9 le retrait: de nouvelles baleines entrent avec 192 millions de dollars Bulls Defend Level de demande cl\u00e9 Le graphique de 8 heures montre que Bitcoin (BTC) sous pression car il se n\u00e9gocie pr\u00e8s de 113 400 $, luttant pour maintenir sa moyenne mobile \u00e0 200 jours (ligne rouge), actuellement align\u00e9e autour de 113 416 $. Ce niveau est devenu une zone de soutien critique apr\u00e8s que BTC n'ait pas r\u00e9ussi \u00e0 maintenir l'\u00e9lan au-dessus de la r\u00e9sistance de 123 217 $, qui a agi comme un point de rejet clair plusieurs fois ce cycle. Les moyennes mobiles \u00e0 court terme mettent en \u00e9vidence la dynamique baissi\u00e8re. Le SMA de 50 jours (bleu) \u00e0 117 017 $ et le SMA \u00e0 100 jours (vert) \u00e0 117 087 $ sont tous deux au-dessus du prix actuel, cr\u00e9ant une r\u00e9sistance aux frais g\u00e9n\u00e9raux. La ventilation en dessous de ces moyennes confirme une tendance d'affaiblissement, la BTC a du mal \u00e0 reprendre le terrain perdu. L'action des prix montre \u00e9galement une s\u00e9quence de hauts inf\u00e9rieurs et de bas inf\u00e9rieurs depuis le rejet dans la zone de 124 000 $, renfor\u00e7ant le sentiment de court terme baissier. Lecture connexe: Les d\u00e9tenteurs de Bitcoin \u00e0 court terme passent aux pertes pour la premi\u00e8re fois depuis janvier pour les taureaux, la r\u00e9cup\u00e9ration du SMA de 100 jours pr\u00e8s de 117 000 $ serait la cl\u00e9 pour inverser l'\u00e9lan et refaire une pouss\u00e9e vers la fourchette de 120 000 $ \u00e0 123 000 $. Le fait de ne pas tenir les risques SMA de 200 jours acc\u00e9l\u00e9rant \u00e0 la baisse, ouvrant potentiellement le chemin vers 110 000 $, un niveau psychologique majeur. Image en vedette de Dall-E, graphique de TradingView",
         "original_title": "Bitcoin Retail Transfers Collapse: Lowest Since Bull Market Peak In 2021",
         "source": "NewsBTC",
-        "timestamp": 1755806428,
+        "timestamp": 1755806428.0,
         "url": "https://www.newsbtc.com/bitcoin-news/bitcoin-retail-transfers-collapse-lowest-since-bull-market-peak-in-2021/",
         "symbols": [
           "BTC",
@@ -45477,13 +45477,13 @@
         "text": "<p> Le march\u00e9 des actifs tokenis\u00e9s devrait augmenter jusqu'\u00e0 18,9 billions de dollars d'ici 2033, selon un rapport conjoint de Ripple et BCG. </p>",
         "original_title": "Japan\u2019s SBI Holdings taps Startale to launch onchain tokenized stock trading platform",
         "source": "TheBlock",
-        "timestamp": 1755832500,
+        "timestamp": 1755832500.0,
         "url": "https://www.theblock.co/post/367886/sbi-holdings-startale-tokenized-stock-platform?utm_source=rss&utm_medium=rss",
         "symbols": [
           "XRP"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.015144884586334229,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45494,14 +45494,14 @@
         "text": "Le CBBTC de Coinbase <p> a augment\u00e9 de 160% en 2025, mangeant dans la domination de WBTC sur Ethereum. </p>",
         "original_title": "Synthetic BTC market share shifts as cbBTC supply tops 30K while wBTC slides",
         "source": "TheBlock",
-        "timestamp": 1755815461,
+        "timestamp": 1755815461.0,
         "url": "https://www.theblock.co/post/367490/synthetic-btc-market-share-shifts-as-cbbtc-supply-tops-30k-while-wbtc-slides?utm_source=rss&utm_medium=rss",
         "symbols": [
           "BTC",
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.24697810411453247,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45512,11 +45512,11 @@
         "text": "<p> Une disposition anti-centrale de la monnaie num\u00e9rique a \u00e9t\u00e9 ajout\u00e9e \u00e0 ce qui est consid\u00e9r\u00e9 comme une l\u00e9gislation sur le financement de la d\u00e9fense pass-passe. </p>",
         "original_title": "Anti-central bank digital currency provision added to US House\u2019s must-pass defense bill",
         "source": "TheBlock",
-        "timestamp": 1755813498,
+        "timestamp": 1755813498.0,
         "url": "https://www.theblock.co/post/367876/anti-central-bank-digital-currency-provision-added-to-us-houses-must-pass-defense-bill?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.32726362347602844,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45527,7 +45527,7 @@
         "text": "<p> L'article suivant est adapt\u00e9 de la newsletter du bloc, The Daily, qui sort les apr\u00e8s-midi de la semaine. </p>",
         "original_title": "The Daily: Kanye West\u2019s \u2018YZY\u2019 Solana token crashes, MetaMask unveils mUSD stablecoin, JPMorgan on ETH vs. BTC, and more",
         "source": "TheBlock",
-        "timestamp": 1755809313,
+        "timestamp": 1755809313.0,
         "url": "https://www.theblock.co/post/367871/kanye-west-yzy-solana-token-metamask-musd-stablecoin-jpmorgan-ethereum-bitcoin-more?utm_source=rss&utm_medium=rss",
         "symbols": [
           "SOL",
@@ -45535,7 +45535,7 @@
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.6032182574272156,
         "impact_score": 1.0,
         "risk_class": "Crash",
@@ -45546,11 +45546,11 @@
         "text": "<p> La soci\u00e9t\u00e9 a d\u00e9j\u00e0 acquis une plus grande participation de l'offre circulante de Ton que son objectif de 5%, selon les chiffres. </p>",
         "original_title": "Verb Technology, soon to be Ton Strategy Company, acquires $713 million worth of TON",
         "source": "TheBlock",
-        "timestamp": 1755807730,
+        "timestamp": 1755807730.0,
         "url": "https://www.theblock.co/post/367853/verb-technology-soon-to-be-ton-strategy-company-acquires-713-million-worth-of-ton?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.10356631875038147,
         "impact_score": 1.0,
         "risk_class": "Bullish",
@@ -45561,13 +45561,13 @@
         "text": "DDC Enterprise Limited, cot\u00e9e \u00e0 NYSE, qui cherche \u00e0 acheter 10 000 Bitcoins, ajoute 100 autres BTC \u00e0 son stock. </p>",
         "original_title": "Ready-made meal conglomerate DDC ups bitcoin stockpile by 100 BTC as it targets $1 billion crypto reserve",
         "source": "TheBlock",
-        "timestamp": 1755801910,
+        "timestamp": 1755801910.0,
         "url": "https://www.theblock.co/post/367862/ready-made-meal-conglomerate-ddc-ups-bitcoin-stockpile-by-100-btc-as-it-targets-1-billion-crypto-reserve?utm_source=rss&utm_medium=rss",
         "symbols": [
           "BTC"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.21363100409507751,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45578,11 +45578,11 @@
         "text": "<p> \"Le code d'\u00e9criture\" n'est pas un crime, a d\u00e9clar\u00e9 l'une des principales chefs de file du minist\u00e8re de la Justice dans sa division p\u00e9nale jeudi. </p>",
         "original_title": "\u2018Writing code without ill intent is not a crime,\u2019 says US DOJ official following Tornado Cash verdict",
         "source": "TheBlock",
-        "timestamp": 1755801282,
+        "timestamp": 1755801282.0,
         "url": "https://www.theblock.co/post/367858/writing-code-without-ill-intent-is-not-a-crime-says-us-doj-official-following-tornado-cash-verdict?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.2371097207069397,
         "impact_score": 1.0,
         "risk_class": "Neutral",
@@ -45593,14 +45593,14 @@
         "text": "<p> ETH a d\u00e9pass\u00e9 la BTC, JPMorgan pointant une combinaison d'entr\u00e9es de FNB, d'adoption des entreprises et de clart\u00e9 r\u00e9glementaire parmi les facteurs cl\u00e9s. </p>",
         "original_title": "JPMorgan outlines four factors behind Ethereum\u2019s outperformance over Bitcoin",
         "source": "TheBlock",
-        "timestamp": 1755796789,
+        "timestamp": 1755796789.0,
         "url": "https://www.theblock.co/post/367844/jpmorgan-ethereum-outperformance-bitcoin-factors?utm_source=rss&utm_medium=rss",
         "symbols": [
           "BTC",
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.015050947666168213,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45611,11 +45611,11 @@
         "text": "<p> L'int\u00e9gration entre la R\u00e9publique et l'injective vise \u00e0 fournir des avantages techniques et r\u00e9glementaires alors que les entreprises cherchent \u00e0 d\u00e9mocratiser l'investissement dans des entreprises priv\u00e9es. </p>",
         "original_title": "Injective teams with Republic as part of push to democratize investing in private firms like SpaceX",
         "source": "TheBlock",
-        "timestamp": 1755796502,
+        "timestamp": 1755796502.0,
         "url": "https://www.theblock.co/post/367840/injective-teams-with-republic-as-part-of-push-to-democratize-investing-in-private-firms-like-spacex?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.14379972219467163,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45626,11 +45626,11 @@
         "text": "<p> Une agence de r\u00e9glementation bancaire f\u00e9d\u00e9rale a abandonn\u00e9 son ordonnance de consentement contre Anchorage Digital sur les pr\u00e9occupations concernant son programme de LMA. </p>",
         "original_title": "US OCC drops consent order against Anchorage Digital amid regulatory shift",
         "source": "TheBlock",
-        "timestamp": 1755791984,
+        "timestamp": 1755791984.0,
         "url": "https://www.theblock.co/post/367827/us-occ-drops-consent-order-against-anchorage-digital-amid-regulatory-shift?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.6344528794288635,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45641,14 +45641,14 @@
         "text": "<p> La soci\u00e9t\u00e9 de s\u00e9curit\u00e9 crypto Kerberus a acquis Refract, les fabricants d'une extension de navigateur anti-fraude pour les portefeuilles, dans un accord \u00e0 sept chiffres. </p>",
         "original_title": "Crypto security firm Kerberus acquires Pocket Universe, an anti-fraud browser extension for Ethereum and Solana wallets",
         "source": "TheBlock",
-        "timestamp": 1755791777,
+        "timestamp": 1755791777.0,
         "url": "https://www.theblock.co/post/367826/crypto-security-firm-kerberus-acquires-power-universe-anti-fraud-browser-extension-ethereum-solana-wallets?utm_source=rss&utm_medium=rss",
         "symbols": [
           "SOL",
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.21271008253097534,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45659,11 +45659,11 @@
         "text": "<p> Kavan Canekeratne de Coinfund discute de la r\u00e9glementation, des perps, des actifs tokenis\u00e9s et de l'avenir de l'adoption de la crypto. </p>",
         "original_title": "CoinFund investor breaks down Trump\u2019s crypto executive order and SEC\u2019s Project Crypto",
         "source": "TheBlock",
-        "timestamp": 1755789542,
+        "timestamp": 1755789542.0,
         "url": "https://www.theblock.co/post/367821/coinfund-investor-breaks-down-trumps-crypto-executive-order-and-secs-project-crypto?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.8276144862174988,
         "impact_score": 1.0,
         "risk_class": "Regulatory",
@@ -45674,13 +45674,13 @@
         "text": "<p> Coinbase a d\u00e9clar\u00e9 que le \"lancement de la n\u00e9gociation pour ces actifs d\u00e9pend du support de march\u00e9 et d'une infrastructure technique suffisante.\" </p>",
         "original_title": "Trump-backed World Liberty stablecoin added to Coinbase roadmap, possible listing coming",
         "source": "TheBlock",
-        "timestamp": 1755786389,
+        "timestamp": 1755786389.0,
         "url": "https://www.theblock.co/post/367810/trump-backed-world-liberty-stablecoin-added-to-coinbase-roadmap-possible-listing-coming?utm_source=rss&utm_medium=rss",
         "symbols": [
           "USDT"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.07165083289146423,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45691,14 +45691,14 @@
         "text": "<p> La communaut\u00e9 de Starknet a ratifi\u00e9 SNIP-31 pour apporter un jalon de Bitcoin \u00e0 la couche Ethereum 2, permettant \u00e0 BTC de repr\u00e9senter jusqu'\u00e0 25% de la puissance de jalonnement. </p>",
         "original_title": "Starknet to enable bitcoin staking for network consensus alongside STRK",
         "source": "TheBlock",
-        "timestamp": 1755781764,
+        "timestamp": 1755781764.0,
         "url": "https://www.theblock.co/post/367800/starknet-bitcoin-staking-consensus-strk?utm_source=rss&utm_medium=rss",
         "symbols": [
           "BTC",
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": -0.37033575773239136,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45709,11 +45709,11 @@
         "text": "<p> La plate-forme de pr\u00eat d\u00e9centralis\u00e9e Aave a lanc\u00e9 sur Aptos, marquant son premier d\u00e9ploiement sur une blockchain non EVM. </p>",
         "original_title": "Aave launches on Aptos in first non-EVM deployment as part of multichain strategy",
         "source": "TheBlock",
-        "timestamp": 1755777600,
+        "timestamp": 1755777600.0,
         "url": "https://www.theblock.co/post/367769/aave-launches-on-aptos-in-first-non-evm-deployment-as-part-of-multichain-strategy?utm_source=rss&utm_medium=rss",
         "symbols": [],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.08618170022964478,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45724,13 +45724,13 @@
         "text": "<P> La police du Nord du Pays de Galles enqu\u00eate sur un vol de Bitcoin apr\u00e8s qu'une escroc a usurp\u00e9 l'officier sup\u00e9rieur et a persuad\u00e9 une victime de fournir sa phrase de semence. </p>",
         "original_title": "Scammer impersonates UK police officer to steal $2.8 million in bitcoin via social engineering",
         "source": "TheBlock",
-        "timestamp": 1755769479,
+        "timestamp": 1755769479.0,
         "url": "https://www.theblock.co/post/367765/scammer-impersonates-uk-police-officer-steal-bitcoin?utm_source=rss&utm_medium=rss",
         "symbols": [
           "BTC"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.09266114234924316,
         "impact_score": 1.0,
         "risk_class": "Pump",
@@ -45741,13 +45741,13 @@
         "text": "<p> Sa premi\u00e8re distribution de jetons implique des billets li\u00e9s \u00e0 la cryptographie con\u00e7us pour fournir aux investisseurs un paiement lorsque les prix de la cryptographie augmentent. </p>",
         "original_title": "DBS Bank to tokenize structured notes on Ethereum for institutional investors",
         "source": "TheBlock",
-        "timestamp": 1755758926,
+        "timestamp": 1755758926.0,
         "url": "https://www.theblock.co/post/367757/dbs-tokenized-structural-notes-ethereum?utm_source=rss&utm_medium=rss",
         "symbols": [
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.06988176703453064,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45758,13 +45758,13 @@
         "text": "<p> La valeur des avoirs d'ETH sur 69 entit\u00e9s s'\u00e9levait \u00e0 4,1 millions d'ETH (17,6 milliards de dollars) mercredi, selon les donn\u00e9es d'Onchain. </p>",
         "original_title": "Ethereum treasuries across 69 entities surpass 4 million ETH, valued at over $17 billion",
         "source": "TheBlock",
-        "timestamp": 1755756629,
+        "timestamp": 1755756629.0,
         "url": "https://www.theblock.co/post/367749/ethereum-treasuries-surpass-17-billion?utm_source=rss&utm_medium=rss",
         "symbols": [
           "ETH"
         ],
         "source_weight": 0.7,
-        "processed": false,
+        "processed": true,
         "sentiment": 0.1330939531326294,
         "impact_score": 1.0,
         "risk_class": "Security",
@@ -45788,7 +45788,7 @@
       "LINK",
       "AVAX"
     ],
-    "n_news": 86
+    "n_news": 86.0
   },
   "equity_history": [
     {
