@@ -329,3 +329,13 @@
 2025-08-21T23:22:06.287914 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
 2025-08-21T23:22:07.388345 | [ORDER] Vente depuis solde NOT: 1116.15
 2025-08-21T23:23:52.182509 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-21T23:51:13.687628 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-21T23:51:13.688761 | Initialisation des modèles d'IA...
+2025-08-21T23:51:13.949197 | ✅ Modèles d'IA initialisés avec succès
+2025-08-21T23:51:15.474314 | ✅ PPO Strategy initialized successfully
+2025-08-21T23:51:21.363060 | ✅ Bot initialisé avec Telegram: True
+2025-08-21T23:51:21.363256 | ✅ Trading en direct: True
+2025-08-21T23:51:21.363297 | ✅ IA activée: True
+2025-08-21T23:51:21.363346 | ✅ Analyse de news activée: True
+2025-08-21T23:54:02.975395 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-21T23:54:41.017434 | [NEWS] Aucun élément à analyser dans news_data, skip boucle

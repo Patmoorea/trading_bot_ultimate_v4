@@ -40,12 +40,12 @@
       "confidence": 0.5
     }
   ],
-  "timestamp": "2025-08-21 13:03:16",
+  "timestamp": "2025-08-21 13:51:21",
   "user": "Patmoorea",
   "bot_status": {
     "regime": "Range/Scalping",
     "cycle": 0,
-    "last_update": "2025-08-21 13:03:16",
+    "last_update": "2025-08-21 13:51:21",
     "performance": {
       "balance": 138.72347168
     }
@@ -43188,13 +43188,13 @@
     "top_n": 5
   },
   "pause_status": {
-    "global_remaining": 7,
+    "global_remaining": 7.0,
     "pair_pauses": {
       "BNB": 1.0,
-      "BTC": 2,
-      "ETH": 2
+      "BTC": 2.0,
+      "ETH": 2.0
     },
-    "max_remaining": 7
+    "max_remaining": 7.0
   },
   "trade_decisions": {
     "BTCUSDC": {
@@ -43203,7 +43203,7 @@
       "tech": 0.5,
       "ai": 0.7938897788524627,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "ETHUSDC": {
       "action": "neutral",
@@ -43211,7 +43211,7 @@
       "tech": 0.5,
       "ai": 0.1500038087373923,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "LTCUSDC": {
       "action": "neutral",
@@ -43219,7 +43219,7 @@
       "tech": 0.5,
       "ai": 0.7893441557884217,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "XRPUSDC": {
       "action": "neutral",
@@ -43227,7 +43227,7 @@
       "tech": 0.5,
       "ai": 0.15000386440510738,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "DOGEUSDC": {
       "action": "neutral",
@@ -43235,7 +43235,7 @@
       "tech": 0.5,
       "ai": 0.15000387721124753,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "BNBUSDC": {
       "action": "neutral",
@@ -43243,7 +43243,7 @@
       "tech": 0.5,
       "ai": 0.15000387304980903,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "ADAUSDC": {
       "action": "neutral",
@@ -43251,7 +43251,7 @@
       "tech": 0.5,
       "ai": 0.15000386785286537,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "SOLUSDC": {
       "action": "neutral",
@@ -43259,7 +43259,7 @@
       "tech": 0.5,
       "ai": 0.1500038757396396,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "TRXUSDC": {
       "action": "neutral",
@@ -43267,7 +43267,7 @@
       "tech": 0.5,
       "ai": 0.15000387681143365,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "SUIUSDC": {
       "action": "neutral",
@@ -43275,7 +43275,7 @@
       "tech": 0.5,
       "ai": 0.15000388007392756,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     },
     "LINKUSDC": {
       "action": "neutral",
@@ -43283,7 +43283,7 @@
       "tech": 0.5,
       "ai": 0.15000388118041882,
       "sentiment": 0.5146408230066299,
-      "timestamp": "2025-08-21 23:03:17"
+      "timestamp": "2025-08-21 23:51:21"
     }
   },
   "cycle_metrics": {
