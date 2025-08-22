@@ -5,14 +5,14 @@
     {
       "asset": "GLOBAL",
       "action": "ALL",
-      "cycles_left": 11,
+      "cycles_left": 4,
       "type": "GLOBAL",
-      "reason": "JPMorgan d\u00e9crit quatre facteurs derri\u00e8re la surperformance d'Ethereum sur le bitcoin",
-      "max_cycles": 11,
-      "total_remaining": 11
+      "reason": "",
+      "max_cycles": 4,
+      "total_remaining": 4
     }
   ],
-  "sentiment": 0.48757351068563237,
+  "sentiment": 0.5878673468605947,
   "risky_positions": [],
-  "timestamp": 1755839092.931926
+  "timestamp": 1755884166.005824
 }

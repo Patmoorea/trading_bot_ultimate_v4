@@ -497,3 +497,31 @@
 2025-08-22T16:54:45.095435 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
 2025-08-22T16:54:46.177128 | [ORDER] Vente depuis solde BTC: 9e-05
 2025-08-22T16:56:30.028360 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-22T17:00:39.121702 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T17:00:39.122317 | Initialisation des modèles d'IA...
+2025-08-22T17:00:39.294541 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T17:00:40.885834 | ✅ PPO Strategy initialized successfully
+2025-08-22T17:00:44.410963 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T17:00:44.411177 | ✅ Trading en direct: True
+2025-08-22T17:00:44.411232 | ✅ IA activée: True
+2025-08-22T17:00:44.411274 | ✅ Analyse de news activée: True
+2025-08-22T17:03:25.731310 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T17:04:04.252029 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T17:11:54.203611 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1087 | Tendance: 0.0053
+2025-08-22T17:11:54.205350 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T17:13:44.361619 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T17:13:45.497919 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T17:15:33.674990 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-22T17:17:17.699722 | [ORDER] Tentative d'exécution: SELL 8.52 ADAUSDC (iceberg: False)
+2025-08-22T17:17:18.820807 | [ORDER] Vente depuis solde ADA: 14.2
+2025-08-22T17:19:09.337873 | [ORDER] Exécuté avec succès: SELL 8.50000000 ADAUSDC @ 0.9303
+2025-08-22T17:20:59.214741 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T17:21:00.318912 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T17:22:44.804755 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T17:24:25.765360 | Démarrage cycle trading
+2025-08-22T17:29:19.527056 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T17:29:25.147088 | [ORDER] Tentative d'exécution: BUY 15.0 DOGEUSDC (iceberg: False)
+2025-08-22T17:31:14.540486 | [ORDER] Exécuté avec succès: BUY 62.00000000 DOGEUSDC @ 0.2391
+2025-08-22T17:55:08.061497 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T17:55:09.177218 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T17:57:00.727756 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL

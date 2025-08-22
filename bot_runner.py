@@ -248,7 +248,62 @@ class ExchangeConnector:
         if self.name == "binance":
             # Binance exige quantité en string décimal, jamais scientifique
             amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+            # Sécurité : forcer conversion et log explicite
             try:
+                print(
+                    f"[DEBUG][BINANCE] Quantité envoyée: {amount_str} (type: {type(amount_str)})"
+                )
+                if "e" in str(amount_str) or "E" in str(amount_str):
+                    amount_str = format(float(amount_str), "f")
+                    amount_str = (
+                        amount_str.rstrip("0").rstrip(".")
+                        if "." in amount_str
+                        else amount_str
+                    )
+                    print(
+                        f"[DEBUG][BINANCE] Correction notation scientifique -> {amount_str}"
+                    )
+
+                # Vérification automatique du notional minimum
+                # On suppose que self.client possède fetch_market ou fetch_markets (ccxt ou wrapper)
+                try:
+                    market_info = None
+                    if hasattr(self.client, "fetch_market"):
+                        market_info = self.client.fetch_market(symbol)
+                    elif hasattr(self.client, "fetch_markets"):
+                        markets = self.client.fetch_markets()
+                        market_info = next(
+                            (m for m in markets if m["symbol"] == symbol), None
+                        )
+                    if (
+                        market_info
+                        and "limits" in market_info
+                        and "cost" in market_info["limits"]
+                        and "min" in market_info["limits"]["cost"]
+                    ):
+                        min_notional = float(market_info["limits"]["cost"]["min"])
+                        # On suppose que le prix courant est passé dans kwargs ou sinon on le récupère
+                        price = kwargs.get("price") or kwargs.get("current_price")
+                        if price is None:
+                            # Si pas de prix, on ne peut pas vérifier
+                            print(
+                                f"[WARN][BINANCE] Impossible de vérifier le notional minimum (pas de prix fourni)"
+                            )
+                        else:
+                            notional = float(amount_str) * float(price)
+                            if notional < min_notional:
+                                print(
+                                    f"[ERROR][BINANCE] Notional trop bas : {notional} < min {min_notional} (order non envoyé)"
+                                )
+                                return {
+                                    "status": "error",
+                                    "reason": f"Notional trop bas : {notional} < min {min_notional}",
+                                }
+                except Exception as e:
+                    print(
+                        f"[WARN][BINANCE] Erreur lors de la vérification du notional minimum : {e}"
+                    )
+
                 return self.client.create_order(
                     symbol=symbol, side=side, quantity=amount_str, **kwargs
                 )
