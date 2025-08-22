@@ -7,12 +7,12 @@
       "action": "ALL",
       "cycles_left": 11,
       "type": "GLOBAL",
-      "reason": "\u00abWTF se passe? Faux Kanye West Coins Crash apr\u00e8s le vrai lancement de jetons yzy",
+      "reason": "JPMorgan d\u00e9crit quatre facteurs derri\u00e8re la surperformance d'Ethereum sur le bitcoin",
       "max_cycles": 11,
       "total_remaining": 11
     }
   ],
-  "sentiment": 0.584308389793424,
+  "sentiment": 0.48757351068563237,
   "risky_positions": [],
-  "timestamp": 1755835748.729603
+  "timestamp": 1755839092.931926
 }

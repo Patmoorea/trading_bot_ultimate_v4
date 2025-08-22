@@ -400,3 +400,35 @@
 2025-08-22T04:19:20.477359 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
 2025-08-22T04:19:21.560601 | [ORDER] Vente depuis solde BTC: 9e-05
 2025-08-22T04:21:04.598782 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-22T04:38:52.247012 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T04:38:52.253004 | Initialisation des modèles d'IA...
+2025-08-22T04:38:52.480704 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T04:38:54.117413 | ✅ PPO Strategy initialized successfully
+2025-08-22T04:39:00.215377 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T04:39:00.215528 | ✅ Trading en direct: True
+2025-08-22T04:39:00.215563 | ✅ IA activée: True
+2025-08-22T04:39:00.215593 | ✅ Analyse de news activée: True
+2025-08-22T04:41:44.984646 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T04:42:22.634303 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T04:51:29.066335 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.0349 | Tendance: -0.0014
+2025-08-22T04:51:29.066897 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T04:53:14.563079 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T04:53:15.681001 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T04:55:02.613781 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-22T04:56:45.877618 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T04:56:46.974479 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T04:58:33.783257 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - '<=' not supported between instances of 'str' and 'int'
+2025-08-22T05:00:16.874056 | Démarrage cycle trading
+2025-08-22T05:00:17.493604 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T05:14:32.396582 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T05:14:33.480013 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T05:16:48.893543 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T05:16:48.894281 | Initialisation des modèles d'IA...
+2025-08-22T05:16:49.068928 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T05:16:51.316824 | ✅ PPO Strategy initialized successfully
+2025-08-22T05:16:55.135514 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T05:16:55.135649 | ✅ Trading en direct: True
+2025-08-22T05:16:55.135685 | ✅ IA activée: True
+2025-08-22T05:16:55.135717 | ✅ Analyse de news activée: True
+2025-08-22T05:19:36.079436 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T05:20:14.447316 | [NEWS] Aucun élément à analyser dans news_data, skip boucle

@@ -235,21 +235,51 @@ class ExchangeConnector:
     """
 
     def __init__(self, name, client=None):
-        self.name = name
+        self.name = name.lower()
         self.client = client
 
     def execute_order(self, symbol, side, amount, **kwargs):
+        # PATCH : cast amount en float et formatage pour l'exchange
+        try:
+            amount_float = float(amount)
+        except Exception:
+            amount_float = 0.0
+
         if self.name == "binance":
-            # Exemple simplifié, adapte à ton SDK
-            return self.client.create_order(
-                symbol=symbol, side=side, quantity=amount, **kwargs
-            )
+            # Binance exige quantité en string décimal, jamais scientifique
+            amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+            try:
+                return self.client.create_order(
+                    symbol=symbol, side=side, quantity=amount_str, **kwargs
+                )
+            except Exception as e:
+                print(f"[ERROR] Binance order failed: {e}")
+                return {"status": "error", "reason": str(e)}
+
         elif self.name == "kucoin":
-            # Placeholder, à implémenter
-            pass
+            # À adapter selon SDK Kucoin. Exemple :
+            try:
+                # Kucoin accepte souvent float ou string
+                return self.client.create_order(
+                    symbol=symbol, side=side, size=amount_float, **kwargs
+                )
+            except Exception as e:
+                print(f"[ERROR] Kucoin order failed: {e}")
+                return {"status": "error", "reason": str(e)}
+
         elif self.name == "okx":
-            # Placeholder, à implémenter
-            pass
+            # À adapter pour OKX SDK
+            try:
+                return self.client.create_order(
+                    instId=symbol, side=side, sz=str(amount_float), **kwargs
+                )
+            except Exception as e:
+                print(f"[ERROR] OKX order failed: {e}")
+                return {"status": "error", "reason": str(e)}
+
+        else:
+            print(f"[ERROR] Exchange not supported: {self.name}")
+            return {"status": "error", "reason": "Exchange not supported"}
 
     def get_portfolio(self):
         if self.name == "binance":
@@ -747,20 +777,31 @@ class TelegramNotifier:
 
     async def send_trade_alert(self, trade_data):
         """Envoie un message unique et lisible pour chaque trade exécuté"""
-        emoji = (
-            "🟢"
-            if trade_data.get("side", "").upper() == "BUY"
-            else "🔴" if trade_data.get("side", "").upper() == "SELL" else "⚪️"
-        )
+        side = trade_data.get("side", "").upper()
+        emoji = "🟢" if side == "BUY" else "🔴" if side == "SELL" else "⚪️"
+
+        # PATCH : formatage robuste et lisible
+        def fmt(val, dec=8):
+            try:
+                v = float(val)
+                # Affiche sans notation scientifique, arrondi
+                return f"{v:.{dec}f}".rstrip("0").rstrip(".") if v != 0 else "0"
+            except Exception:
+                return str(val) if val is not None else "?"
+
+        montant = fmt(trade_data.get("amount", "?"), 8)
+        prix = fmt(trade_data.get("price", "?"), 6)
+        total = fmt(trade_data.get("total", "N/A"), 2)
+
         message = (
             f"{emoji} <b>TRADE EXÉCUTÉ</b>\n\n"
             f"📊 Paire : {trade_data.get('symbol','?')}\n"
             f"Action : <b>{trade_data.get('side','?')}</b>\n"
-            f"Montant : {trade_data.get('amount','?')}\n"
-            f"Prix : {trade_data.get('price','?')}\n"
-            f"Total : {trade_data.get('total', 'N/A')}\n"
-            f"Confiance : {trade_data.get('confidence', 'N/A')}\n"
-            f"Signaux : Tech {trade_data.get('tech', 'N/A')} | IA {trade_data.get('ia', 'N/A')} | Sentiment {trade_data.get('sentiment', 'N/A')}\n"
+            f"Montant : {montant}\n"
+            f"Prix : {prix}\n"
+            f"Total : {total}\n"
+            f"Confiance : {fmt(trade_data.get('confidence', 'N/A'), 2)}\n"
+            f"Signaux : Tech {fmt(trade_data.get('tech', 'N/A'), 2)} | IA {fmt(trade_data.get('ia', 'N/A'), 2)} | Sentiment {fmt(trade_data.get('sentiment', 'N/A'), 2)}\n"
             f"Raison : {trade_data.get('reason', 'Signal de trading')}\n"
         )
         await self.send_message(message)
@@ -1849,7 +1890,7 @@ class TradingBotM4:
         Mais NE SPAM PAS Telegram sur chaque refus.
         """
         symbol_list = news_item.get("symbols", [])
-        sentiment = float(news_item.get("sentiment", 0))
+        sentiment = safe_float(news_item.get("sentiment", 0))
         title = news_item.get("title", "News sans titre")
         reason = []
         bilan = ""
@@ -1865,7 +1906,7 @@ class TradingBotM4:
             # 2. Vérifie si la paire existe sur Binance (spot USDC)
             try:
                 ticker = self.binance_client.get_symbol_ticker(symbol=symbol_binance)
-                price_binance = float(ticker.get("price", 0))
+                price_binance = safe_float(ticker.get("price", 0))
                 if price_binance == 0:
                     reason.append("Paire indisponible sur Binance USDC")
                     bilan = f"Achat REFUSÉ sur {pair}: " + ", ".join(reason)
@@ -1922,18 +1963,16 @@ class TradingBotM4:
             # 4. Calcule tous les indicateurs du bot (technique, IA, momentum, orderflow, sentiment)
             try:
                 indics = self.add_indicators(df)
-                tech_score = float(indics.get("technical_score", 0.5))
-                momentum_score = (
-                    float(indics.get("momentum", 0.5)) if "momentum" in indics else 0.5
-                )
+                tech_score = safe_float(indics.get("technical_score"), 0.5)
+                momentum_score = safe_float(indics.get("momentum"), 0.5)
                 of = self.analyze_order_flow(df)
-                orderflow_score = float(of.get("imbalance", 0.5))
+                orderflow_score = safe_float(of.get("imbalance"), 0.5)
                 ai_score = 0.5
                 if hasattr(self, "dl_model") and self.dl_model is not None:
                     features = await self._prepare_features_for_ai(pair_key)
                     try:
                         if features:
-                            ai_score = float(self.dl_model.predict(features))
+                            ai_score = safe_float(self.dl_model.predict(features), 0.5)
                     except Exception:
                         ai_score = 0.5
                 sentiment_score = sentiment
@@ -1959,6 +1998,7 @@ class TradingBotM4:
             # 5. Achat et log
             if confirm:
                 amount = 15  # montant fixe ou à calculer selon ta logique
+                amount = safe_float(amount, 0)
                 try:
                     result = await self.execute_trade(
                         symbol_binance, "BUY", amount, price_binance
@@ -2323,6 +2363,7 @@ class TradingBotM4:
         """
         Planifie une vente automatique pour une position ouverte via signal pump/breakout/news/arbitrage.
         Enregistre la raison de l'achat pour le dashboard.
+        Tous les champs numériques sont castés en float pour éviter les bugs lors du reporting ou du calcul.
         """
         auto_sell_list = []
         try:
@@ -2334,12 +2375,12 @@ class TradingBotM4:
         auto_sell_list.append(
             {
                 "symbol": symbol,
-                "entry_price": entry_price,
-                "amount": amount,
-                "tp_pct": tp_pct,
-                "sl_pct": sl_pct,
-                "cycle_open": self.current_cycle,
-                "max_cycles": max_cycles,
+                "entry_price": safe_float(entry_price, 0),
+                "amount": safe_float(amount, 0),
+                "tp_pct": safe_float(tp_pct, 0.03),
+                "sl_pct": safe_float(sl_pct, 0.03),
+                "cycle_open": int(getattr(self, "current_cycle", 0)),
+                "max_cycles": int(max_cycles),
                 "reason": reason,  # <--- AJOUT
             }
         )
@@ -4398,6 +4439,10 @@ class TradingBotM4:
         amount = safe_float(pos.get("amount"), 0)
         exit_price = safe_float(exit_price, 0)
 
+        # PATCH : cast FIFO en float si possible
+        fifo_pnl_pct = safe_float(fifo_pnl_pct) if fifo_pnl_pct is not None else None
+        fifo_pnl_usd = safe_float(fifo_pnl_usd) if fifo_pnl_usd is not None else None
+
         closed_position = {
             "symbol": symbol,
             "side": pos.get("side", ""),
@@ -4472,22 +4517,23 @@ class TradingBotM4:
                         ticker = self.binance_client.get_symbol_ticker(
                             symbol=symbol_binance
                         )
-                        current_price = float(ticker.get("price", 0))
+                        current_price = safe_float(ticker.get("price", 0))
                         pos["current_price"] = current_price
                     except Exception:
-                        current_price = safe_float(pos.get("current_price"), 0)
+                        current_price = safe_float(pos.get("current_price", 0))
                     amount = safe_float(pos.get("amount"), 0)
 
                     # PnL (FIFO si possible, sinon classique, sinon N/A)
                     fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(symbol)
                     if entry_price > 0:
+                        # PATCH: toujours safe_float sur le résultat FIFO
                         pnl_pct = (
-                            fifo_pnl_pct
+                            safe_float(fifo_pnl_pct)
                             if fifo_pnl_pct is not None
                             else (
                                 (current_price - entry_price) / entry_price * 100
                                 if current_price and entry_price
-                                else 0
+                                else 0.0
                             )
                         )
                     else:
@@ -4496,7 +4542,7 @@ class TradingBotM4:
 
                     td = self.trade_decisions.get(symbol_binance, {})
                     action = td.get("action", "neutral")
-                    confidence = td.get("confidence", 0.5)
+                    confidence = safe_float(td.get("confidence", 0.5))
 
                     pause_for_pos, pause_reason = is_paused(symbol)
                     if pauses and pause_for_pos:
@@ -4546,7 +4592,6 @@ class TradingBotM4:
                     )
 
             # PATCH : NE PAS AJOUTER DE POSITION SIMULÉE OU HORS PORTEFEUILLE ICI !
-            # Les alertes externes (NOT, MATIC, etc.) doivent être affichées dans une autre section.
 
             # Sauvegarde dans shared_data.json pour le dashboard
             self.safe_update_shared_data({"pending_sales": pending}, self.data_file)
@@ -4650,8 +4695,8 @@ class TradingBotM4:
         if self.is_live_trading and self.binance_client:
             account = self.binance_client.get_account()
             positions = {}
-            for bal in account["balances"]:
-                asset = bal["asset"]
+            for bal in account.get("balances", []):
+                asset = bal.get("asset")
                 free = safe_float(bal.get("free", 0))
                 if free > 0 and asset not in ("USDC", "USDT"):
                     symbol = f"{asset}/USDC"
@@ -4660,9 +4705,9 @@ class TradingBotM4:
                         ticker = self.binance_client.get_symbol_ticker(
                             symbol=symbol_binance
                         )
-                        current_price = safe_float(ticker.get("price"))
+                        current_price = safe_float(ticker.get("price", 0))
                     except Exception:
-                        current_price = None
+                        current_price = 0.0
 
                     # --- PATCH FIFO entry price ---
                     buys, sells = self.fetch_trades_fifo(
@@ -4672,31 +4717,33 @@ class TradingBotM4:
 
                     if last_sell_time is not None:
                         buys_since_last_sell = [
-                            b for b in buys if b["time"] > last_sell_time
+                            b for b in buys if b.get("time", 0) > last_sell_time
                         ]
                     else:
                         buys_since_last_sell = buys
 
                     if buys_since_last_sell:
                         total_qty = sum(
-                            safe_float(b["qty"], 0) for b in buys_since_last_sell
+                            safe_float(b.get("qty", 0), 0) for b in buys_since_last_sell
                         )
                         entry_price = (
                             sum(
-                                safe_float(b["qty"], 0) * safe_float(b["price"], 0)
+                                safe_float(b.get("qty", 0), 0)
+                                * safe_float(b.get("price", 0), 0)
                                 for b in buys_since_last_sell
                             )
                             / total_qty
                             if total_qty > 0
-                            else None
+                            else 0.0
                         )
                     else:
-                        entry_price = None
+                        entry_price = 0.0
 
                     fifo_pnl_pct, fifo_pnl_usd = self.get_last_fifo_pnl(symbol_binance)
 
                     prev_pos = self.positions_binance.get(symbol_binance, {})
 
+                    # PATCH : toujours caster en float avant toute opération/math
                     positions[symbol_binance] = {
                         "side": self.positions.get(symbol_binance, {}).get(
                             "side", "long"
@@ -4704,34 +4751,39 @@ class TradingBotM4:
                         "amount": safe_float(free, 0),
                         "entry_price": safe_float(entry_price, 0),
                         "current_price": safe_float(current_price, 0),
-                        "pnl_pct": fifo_pnl_pct,
+                        "pnl_pct": safe_float(fifo_pnl_pct, 0),
                         "pnl_usd": (
                             (safe_float(current_price, 0) - safe_float(entry_price, 0))
                             * safe_float(free, 0)
-                            if entry_price and current_price
+                            if entry_price > 0 and current_price > 0
                             else 0.0
                         ),
                         "value_usd": (
                             safe_float(free, 0) * safe_float(current_price, 0)
-                            if free and current_price
+                            if free > 0 and current_price > 0
                             else 0.0
                         ),
                         "filled_tp_targets": prev_pos.get(
                             "filled_tp_targets", [False, False]
                         ),
-                        "price_history": prev_pos.get(
-                            "price_history", [safe_float(entry_price, 0)]
-                        ),
+                        "price_history": [
+                            safe_float(p, 0)
+                            for p in prev_pos.get("price_history", [entry_price])
+                        ],
                         "max_price": safe_float(
                             prev_pos.get("max_price", entry_price),
                             safe_float(entry_price, 0),
                         ),
                     }
 
-            # Cast tous les champs en float pour éviter (int + str)
-            from src.bot_runner import deep_cast_floats
+            # Cast tous les champs en float pour éviter bugs (int + str)
+            try:
+                from src.bot_runner import deep_cast_floats
 
-            deep_cast_floats(positions)
+                deep_cast_floats(positions)
+            except ImportError:
+                pass  # Si la fonction n'existe pas, skip
+
             self.positions_binance = positions
 
     def is_short(self, symbol):
@@ -5732,6 +5784,98 @@ class TradingBotM4:
 
         # --- MODE SIMULATION ---
         if not self.is_live_trading:
+            log_dashboard(
+                f"[ORDER] SIMULATION: {side} {amount} {symbol} @ {price} (iceberg={iceberg})"
+            )
+            self.logger.info(
+                f"SIMULATION: {side} {amount} {symbol} @ {price} (iceberg={iceberg})"
+            )
+
+            # Gestion état simulée
+            if side.upper() == "BUY":
+                if self.is_long(symbol_binance):
+                    log_dashboard(
+                        f"[ORDER] Déjà long sur {symbol_binance}, achat ignoré (simu)"
+                    )
+                    return {"status": "skipped", "reason": "already long"}
+                self.positions[symbol_binance] = {
+                    "side": "long",
+                    "entry_price": safe_float(price or 0),
+                    "amount": safe_float(amount),
+                    "source": "trade",
+                }
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
+            elif side.upper() == "SELL":
+                if not self.is_long(symbol_binance):
+                    log_dashboard(
+                        f"[ORDER] Pas en position long sur {symbol_binance}, vente ignorée (simu)"
+                    )
+                    return {"status": "skipped", "reason": "not in position"}
+                self.log_closed_position(
+                    symbol=symbol_binance,
+                    pos=self.positions[symbol_binance],
+                    exit_price=safe_float(price or 0),
+                    reason="Vente simulée",
+                )
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
+                self.positions.pop(symbol_binance, None)
+            elif side.upper() == "SHORT":
+                if self.is_short(symbol_binance):
+                    log_dashboard(
+                        f"[ORDER] Déjà short sur {symbol_binance}, short ignoré (simu)"
+                    )
+                    return {"status": "skipped", "reason": "already short"}
+                self.positions[symbol_binance] = {
+                    "side": "short",
+                    "entry_price": safe_float(price or 0),
+                    "amount": safe_float(amount),
+                    "min_price": safe_float(price or 0),
+                    "source": "trade",
+                }
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
+            elif side.upper() == "BUY" and self.is_short(symbol_binance):
+                if not self.is_short(symbol_binance):
+                    log_dashboard(
+                        f"[ORDER] Pas en position short sur {symbol_binance}, rachat ignoré (simu)"
+                    )
+                    return {"status": "skipped", "reason": "not in short"}
+                self.log_closed_position(
+                    symbol=symbol_binance,
+                    pos=self.positions[symbol_binance],
+                    exit_price=safe_float(price or 0),
+                    reason="Rachat short simulé",
+                )
+                self.dataset_logger.log_cycle(
+                    pair=symbol_binance,
+                    equity=self.get_performance_metrics().get("balance", 0),
+                    decision={"action": side, "confidence": 1.0},
+                    price=safe_float(price or 0),
+                    features={},
+                    status="simulated",
+                )
+                self.positions.pop(symbol_binance, None)
+
             return {
                 "status": "simulated",
                 "symbol": symbol_binance,
@@ -5753,7 +5897,7 @@ class TradingBotM4:
                     ticker = self.binance_client.get_symbol_ticker(
                         symbol=symbol_binance
                     )
-                    current_price = safe_float(ticker.get("price", 0))
+                    current_price = float(ticker.get("price", 0))
                     if current_price <= 0:
                         error_msg = f"[ORDER] {symbol_binance} indisponible (prix: {current_price})"
                         print(error_msg)
@@ -5797,19 +5941,39 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH: quantité float → string décimal pour API, mais conserve le float pour calculs !
+                # PATCH: quantité float → string décimal pour API
                 amount_float = self.adjust_amount_to_lot_size(symbol_binance, amount)
                 amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+
+                # CORRECTION: Conversion des valeurs numériques en float avant passage à l'executor
+                numeric_orderbook = {
+                    "bids": [[float(bid), 1.0]],
+                    "asks": [[float(ask), 1.0]],
+                }
+
+                # CORRECTION: S'assurer que toutes les données numériques sont des floats
+                safe_market_data = {
+                    "recent_trades": recent_trades,
+                    "volatility": float(
+                        self.calculate_volatility(
+                            self.market_data.get(symbol_binance, {}).get("1h", {})
+                        )
+                    ),
+                    "regime": self.regime,
+                    "binance_client": self.binance_client,
+                }
 
                 result = await self.executor.execute_order(
                     symbol=symbol_binance,
                     side=side,
                     amount=amount_str if side.upper() == "SELL" else None,
                     quoteOrderQty=amount_str if side.upper() == "BUY" else None,
-                    orderbook=orderbook,
-                    market_data=market_data,
+                    orderbook=numeric_orderbook,  # Utilisation de l'orderbook avec valeurs converties en float
+                    market_data=safe_market_data,  # Utilisation des données marché sécurisées
                     iceberg=iceberg,
-                    iceberg_visible_size=iceberg_visible_size,
+                    iceberg_visible_size=float(
+                        iceberg_visible_size
+                    ),  # Conversion en float
                 )
 
                 if result.get("status") == "completed":
@@ -5823,12 +5987,10 @@ class TradingBotM4:
                         except:
                             avg_price = price or 0
 
-                    # PATCH : On force le cast float ici !
-                    filled_amt = safe_float(result.get("filled_amount", amount_float))
                     self.positions[symbol_binance] = {
                         "side": "long",
                         "entry_price": avg_price,
-                        "amount": filled_amt,
+                        "amount": safe_float(result.get("filled_amount", amount_float)),
                         "source": "trade",
                         "timestamp": datetime.now().isoformat(),
                     }
@@ -5897,12 +6059,19 @@ class TradingBotM4:
                     log_dashboard(error_msg)
                     return {"status": "error", "reason": "Orderbook not available"}
 
-                orderbook = {"bids": [[bid, 1.0]], "asks": [[ask, 1.0]]}
+                # CORRECTION: Conversion des valeurs de l'orderbook en float
+                numeric_orderbook = {
+                    "bids": [[float(bid), 1.0]],
+                    "asks": [[float(ask), 1.0]],
+                }
 
-                market_data = {
+                # CORRECTION: S'assurer que toutes les données numériques sont des floats
+                safe_market_data = {
                     "recent_trades": [],
-                    "volatility": self.calculate_volatility(
-                        self.market_data.get(symbol_binance, {}).get("1h", {})
+                    "volatility": float(
+                        self.calculate_volatility(
+                            self.market_data.get(symbol_binance, {}).get("1h", {})
+                        )
                     ),
                     "regime": self.regime,
                     "binance_client": self.binance_client,
@@ -5913,19 +6082,19 @@ class TradingBotM4:
                     side=side,
                     amount=use_amount_str if side.upper() == "SELL" else None,
                     quoteOrderQty=use_amount_str if side.upper() == "BUY" else None,
-                    orderbook=orderbook,
-                    market_data=market_data,
+                    orderbook=numeric_orderbook,  # Orderbook avec valeurs converties
+                    market_data=safe_market_data,  # Données marché sécurisées
                     iceberg=iceberg,
-                    iceberg_visible_size=iceberg_visible_size,
+                    iceberg_visible_size=float(
+                        iceberg_visible_size
+                    ),  # Conversion en float
                 )
 
                 if result.get("status") == "completed" and current_position:
                     filled_amount = safe_float(
                         result.get("filled_amount", use_amount_float)
                     )
-                    remaining_amount = (
-                        safe_float(current_position["amount"]) - filled_amount
-                    )  # PATCH ICI !
+                    remaining_amount = current_position["amount"] - filled_amount
 
                     if remaining_amount > 0.000001:
                         current_position["amount"] = remaining_amount
@@ -5978,6 +6147,7 @@ class TradingBotM4:
 
                     qty = safe_float(amount) / price_bingx if price_bingx > 0 else 0
 
+                    # PATCH: string format for qty (BingX usually accepts floats, but can be safe)
                     qty_str = "{:.8f}".format(qty).rstrip("0").rstrip(".")
                     if safe_float(qty_str) <= 0:
                         error_msg = f"[ORDER] Quantité invalide pour short: {qty_str}"
@@ -6054,6 +6224,15 @@ class TradingBotM4:
 
             # Gestion du résultat de l'ordre
             if result and result.get("status") == "completed":
+                success_msg = (
+                    f"[ORDER] Exécuté avec succès: {side} {result.get('filled_amount', amount)} "
+                    f"{symbol_binance} @ {result.get('avg_price', price)}"
+                )
+                log_dashboard(success_msg)
+                self.logger.info(success_msg)
+
+                self._update_performance_metrics(result)
+
                 filled_amount = safe_float(result.get("filled_amount", amount))
                 avg_price = safe_float(result.get("avg_price", price) or 0)
                 total_value = filled_amount * avg_price
@@ -6063,15 +6242,6 @@ class TradingBotM4:
                     if result.get("iceberg")
                     else ""
                 )
-
-                success_msg = (
-                    f"[ORDER] Exécuté avec succès: {side} {filled_amount} "
-                    f"{symbol_binance} @ {avg_price}"
-                )
-                log_dashboard(success_msg)
-                self.logger.info(success_msg)
-
-                self._update_performance_metrics(result)
 
                 await self.telegram.send_message(
                     f"💰 <b>Ordre exécuté</b>\n"
@@ -6089,6 +6259,52 @@ class TradingBotM4:
                 self.sync_positions_with_binance()
 
             return result if result else {"status": "error", "reason": "no result"}
+
+        except BinanceAPIException as e:
+            error_msg = f"[ORDER] Binance API error: {e}"
+            print(error_msg)
+            self.logger.error(error_msg)
+
+            if "Only BUY orders are allowed" in str(e):
+                print(
+                    "🔄 ERREUR CRITIQUE: Only BUY orders allowed - Tentative de correction..."
+                )
+
+                try:
+                    print("🔄 Tentative 1: Order MARKET")
+                    amount_float = self.adjust_amount_to_lot_size(
+                        symbol_binance, amount
+                    )
+                    amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+                    if side.upper() == "SELL":
+                        order = self.binance_client.order_market_sell(
+                            symbol=symbol_binance, quantity=amount_str
+                        )
+                    else:
+                        order = self.binance_client.order_market_buy(
+                            symbol=symbol_binance, quantity=amount_str
+                        )
+                    print(f"✅ Correction réussie: {order}")
+                    self.sync_positions_with_binance()
+                    return {
+                        "status": "completed",
+                        "filled_amount": amount,
+                        "avg_price": 0,
+                    }
+
+                except Exception as market_error:
+                    print(f"❌ Échec MARKET order: {market_error}")
+                    pass
+
+            self.sync_positions_with_binance()
+            return {"status": "error", "reason": str(e)}
+
+        except Exception as e:
+            error_msg = f"[ORDER] Erreur inattendue: {e}"
+            print(error_msg)
+            self.logger.error(error_msg)
+            self.sync_positions_with_binance()
+            return {"status": "error", "reason": str(e)}
 
         except BinanceAPIException as e:
             error_msg = f"[ORDER] Binance API error: {e}"
