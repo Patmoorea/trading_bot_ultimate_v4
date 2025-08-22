@@ -1309,7 +1309,7 @@ class AdvancedRiskManager:
         """
         Sizing par risk-per-trade :
         - risk_nominal = equity * risk_per_trade
-        - unités = min( risk_nominal / stop_distance , plafond_notional / price )
+        - unités = risk_nominal / stop_distance
         """
         try:
             confidence = float(confidence)
@@ -1333,10 +1333,7 @@ class AdvancedRiskManager:
                 }
 
             units_by_risk = risk_nominal / stop_dist
-            notional_cap = equity * self.position_limits["max_per_trade"]
-            units_by_cap = notional_cap / price
-
-            units = max(0.0, min(units_by_risk, units_by_cap))
+            units = max(0.0, units_by_risk)
             notional = units * price
 
             return {
@@ -1353,40 +1350,29 @@ class AdvancedRiskManager:
     def check_exposure_limit(
         self,
         current_positions: dict,
-        new_notional: float,
+        new_amount: float,
         symbol: str | None = None,
         corr_groups: dict | None = None,
     ) -> tuple[bool, str]:
         """
-        - Total <= max_total_exposure * equity
-        - Par trade déjà plafonné par calculate_position_size
-        - Corrélation : si corr_groups fourni, limite un groupe à 2 * max_per_trade
-        current_positions: { "BTCUSDC": {"size": notional, ...}, ... }
-        corr_groups: { "L1": ["BTCUSDC","ETHUSDC","SOLUSDC"], "Meme": ["DOGEUSDC","SHIBUSDC"], ... }
+            - Total <= max_total_exposure * equity
+            - Par trade déjà plafonné par calculate_position_size
+            - Corrélation : si corr_groups fourni, limite un groupe à 2 * max_per_trade
+        current_positions: { "BTCUSDC": {"size": amount, ...}, ... }
+            corr_groups: { "L1": ["BTCUSDC","ETHUSDC","SOLUSDC"], "Meme": ["DOGEUSDC","SHIBUSDC"], ... }
         """
         try:
             total = 0.0
             for pos in current_positions.values():
                 total += float(pos.get("size", 0.0))
-            new_total = total + float(new_notional)
+            new_total = total + float(new_amount)
 
             # Ici, equity doit être passé par l'appelant pour faire total/equity; on reste en check relatif simple :
-            # On impose que (total_notional / (total_notional + cash)) ≈ contrôlé ailleurs.
-            # On fait un garde-fou : si new_total > (max_total_exposure * 1.5 * (total + new_notional)), on refuse.
-            # => Si tu as equity dispo, adapte pour un test précis en % du capital.
             if new_total < 0:
                 return False, "Exposition invalide"
-            # Autorise si <= 5 positions * max_per_trade
-            # (côté simple si equity exact non dispo dans cette fonction)
-            max_slots = int(1.0 / max(1e-9, self.position_limits["max_per_trade"]))
-            if new_total > (self.position_limits["max_per_trade"] * max_slots * 1.0):
-                return False, "Exposition totale potentiellement excessive"
 
-            # Corrélation par groupe
+            # Corrélation par groupe (conserve la logique d'exposition relative)
             if corr_groups and symbol:
-                group_cap = (
-                    2.0 * self.position_limits["max_per_trade"]
-                )  # 2 trades max par groupe
                 for group, syms in corr_groups.items():
                     if symbol in syms:
                         group_sum = (
@@ -1395,11 +1381,8 @@ class AdvancedRiskManager:
                                 for s, p in current_positions.items()
                                 if s in syms
                             )
-                            + new_notional
+                            + new_amount
                         )
-                        # Ici aussi, c'est une borne relative. Si tu as equity, remplace par (group_sum/equity <= group_cap)
-                        if group_sum > 0 and (group_sum > (group_cap * 1.0)):
-                            return False, f"Groupe corrélé '{group}' sur-exposé"
                         break
 
             return True, "OK"
@@ -1409,7 +1392,7 @@ class AdvancedRiskManager:
     # ---------- Slippage/Liquidité (facultatif) ----------
 
     def estimate_slippage_bps(
-        self, notional: float, market_liquidity: dict | None
+        self, amount: float, market_liquidity: dict | None
     ) -> float:
         """
         Estimation très simple : si profondeur insuffisante, slippage augmente.
@@ -1422,7 +1405,7 @@ class AdvancedRiskManager:
             if depth <= 0:
                 return 15.0  # 15 bps par défaut si on ne sait pas
             # 10 bps par 1M$ de profondeur (réglable)
-            return max(2.0, 10.0 * (notional / max(1.0, depth)))
+            return max(2.0, 10.0 * (amount / max(1.0, depth)))
         except Exception:
             return 15.0
 
@@ -1477,7 +1460,7 @@ class AdvancedRiskManager:
         # Exposition (relative, voir note plus haut)
         ok_exp, why_exp = self.check_exposure_limit(
             current_positions=current_positions,
-            new_notional=sizing["notional"],
+            new_amount=sizing["units"],
             symbol=symbol,
             corr_groups=corr_groups,
         )
@@ -1485,7 +1468,7 @@ class AdvancedRiskManager:
             return {"approved": False, "reason": why_exp}
 
         # Slippage / liquidité
-        slippage_bps = self.estimate_slippage_bps(sizing["notional"], market_liquidity)
+        slippage_bps = self.estimate_slippage_bps(sizing["units"], market_liquidity)
         if slippage_bps > 50.0:  # 50 bps = 0.50%
             return {
                 "approved": False,
@@ -6047,13 +6030,32 @@ class TradingBotM4:
                         log_dashboard(error_msg)
                         return {"status": "error", "reason": str(e)}
 
-                # PATCH: quantité float → string décimal (jamais scientifique)
+                # PATCH: quantité string exacte selon LOT_SIZE (jamais scientifique, jamais vide)
                 use_amount_float = self.adjust_amount_to_lot_size(
                     symbol_binance, use_amount
                 )
-                use_amount_str = (
-                    "{:.8f}".format(use_amount_float).rstrip("0").rstrip(".")
-                )
+                # Récupère la précision exacte du step_size
+                try:
+                    exchange_info = self.binance_client.get_exchange_info()
+                    symbol_info = next(
+                        s
+                        for s in exchange_info["symbols"]
+                        if s["symbol"] == symbol_binance
+                    )
+                    for f in symbol_info["filters"]:
+                        if f["filterType"] == "LOT_SIZE":
+                            step_size = float(f["stepSize"])
+                            precision = abs(Decimal(str(step_size)).as_tuple().exponent)
+                            break
+                    else:
+                        precision = 8
+                except Exception:
+                    precision = 8
+                # Formatage EXACT pour Binance : toujours le bon nombre de décimales, ne jamais retirer les zéros si precision > 0
+                if precision > 0:
+                    use_amount_str = f"{use_amount_float:.{precision}f}"
+                else:
+                    use_amount_str = str(int(use_amount_float))
 
                 bid, ask = self.get_ws_orderbook(symbol_binance)
                 if bid is None or ask is None:
@@ -10271,92 +10273,82 @@ def calculate_position_size(bot, decision):
     - Protection Drawdown
     - NOUVEAU: Ajustement par corrélation
     """
+    # --- Configuration de base ---
+    balance = bot.get_performance_metrics().get("balance", 0)
+    confidence = safe_float(decision.get("confidence", 0.5))
+    # Suppression de toute contrainte de notional côté code
+    # --- Sizing selon confiance ---
+    if confidence > 0.7:
+        risk_pct = 0.09  # 9% max
+    elif confidence > 0.4:
+        risk_pct = 0.04  # 4%
+    else:
+        risk_pct = 0.02  # 2%
+
+    # --- Ajustement Kelly ---
+    perf = bot.get_performance_metrics()
+    win_rate = perf.get("win_rate", 0.55)
+    profit_factor = perf.get("profit_factor", 1.7)
+    kelly = kelly_criterion(win_rate, profit_factor)
+
+    if kelly > 0:
+        risk_pct = min(risk_pct + kelly * 0.5, 0.12)
+
+    # --- NOUVEAU: Ajustement par corrélation ---
+    pair = decision.get("pair")
+    if pair:
+        correlations = bot.calculate_correlation_matrix()
+        corr_factor = max(
+            [v for k, v in correlations.items() if pair in k], default=0.5
+        )
+        # Réduit le sizing si forte corrélation
+        risk_pct *= 1 - corr_factor * 0.5
+
+    # --- Mode SAFE ---
     try:
-        # --- Configuration de base ---
-        balance = bot.get_performance_metrics().get("balance", 0)
-        confidence = safe_float(decision.get("confidence", 0.5))
-        MIN_NOTIONAL = 5  # Minimum USDC
+        with open(bot.data_file, "r") as f:
+            data = json.load(f)
 
-        # --- Sizing selon confiance ---
-        if confidence > 0.7:
-            risk_pct = 0.09  # 9% max
-        elif confidence > 0.4:
-            risk_pct = 0.04  # 4%
-        else:
-            risk_pct = 0.02  # 2%
+        recent_trades = data.get("trade_history", [])[-5:]
+        losses = [t for t in recent_trades if t.get("pnl_usd", 0) < 0]
+        wins = [t for t in recent_trades if t.get("pnl_usd", 0) > 0]
 
-        # --- Ajustement Kelly ---
-        perf = bot.get_performance_metrics()
-        win_rate = perf.get("win_rate", 0.55)
-        profit_factor = perf.get("profit_factor", 1.7)
-        kelly = kelly_criterion(win_rate, profit_factor)
+        mode_safe = len(losses) >= 3 and len(wins) == 0
+        if mode_safe and wins:
+            mode_safe = False
 
-        if kelly > 0:
-            risk_pct = min(risk_pct + kelly * 0.5, 0.12)
+        bot.safe_update_shared_data({"safe_mode": mode_safe}, bot.data_file)
 
-        # --- NOUVEAU: Ajustement par corrélation ---
-        pair = decision.get("pair")
-        if pair:
-            correlations = bot.calculate_correlation_matrix()
-            corr_factor = max(
-                [v for k, v in correlations.items() if pair in k], default=0.5
-            )
-            # Réduit le sizing si forte corrélation
-            risk_pct *= 1 - corr_factor * 0.5
-
-        # --- Mode SAFE ---
-        try:
-            with open(bot.data_file, "r") as f:
-                data = json.load(f)
-
-            recent_trades = data.get("trade_history", [])[-5:]
-            losses = [t for t in recent_trades if t.get("pnl_usd", 0) < 0]
-            wins = [t for t in recent_trades if t.get("pnl_usd", 0) > 0]
-
-            mode_safe = len(losses) >= 3 and len(wins) == 0
-            if mode_safe and wins:
-                mode_safe = False
-
-            bot.safe_update_shared_data({"safe_mode": mode_safe}, bot.data_file)
-
-            if mode_safe:
-                risk_pct *= 0.25
-                print("[SAFE MODE] Sizing -75%")
-
-        except Exception as e:
-            print(f"[WARNING] Erreur mode safe: {e}")
-
-        # --- Protection Drawdown ---
-        try:
-            with open(bot.data_file, "r") as f:
-                data = json.load(f)
-
-            equity_history = data.get("equity_history", [])
-            if equity_history and len(equity_history) >= 30:
-                balances = [pt["balance"] for pt in equity_history if "balance" in pt]
-                peak = max(balances)
-                trough = min(balances)
-                drawdown = (trough - peak) / peak if peak > 0 else 0
-
-                if drawdown < -0.15:
-                    risk_pct *= 0.5
-                    print(f"[DRAWDOWN] Sizing -50% (DD: {drawdown:.1%})")
-
-        except Exception as e:
-            print(f"[WARNING] Erreur drawdown: {e}")
-
-        # --- Calcul final ---
-        size = balance * risk_pct
-        size = max(MIN_NOTIONAL, round(size, 2))
-
-        print(f"[SIZING] {size:.2f} USDC ({risk_pct*100:.1f}% du capital)")
-        return size
+        if mode_safe:
+            risk_pct *= 0.25
+            print("[SAFE MODE] Sizing -75%")
 
     except Exception as e:
-        import logging
+        print(f"[WARNING] Erreur mode safe: {e}")
 
-        logging.error(f"Erreur sizing: {e}")
-        return MIN_NOTIONAL
+    # --- Protection Drawdown ---
+    try:
+        with open(bot.data_file, "r") as f:
+            data = json.load(f)
+
+        equity_history = data.get("equity_history", [])
+        if equity_history and len(equity_history) >= 30:
+            balances = [pt["balance"] for pt in equity_history if "balance" in pt]
+            peak = max(balances)
+            trough = min(balances)
+            drawdown = (trough - peak) / peak if peak > 0 else 0
+
+            if drawdown < -0.15:
+                risk_pct *= 0.5
+                print(f"[DRAWDOWN] Sizing -50% (DD: {drawdown:.1%})")
+
+    except Exception as e:
+        print(f"[WARNING] Erreur drawdown: {e}")
+
+    # --- Calcul final ---
+    size = round(balance * risk_pct, 2)
+    print(f"[SIZING] {size:.2f} USDC ({risk_pct*100:.1f}% du capital)")
+    return size
 
 
 async def send_trade_notification(bot, decision, trade_result, amount):

@@ -641,3 +641,58 @@
 2025-08-22T22:01:06.160284 | ✅ Trading en direct: True
 2025-08-22T22:01:06.160323 | ✅ IA activée: True
 2025-08-22T22:01:06.160356 | ✅ Analyse de news activée: True
+2025-08-22T22:03:43.810024 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T22:04:22.721634 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T22:13:07.740581 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1114 | Tendance: 0.0149
+2025-08-22T22:13:07.740877 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T22:14:59.526354 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T22:15:00.669264 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T22:16:48.840541 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T22:18:33.561274 | Démarrage cycle trading
+2025-08-22T22:18:34.168513 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T22:25:31.164923 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T22:25:31.165955 | Initialisation des modèles d'IA...
+2025-08-22T22:25:31.364708 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T22:25:32.923868 | ✅ PPO Strategy initialized successfully
+2025-08-22T22:25:39.510581 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T22:25:39.510824 | ✅ Trading en direct: True
+2025-08-22T22:25:39.511000 | ✅ IA activée: True
+2025-08-22T22:25:39.511046 | ✅ Analyse de news activée: True
+2025-08-22T22:28:20.219309 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T22:28:58.065650 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T22:37:28.015203 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1123 | Tendance: 0.0148
+2025-08-22T22:37:28.015822 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T22:39:13.914643 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T22:39:14.995152 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T22:41:03.604721 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-22T22:41:35.930000 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T22:41:35.930662 | Initialisation des modèles d'IA...
+2025-08-22T22:41:36.120425 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T22:41:37.686036 | ✅ PPO Strategy initialized successfully
+2025-08-22T22:41:44.565326 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T22:41:44.565511 | ✅ Trading en direct: True
+2025-08-22T22:41:44.565549 | ✅ IA activée: True
+2025-08-22T22:41:44.565584 | ✅ Analyse de news activée: True
+2025-08-22T22:44:26.842579 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T22:45:05.065428 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T22:53:55.516624 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1121 | Tendance: 0.0148
+2025-08-22T22:53:55.517192 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T22:55:46.156415 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T22:55:47.317046 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T22:58:46.794151 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T22:58:46.795070 | Initialisation des modèles d'IA...
+2025-08-22T22:58:46.983302 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T22:58:48.481980 | ✅ PPO Strategy initialized successfully
+2025-08-22T22:58:54.161465 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T22:58:54.161668 | ✅ Trading en direct: True
+2025-08-22T22:58:54.161717 | ✅ IA activée: True
+2025-08-22T22:58:54.161763 | ✅ Analyse de news activée: True
+2025-08-22T23:01:33.220977 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T23:02:09.770317 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T23:10:45.624381 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1117 | Tendance: 0.0169
+2025-08-22T23:10:45.625843 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T23:12:37.617289 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T23:12:38.753984 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T23:14:33.282500 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T23:16:17.747109 | Démarrage cycle trading
+2025-08-22T23:16:18.386326 | 🚫 Cycle bloqué - Pause news active
