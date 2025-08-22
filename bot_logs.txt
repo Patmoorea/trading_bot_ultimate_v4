@@ -525,3 +525,100 @@
 2025-08-22T17:55:08.061497 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
 2025-08-22T17:55:09.177218 | [ORDER] Vente depuis solde NOT: 1116.15
 2025-08-22T17:57:00.727756 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T17:57:42.020123 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T17:57:42.020925 | Initialisation des modèles d'IA...
+2025-08-22T17:57:42.206648 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T17:57:43.860434 | ✅ PPO Strategy initialized successfully
+2025-08-22T17:57:47.430040 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T17:57:47.430237 | ✅ Trading en direct: True
+2025-08-22T17:57:47.430428 | ✅ IA activée: True
+2025-08-22T17:57:47.430463 | ✅ Analyse de news activée: True
+2025-08-22T18:00:32.372882 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T18:01:12.084956 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T18:10:20.333805 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1099 | Tendance: 0.0071
+2025-08-22T18:10:20.334546 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T18:12:12.550282 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T18:12:13.664641 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T18:13:59.978519 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T18:15:44.577662 | Démarrage cycle trading
+2025-08-22T18:15:45.229984 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T18:28:59.579289 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T18:28:59.582904 | Initialisation des modèles d'IA...
+2025-08-22T18:28:59.761038 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T18:29:01.375380 | ✅ PPO Strategy initialized successfully
+2025-08-22T18:29:05.296832 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T18:29:05.297065 | ✅ Trading en direct: True
+2025-08-22T18:29:05.297240 | ✅ IA activée: True
+2025-08-22T18:29:05.297288 | ✅ Analyse de news activée: True
+2025-08-22T18:31:52.024051 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T18:32:33.484439 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T18:45:13.115755 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1104 | Tendance: 0.0070
+2025-08-22T18:45:13.116674 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T18:47:10.555551 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T18:47:11.677443 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T18:49:00.313140 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T18:50:42.841950 | Démarrage cycle trading
+2025-08-22T18:53:54.763835 | [NEWS CHECK] ⚠️ News sans symboles: Eric Trump ira au Japon en septembre pour parler des affaires crypto familiales
+2025-08-22T18:53:54.764348 | [NEWS CHECK] ⚠️ News sans symboles: Cette trésorerie crypto cotée au Nasdaq vend des HYPE seulement 2 mois après les
+2025-08-22T18:53:54.764396 | [NEWS CHECK] ⚠️ News sans symboles: La communauté Monero (XMR) propose une refonte de son mécanisme de consensus
+2025-08-22T18:53:54.764439 | [NEWS CHECK] ⚠️ News sans symboles: Crypto : La justice US rassure l’industrie et affirme que « coder n’est pas un c
+2025-08-22T18:53:54.764476 | [NEWS CHECK] ⚠️ News sans symboles: La banque DBS accélère sur la tokenisation avec un nouveau produit crypto
+2025-08-22T18:53:54.764513 | [NEWS CHECK] ⚠️ News sans symboles: Top 5 des plateformes de trading crypto décentralisées
+2025-08-22T18:53:54.764548 | [NEWS CHECK] ⚠️ News sans symboles: Cryptomonnaies aux USA : La CFTC ouvre la troisième phase de son « Crypto Sprint
+2025-08-22T18:53:54.764583 | [NEWS CHECK] ⚠️ News sans symboles: Introduction en bourse : Gemini et Bullish ont-elles gonflé leur comptabilité po
+2025-08-22T18:53:54.764618 | [NEWS CHECK] ⚠️ News sans symboles: « Écrire du code n’est pas un crime » : Le DOJ change de ton face aux développeu
+2025-08-22T18:53:54.764652 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met en garde les banques : adoptez la blockchain ou disparaissez !
+2025-08-22T18:53:54.764685 | [NEWS CHECK] ⚠️ News sans symboles: Le gang criminel à l'origine des enlèvements de personnalités crypto opérait dep
+2025-08-22T18:53:54.764719 | [NEWS CHECK] ⚠️ News sans symboles: MetaMask dévoile son stablecoin mUSD : Voici tout ce que vous devez savoir
+2025-08-22T18:53:54.764751 | [NEWS CHECK] ⚠️ News sans symboles: Guerre des bridges : LayerZero souhaite racheter Stargate, mais Wormhole intervi
+2025-08-22T18:53:54.764784 | [NEWS CHECK] ⚠️ News sans symboles: Le président de la SEC veut protéger le marché crypto contre « les dérives régle
+2025-08-22T18:53:54.764818 | [NEWS CHECK] ⚠️ News sans symboles: Introduction en bourse payée en stablecoin : l’exchange crypto Bullish réalise u
+2025-08-22T18:55:58.730072 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T18:55:58.732331 | Initialisation des modèles d'IA...
+2025-08-22T18:55:58.912159 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T18:56:00.411974 | ✅ PPO Strategy initialized successfully
+2025-08-22T18:56:03.973995 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T18:56:03.974216 | ✅ Trading en direct: True
+2025-08-22T18:56:03.974273 | ✅ IA activée: True
+2025-08-22T18:56:03.974308 | ✅ Analyse de news activée: True
+2025-08-22T18:58:40.523517 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T18:59:18.989704 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T19:05:33.961294 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1109 | Tendance: 0.0084
+2025-08-22T19:05:33.962042 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T19:07:25.250020 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T19:07:26.375525 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T19:09:25.664547 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T19:11:12.856236 | Démarrage cycle trading
+2025-08-22T19:14:19.969064 | [NEWS CHECK] ⚠️ News sans symboles: Eric Trump ira au Japon en septembre pour parler des affaires crypto familiales
+2025-08-22T19:14:19.969164 | [NEWS CHECK] ⚠️ News sans symboles: Cette trésorerie crypto cotée au Nasdaq vend des HYPE seulement 2 mois après les
+2025-08-22T19:14:19.969195 | [NEWS CHECK] ⚠️ News sans symboles: La communauté Monero (XMR) propose une refonte de son mécanisme de consensus
+2025-08-22T19:14:19.969226 | [NEWS CHECK] ⚠️ News sans symboles: Crypto : La justice US rassure l’industrie et affirme que « coder n’est pas un c
+2025-08-22T19:14:19.969252 | [NEWS CHECK] ⚠️ News sans symboles: La banque DBS accélère sur la tokenisation avec un nouveau produit crypto
+2025-08-22T19:14:19.969278 | [NEWS CHECK] ⚠️ News sans symboles: Top 5 des plateformes de trading crypto décentralisées
+2025-08-22T19:14:19.969304 | [NEWS CHECK] ⚠️ News sans symboles: Cryptomonnaies aux USA : La CFTC ouvre la troisième phase de son « Crypto Sprint
+2025-08-22T19:14:19.969328 | [NEWS CHECK] ⚠️ News sans symboles: Introduction en bourse : Gemini et Bullish ont-elles gonflé leur comptabilité po
+2025-08-22T19:14:19.969353 | [NEWS CHECK] ⚠️ News sans symboles: « Écrire du code n’est pas un crime » : Le DOJ change de ton face aux développeu
+2025-08-22T19:14:19.969379 | [NEWS CHECK] ⚠️ News sans symboles: La Fed met en garde les banques : adoptez la blockchain ou disparaissez !
+2025-08-22T19:14:19.969402 | [NEWS CHECK] ⚠️ News sans symboles: Le gang criminel à l'origine des enlèvements de personnalités crypto opérait dep
+2025-08-22T19:14:19.969426 | [NEWS CHECK] ⚠️ News sans symboles: MetaMask dévoile son stablecoin mUSD : Voici tout ce que vous devez savoir
+2025-08-22T19:14:19.969449 | [NEWS CHECK] ⚠️ News sans symboles: Guerre des bridges : LayerZero souhaite racheter Stargate, mais Wormhole intervi
+2025-08-22T19:14:19.969472 | [NEWS CHECK] ⚠️ News sans symboles: Le président de la SEC veut protéger le marché crypto contre « les dérives régle
+2025-08-22T19:14:19.969496 | [NEWS CHECK] ⚠️ News sans symboles: Introduction en bourse payée en stablecoin : l’exchange crypto Bullish réalise u
+2025-08-22T19:23:51.634443 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T19:23:51.635018 | Initialisation des modèles d'IA...
+2025-08-22T19:23:51.800215 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T19:23:53.400325 | ✅ PPO Strategy initialized successfully
+2025-08-22T19:23:57.178668 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T19:23:57.178845 | ✅ Trading en direct: True
+2025-08-22T19:23:57.178883 | ✅ IA activée: True
+2025-08-22T19:23:57.178921 | ✅ Analyse de news activée: True
+2025-08-22T19:26:45.462207 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T19:27:24.499226 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T19:36:56.405128 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1114 | Tendance: 0.0083
+2025-08-22T19:36:56.405993 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T19:38:45.665290 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-22T19:38:46.804580 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-22T19:40:35.336207 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-22T19:42:21.434906 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T19:42:22.533712 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T19:44:12.418694 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
