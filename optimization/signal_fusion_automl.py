@@ -64,9 +64,15 @@ def get_enriched_sentiment(bot, pair_key, news_list):
     import asyncio
 
     news_list = bot.news_analyzer.analyze_sentiment_batch(news_list)
-    sentiment_score = asyncio.run(
-        bot.news_analyzer.get_symbol_sentiment(pair_key, news_list=news_list)
-    )
+    try:
+        loop = asyncio.get_running_loop()
+        sentiment_score = loop.run_until_complete(
+            bot.news_analyzer.get_symbol_sentiment(pair_key, news_list=news_list)
+        )
+    except RuntimeError:
+        sentiment_score = asyncio.run(
+            bot.news_analyzer.get_symbol_sentiment(pair_key, news_list=news_list)
+        )
     summary = bot.news_analyzer.get_sentiment_summary()
     sentiment_global = summary.get("sentiment_global", 0.0)
     impact_score = summary.get("impact_score", 0.0)
@@ -132,7 +138,11 @@ def enrich_signals_with_real_values(bot, df, pair_key, news_list=None, window=20
         import asyncio
 
         if news_list is None:
-            news_list = asyncio.run(bot.news_analyzer.fetch_all_news())
+            try:
+                loop = asyncio.get_running_loop()
+                news_list = loop.run_until_complete(bot.news_analyzer.fetch_all_news())
+            except RuntimeError:
+                news_list = asyncio.run(bot.news_analyzer.fetch_all_news())
         sentiment_score = get_enriched_sentiment(bot, pair_key, news_list)
         df["signal_sentiment"] = sentiment_score
         print(
@@ -423,10 +433,18 @@ def optimize_signal_fusion_and_mm(n_trials=50):
         bot = DummyBot(config, dl_model)
         fetch_result = bot.news_analyzer.fetch_all_news()
         if hasattr(fetch_result, "__await__"):
-            asyncio.run(fetch_result)
+            try:
+                loop = asyncio.get_running_loop()
+                loop.run_until_complete(fetch_result)
+            except RuntimeError:
+                asyncio.run(fetch_result)
 
         # === PARALLELISATION ANALYSE ===
-        loop = asyncio.get_event_loop()
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
         tasks = [
             analyze_pair_tf(pair, tf, bot, fusion_params, window)
             for pair in pairs

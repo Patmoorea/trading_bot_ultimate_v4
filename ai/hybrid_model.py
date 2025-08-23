@@ -77,9 +77,34 @@ class HybridModel:
             rs = avg_gain / (avg_loss + 1e-9)
             df["rsi"] = 100 - (100 / (1 + rs))
         feats.append("rsi")
+
+        # === DIAGNOSTIC NaN/inf par colonne ===
+        print("[DIAG] NaN/inf count per feature before windowing:")
+        for col in feats:
+            n_nan = df[col].isna().sum()
+            n_inf = np.isinf(df[col].values).sum()
+            print(
+                f"  - {col}: NaN={n_nan}, inf={n_inf}, min={df[col].min()}, max={df[col].max()}"
+            )
+            if n_nan > 0 or n_inf > 0:
+                print(f"  [WARN] Correction NaN/inf dans {col} (ffill, bfill, puis 0)")
+                df[col] = df[col].replace([np.inf, -np.inf], np.nan)
+                df[col] = (
+                    df[col].fillna(method="ffill").fillna(method="bfill").fillna(0)
+                )
+
+        # === NORMALISATION des features ===
+        from sklearn.preprocessing import StandardScaler
+
+        scaler = StandardScaler()
+        # On normalise chaque colonne indépendamment (par feature)
+        df_norm = df.copy()
+        for col in feats:
+            df_norm[col] = scaler.fit_transform(df[[col]])
+
         X, y = [], []
-        for i in range(len(df) - window - 5):
-            window_df = df.iloc[i : i + window]
+        for i in range(len(df_norm) - window - 5):
+            window_df = df_norm.iloc[i : i + window]
             sample = window_df[feats].values
             label = float(
                 df["close"].iloc[i + window + 5] > df["close"].iloc[i + window]
@@ -103,9 +128,15 @@ class HybridModel:
         self.model = tf.keras.Sequential(
             [
                 tf.keras.layers.Input(shape=(window, len(feats))),
-                tf.keras.layers.Conv1D(32, kernel_size=3, activation="relu"),
+                tf.keras.layers.Conv1D(64, kernel_size=3, activation="relu"),
+                tf.keras.layers.BatchNormalization(),
                 tf.keras.layers.MaxPooling1D(2),
+                tf.keras.layers.Dropout(0.2),
+                tf.keras.layers.Conv1D(32, kernel_size=3, activation="relu"),
+                tf.keras.layers.BatchNormalization(),
                 tf.keras.layers.Flatten(),
+                tf.keras.layers.Dense(64, activation="relu"),
+                tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(32, activation="relu"),
                 tf.keras.layers.Dense(1, activation="sigmoid"),
             ]
@@ -122,12 +153,47 @@ class HybridModel:
         assert isinstance(batch_size, int), f"batch_size is not int: {type(batch_size)}"
         print(f"[DEBUG] optimizer type: {type(self.model.optimizer)}, lr: {lr}")
         tf.keras.backend.set_value(self.model.optimizer.learning_rate, lr)
+
+        # === DIAGNOSTICS avant fit ===
+        print(
+            f"[DIAG] X_train shape: {self.X_train.shape}, dtype: {self.X_train.dtype}"
+        )
+        print(
+            f"[DIAG] y_train shape: {self.y_train.shape}, dtype: {self.y_train.dtype}"
+        )
+        print(
+            f"[DIAG] X_train min: {np.nanmin(self.X_train)}, max: {np.nanmax(self.X_train)}, contains NaN: {np.isnan(self.X_train).any()}, contains inf: {np.isinf(self.X_train).any()}"
+        )
+        print(
+            f"[DIAG] y_train min: {np.nanmin(self.y_train)}, max: {np.nanmax(self.y_train)}, contains NaN: {np.isnan(self.y_train).any()}, contains inf: {np.isinf(self.y_train).any()}"
+        )
+        print(f"[DIAG] y_train unique: {np.unique(self.y_train)}")
+
+        # Correction NaN/inf éventuels
+        if np.isnan(self.X_train).any() or np.isinf(self.X_train).any():
+            print("[WARN] NaN/inf detected in X_train, replacing with 0")
+            self.X_train = np.nan_to_num(self.X_train, nan=0.0, posinf=0.0, neginf=0.0)
+        if np.isnan(self.y_train).any() or np.isinf(self.y_train).any():
+            print("[WARN] NaN/inf detected in y_train, replacing with 0")
+            self.y_train = np.nan_to_num(self.y_train, nan=0.0, posinf=0.0, neginf=0.0)
+
+        # Callback pour détecter NaN dans la loss
+        class NaNLossCallback(tf.keras.callbacks.Callback):
+            def on_batch_end(self, batch, logs=None):
+                loss = logs.get("loss")
+                if loss is not None and (np.isnan(loss) or np.isinf(loss)):
+                    print(
+                        f"[ERROR] NaN/inf loss detected at batch {batch}! Stopping training."
+                    )
+                    self.model.stop_training = True
+
         self.model.fit(
             self.X_train,
             self.y_train,
             batch_size=batch_size,
             epochs=n_epochs,
             verbose=0,
+            callbacks=[NaNLossCallback()],
         )
         loss, acc = self.model.evaluate(self.X_test, self.y_test, verbose=0)
         print(f"[HybridAI] Accuracy test: {acc:.3f} | Loss: {loss:.4f}")

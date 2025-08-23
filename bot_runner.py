@@ -4,117 +4,115 @@ import warnings
 # warnings.filterwarnings("ignore")
 # warnings.simplefilter("ignore")
 
-import csv
+
+# === Imports standards ===
 import os
-
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"  # Réduit les logs TensorFlow
-os.environ["PYTHONWARNINGS"] = "ignore::UserWarning"  # Supprime certains warnings
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "1"  # Optimisation M4
-os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"  # Fallback GPU
-os.environ["PYTORCH_MPS_LOW_WATERMARK_RATIO"] = "0.75"
-
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import sys
-import logging
-
-logging.basicConfig(
-    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-logger = logging.getLogger(__name__)
+import csv
 import json
-import asyncio
-import aiohttp
-import numpy as np
 import time
+import logging
+import asyncio
+import shutil
+import ast
+import traceback
 from datetime import datetime, timezone, timedelta
-import pytz
-import argparse
+from decimal import Decimal
+from collections import defaultdict, deque
+
+# === Imports tiers ===
+import numpy as np
 import pandas as pd
 import pandas_ta as pta
 import pyarrow as pa
 import pyarrow.parquet as pq
 import lz4.frame
-import shutil
 import joblib
-import ast
-import traceback
-
-
-from decimal import Decimal
+import aiohttp
+import pytz
+import argparse
 from dotenv import load_dotenv
 from binance.client import Client
 from binance.exceptions import BinanceAPIException
+from cachetools import TTLCache
+from deep_translator import GoogleTranslator
+
+# === Imports projet ===
 from src.analysis.news.cointelegraph_fetcher import fetch_cointelegraph_news
 from src.analysis.news.sentiment_analyzer import NewsSentimentAnalyzer
-
-# Obtenir le chemin racine du projet (un niveau au-dessus de l'emplacement du script)
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
-
-# Import des modules existants avec les bons chemins
 from web_interface.app.services.order_execution import SmartOrderExecutor
 from src.strategies.arbitrage.execution.execution import ArbitrageExecutor
 from src.ai.enhanced_cnn_lstm import EnhancedCNNLSTM
 from src.ai_models.hybrid.cnn_lstm_enhanced import EnhancedCNNLSTM
 from src.ai.ppo_gtrxl import PPOGTrXL
 from src.connectors.binance import BinanceConnector
-from src.ai.deep_learning_model import DeepLearningModel
+from src.ai.deep_learning_model import DeepLearningModel, features_to_array
 from src.ai.ppo_strategy import PPOStrategy
 from src.bot.trading_env import TradingEnv
-
 from src.strategies.arbitrage.core.arbitrage_bot import ArbitrageBot
 from src.strategies.arbitrage.multi_exchange.arbitrage_scanner import ArbitrageScanner
 from src.strategies.arbitrage.core.risk_management.risk_manager import RiskManager
 from src.strategies.arbitrage.service import ArbitrageEngine
-
 from src.data.ws_buffered_collector import BufferedWSCollector
-
 from src.analysis.technical.advanced.advanced_indicators import AdvancedIndicators
-
-from src.optimization.optuna_wrapper import (
-    tune_hyperparameters,
-    optimize_hyperparameters_full,
-)
+from src.optimization.optuna_wrapper import tune_hyperparameters, optimize_hyperparameters_full
 from src.security.key_manager import KeyManager
-
 from src.backtesting.core.backtest_engine import BacktestEngine
-
-# Import dynamique des stratégies
 from src.strategies import sma_strategy, breakout_strategy, arbitrage_strategy
-
-from src.ai.auto_strategy_generator import auto_generate_and_backtest
-from src.ai.auto_strategy_generator import appliquer_config_strategy
+from src.ai.auto_strategy_generator import auto_generate_and_backtest, appliquer_config_strategy
 from src.ai.train_cnn_lstm import train_with_live_data
-from src.ai.deep_learning_model import features_to_array
-
-from collections import defaultdict
-
-from deep_translator import GoogleTranslator
 from src.ai.hybrid_model import HybridAI
-
 from bingx_order_executor import BingXOrderExecutor
 from src.exchanges.bingx_exchange import BingXExchange
-
 from src.risk_tools import kelly_criterion, calculate_var, calculate_max_drawdown
-
 from src.portfolio.position_sizer import dynamic_position_size, compute_drawdown
-
 from src.portfolio.exit_manager import ExitManager
-
 from src.analysis.filters.volatility_anomaly_filter import filter_market
-
 from src.analysis.filters.correlation_filter import filter_uncorrelated_pairs
-
 from src.risk_tools.news_pause_manager import NewsPauseManager
-
 from src.portfolio.binance_utils import get_avg_entry_price_binance_spot
-
-from cachetools import TTLCache
-
 from utils.safe_json_utils import safe_load_shared_data, safe_update_shared_data
 
-from collections import deque
+# === Configuration logging ===
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+
+# === Configuration des environnements ===
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["PYTHONWARNINGS"] = "ignore::UserWarning"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "1"
+os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+os.environ["PYTORCH_MPS_LOW_WATERMARK_RATIO"] = "0.75"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+# --- EXPORT DASHBOARD SIGNALS ---
+def export_dashboard_signals(market_data, output_path="dashboard_signals.json"):
+    """
+    Exporte les signaux/décisions du dashboard dans un fichier JSON partagé.
+    :param market_data: dict, structure market_data complète (par paires et timeframes)
+    :param output_path: str, chemin du fichier de sortie
+    """
+    export = {}
+    for symbol, tf_dict in market_data.items():
+        export[symbol] = {}
+        for tf, data in tf_dict.items():
+            if not isinstance(data, dict):
+                # Ignore les floats ou autres types inattendus
+                continue
+            signals = data.get("signals", {})
+            action = data.get("action", None)
+            confidence = data.get("confidence", None)
+            export[symbol][tf] = {
+                "signals": signals,
+                "action": action,
+                "confidence": confidence,
+                "timestamp": datetime.utcnow().isoformat(),
+            }
+    with open(output_path, "w") as f:
+        json.dump(export, f, indent=2, ensure_ascii=False)
+    print(f"✅ Dashboard exporté dans {os.path.abspath(output_path)}")
 
 
 def audit_numeric_dict(d, context=""):
@@ -200,6 +198,9 @@ class DatasetLogger:
                 )
 
     def log_cycle(self, pair, equity, decision, price, features, status="neutral"):
+        print(
+            f"[LOGGER-TRACE] Tentative écriture dans {os.path.abspath(self.filename)} | pair={pair} | action={decision.get('action') if isinstance(decision, dict) else decision} | status={status}"
+        )
         try:
             with open(self.filename, mode="a", newline="") as f:
                 writer = csv.writer(f)
@@ -223,8 +224,11 @@ class DatasetLogger:
                         status,  # <--- log du statut
                     ]
                 )
+            print(f"[LOGGER-TRACE] Ecriture OK dans {os.path.abspath(self.filename)}")
         except Exception as e:
-            print(f"[LOGGER] Erreur dataset log: {e}")
+            print(
+                f"[LOGGER-CRITIQUE] Erreur dataset log: {e} | Fichier: {os.path.abspath(self.filename)}"
+            )
 
 
 class ExchangeConnector:
@@ -247,13 +251,23 @@ class ExchangeConnector:
 
         if self.name == "binance":
             # Binance exige quantité en string décimal, jamais scientifique
-            amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+            amount_str = ("{:f}".format(amount_float)).rstrip("0").rstrip(".")
+            if amount_str == "":
+                amount_str = "0"
             try:
-                return self.client.create_order(
+                result = self.client.create_order(
                     symbol=symbol, side=side, quantity=amount_str, **kwargs
                 )
+                print(f"[BINANCE ORDER SUCCESS] {result}")
+                return result
             except Exception as e:
+                # Affiche le message d'erreur complet retourné par l'API Binance
+                import traceback
                 print(f"[ERROR] Binance order failed: {e}")
+                traceback.print_exc()
+                # Si c'est une exception BinanceAPIException, affiche le code et le message
+                if isinstance(e, BinanceAPIException):
+                    print(f"[BINANCE API ERROR] code={e.code}, message={e.message}")
                 return {"status": "error", "reason": str(e)}
 
         elif self.name == "kucoin":
@@ -328,9 +342,6 @@ def deep_cast_floats(d):
                     d[idx] = safe_float(v, v)
                 except Exception:
                     pass
-
-
-import joblib
 
 
 def _flatten_features_for_ml(signals: dict) -> dict:
@@ -488,10 +499,10 @@ def _generate_analysis_report(
                     confidence = tech = ia = sentiment_trade = 0.0
                 report.append(
                     f"└─ 🎯 Décision de trade: {dec['action'].upper()} "
-                    f"(Conf: {confidence:.2f}, "
-                    f"Tech: {tech:.2f}, "
-                    f"IA: {ia:.2f}, "
-                    f"Sentiment: {sentiment_trade:.2f})"
+                    f"(Conf: {float(confidence):.2f}, "
+                    f"Tech: {float(tech):.2f}, "
+                    f"IA: {float(ia):.2f}, "
+                    f"Sentiment: {float(sentiment_trade):.2f})"
                 )
         except Exception as e:
             report.extend(
@@ -584,55 +595,6 @@ def main():
         log_dashboard("Résultats backtest :")
         print(results)
         exit(0)
-
-
-# --- DÉBUT PATCH HARD TP/SL ---
-# Ce patch force des sorties si les positions SPOT dépassent +5% ou perdent plus de 25%
-# Fonctionne en complément de ton ExitManager
-"""
-async def forced_exit_spot_positions(bot):
-
-    Force la sortie des positions spot si le take profit ou stop loss est atteint.
-    - Take Profit fixé à +5%
-    - Stop Loss fixé à -20%
-
-    # Utilise le buffer réel des positions spot Binance
-    positions = getattr(bot, "positions_binance", {})
-    for symbol, pos in list(positions.items()):
-        try:
-            # Récupère le prix actuel via Binance
-            ticker = bot.binance_client.get_symbol_ticker(
-                symbol=symbol.replace("/", "")
-            )
-            current_price = float(ticker.get("price", 0))
-            entry_price = safe_float(pos.get("entry_price"), 0)
-            amount = safe_float(pos.get("amount"), 0)
-            if entry_price == 0 or amount == 0:
-                continue
-            pnl = (current_price - entry_price) / entry_price * 100
-
-            # TAKE PROFIT +5%
-            if pnl >= 5:
-                await bot.execute_trade(symbol, "SELL", amount)
-                log_dashboard(
-                    f"[FORCED EXIT] Vente {symbol} en Take Profit (+{pnl:.2f}%)"
-                )
-                print(f"[FORCED EXIT] Vente {symbol} en Take Profit (+{pnl:.2f}%)")
-                positions.pop(symbol, None)
-                continue
-
-            # STOP LOSS -20%
-            if pnl <= -20:
-                await bot.execute_trade(symbol, "SELL", amount)
-                log_dashboard(f"[FORCED EXIT] Vente {symbol} en Stop Loss ({pnl:.2f}%)")
-                print(f"[FORCED EXIT] Vente {symbol} en Stop Loss ({pnl:.2f}%)")
-                positions.pop(symbol, None)
-                continue
-
-        except Exception as e:
-            log_dashboard(f"Erreur forced_exit_spot_positions sur {symbol} : {str(e)}")
-            print(f"Erreur forced_exit_spot_positions sur {symbol} : {e}")
-"""
 
 
 def debug_market_data_structure(market_data, pairs_valid, timeframes):
@@ -811,10 +773,10 @@ class TelegramNotifier:
         message = (
             f"🔄 <b>Opportunité d'Arbitrage</b>\n\n"
             f"📊 Paire: {opportunity['pair']}\n"
-            f"💹 Différence: {opportunity['diff_percent']:.2f}%\n"
+            f"💹 Différence: {float(opportunity['diff_percent']):.2f}%\n"
             f"📈 {opportunity['exchange1']}: {opportunity['price1']}\n"
             f"📉 {opportunity['exchange2']}: {opportunity['price2']}\n"
-            f"💰 Profit potentiel: {(opportunity['diff_percent'] - 0.2):.2f}% (après frais)"
+            f"💰 Profit potentiel: {float(opportunity['diff_percent']) - 0.2:.2f}% (après frais)"
         )
         await self.send_message(message)
 
@@ -909,8 +871,6 @@ class TelegramNotifier:
 
             if title == original:
                 try:
-                    from deep_translator import GoogleTranslator
-
                     return GoogleTranslator(source="auto", target="fr").translate(title)
                 except Exception:
                     return title
@@ -1510,6 +1470,7 @@ class TradingBotM4:
                     "TRXUSDC",
                     "SUIUSDC",
                     "LINKUSDC",
+                    "WLDUSDC",
                 ],
             },
             "AI": {
@@ -2017,6 +1978,7 @@ class TradingBotM4:
             "TRX",
             "SUI",
             "LINK",
+            "WLD",
         ]
         for asset in assets:
             pair_binance = f"{asset}USDC"
@@ -2091,8 +2053,6 @@ class TradingBotM4:
                             {"pump_bilan": candidate}, self.data_file
                         )
                         if hasattr(self, "telegram"):
-                            import asyncio
-
                             asyncio.create_task(
                                 self.telegram.send_message(
                                     f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
@@ -2160,8 +2120,6 @@ class TradingBotM4:
                             {"breakout_bilan": candidate}, self.data_file
                         )
                         if hasattr(self, "telegram"):
-                            import asyncio
-
                             asyncio.create_task(
                                 self.telegram.send_message(
                                     f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
@@ -2230,8 +2188,6 @@ class TradingBotM4:
                     self.safe_update_shared_data(
                         {"news_bilan": bilan_list}, self.data_file
                     )
-                    import asyncio
-
                     asyncio.create_task(self.telegram.send_message(bilan))
         return candidates
 
@@ -2310,8 +2266,6 @@ class TradingBotM4:
                         {"arbitrage_bilan": candidate}, self.data_file
                     )
                     if hasattr(self, "telegram"):
-                        import asyncio
-
                         asyncio.create_task(
                             self.telegram.send_message(
                                 f"{'Achat EFFECTUÉ' if confirm else 'Achat REFUSÉ'} sur {pair}: {candidate['reason']}"
@@ -3225,8 +3179,6 @@ class TradingBotM4:
         (Version enrichie avec indicateurs avancés)
         Corrige définitivement le warning VWAP/VWMA not datetime ordered de pandas-ta !
         """
-        import pandas as pd
-        import numpy as np
 
         try:
             # --- Conversion stricte et tri ---
@@ -4097,8 +4049,6 @@ class TradingBotM4:
         Réduit le sizing quand la volatilité est élevée.
         """
         try:
-            import pandas as pd
-
             df = self.get_recent_data(symbol)
             if df is None or len(df) < 20:
                 return 1.0
@@ -4765,8 +4715,6 @@ class TradingBotM4:
 
             # Cast tous les champs en float pour éviter bugs (int + str)
             try:
-                from src.bot_runner import deep_cast_floats
-
                 deep_cast_floats(positions)
             except ImportError:
                 pass  # Si la fonction n'existe pas, skip
@@ -6271,8 +6219,8 @@ class TradingBotM4:
 
                 await self.telegram.send_message(
                     f"💰 <b>Ordre exécuté</b>\n"
-                    f"📊 {side} {filled_amount} {symbol_binance} @ {avg_price:.6f}\n"
-                    f"💵 Total: ${total_value:.2f}"
+                    f"📊 {side} {filled_amount} {symbol_binance} @ {safe_float(avg_price):.6f}\n"
+                    f"💵 Total: ${safe_float(total_value):.2f}"
                     f"{iceberg_info}"
                 )
 
@@ -6404,10 +6352,12 @@ class TradingBotM4:
                     print(
                         f"🔧 Ajustement LOT_SIZE: {amount} -> {adjusted_str} (stepSize={step_size}, precision={precision})"
                     )
-                    return float(adjusted_str)  # <-- PATCH: Toujours float ici
+                    # Correction : toujours retourner une string décimale exacte (jamais float, jamais scientifique)
+                    return adjusted_str
         except Exception as e:
             print(f"❌ Erreur ajustement LOT_SIZE: {e}")
-        return float(amount)  # Fallback
+        # Fallback : retourne aussi une string décimale
+        return str(amount)
 
     async def plan_auto_sell(
         self,
@@ -8319,6 +8269,11 @@ async def execute_trading_cycle(bot, valid_pairs):
             else:
                 log_dashboard(f"🚫 Exposition ({current_exposure:.1%}) > limite")
 
+        # --- EXPORT DASHBOARD SHARED JSON ---
+        try:
+            export_dashboard_signals(bot.market_data)
+        except Exception as e:
+            print(f"[EXPORT DASHBOARD] Erreur export: {e}")
         return trade_decisions, getattr(bot, "regime", "Indéterminé")
 
     except Exception as e:
@@ -10127,6 +10082,11 @@ async def run_clean_bot():
                 except Exception:
                     pass
 
+                # Export explicite du dashboard à la fin du cycle
+                try:
+                    export_dashboard_signals(bot.market_data)
+                except Exception as e:
+                    print(f"[WARN] export_dashboard_signals: {e}")
                 await asyncio.sleep(1)
 
         except KeyboardInterrupt:

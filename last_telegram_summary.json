@@ -1,45 +1,8 @@
 {
   "regime": "Range/Scalping",
   "drawdown": 0.0,
-  "pauses": [
-    {
-      "asset": "ETH",
-      "action": "FULL",
-      "cycles_left": 2,
-      "type": "FULL",
-      "reason": "La premi\u00e8re tr\u00e9sorerie en BNB cot\u00e9e est radi\u00e9e du Nasdaq : Windtree Therapeutics est un \u00e9chec",
-      "max_cycles": 7,
-      "total_remaining": 7
-    },
-    {
-      "asset": "BNB",
-      "action": "FULL",
-      "cycles_left": 2,
-      "type": "FULL",
-      "reason": "La premi\u00e8re tr\u00e9sorerie en BNB cot\u00e9e est radi\u00e9e du Nasdaq : Windtree Therapeutics est un \u00e9chec",
-      "max_cycles": 7,
-      "total_remaining": 7
-    },
-    {
-      "asset": "BTC",
-      "action": "FULL",
-      "cycles_left": 2,
-      "type": "FULL",
-      "reason": "La premi\u00e8re tr\u00e9sorerie en BNB cot\u00e9e est radi\u00e9e du Nasdaq : Windtree Therapeutics est un \u00e9chec",
-      "max_cycles": 7,
-      "total_remaining": 7
-    },
-    {
-      "asset": "GLOBAL",
-      "action": "ALL",
-      "cycles_left": 7,
-      "type": "GLOBAL",
-      "reason": "La premi\u00e8re tr\u00e9sorerie en BNB cot\u00e9e est radi\u00e9e du Nasdaq : Windtree Therapeutics est un \u00e9chec",
-      "max_cycles": 7,
-      "total_remaining": 7
-    }
-  ],
-  "sentiment": 0.6886256176233292,
+  "pauses": [],
+  "sentiment": 0.6769258913766477,
   "risky_positions": [],
-  "timestamp": 1755912755.356456
+  "timestamp": 1755971170.076837
 }

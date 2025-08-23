@@ -6,6 +6,7 @@ import os
 import torch.optim as optim
 from torch.utils.data import TensorDataset, DataLoader
 
+
 def features_to_array(features: Dict[str, np.ndarray]) -> np.ndarray:
     """
     Transforme un dict de features (avec arrays ou scalaires) en un unique array 2D
@@ -29,6 +30,7 @@ def features_to_array(features: Dict[str, np.ndarray]) -> np.ndarray:
         volatility = np.full(N, volatility)
     arr = np.stack([close, high, low, volume, rsi, macd, volatility], axis=1)
     return arr
+
 
 class CNNLSTMModel(nn.Module):
     def __init__(self):
@@ -60,6 +62,7 @@ class CNNLSTMModel(nn.Module):
         x = x[:, -1, :]  # Prendre la dernière sortie (batch, 128)
         x = self.fc(x)  # (batch, 1)
         return x
+
 
 class DeepLearningModel:
     def __init__(self):
@@ -146,17 +149,23 @@ class DeepLearningModel:
                 "volatility": df["volatility"].values[i : i + window],
             }
             arr = features_to_array(feat).T  # (7, window)
+            # Contrôle NaN/infini sur features
+            if np.isnan(arr).any() or np.isinf(arr).any():
+                print(f"[WARN] Sample {i} ignoré (NaN/inf dans features)")
+                continue
             samples.append(arr)
             # Target: ce que tu veux prédire (ex: hausse du close au pas suivant)
             if "target" in df.columns:
-                targets.append(float(df["target"].values[i + window]))
+                t = float(df["target"].values[i + window])
             else:
-                targets.append(
-                    float(
-                        df["close"].values[i + window]
-                        > df["close"].values[i + window - 1]
-                    )
+                t = float(
+                    df["close"].values[i + window] > df["close"].values[i + window - 1]
                 )
+            # Contrôle NaN/infini sur target
+            if np.isnan(t) or np.isinf(t):
+                print(f"[WARN] Sample {i} ignoré (NaN/inf dans target)")
+                continue
+            targets.append(t)
 
         # === DIAGNOSTIC DATASET ===
         print(f"[DIAG] Nb samples entraînement IA: {len(samples)}")
@@ -176,6 +185,25 @@ class DeepLearningModel:
         X = torch.FloatTensor(np.stack(samples))  # (batch, 7, window)
         y = torch.FloatTensor(np.array(targets)).reshape(-1, 1)  # (batch, 1)
 
+        # Diagnostic sur les features et targets
+        print(f"[DEBUG] X shape: {X.shape}, y shape: {y.shape}")
+        print(f"[DEBUG] X min: {X.min().item()}, X max: {X.max().item()}")
+        print(
+            f"[DEBUG] y min: {y.min().item()}, y max: {y.max().item()}, uniques: {torch.unique(y)}"
+        )
+        # Clip les targets dans [0,1] si besoin
+        if y.min() < 0 or y.max() > 1:
+            print("[WARN] Targets hors [0,1], clipping automatique.")
+            y = torch.clamp(y, 0, 1)
+
+        # Contrôle final sur X et y
+        if torch.isnan(X).any() or torch.isinf(X).any():
+            print("[ERROR] NaN/inf dans X, arrêt entraînement.")
+            return
+        if torch.isnan(y).any() or torch.isinf(y).any():
+            print("[ERROR] NaN/inf dans y, arrêt entraînement.")
+            return
+
         dataset = TensorDataset(X, y)
         loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
@@ -188,10 +216,31 @@ class DeepLearningModel:
             for xb, yb in loader:
                 optimizer.zero_grad()
                 preds = self.model(xb)
+                # Diagnostic sur la sortie du modèle et la target batch
+                print(
+                    f"[BATCH DEBUG] preds shape: {preds.shape}, min: {preds.min().item()}, max: {preds.max().item()}, yb shape: {yb.shape}, min: {yb.min().item()}, max: {yb.max().item()}"
+                )
+                if torch.isnan(preds).any() or torch.isinf(preds).any():
+                    print(
+                        f"[WARN] NaN/inf dans preds, batch ignoré. preds min: {preds.min().item()}, max: {preds.max().item()}"
+                    )
+                    continue
+                if torch.isnan(yb).any() or torch.isinf(yb).any():
+                    print("[WARN] NaN/inf dans yb, batch ignoré.")
+                    continue
+                # Diagnostic shape
+                if preds.shape != yb.shape:
+                    print(f"[ERROR] Shape mismatch: preds {preds.shape}, yb {yb.shape}")
+                    continue
                 loss = loss_fn(preds, yb)
+                if torch.isnan(loss) or torch.isinf(loss):
+                    print(
+                        f"[WARN] NaN/inf dans loss, batch ignoré. preds min: {preds.min().item()}, max: {preds.max().item()}, yb min: {yb.min().item()}, max: {yb.max().item()}"
+                    )
+                    continue
+                epoch_loss += loss.item()
                 loss.backward()
                 optimizer.step()
-                epoch_loss += loss.item()
             print(f"Epoch {epoch+1}/{n_epochs} - Loss: {epoch_loss:.4f}")
 
         self.model.eval()
