@@ -447,10 +447,10 @@ def _generate_analysis_report(
 
     # PATCH: Sécurise l'accès aux news pour éviter "list index out of range"
     major_news = news_sentiment.get("latest_news", []) if news_sentiment else []
-    if major_news and isinstance(major_news, list) and len(major_news) > 0:
+    if isinstance(major_news, list) and len(major_news) > 0:
         report.append("Dernières news :")
-        for news in major_news[:3]:
-            report.append(f"- {news}")
+        for i in range(min(3, len(major_news))):
+            report.append(f"- {major_news[i]}")
     else:
         report.append("Aucune news disponible.")
 
@@ -5928,9 +5928,29 @@ class TradingBotM4:
                     "binance_client": self.binance_client,
                 }
 
-                # PATCH: quantité float → string décimal pour API
+                # PATCH: quantité float → string décimal pour API (jamais scientifique)
                 amount_float = self.adjust_amount_to_lot_size(symbol_binance, amount)
-                amount_str = "{:.8f}".format(amount_float).rstrip("0").rstrip(".")
+                # Récupère la précision exacte du step_size
+                try:
+                    exchange_info = self.binance_client.get_exchange_info()
+                    symbol_info = next(
+                        s
+                        for s in exchange_info["symbols"]
+                        if s["symbol"] == symbol_binance
+                    )
+                    for f in symbol_info["filters"]:
+                        if f["filterType"] == "LOT_SIZE":
+                            step_size = float(f["stepSize"])
+                            precision = abs(Decimal(str(step_size)).as_tuple().exponent)
+                            break
+                    else:
+                        precision = 8
+                except Exception:
+                    precision = 8
+                if precision > 0:
+                    amount_str = f"{amount_float:.{precision}f}"
+                else:
+                    amount_str = str(int(amount_float))
 
                 # CORRECTION: Conversion des valeurs numériques en float avant passage à l'executor
                 numeric_orderbook = {
@@ -7435,6 +7455,24 @@ class TradingBotM4:
                     "active_pauses": data.get("active_pauses", []),
                 }
             )
+
+            # --- PATCH EXPORT SIGNALS PAR PAIRE ---
+            # On construit un export par paire avec les vraies valeurs de chaque signal
+            trade_decisions = {}
+            for symbol, md in self.market_data.items():
+                # Cherche la dernière décision prise pour cette paire
+                last_decision = md.get("last_decision", {})
+                # Récupère les signaux spécifiques à la paire
+                trade_decisions[symbol] = {
+                    "confidence": last_decision.get("confidence", 0),
+                    "action": last_decision.get("action", "neutral"),
+                    "tech": last_decision.get("signals", {})
+                    .get("technical", {})
+                    .get("score", 0),
+                    "ai": last_decision.get("signals", {}).get("ai", 0),
+                    "sentiment": last_decision.get("signals", {}).get("sentiment", 0),
+                }
+            data["trade_decisions"] = trade_decisions
 
             # Ajoute les métriques avancées pour dashboard
             perf = data["bot_status"]["performance"]
@@ -9793,30 +9831,60 @@ async def run_clean_bot():
                             tech_score = 0.5
                             ai_score = 0.5
                             sentiment_score = 0.5
+                            confidence_score = 0.5
+                            action_value = "neutral"
                             if pair_key in bot.market_data:
                                 if "1h" in bot.market_data[pair_key]:
                                     tf_data = bot.market_data[pair_key]["1h"]
                                     if (
                                         isinstance(tf_data, dict)
                                         and "signals" in tf_data
-                                        and "technical" in tf_data["signals"]
                                     ):
-                                        tech_score = safe_float(
-                                            tf_data["signals"]["technical"].get(
-                                                "score", 0.5
-                                            ),
-                                            0.5,
-                                        )
+                                        signals = tf_data["signals"]
+                                        # Technique
+                                        if "technical" in signals and isinstance(
+                                            signals["technical"], dict
+                                        ):
+                                            tech_score = safe_float(
+                                                signals["technical"].get("score", 0.5),
+                                                0.5,
+                                            )
+                                        # Confiance
+                                        if "confidence" in signals:
+                                            confidence_score = safe_float(
+                                                signals.get("confidence", 0.5), 0.5
+                                            )
+                                        # Action
+                                        if "action" in signals:
+                                            action_value = str(
+                                                signals.get("action", "neutral")
+                                            )
+                                        # Sentiment
+                                        if "sentiment" in signals:
+                                            sentiment_score = safe_float(
+                                                signals.get("sentiment", 0.5), 0.5
+                                            )
+                                        # IA
+                                        if "ai" in signals:
+                                            ai_score = safe_float(
+                                                signals.get("ai", 0.5), 0.5
+                                            )
+                                # Fallback IA/sentiment si pas dans signals
                                 ai_score = safe_float(
-                                    bot.market_data[pair_key].get("ai_prediction", 0.5),
-                                    0.5,
+                                    bot.market_data[pair_key].get(
+                                        "ai_prediction", ai_score
+                                    ),
+                                    ai_score,
                                 )
                                 sentiment_score = safe_float(
-                                    bot.market_data[pair_key].get("sentiment", 0.5), 0.5
+                                    bot.market_data[pair_key].get(
+                                        "sentiment", sentiment_score
+                                    ),
+                                    sentiment_score,
                                 )
                             td_dict[pair] = {
-                                "confidence": 0.5,
-                                "action": "neutral",
+                                "confidence": confidence_score,
+                                "action": action_value,
                                 "tech": tech_score,
                                 "ai": ai_score,
                                 "sentiment": sentiment_score,

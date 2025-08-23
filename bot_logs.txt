@@ -696,3 +696,56 @@
 2025-08-22T23:14:33.282500 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
 2025-08-22T23:16:17.747109 | Démarrage cycle trading
 2025-08-22T23:16:18.386326 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T23:23:55.764854 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-22T23:23:55.767540 | Initialisation des modèles d'IA...
+2025-08-22T23:23:55.968664 | ✅ Modèles d'IA initialisés avec succès
+2025-08-22T23:23:57.471791 | ✅ PPO Strategy initialized successfully
+2025-08-22T23:24:03.934457 | ✅ Bot initialisé avec Telegram: True
+2025-08-22T23:24:03.934656 | ✅ Trading en direct: True
+2025-08-22T23:24:03.934687 | ✅ IA activée: True
+2025-08-22T23:24:03.934715 | ✅ Analyse de news activée: True
+2025-08-22T23:26:42.041414 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-22T23:27:19.263753 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-22T23:35:53.559159 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1117 | Tendance: 0.0168
+2025-08-22T23:35:53.559922 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-22T23:37:46.981008 | [ORDER] Tentative d'exécution: SELL 1116.15 NOTUSDC (iceberg: False)
+2025-08-22T23:37:48.091840 | [ORDER] Vente depuis solde NOT: 1116.15
+2025-08-22T23:39:35.674004 | [ORDER] Échec d'exécution: SELL 1116.15 NOTUSDC - APIError(code=-1013): Filter failure: NOTIONAL
+2025-08-22T23:41:17.696165 | Démarrage cycle trading
+2025-08-22T23:41:18.317302 | 🚫 Cycle bloqué - Pause news active
+2025-08-22T23:53:32.573250 | Démarrage cycle trading
+2025-08-22T23:53:33.182435 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T00:14:17.238876 | Démarrage cycle trading
+2025-08-23T00:14:17.883381 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T00:30:13.677095 | 🚨 Pause déclenchée automatique: {'type': 'total', 'reason': 'Pas de vacances pour le crime : une victime se fait voler 783 Bitcoins', 'duration': 10, 'pair': 'BTC'}
+2025-08-23T00:32:12.176518 | Démarrage cycle trading
+2025-08-23T00:32:12.810637 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T00:51:38.551161 | Démarrage cycle trading
+2025-08-23T00:51:39.169946 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T01:11:37.546930 | Démarrage cycle trading
+2025-08-23T01:11:39.242535 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T01:12:52.185473 | ✅ ArbitrageEngine initialisé avec succès
+2025-08-23T01:12:52.186210 | Initialisation des modèles d'IA...
+2025-08-23T01:12:52.367495 | ✅ Modèles d'IA initialisés avec succès
+2025-08-23T01:12:53.919688 | ✅ PPO Strategy initialized successfully
+2025-08-23T01:13:00.321317 | ✅ Bot initialisé avec Telegram: True
+2025-08-23T01:13:00.321530 | ✅ Trading en direct: True
+2025-08-23T01:13:00.321584 | ✅ IA activée: True
+2025-08-23T01:13:00.321631 | ✅ Analyse de news activée: True
+2025-08-23T01:15:43.286197 | [NEWS] Lancement boucle d'analyse des news…
+2025-08-23T01:16:20.298786 | [NEWS] Aucun élément à analyser dans news_data, skip boucle
+2025-08-23T01:24:10.920854 | [MARKET ANALYSIS] Régime détecté: Range/Scalping | Volatilité: 0.1114 | Tendance: 0.0148
+2025-08-23T01:24:10.921657 | 🔈 Régime de marché détecté: Range/Scalping
+2025-08-23T01:25:54.691564 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-23T01:25:55.795636 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-23T01:27:44.141690 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-23T01:29:25.778572 | Démarrage cycle trading
+2025-08-23T01:29:26.388014 | 🚫 Cycle bloqué - Pause news active
+2025-08-23T01:41:52.664104 | [ORDER] Tentative d'exécution: SELL 9e-05 BTCUSDC (iceberg: False)
+2025-08-23T01:41:53.746793 | [ORDER] Vente depuis solde BTC: 9e-05
+2025-08-23T01:43:43.745008 | [ORDER] Échec d'exécution: SELL 9e-05 BTCUSDC - APIError(code=-1100): Illegal characters found in parameter 'quantity'; legal range is '^([0-9]{1,20})(\.[0-9]{1,20})?$'.
+2025-08-23T01:45:24.717712 | [ORDER] Tentative d'exécution: SELL 62.0 DOGEUSDC (iceberg: False)
+2025-08-23T01:45:25.800748 | [ORDER] Vente depuis solde DOGE: 62.0
+2025-08-23T01:47:12.120010 | [ORDER] Exécuté avec succès: SELL 62.00000000 DOGEUSDC @ 0.23357
+2025-08-23T01:48:57.145751 | Démarrage cycle trading
+2025-08-23T01:48:57.796554 | 🚫 Cycle bloqué - Pause news active
